@@ -1,0 +1,13 @@
+body {
+  background: #363f4c;
+}
+
+.mainContainer,
+.navPusher,
+.navPusher > .docMainWrapper > .mainContainer {
+  background: #fff;
+}
+
+#footer {
+  background: #363f4c;
+}

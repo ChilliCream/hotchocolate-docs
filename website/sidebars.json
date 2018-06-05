@@ -1,0 +1,11 @@
+{
+  "docs": {
+    "Usage": ["installation", "dependencies"],
+    "Components": ["break", "column", "container", "row", "theme-provider"],
+    "Types": []
+  },
+  "examples": {
+    "Break": ["example-break"],
+    "Column": ["example-column-auto"]
+  }
+}

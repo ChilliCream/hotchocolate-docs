@@ -1,0 +1,12 @@
+{
+  "name": "hotchocolate-docs",
+  "version": "1.0.0",
+  "description": "The Hot Chocolate Documentation",
+  "maintainers": ["Michael Staib", "Rafael Staib"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChilliCream/hotchocolate-docs"
+  },
+  "author": "ChilliCream",
+  "license": "MIT"
+}

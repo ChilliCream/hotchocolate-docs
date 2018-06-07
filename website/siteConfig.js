@@ -20,10 +20,10 @@ const siteConfig = {
   organizationName: "chillicream",
   repoUrl,
   headerLinks: [
-    { doc: "installation", label: "Docs" },
+    { doc: "installation", label: "" },
     { doc: "example-break", label: "Examples" },
-    { blog: true, label: "Blog" },
-    { search: true },
+    { blog: false/*, label: "Blog"*/ },
+    { search: false },
     { href: repoUrl, label: "GitHub" }
   ],
   headerIcon: "img/signet.svg",

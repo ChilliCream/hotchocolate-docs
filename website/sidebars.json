@@ -1,6 +1,6 @@
 {
   "docs": {
-    "Usage": ["installation", "dependencies"],
+    "Getting Started": ["introduction", "schema-first", "code-first"],
     "Components": ["break", "column", "container", "row", "theme-provider"],
     "Types": []
   },

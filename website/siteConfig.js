@@ -21,7 +21,7 @@ const siteConfig = {
   repoUrl,
   headerLinks: [
     { doc: "introduction", label: "" },
-    { doc: "example-break", label: "Examples" },
+    { doc: "example-hello-world-schema-first", label: "Examples" },
     { blog: false/*, label: "Blog"*/ },
     { search: false },
     { href: repoUrl, label: "GitHub" }

@@ -4,7 +4,7 @@
     "Advanced Concepts": ["dependency-injection", "custom-scalar-types"]
   },
   "examples": {
-    "Break": ["example-break"],
-    "Column": ["example-column-auto"]
+    "Schema-First": ["example-hello-world-schema-first", "example-star-wars-schema-first"],
+    "Code-First": ["example-hello-world-code-first", "example-star-wars-code-first"]  
   }
 }

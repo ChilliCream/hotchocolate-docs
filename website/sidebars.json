@@ -1,9 +1,7 @@
 {
   "docs": {
     "Getting Started": ["introduction", "schema-first", "code-first"],
-    "Basics": ["", "", ""],
-    "Advanced Concepts": ["dependency-injection", "authentication", "custom-scalar-types", "custom-directives", "data-loaders"],
-    "Types": []
+    "Advanced Concepts": ["dependency-injection", "custom-scalar-types"]
   },
   "examples": {
     "Break": ["example-break"],

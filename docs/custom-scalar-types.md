@@ -1,6 +1,6 @@
 ---
 id: custom-scalar-types
-title: Code-first
+title: Custom Scalar Types.
 ---
 
 The Hot Chocolate query engine has the following built-in scalar types:
@@ -17,7 +17,7 @@ The Hot Chocolate query engine has the following built-in scalar types:
 | Time     | ISO‐8601 time                                               |
 | Url      | Url                                                         |
 
-In some cases you may need to specify your own scalar type due to the fact that the built-in types do not fulfill your needs. Moreover, you are also able to swap out built-in scalar types that and add your own implementation.
+In some cases you may need to specify your own scalar types due to the fact that the built-in types do not fulfill your needs. Moreover, you are also able to swap out built-in scalar types and add your own implementation.
 
 In order to implement a new scalar type by extending `ScalarType`.
 

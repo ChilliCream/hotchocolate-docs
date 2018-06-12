@@ -31,7 +31,7 @@ public class Query
 Now let us create a new schema that uses this type and infers from it the GraphQL query type.
 
 ```csharp
-Schema.Create(c => c.RegisterType<ObjectType<Query>>());
+var schema = Schema.Create(c => c.RegisterType<ObjectType<Query>>());
 ```
 
 We now have registered an object type with our new schema that is based on our Query class. The schema would look like this:
@@ -52,7 +52,7 @@ Fear not, because there is a simple solution to this. If you want to redefine or
 So, if we wanted the return type of hello to be a non-null string than we could tell our schema that like this.
 
 ```csharp
-Schema.Create(c => c.RegisterType(new ObjectType<Query>(
+var schema = Schema.Create(c => c.RegisterType(new ObjectType<Query>(
     d => d.Field(f => f.Hello()).Type<NonNullType<StringType>>())));
 ```
 

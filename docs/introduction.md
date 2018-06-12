@@ -17,6 +17,8 @@ var schema = Schema.Create(
 Console.WriteLine(schema.Execute("{ robot { name } }"));
 ```
 
+## Features
+
 1. Schema-first approach
 
    Use the GraphQL syntax to define your schema and bind simple methods or whole types to your GraphQL types.
@@ -24,3 +26,7 @@ Console.WriteLine(schema.Execute("{ robot { name } }"));
 2. Code-first approach
 
    Use C# to define your schema in a strong typed way.
+
+3. Custom Scalar Types
+
+   Define your own scalar types to make your schemas even richer.

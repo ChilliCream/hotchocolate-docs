@@ -1,5 +1,5 @@
 ---
 id: dependency-injection
-title: Code-first
+title: Dependency Injection
 ---
 

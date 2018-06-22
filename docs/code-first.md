@@ -19,7 +19,7 @@ dotnet restore
 
 First we will look at how you can write plain .net objects that can be used to infer GraphQL schema types.
 
-Define a new plain c# class called Query; 
+Define a new plain c# class called Query:
 
 ```csharp
 public class Query

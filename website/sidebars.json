@@ -1,6 +1,7 @@
 {
   "docs": {
     "Getting Started": ["introduction", "schema-first", "code-first", "dotnet-cli"],
+    "Code-First": ["cs-object-types"],
     "Advanced Concepts": ["dependency-injection", "custom-scalar-types"]
   },
   "examples": {

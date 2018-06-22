@@ -6,6 +6,7 @@
     "tagline": "A GraphQL Server for .net core and .net classic",
     "authentication": "Code-first",
     "code-first": "Code-first",
+    "cs-object-types": "Object Types",
     "custom-scalar-types": "Custom Scalar Types.",
     "dependency-injection": "Dependency Injection",
     "dotnet-cli": ".NET CLI",
@@ -19,9 +20,9 @@
     "Examples": "Examples",
     "GitHub": "GitHub",
     "Getting Started": "Getting Started",
+    "Code-First": "Code-First",
     "Advanced Concepts": "Advanced Concepts",
-    "Schema-First": "Schema-First",
-    "Code-First": "Code-First"
+    "Schema-First": "Schema-First"
   },
   "pages-strings": {
     "Help Translate|recruit community translators for your project": "Help Translate",

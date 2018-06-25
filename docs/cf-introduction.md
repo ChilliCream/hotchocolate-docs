@@ -3,7 +3,7 @@ id: cf-introduction
 title: Introduction
 ---
 
-GraphQL basically specifies six type kinds if we do not count ListType and NonNullType:
+GraphQL basically specifies six type kinds excluding ListType and NonNullType:
 
 - [Object Type](https://graphql.org/learn/schema/#object-types-and-fields)
 - [Interface Type](https://graphql.org/learn/schema/#interfaces)

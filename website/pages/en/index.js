@@ -86,7 +86,7 @@ class HomeSplash extends React.Component {
           <Logo img_src={imgUrl("signet.svg")} />
           <ProjectTitle />
           <PromoSection>
-            <Button href={docUrl("installation", language)}>
+            <Button href={docUrl("introduction", language)}>
               Getting Started
             </Button>
           </PromoSection>

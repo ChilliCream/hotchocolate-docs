@@ -1,11 +1,10 @@
 {
   "docs": {
-    "Usage": ["installation", "dependencies"],
-    "Components": ["break", "column", "container", "row", "theme-provider"],
-    "Types": []
+    "Quickstart": ["introduction", "code-first", "schema-first", "dotnet-cli"],
+    "Code-First": ["cf-introduction", "cf-object-type", "cf-interface-type"],
+    "Advanced Concepts": ["dependency-injection", "custom-scalar-types"]
   },
   "examples": {
-    "Break": ["example-break"],
-    "Column": ["example-column-auto"]
+    "Code-First": ["example-star-wars-code-first"]
   }
 }

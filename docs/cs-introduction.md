@@ -1,5 +1,5 @@
 ---
-id: cs-introduction
+id: cf-introduction
 title: Introduction
 ---
 
@@ -86,9 +86,8 @@ public class FooType : ObjectType<Foo>
 
 For more help on the configuration of the specific types checkout the specific type descriptor help pages:
 
-- [Object Type Descriptor](cs-object-type.md)
-- [Interface Type Descriptor](CS_Interface_Type_Configuration.md)
-- [Union Type Descriptor](CS_Union_Type_Configuration.md)
-- [Enum Type Descriptor](CS_Enum_Type_Configuration.md)
-- [Scalar Type Descriptor](CS_Scalar_Type_Configuration.md)
-- [Input Object Type Descriptor](CS_Input_Object_Type_Configuration.md)
+- [Object Type Descriptor](cf-object-type.md)
+- [Interface Type Descriptor](cf-interface-type.md)
+- [Union Type Descriptor](cf-union-type.md)
+- [Enum Type Descriptor](cf-enum-type.md)
+- [Input Object Type Descriptor](cf-input-object-type.md)

@@ -1,7 +1,7 @@
 {
   "docs": {
     "Quickstart": ["introduction", "code-first", "schema-first", "dotnet-cli"],
-    "Code-First": ["cs-introduction", "cs-object-type", "cs-interface-type"],
+    "Code-First": ["cf-introduction", "cf-object-type", "cf-interface-type"],
     "Advanced Concepts": ["dependency-injection", "custom-scalar-types"]
   },
   "examples": {

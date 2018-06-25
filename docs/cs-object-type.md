@@ -1,5 +1,5 @@
 ---
-id: cs-object-type
+id: cf-object-type
 title: Object Type
 ---
 
@@ -268,7 +268,7 @@ type Bar {
 }
 ```
 
-The field descriptor options are described in more detail [here](CS_Object_Type_Field_Configuration.md).
+The field descriptor options are described in more detail [here](cf-object-type-field.md).
 
 ## ObjectType
 

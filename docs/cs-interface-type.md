@@ -1,5 +1,5 @@
 ---
-id: cs-interface-type
+id: cf-interface-type
 title: Interface Type
 ---
 

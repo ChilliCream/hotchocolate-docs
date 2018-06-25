@@ -1,11 +1,11 @@
 {
   "docs": {
-    "Getting Started": ["introduction", "schema-first", "code-first", "dotnet-cli"],
-    "Code-First": ["cs-object-types"],
+    "Quickstart": ["introduction", "code-first", "schema-first", "dotnet-cli"],
+    "Code-First": ["cs-introduction", "cs-object-type", "cs-interface-type"],
     "Advanced Concepts": ["dependency-injection", "custom-scalar-types"]
   },
   "examples": {
-    "Schema-First": ["example-hello-world-schema-first", "example-star-wars-schema-first"],
-    "Code-First": ["example-hello-world-code-first", "example-star-wars-code-first"]  
+    "Code-First": ["example-hello-world-code-first", "example-star-wars-code-first"],
+    "Schema-First": ["example-hello-world-schema-first", "example-star-wars-schema-first"]
   }
 }

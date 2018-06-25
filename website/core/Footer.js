@@ -35,13 +35,12 @@ class Footer extends React.Component {
           </a>
           <div>
             <h5>Docs</h5>
-            <a href={this.docUrl("installation")}>Usage</a>
-            <a href={this.docUrl("break")}>Components</a>
+            <a href={this.docUrl("introduction")}>Quickstart</a>
+            <a href={this.docUrl("cf-introduction")}>Code-First</a>
           </div>
           <div>
             <h5>Examples</h5>
-            <a href={this.docUrl("example-break")}>Break</a>
-            <a href={this.docUrl("example-column-auto")}>Column</a>
+            <a href={this.docUrl("example-star-wars-code-first")}>Star Wars</a>
           </div>
           <div>
             <h5>Community</h5>
@@ -55,7 +54,6 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>More</h5>
-            <a href={this.props.config.baseUrl + "blog"}>Blog</a>
             <a href={this.props.config.repoUrl}>GitHub</a>
             <a href={this.props.config.repoUrl + "/issues"}>Issues</a>
             <a

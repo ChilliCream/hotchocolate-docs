@@ -20,7 +20,7 @@ const siteConfig = {
   organizationName: "chillicream",
   repoUrl,
   headerLinks: [
-    { doc: "introduction", label: "" },
+    { doc: "introduction", label: "Docs" },
     { doc: "example-star-wars-code-first", label: "Examples" },
     { blog: false/*, label: "Blog"*/ },
     { search: false },

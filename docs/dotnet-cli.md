@@ -25,7 +25,7 @@ dotnet new -i HotChocolate.Templates.Server
 In order to create a new GraphQL server that already contains the hello world example just run the following command:
 
 ```bash
-dotnet new graphql -n MyProjectName
+dotnet new graphql-server -n MyProjectName
 ```
 
 If also love do develop .net in Visual Studio Code just run the following commands to get you started.
@@ -33,7 +33,7 @@ If also love do develop .net in Visual Studio Code just run the following comman
 ```bash
 mkdir graphql-demo
 cd graphql-demo
-dotnet new graphql
+dotnet new graphql-server
 code .
 ```
 

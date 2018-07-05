@@ -22,17 +22,18 @@ const siteConfig = {
   headerLinks: [
     { doc: "introduction", label: "Docs" },
     { doc: "example-star-wars-code-first", label: "Examples" },
-    { blog: false/*, label: "Blog"*/ },
-    { search: false },
+    //{ blog: false/*, label: "Blog"*/ },
+    //{ search: false },
     { href: repoUrl, label: "GitHub" }
   ],
   headerIcon: "img/signet.svg",
   footerIcon: "img/signet.svg",
   favicon: "img/favicon.png",
   colors: {
-    primaryColor: "#29303a",
-    secondaryColor: "#363f4c"
+    primaryColor: "#a28036",
+    secondaryColor: "#ecc87b"
   },
+  stylesheets: ["https://fonts.googleapis.com/css?family=Lobster:700,400"],
   copyright: "Copyright © " + new Date().getFullYear() + " ChilliCream",
   editUrl: "https://github.com/ChilliCream/hotchocolate-docs/edit/master/docs/",
   /*algolia: {
@@ -41,7 +42,7 @@ const siteConfig = {
   },*/
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks
-    theme: "androidstudio"
+    theme: "Atelier Dune Light"
   },
   scripts: ["https://buttons.github.io/buttons.js"],
   onPageNav: "separate"

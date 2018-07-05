@@ -1,24 +1,24 @@
 .homeContainer {
-  background: #29303a;
+  background: #a28036;
 }
 
 .homeContainer .section.logo {
   display: inline-block !important;
-  margin-bottom: 4%;
+  margin-bottom: 0%;
 }
 
-.homeContainer .section.logo > img {
+.homeContainer .section.logo>img {
   width: 15%;
 }
 
 @media(min-width: 480px) {
-  .homeContainer .section.logo > img {
+  .homeContainer .section.logo>img {
     width: 25%;
   }
 }
 
 @media(min-width: 736px) {
-  .homeContainer .section.logo > img {
+  .homeContainer .section.logo>img {
     width: 40%;
   }
 }
@@ -27,17 +27,17 @@
   color: #fff;
 }
 
-.pluginWrapper.buttonWrapper > .button {
-  background: #0099cc;
+.pluginWrapper.buttonWrapper>.button {
+  background: #fff;
   border: 0 none;
-  color: #29303a;
+  color: #a28036;
   font-size: 18px;
   margin: 13px;
   text-transform: none;
 }
 
-.pluginWrapper.buttonWrapper > .button:hover {
-  color: #fff;
+.pluginWrapper.buttonWrapper>.button:hover {
+  background: #ecc87b;
 }
 
 .mainContainer .darkBackground h2 p {

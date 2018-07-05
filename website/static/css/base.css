@@ -1,13 +1,44 @@
 body {
-  background: #363f4c;
+  background: #ecc87b;
 }
 
 .mainContainer,
 .navPusher,
-.navPusher > .docMainWrapper > .mainContainer {
+.navPusher>.docMainWrapper>.mainContainer {
   background: #fff;
 }
 
 #footer {
-  background: #363f4c;
+  background: #ecc87b;
+}
+
+#footer .copyright {
+  color: #a28036;
+  opacity: .4;
+}
+
+#footer .sitemap h5 {
+  color: #a28036;
+  font-size: 20px;
+}
+
+footer .sitemap a {
+  color: #a28036;
+  opacity: .6;
+}
+
+footer .sitemap a:hover,
+footer .sitemap a:focus {
+  color: #a28036;
+  opacity: 1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Lobster, sans-serif !important;
+  font-weight: 400 !important;
 }

@@ -8,27 +8,37 @@ body {
   background: #fff;
 }
 
-#footer {
+@media screen and (min-width: 1024px) {
+  .navPusher> :first-child {
+    flex-grow: 0;
+  }
+  #footer {
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+}
+
+.nav-footer {
   background: #ecc87b;
 }
 
-#footer .copyright {
+.nav-footer .copyright {
   color: #a28036;
   opacity: .4;
 }
 
-#footer .sitemap h5 {
+.nav-footer .sitemap h5 {
   color: #a28036;
   font-size: 20px;
 }
 
-footer .sitemap a {
+.nav-footer .sitemap a {
   color: #a28036;
   opacity: .6;
 }
 
-footer .sitemap a:hover,
-footer .sitemap a:focus {
+.nav-footer .sitemap a:hover,
+.nav-footer .sitemap a:focus {
   color: #a28036;
   opacity: 1;
 }

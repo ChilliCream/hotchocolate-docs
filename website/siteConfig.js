@@ -31,7 +31,7 @@ const siteConfig = {
   favicon: "img/favicon.png",
   colors: {
     primaryColor: "#a28036",
-    secondaryColor: "#ecc87b"
+    secondaryColor: "#a28036"
   },
   stylesheets: ["https://fonts.googleapis.com/css?family=Lobster:700,400"],
   copyright: "Copyright © " + new Date().getFullYear() + " ChilliCream",
@@ -42,7 +42,7 @@ const siteConfig = {
   },*/
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks
-    theme: "Atelier Dune Light"
+    theme: "atelier-dune-light"
   },
   scripts: ["https://buttons.github.io/buttons.js"],
   onPageNav: "separate"

@@ -3,7 +3,9 @@ id: dependency-injection
 title: Dependency Injection
 ---
 
-We are supporting dependency injection via IServiceProvider-interface. In order to hook up your dependency injection of choice with the GraphQL schema register the service provider like the following:
+We are supporting dependency injection via the IServiceProvider-interface.
+
+In order to hook up your dependency injection of choice with the GraphQL schema, register the service provider like the following:
 
 ```csharp
 var schema = Schema.Create(c =>

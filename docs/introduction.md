@@ -18,14 +18,22 @@ Console.WriteLine(schema.Execute("{ robot { name } }"));
 
 ## Features
 
-1.  Schema-first approach
+1. Schema-first approach
 
     Use the GraphQL syntax to define your schema and bind simple methods or whole types to your GraphQL types.
 
-2.  Code-first approach
+1. Code-first approach
 
     Use C# to define your schema in a strong typed way.
 
-3.  Custom Scalar Types
+1. Custom Scalar Types
 
     Define your own scalar types to make your schemas even richer.
+
+1. Support for data loader
+
+    We have baked-in support for data loaders which makes batching and caching for faster query requests a breeze.  
+
+1. dotnet CLI Templates
+
+    In order to get you even faster started we are providing templates for the dotnet CLI which lets you setup a .net GraphQL server in les than 10 seconds.

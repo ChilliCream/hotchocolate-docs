@@ -17,9 +17,13 @@ The Hot Chocolate query engine has the following built-in scalar types:
 | Time     | ISO‐8601 time                                               |
 | Url      | Url                                                         |
 
-In some cases you may need to specify your own scalar types due to the fact that the built-in types do not fulfill your needs. Moreover, you are also able to swap out built-in scalar types and add your own implementation.
+In some cases you may need to specify your own scalar types in order to fulfill your sepcific needs. 
 
-In order to implement a new scalar type by extending `ScalarType`.
+Moreover, Hot Chocolate let`s you swap out built-in scalar types and add your own implementation of any scalar type when the need for this should araise.
+
+In order to implement a new scalar type extend the type:  `ScalarType`.
+
+The following example shows you how a the GraphQL string type could have been implemented.
 
 ```csharp
 public sealed class StringType

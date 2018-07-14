@@ -46,8 +46,10 @@
 <tr><td>Url</td><td>Url</td></tr>
 </tbody>
 </table>
-<p>In some cases you may need to specify your own scalar types due to the fact that the built-in types do not fulfill your needs. Moreover, you are also able to swap out built-in scalar types and add your own implementation.</p>
-<p>In order to implement a new scalar type by extending <code>ScalarType</code>.</p>
+<p>In some cases you may need to specify your own scalar types in order to fulfill your sepcific needs.</p>
+<p>Moreover, Hot Chocolate let`s you swap out built-in scalar types and add your own implementation of any scalar type when the need for this should araise.</p>
+<p>In order to implement a new scalar type extend the type:  <code>ScalarType</code>.</p>
+<p>The following example shows you how a the GraphQL string type could have been implemented.</p>
 <pre><code class="hljs css languages- csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">sealed</span> <span class="hljs-keyword">class</span> <span class="hljs-title">StringType</span>
     : <span class="hljs-title">ScalarType</span>
 {

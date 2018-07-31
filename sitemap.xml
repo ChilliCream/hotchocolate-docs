@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 <url> <loc>http://hotchocolate.io/index.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/en/index.html" /> </url>
-<url> <loc>http://hotchocolate.io/blog/2018/05/13/1.0.1.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
-<url> <loc>http://hotchocolate.io/blog/2018/05/03/1.0.0.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>http://hotchocolate.io/blog/2018/07/31/0.4.0.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>http://hotchocolate.io/docs/authentication.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/authentication.html" /> </url>
 <url> <loc>http://hotchocolate.io/docs/cf-enum-type.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/cf-enum-type.html" /> </url>
 <url> <loc>http://hotchocolate.io/docs/cf-interface-type.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/cf-interface-type.html" /> </url>
@@ -10,7 +9,9 @@
 <url> <loc>http://hotchocolate.io/docs/cf-object-type-field.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/cf-object-type-field.html" /> </url>
 <url> <loc>http://hotchocolate.io/docs/cf-object-type.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/cf-object-type.html" /> </url>
 <url> <loc>http://hotchocolate.io/docs/code-first.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/code-first.html" /> </url>
+<url> <loc>http://hotchocolate.io/docs/custom-context.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/custom-context.html" /> </url>
 <url> <loc>http://hotchocolate.io/docs/custom-scalar-types.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/custom-scalar-types.html" /> </url>
+<url> <loc>http://hotchocolate.io/docs/dataloaders.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/dataloaders.html" /> </url>
 <url> <loc>http://hotchocolate.io/docs/dependency-injection.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/dependency-injection.html" /> </url>
 <url> <loc>http://hotchocolate.io/docs/dotnet-cli.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/dotnet-cli.html" /> </url>
 <url> <loc>http://hotchocolate.io/docs/example-hello-world-code-first.html</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="http://hotchocolate.io/docs/example-hello-world-code-first.html" /> </url>

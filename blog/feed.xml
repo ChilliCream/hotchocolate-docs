@@ -4,7 +4,7 @@
         <title>Hot Chocolate Blog</title>
         <link>http://hotchocolate.io/blog</link>
         <description>The best place to stay up-to-date with the latest Hot Chocolate news and events.</description>
-        <lastBuildDate>Sun, 13 May 2018 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 31 Jul 2018 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
@@ -14,19 +14,11 @@
         </image>
         <copyright>Copyright © 2018 ChilliCream</copyright>
         <item>
-            <title><![CDATA[Releasing version 1.0.1]]></title>
-            <link>http://hotchocolate.io/blog/2018/05/13/1.0.1.html</link>
-            <guid>http://hotchocolate.io/blog/2018/05/13/1.0.1.html</guid>
-            <pubDate>Sun, 13 May 2018 06:00:00 GMT</pubDate>
-            <description><![CDATA[<p>Yeah, our first patch is on its way ;-)</p>
-]]></description>
-        </item>
-        <item>
-            <title><![CDATA[Releasing version 1.0.0]]></title>
-            <link>http://hotchocolate.io/blog/2018/05/03/1.0.0.html</link>
-            <guid>http://hotchocolate.io/blog/2018/05/03/1.0.0.html</guid>
-            <pubDate>Thu, 03 May 2018 06:00:00 GMT</pubDate>
-            <description><![CDATA[<p>Today we proudly released the first version of <em>React Rasta</em>.</p>
+            <title><![CDATA[Releasing version 0.4.0]]></title>
+            <link>http://hotchocolate.io/blog/2018/07/31/0.4.0.html</link>
+            <guid>http://hotchocolate.io/blog/2018/07/31/0.4.0.html</guid>
+            <pubDate>Tue, 31 Jul 2018 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>With this version we introduce support for <em>DataLoaders</em> and custom context objects.</p>
 ]]></description>
         </item>
     </channel>

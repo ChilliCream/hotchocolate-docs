@@ -22,7 +22,7 @@ const siteConfig = {
   headerLinks: [
     { doc: "introduction", label: "Docs" },
     { doc: "example-star-wars-code-first", label: "Examples" },
-    //{ blog: false/*, label: "Blog"*/ },
+    { blog: true, label: "Blog" },
     //{ search: false },
     { href: repoUrl, label: "GitHub" }
   ],

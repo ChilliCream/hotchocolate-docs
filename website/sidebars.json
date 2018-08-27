@@ -2,8 +2,8 @@
   "docs": {
     "Quickstart": ["introduction", "code-first", "schema-first", "dotnet-cli"],
     "Code-First": [
-      "code-first-introduction,
-      "code-first-object-type,
+      "code-first-introduction",
+      "code-first-object-type",
       "code-first-interface-type"
     ],
     "Advanced Concepts": [

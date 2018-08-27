@@ -8,11 +8,13 @@ GraphQL basically specifies six type kinds excluding ListType and NonNullType:
 - [Object Type](https://graphql.org/learn/schema/#object-types-and-fields)
 - [Interface Type](https://graphql.org/learn/schema/#interfaces)
 - [Union Type](https://graphql.org/learn/schema/#union-types)
+- [Input Object Type](https://graphql.org/learn/schema/#input-types)
 - [Enum Type](https://graphql.org/learn/schema/#enumeration-types)
 - [Scalar Type](https://graphql.org/learn/schema/#scalar-types)
-- [Input Object Type](https://graphql.org/learn/schema/#input-types)
 
-When describing your GraphQL API code-first you are starting with your existing code which is just common .net code. In order to give your types the right context in an GraphQL schema or more precisly to infer the GraphQL schema types from your .net APIs we are wrapping them into a generic types that correlate to the corresponding schema type kind.
+When describing your GraphQL API code-first you are starting with your existing code which is just common .net code.
+
+In order to give your types the right context in a GraphQL schema or more precisly to infer the GraphQL schema types from your .net APIs we are wrapping them into schema types that correlate to the corresponding schema type kind.
 
 Lets say we have a simpel .net type `Foo` that has one method `GetBar()` which returns a `System.String`:
 
@@ -32,7 +34,24 @@ var schema = Schema.Create(c =>
 })
 ```
 
-By wrapping `Foo` as `ObjectType<Foo>` we essentially told the schema that `Foo` is an object type and the schema will try to infer the rest of this type automatically. So, without much effort we now have a GraphQL Schema that looks like this:
+In most cases when you are registering a non-abstract class with the schema you want to declare an object type. So, you can actually just register you .net type an we will infer the schema type kind.
+
+```csharp
+var schema = Schema.Create(c =>
+{
+  c.RegisterType<Foo>();
+})
+```
+
+| Tables        |      Are      |  Cool |
+| ------------- | :-----------: | ----: |
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      |   centered    |   $12 |
+| zebra stripes |   are neat    |    $1 |
+
+By wrapping `Foo` as `ObjectType<Foo>` we essentially tell the schema setup that `Foo` is an object type and the schema setup will try to infer the rest of this type automatically.
+
+So, without much effort we now have a GraphQL Schema that looks like the following:
 
 ```graphql
 type Foo {

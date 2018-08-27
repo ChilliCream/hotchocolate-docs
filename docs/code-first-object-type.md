@@ -1,5 +1,5 @@
 ---
-id: cf-object-type
+id: code-first-object-type
 title: Object Type
 ---
 
@@ -56,15 +56,15 @@ type Query {
 
 The following table shows the object type descriptor options:
 
-| Name                                                      | Description                                                                                    |
-| --------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| Name(string name)                                         | Defines the name of the object type. |
-| Description(string description)                           | Defines the description of the object type that will be accessible through the introspection. |
-| Interface\<T\>()                                          | Specifies an interface type that is implemented by this object type. |
-| IsOfType(IsOfType isOfType)                               | Defines a function that specifies if a specific resolver type is of the specified object type. |
-| BindFields(BindingBehavior bindingBehavior)               | Specifies the field binding behaviour. |
-| Field\<TValue\>(Expression\<Func\<T, TValue\>\> propertyOrMethod) | Specifies field configuration of a method or property decalred in T. |
-| Field(string name)                                        | Specifies a field that does not exist in T. |
+| Name                                                              | Description                                                                                    |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Name(string name)                                                 | Defines the name of the object type.                                                           |
+| Description(string description)                                   | Defines the description of the object type that will be accessible through the introspection.  |
+| Interface\<T\>()                                                  | Specifies an interface type that is implemented by this object type.                           |
+| IsOfType(IsOfType isOfType)                                       | Defines a function that specifies if a specific resolver type is of the specified object type. |
+| BindFields(BindingBehavior bindingBehavior)                       | Specifies the field binding behaviour.                                                         |
+| Field\<TValue\>(Expression\<Func\<T, TValue\>\> propertyOrMethod) | Specifies field configuration of a method or property decalred in T.                           |
+| Field(string name)                                                | Specifies a field that does not exist in T.                                                    |
 
 ### Name
 
@@ -112,8 +112,6 @@ type Foo {
   foo: String
 }
 ```
-
-
 
 Example explicit name:
 
@@ -268,7 +266,7 @@ type Bar {
 }
 ```
 
-The field descriptor options are described in more detail [here](cf-object-type-field.md).
+The field descriptor options are described in more detail [here](code-first-object-type-field.md).
 
 ## ObjectType
 
@@ -286,7 +284,7 @@ public class BarType
 ```
 
 ```graphql
-type Bar {  
+type Bar {
   foo: String
 }
 ```

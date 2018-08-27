@@ -1,4 +1,4 @@
 ---
-id: cf-object-type-field
+id: code-first-object-type-field
 title: Object Type Field
 ---

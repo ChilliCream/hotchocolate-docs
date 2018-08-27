@@ -3,7 +3,7 @@ id: code-first
 title: Code-first
 ---
 
-The code first schema approach lets you built your GraphQL schema with .net types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specfy your schema. All can be done in your favourite .net language.
+The code first schema approach lets you built your GraphQL schema with .net types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify your schema. All can be done in your favourite .net language.
 
 Lets walk you through some examples in order to show the various approaches to define a schema.
 
@@ -12,7 +12,7 @@ First let us create our playground project to get started:
 ```bash
 mkdir graphql-demo
 cd graphql-demo
-dotnet new console  
+dotnet new console
 dotnet add package hotchocolate
 dotnet restore
 ```
@@ -38,14 +38,14 @@ We now have registered an object type with our new schema that is based on our Q
 
 ```graphql
 type Query {
-    hello: String
+  hello: String
 }
 ```
 
 We didn't even have to write resolvers due to the fact that the schema inferred those from the hello function. out hello function is basically our resolver.
 
 But there are some catches here. At the moment we can only infer scalar types like string, int etc..
-Furthermore, we can only invere non-nullability from value types. Reference types like System.String will always be inferred as nullable type since all reference types in .net are nullabel.
+Furthermore, we can only infer non-nullability from value types. Reference types like System.String will always be inferred as nullable type since all reference types in .net are nullable.
 
 Fear not, because there is a simple solution to this. If you want to redefine or add more fields to an existing type you can always opt-in to our fluent API to declare your intention.
 
@@ -81,18 +81,18 @@ public class QueryType : ObjectType<Query>
 }
 ```
 
-Our new resulting schema woul now look like the following:
+Our new resulting schema would now look like the following:
 
 ```graphql
 type Query {
-    hello: String!
-    foo: String
+  hello: String!
+  foo: String
 }
 ```
 
 The foo field would use the specified delegate to resolve the field value. The fluent api offers you the same feature set as the GraphQL schema syntax.
 
-Next we should look at resolver arguments. GraphQL fields let you define arguments. So, if we adjust our hello method to include a new argument name of type string we would infer from ith the GraphQL field arguments.
+Next we should look at resolver arguments. GraphQL fields let you define arguments. So, if we adjust our hello method to include a new argument name of type string we would infer from the GraphQL field arguments.
 
 ```csharp
 public class Query
@@ -103,7 +103,7 @@ public class Query
 
 ```graphql
 type Query {
-    hello(name: String): String
+  hello(name: String): String
 }
 ```
 
@@ -123,4 +123,4 @@ public class Query
 }
 ```
 
-This gives you the flexibility to tab into the data that is avilable in the query engine execution context and use it to make your resolvers more dynamic.
+This gives you the flexibility to tab into the data that is available in the query engine execution context and use it to make your resolvers more dynamic.

@@ -5,12 +5,17 @@
     "previous": "Previous",
     "tagline": "A GraphQL Server for .net core and .net classic",
     "authentication": "authentication",
-    "cf-enum-type": "cf-enum-type",
-    "cf-interface-type": "Interface Type",
-    "cf-introduction": "Introduction",
-    "cf-object-type-field": "cf-object-type-field",
-    "cf-object-type": "Object Type",
+    "code-first-enum-type": "code-first-enum-type",
+    "code-first-interface-type: "
+    Interface Type ",
+    "code-first-introduction: "
+    Introduction ",
+    "code-first-object-type-field: "
+    code - first - object - type - field,
+    "code-first-object-type: "
+    Object Type ",
     "code-first": "Code-first",
+    "custom-context": "Custom Context Objects",
     "custom-scalar-types": "Custom Scalar Types.",
     "dataloaders": "DataLoaders",
     "dependency-injection": "Dependency Injection",

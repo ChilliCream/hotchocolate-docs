@@ -1,8 +1,16 @@
 {
   "docs": {
     "Quickstart": ["introduction", "code-first", "schema-first", "dotnet-cli"],
-    "Code-First": ["cf-introduction", "cf-object-type", "cf-interface-type"],
-    "Advanced Concepts": ["dependency-injection", "custom-scalar-types", "dataloaders"]
+    "Code-First": [
+      "code-first-introduction,
+      "code-first-object-type,
+      "code-first-interface-type"
+    ],
+    "Advanced Concepts": [
+      "dependency-injection",
+      "custom-scalar-types",
+      "dataloaders"
+    ]
   },
   "examples": {
     "Code-First": ["example-star-wars-code-first"]

@@ -1,5 +1,5 @@
 ---
-id: cf-introduction
+id: code-first-introduction
 title: Introduction
 ---
 
@@ -86,8 +86,8 @@ public class FooType : ObjectType<Foo>
 
 For more help on the configuration of the specific types checkout the specific type descriptor help pages:
 
-- [Object Type Descriptor](cf-object-type.md)
-- [Interface Type Descriptor](cf-interface-type.md)
+- [Object Type Descriptor](code-first-object-typemd)
+- [Interface Type Descriptor](code-first-interface-typemd)
 - [Union Type Descriptor](cf-union-type.md)
-- [Enum Type Descriptor](cf-enum-type.md)
+- [Enum Type Descriptor](code-first-enum-type.md)
 - [Input Object Type Descriptor](cf-input-object-type.md)

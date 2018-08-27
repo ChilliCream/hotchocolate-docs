@@ -52,7 +52,7 @@ type Query {
 }
 ```
 
-## Object Type Descriptoren
+## Object Type Descriptors
 
 The following table shows the object type descriptor options:
 
@@ -68,7 +68,7 @@ The following table shows the object type descriptor options:
 
 ### Name
 
-The object type descriptor will by default resolve the name of the schema type from the provided type argument. If the type is anotated with the GraphQLNameAttribute than the name attribute will take precedence over the type name. The explicitly specified name will take precedence over both.
+The object type descriptor will by default resolve the name of the schema type from the provided type argument. If the type is annotated with the GraphQLNameAttribute than the name attribute will take precedence over the type name. The explicitly specified name will take precedence over both.
 
 Example name from type:
 
@@ -189,7 +189,7 @@ public class BarType
 
 ### BindFields
 
-The object type descriptor will by default scan the provided entity type for additional fields. In some cases you might want to specify all the fields explicitly in order to have a more predictable schema. You might not want that a property or method that you add to your types automatically shows up in your schema. In those cases you can change the field bining behaviour to explicit.
+The object type descriptor will by default scan the provided entity type for additional fields. In some cases you might want to specify all the fields explicitly in order to have a more predictable schema. You might not want that a property or method that you add to your types automatically shows up in your schema. In those cases you can change the field binding behaviour to explicit.
 
 ```csharp
 public class Bar

@@ -68,6 +68,8 @@ public class Person
 }
 ```
 
+## Resolver Types
+
 Since the above solution would mess up your clean .net type we could also bind our resolver to a different type that contains our resolver method.
 
 ```csharp
@@ -127,6 +129,8 @@ type Person {
     friends(name: String): [Person]
 }
 ```
+
+Resolver types can also be used as common resolvers where you share resolver logic between related types.
 
 ## Resolver Context
 

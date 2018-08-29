@@ -2,25 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://hotchocolate.io/blog</id>
     <title>Hot Chocolate Blog</title>
-    <updated>2018-08-29T06:00:00Z</updated>
+    <updated>2018-07-31T06:00:00Z</updated>
     <generator>Feed for Node.js</generator>
     <link rel="alternate" href="http://hotchocolate.io/blog"/>
     <subtitle>The best place to stay up-to-date with the latest Hot Chocolate news and events.</subtitle>
     <logo>http://hotchocolate.io/img/signet.svg</logo>
     <rights>Copyright © 2018 ChilliCream</rights>
-    <entry>
-        <title type="html"><![CDATA[Releasing version 0.4.0]]></title>
-        <id>http://hotchocolate.io/blog/2018/08/29/0.4.5.html</id>
-        <link href="http://hotchocolate.io/blog/2018/08/29/0.4.5.html">
-        </link>
-        <updated>2018-08-29T06:00:00Z</updated>
-        <summary type="html"><![CDATA[<p>With this version we introduce support for <em>DataLoaders</em> and custom context objects.</p>
-]]></summary>
-        <author>
-            <name>Michael Staib</name>
-            <uri>https://github.com/michaelstaib</uri>
-        </author>
-    </entry>
     <entry>
         <title type="html"><![CDATA[Releasing version 0.4.0]]></title>
         <id>http://hotchocolate.io/blog/2018/07/31/0.4.0.html</id>

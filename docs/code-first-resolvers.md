@@ -3,7 +3,7 @@ id: code-first-resolvers
 title: Resolvers
 ---
 
-When you have started building your schema with code-first you might at first not see much about field resolvers although each field of your object type field of your GraphQL schema has an explicit field resolver that basically resolves the value from an object type instance when a query is executed.
+When you have started building your schema with code-first you might at first not see much about field resolvers although each field of each object type has an explicit field resolver that basically resolves the value from an object instance when a query is executed.
 
 The field resolvers for your types are generated when your schema is being created.
 

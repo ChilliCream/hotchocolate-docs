@@ -144,7 +144,7 @@ The resolver context represent the execution context for a specific field that i
 | QueryDocument | DocumentNode | The query that is being executed. |
 | Operation | OperationDefinitionNode | The operation from the query that is being executed. |
 | FieldSelection | FieldNode | The field selection for which a field resolver is being executed. |
-| Source | ImmutableStack\<object\> | The source stack contains all previous resolver result of the current execution path |
+| Source | ImmutableStack\<object\> | The source stack contains all previous resolver results of the current execution path |
 | Path | Path | The current execution path. |
 | Parent\<T\>() | T | Gets the previous (parent) resolver result. |
 | Argument\<T\>(string name) | T | Gets a specific field argument. |

@@ -7,11 +7,19 @@ When you have started building your schema with code-first you might at first no
 
 The field resolvers for your types are generated when your schema is being created.
 
-Most of the type you will have your first contact with one of those field resolvers when you start adding fields that do not have a representation in one of your .net types.
+Most of the time you will have your first contact with field resolvers when you start adding fields that do not have a representation in one of your .net types.
 
 Lets start with a simple example and assume we have a Person type that has a property `Name` and a list of strings called `FriendIds`.
 
-You want your GraphQL schema to look like the following:
+```csharp
+public class Person
+{
+    public string Name { get; set; }
+    public List<string> FriendIds { get; set; }
+}
+```
+
+In our GraphQL schema do not want to deal with ID`s or anything. So our GraphQL schema should look like the follwoing:
 
 ```GraphQL
 type Query {
@@ -24,17 +32,11 @@ type Person {
 }
 ```
 
-This will let you drill into the friends and their friends and so on very nicely.
+This will let us drill into the friends and their friends and so on very nicely.
 
-Now to our c# code:
+Now lets tell our schema how the .net type translates to our desired schemm:
 
 ```csharp
-public class Person
-{
-    public string Name { get; set; }
-    public List<string> FriendIds { get; set; }
-}
-
 public class PersonType : ObjectType<Person>
 {
     protected override void Configure(IObjectDescriptor<Person> desc)
@@ -49,7 +51,7 @@ public class PersonType : ObjectType<Person>
 
 The first thing we did was to ignore our `FriendIds` property so that this property would not show up in our schema. The second thing is that we added a field name and associated this field name with a resolver. A field resolver is represented as a delegate that can access a resolver context that holds the execution context for this specific field. The type of the field is inferred from the resolver result but can also be specified explicitly.
 
-Another way to specify a resolver more cleanly is to add a method to your `Person` type. Since all members are resolvers we can specify a method in your class and the method arguments are injected from the context. 
+Another way to specify a resolver more cleanly is to add a method to your `Person` type. Since all members are resolvers we can specify a method in our class and the method arguments are injected from the resolver context.
 
 Let me give you an example for that:
 
@@ -66,7 +68,7 @@ public class Person
 }
 ```
 
-Since the above solution would mess up your clean .net type we could also bind to a different type that contains our resolver method.
+Since the above solution would mess up your clean .net type we could also bind our resolver to a different type that contains our resolver method.
 
 ```csharp
 public class PersonResolvers
@@ -89,9 +91,9 @@ public class PersonType : ObjectType<Person>
 
 The `PersonResolver` instance will be resolved from your dependency injection provider. If you did not register this type with your dependency injection provider we will create it as a singleton and use this instance for each resolver request.
 
-The best way to use dependency injection with such resolver types is, to inject dependencies as method arguments like depicted above. This way you do not have to care about the lifetime of the injected service.
+The best way to use dependency injection with resolver types is to inject dependencies as method arguments like depicted above. This way you do not have to care about the lifetime of the injected services.
 
-You can basically inject anything that is accessible through the resolver context. So, if you would like to know which field is being resolved you could just add `FieldNode` as method argument and we would inject this into the method call.
+You can basically inject anything that is accessible through the resolver context. So, if you would like to know which field is being resolved you could just add `FieldNode` as a method argument and we would inject this into the method call.
 
 ```csharp
 public class PersonResolvers
@@ -117,7 +119,7 @@ public class PersonResolvers
 }
 ```
 
-The above resolver signature would change now our schema since name would now become a field argument:
+The above resolver signature would change now our schema since name would become a field argument:
 
 ```GraphQL
 type Person {
@@ -125,3 +127,23 @@ type Person {
     friends(name: String): [Person]
 }
 ```
+
+## Resolver Context
+
+The resolver context represent the execution context for a specific field that is being resolved.
+
+| Member        | Type | Description |
+| ------------- | ----------- | ----------- |
+| Schema | ISchema | The GraphQL schema. |
+| ObjectType | ObjectType | The object type on which the field resolver is being executed. |
+| Field | ObjectField | The field on which the field resolver is being executed. |
+| QueryDocument | DocumentNode | The query that is being executed. |
+| Operation | OperationDefinitionNode | The operation from the query that is being executed. |
+| FieldSelection | FieldNode | The field selection for which a field resolver is being executed. |
+| Source | ImmutableStack\<object\> | The source stack contains all previous resolver result of the current execution path |
+| Path | Path | The current execution path. |
+| Parent\<T\>() | T | Gets the previous (parent) resolver result. |
+| Argument\<T\>(string name) | T | Gets a specific field argument. |
+| Service\<T\>() | T | Gets as specific service from the dependency injection container. |
+| CustomContext\<T\>() | T | Gets a specific custom context object that can be used to build up a state. |
+| DataLoader\<T\>(string key) | T | Gets a specific DataLoader. |

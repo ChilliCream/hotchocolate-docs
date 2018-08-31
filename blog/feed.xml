@@ -2,21 +2,21 @@
 <rss version="2.0">
     <channel>
         <title>Hot Chocolate Blog</title>
-        <link>http://hotchocolate.io/blog</link>
+        <link>https://hotchocolate.io/blog</link>
         <description>The best place to stay up-to-date with the latest Hot Chocolate news and events.</description>
         <lastBuildDate>Tue, 31 Jul 2018 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
             <title>Hot Chocolate Blog</title>
-            <url>http://hotchocolate.io/img/signet.svg</url>
-            <link>http://hotchocolate.io/blog</link>
+            <url>https://hotchocolate.io/img/signet.svg</url>
+            <link>https://hotchocolate.io/blog</link>
         </image>
         <copyright>Copyright © 2018 ChilliCream</copyright>
         <item>
             <title><![CDATA[Releasing version 0.4.0]]></title>
-            <link>http://hotchocolate.io/blog/2018/07/31/0.4.0.html</link>
-            <guid>http://hotchocolate.io/blog/2018/07/31/0.4.0.html</guid>
+            <link>https://hotchocolate.io/blog/2018/07/31/0.4.0.html</link>
+            <guid>https://hotchocolate.io/blog/2018/07/31/0.4.0.html</guid>
             <pubDate>Tue, 31 Jul 2018 06:00:00 GMT</pubDate>
             <description><![CDATA[<p>With this version we introduce support for <em>DataLoaders</em> and custom context objects.</p>
 ]]></description>

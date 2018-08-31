@@ -12,19 +12,30 @@ const repoUrl = "https://github.com/ChilliCream/hotchocolate";
 const siteConfig = {
   title: "Hot Chocolate",
   tagline: "A GraphQL Server for .net core and .net classic",
-  url: "http://hotchocolate.io",
+  url: "https://hotchocolate.io",
   cname: "hotchocolate.io",
   baseUrl: "/",
   gaTrackingId: "UA-72800164-3",
   projectName: "hotchocolate-docs",
   organizationName: "chillicream",
   repoUrl,
-  headerLinks: [
-    { doc: "introduction", label: "Docs" },
-    { doc: "example-star-wars-code-first", label: "Examples" },
-    { blog: true, label: "Blog" },
+  headerLinks: [{
+      doc: "introduction",
+      label: "Docs"
+    },
+    {
+      doc: "example-star-wars-code-first",
+      label: "Examples"
+    },
+    {
+      blog: true,
+      label: "Blog"
+    },
     //{ search: false },
-    { href: repoUrl, label: "GitHub" }
+    {
+      href: repoUrl,
+      label: "GitHub"
+    }
   ],
   headerIcon: "img/signet.svg",
   footerIcon: "img/signet.svg",
@@ -45,7 +56,8 @@ const siteConfig = {
     theme: "atelier-dune-light"
   },
   scripts: ["https://buttons.github.io/buttons.js"],
-  onPageNav: "separate"
+  onPageNav: "separate",
+  cleanUrl: true
 };
 
 module.exports = siteConfig;

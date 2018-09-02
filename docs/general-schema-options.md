@@ -18,9 +18,11 @@ var schema = Schema.Create(c =>
 We have built in some options that limit the execution engine in order do protect overall performance of your GraphQL Server.
 
 - MaxExecutionDepth (Default = 8)
+
   The maximum allowed execution depth of a query.
 
 - ExecutionTimeout (Default = 5 seconds)
+
   The maximum allowed execution time a query is allowed.
 
 Moreover, we have a developer-mode that is meant for debugging. Per default the execution engine will filter all exceceptions and add a generic error message to the error list. So, setting `DeveloperMode` to `true` will add more exception details to the query result.

@@ -1,13 +1,19 @@
 {
   "docs": {
-    "Quickstart": ["introduction", "code-first", "schema-first", "dotnet-cli"],
+    "Quickstart": [
+      "introduction", 
+      "code-first", 
+      "schema-first", 
+      "dotnet-cli"
+    ],
     "Code-First": [
       "code-first-introduction",
       "code-first-resolvers",
       "code-first-object-type",
       "code-first-interface-type"
     ],
-    "Advanced Concepts": [
+    "General": [
+      "general-schema-options",
       "dependency-injection",
       "custom-scalar-types",
       "dataloaders"

@@ -19,6 +19,7 @@
 <url> <loc>https://hotchocolate.io/docs/example-hello-world-schema-first</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/example-hello-world-schema-first" /> </url>
 <url> <loc>https://hotchocolate.io/docs/example-star-wars-code-first</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/example-star-wars-code-first" /> </url>
 <url> <loc>https://hotchocolate.io/docs/example-star-wars-schema-first</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/example-star-wars-schema-first" /> </url>
+<url> <loc>https://hotchocolate.io/docs/general-schema-options</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/general-schema-options" /> </url>
 <url> <loc>https://hotchocolate.io/docs/introduction</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/introduction" /> </url>
 <url> <loc>https://hotchocolate.io/docs/schema-first</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/schema-first" /> </url>
 </urlset>

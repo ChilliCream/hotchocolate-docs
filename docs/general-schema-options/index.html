@@ -43,10 +43,10 @@
 </code></pre>
 <p>We have built in some options that limit the execution engine in order do protect overall performance of your GraphQL Server.</p>
 <ul>
-<li><p>MaxExecutionDepth (Default = 8)
-The maximum allowed execution depth of a query.</p></li>
-<li><p>ExecutionTimeout (Default = 5 seconds)
-The maximum allowed execution time a query is allowed.</p></li>
+<li><p>MaxExecutionDepth (Default = 8)</p>
+<p>The maximum allowed execution depth of a query.</p></li>
+<li><p>ExecutionTimeout (Default = 5 seconds)</p>
+<p>The maximum allowed execution time a query is allowed.</p></li>
 </ul>
 <p>Moreover, we have a developer-mode that is meant for debugging. Per default the execution engine will filter all exceceptions and add a generic error message to the error list. So, setting <code>DeveloperMode</code> to <code>true</code> will add more exception details to the query result.</p>
 <p>Also for debugging purposes is the <code>StrictValidation</code> option that allows for incomplete schemas. This way you are able to debug your server even when the schema is not complete yet.</p>

@@ -3,8 +3,6 @@ id: general-schema-options
 title: Schema Options
 ---
 
-## Schema Options
-
 The schema options allow to alter the overall execution behaviour. The options can be set during schema creation.
 
 ```csharp
@@ -29,7 +27,7 @@ Moreover, we have a developer-mode that is meant for debugging. Per default the 
 
 Also for debugging purposes is the `StrictValidation` option that allows for incomplete schemas. This way you are able to debug your server even when the schema is not complete yet.
 
-## Schema Option Members
+## Members
 
 | Member        | Type | Description |
 | ------------- | ----------- | ----------- |

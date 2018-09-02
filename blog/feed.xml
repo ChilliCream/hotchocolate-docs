@@ -4,7 +4,7 @@
         <title>Hot Chocolate Blog</title>
         <link>https://hotchocolate.io/blog</link>
         <description>The best place to stay up-to-date with the latest Hot Chocolate news and events.</description>
-        <lastBuildDate>Tue, 31 Jul 2018 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 02 Sep 2018 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
@@ -13,6 +13,14 @@
             <link>https://hotchocolate.io/blog</link>
         </image>
         <copyright>Copyright © 2018 ChilliCream</copyright>
+        <item>
+            <title><![CDATA[Releasing version 0.4.5]]></title>
+            <link>https://hotchocolate.io/blog/2018/09/02/0.4.5.html</link>
+            <guid>https://hotchocolate.io/blog/2018/09/02/0.4.5.html</guid>
+            <pubDate>Sun, 02 Sep 2018 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>With version 0.4.5 we closed a lot of spec gaps and refined the schema configuration API.</p>
+]]></description>
+        </item>
         <item>
             <title><![CDATA[Releasing version 0.4.0]]></title>
             <link>https://hotchocolate.io/blog/2018/07/31/0.4.0.html</link>

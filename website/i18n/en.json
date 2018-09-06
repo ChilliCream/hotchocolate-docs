@@ -21,6 +21,7 @@
     "example-hello-world-schema-first": "Hello World",
     "example-star-wars-code-first": "Star Wars",
     "example-star-wars-schema-first": "Star Wars",
+    "general-schema-options": "Schema Options",
     "introduction": "Introduction",
     "schema-first": "Schema-first",
     "Docs": "Docs",
@@ -29,7 +30,7 @@
     "GitHub": "GitHub",
     "Quickstart": "Quickstart",
     "Code-First": "Code-First",
-    "Advanced Concepts": "Advanced Concepts"
+    "General": "General"
   },
   "pages-strings": {
     "Help Translate|recruit community translators for your project": "Help Translate",

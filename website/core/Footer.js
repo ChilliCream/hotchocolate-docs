@@ -61,9 +61,9 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>More</h5>
-            <a href={this.props.config.blogUrl}>Blog</a>
-            <a href={this.props.config.repoUrl}>GitHub</a>
-            <a href={this.props.config.repoUrl + "/issues"}>Issues</a>
+            <a href={this.props.config.blogUrl} target="_blank">Blog</a>
+            <a href={this.props.config.repoUrl} target="_blank">GitHub</a>
+            <a href={this.props.config.repoUrl + "/issues"} target="_blank">Issues</a>
             <a
               className="github-button"
               href={this.props.config.repoUrl}
@@ -79,7 +79,7 @@ class Footer extends React.Component {
         </section>
         <section className="copyright">
           {this.props.config.copyright}&nbsp;
-          <a href={this.props.config.organizationUrl}>{this.props.config.organizationTitle}</a>
+          <a href={this.props.config.organizationUrl} target="_blank">{this.props.config.organizationTitle}</a>
         </section>
       </footer>
     );

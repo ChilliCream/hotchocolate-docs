@@ -34,12 +34,14 @@ const siteConfig = {
     },
     {
       href: blogUrl,
-      label: "Blog"
+      label: "Blog",
+      external: true
     },
     //{ search: false },
     {
       href: repoUrl,
-      label: "GitHub"
+      label: "GitHub",
+      external: true
     }
   ],
   headerIcon: "img/signet.svg",

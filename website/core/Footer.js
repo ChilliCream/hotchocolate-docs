@@ -37,7 +37,7 @@ class Footer extends React.Component {
             <h5>Docs</h5>
             <a href={this.docUrl("introduction")}>Quickstart</a>
             <a href={this.docUrl("code-first-introduction")}>Code-First</a>
-            <a href={this.docUrl("dependency-injection")}>Advanced Concepts</a>
+            <a href={this.docUrl("general-schema-options")}>General</a>
           </div>
           <div>
             <h5>Examples</h5>
@@ -45,6 +45,12 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>Community</h5>
+            <a
+              href={`https://twitter.com/${this.props.config.twitterUsername}`}
+              target="_blank"
+              rel="noreferrer noopener">
+              Follow us on Twitter
+            </a>
             <a
               href="http://stackoverflow.com/questions/tagged/hotchocolate"
               target="_blank"
@@ -55,8 +61,9 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>More</h5>
-            <a href={this.props.config.repoUrl}>GitHub</a>
-            <a href={this.props.config.repoUrl + "/issues"}>Issues</a>
+            <a href={this.props.config.blogUrl} target="_blank">Blog</a>
+            <a href={this.props.config.repoUrl} target="_blank">GitHub</a>
+            <a href={this.props.config.repoUrl + "/issues"} target="_blank">Issues</a>
             <a
               className="github-button"
               href={this.props.config.repoUrl}
@@ -70,7 +77,10 @@ class Footer extends React.Component {
             </a>
           </div>
         </section>
-        <section className="copyright">{this.props.config.copyright}</section>
+        <section className="copyright">
+          {this.props.config.copyright}&nbsp;
+          <a href={this.props.config.organizationUrl} target="_blank">{this.props.config.organizationTitle}</a>
+        </section>
       </footer>
     );
   }

@@ -8,6 +8,8 @@
 // See https://docusaurus.io/docs/site-config.html for all the possible
 
 const repoUrl = "https://github.com/ChilliCream/hotchocolate";
+const organizationUrl = "https://chillicream.com";
+const blogUrl = organizationUrl + "/blog";
 
 const siteConfig = {
   title: "Hot Chocolate",
@@ -15,10 +17,13 @@ const siteConfig = {
   url: "https://hotchocolate.io",
   cname: "hotchocolate.io",
   baseUrl: "/",
+  blogUrl,
+  repoUrl,
   gaTrackingId: "UA-72800164-3",
   projectName: "hotchocolate-docs",
   organizationName: "chillicream",
-  repoUrl,
+  organizationTitle: "ChilliCream",
+  organizationUrl,
   headerLinks: [{
       doc: "introduction",
       label: "Docs"
@@ -28,13 +33,15 @@ const siteConfig = {
       label: "Examples"
     },
     {
-      blog: true,
-      label: "Blog"
+      href: blogUrl,
+      label: "Blog",
+      external: true
     },
     //{ search: false },
     {
       href: repoUrl,
-      label: "GitHub"
+      label: "GitHub",
+      external: true
     }
   ],
   headerIcon: "img/signet.svg",
@@ -45,7 +52,7 @@ const siteConfig = {
     secondaryColor: "#a28036"
   },
   stylesheets: ["https://fonts.googleapis.com/css?family=Lobster:700,400"],
-  copyright: "Copyright © " + new Date().getFullYear() + " ChilliCream",
+  copyright: `Copyright © ${new Date().getFullYear()}`,
   editUrl: "https://github.com/ChilliCream/hotchocolate-docs/edit/master/docs/",
   /*algolia: {
     apiKey: "bf33c17016c2932f4993e27c5d3aba72",
@@ -57,6 +64,9 @@ const siteConfig = {
   },
   scripts: ["https://buttons.github.io/buttons.js"],
   onPageNav: "separate",
+  twitter: true,
+  twitterUsername: "Chilli_Cream",
+  twitterImage: "img/cupcake.png",
   cleanUrl: true
 };
 

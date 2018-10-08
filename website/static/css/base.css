@@ -24,7 +24,10 @@ body {
 
 .nav-footer .copyright {
   color: #a28036;
-  opacity: .4;
+}
+
+.nav-footer .copyright a {
+  color: #d51616;
 }
 
 .nav-footer .sitemap h5 {

@@ -4,32 +4,79 @@
     "next": "Next",
     "previous": "Previous",
     "tagline": "A GraphQL Server for .net core and .net classic",
-    "authentication": "authentication",
-    "code-first-enum-type": "code-first-enum-type",
-    "code-first-interface-type": "Interface Type",
-    "code-first-introduction": "Introduction",
-    "code-first-object-type-field": "code-first-object-type-field",
-    "code-first-object-type": "Object Type",
-    "code-first-resolvers": "Resolvers",
-    "code-first": "Code-first",
-    "custom-context": "Custom Context Objects",
-    "custom-scalar-types": "Custom Scalar Types.",
-    "dataloaders": "DataLoaders",
-    "dependency-injection": "Dependency Injection",
-    "dotnet-cli": ".NET CLI",
-    "example-hello-world-code-first": "Hello World",
-    "example-hello-world-schema-first": "Hello World",
-    "example-star-wars-code-first": "Star Wars",
-    "example-star-wars-schema-first": "Star Wars",
-    "introduction": "Introduction",
-    "schema-first": "Schema-first",
-    "Docs": "Docs",
-    "Examples": "Examples",
-    "Blog": "Blog",
-    "GitHub": "GitHub",
-    "Quickstart": "Quickstart",
-    "Code-First": "Code-First",
-    "Advanced Concepts": "Advanced Concepts"
+    "docs": {
+      "authentication": {
+        "title": "authentication"
+      },
+      "code-first-enum-type": {
+        "title": "code-first-enum-type"
+      },
+      "code-first-interface-type": {
+        "title": "Interface Type"
+      },
+      "code-first-introduction": {
+        "title": "Introduction"
+      },
+      "code-first-object-type-field": {
+        "title": "code-first-object-type-field"
+      },
+      "code-first-object-type": {
+        "title": "Object Type"
+      },
+      "code-first-resolvers": {
+        "title": "Resolvers"
+      },
+      "code-first": {
+        "title": "Code-first"
+      },
+      "custom-context": {
+        "title": "Custom Context Objects"
+      },
+      "custom-scalar-types": {
+        "title": "Custom Scalar Types."
+      },
+      "dataloaders": {
+        "title": "DataLoaders"
+      },
+      "dependency-injection": {
+        "title": "Dependency Injection"
+      },
+      "dotnet-cli": {
+        "title": ".NET CLI"
+      },
+      "example-hello-world-code-first": {
+        "title": "Hello World"
+      },
+      "example-hello-world-schema-first": {
+        "title": "Hello World"
+      },
+      "example-star-wars-code-first": {
+        "title": "Star Wars"
+      },
+      "example-star-wars-schema-first": {
+        "title": "Star Wars"
+      },
+      "general-schema-options": {
+        "title": "Schema Options"
+      },
+      "introduction": {
+        "title": "Introduction"
+      },
+      "schema-first": {
+        "title": "Schema-first"
+      }
+    },
+    "links": {
+      "Docs": "Docs",
+      "Examples": "Examples",
+      "Blog": "Blog",
+      "GitHub": "GitHub"
+    },
+    "categories": {
+      "Quickstart": "Quickstart",
+      "Code-First": "Code-First",
+      "General": "General"
+    }
   },
   "pages-strings": {
     "Help Translate|recruit community translators for your project": "Help Translate",

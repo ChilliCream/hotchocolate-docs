@@ -72,9 +72,7 @@ public class FooType
 }
 ```
 
-Since, adding a directive with its name and some values is not optimal because the name could change and you do not now the argument structure we have added a generic directive type.
-
-The generic directive type declares the .net type that represents a directive instance.
+Adding directives just with their name is not type safe and could lead to runtime errors which can be avoided by using our generic variant of the directive type. The generic directive type declares the .net type that represents the directive instance.
 
 ```csharp
 public class MyDirectiveType
@@ -95,7 +93,7 @@ public class MyDirective
 
 The generic directive type works similar to the generic input object type. The directive descriptor will automatically try to discover any properties and expose those as arguments.
 
-So, with our new directive in place we could add now add it to our object type like the following:
+So, with our new directive in place we could now add it to our object type like the following:
 
 ```csharp
 public class FooType
@@ -109,6 +107,8 @@ public class FooType
     }
 }
 ```
+
+Since, the directive instance that we have added to our type is now a strong .net type we do not have to fear changes to the directive structure or it`s name anymore.
 
 ## Middleware
 

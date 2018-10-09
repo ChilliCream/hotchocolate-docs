@@ -138,7 +138,7 @@ public class MyDirective
 }
 ```
 
-In GraphQL the directive order is significant and with our middlewares we use the order of directives to create a middleware pipeline through which the results flow.
+In GraphQL the directive order is significant and with our middlewares we use the order of directives to create a middleware pipeline through which the results flow. The resolver pipeline consists of a sequence of directive delegates, called one after the other.
 
 You can short-circuit the pipline by not invoking the next delegate.
 

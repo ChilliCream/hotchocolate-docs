@@ -1,6 +1,6 @@
 ---
 id: directive-middleware
-title: Directive
+title: Directives
 ---
 
 ## Introduction

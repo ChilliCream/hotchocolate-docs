@@ -138,11 +138,16 @@ public class MyDirective
 }
 ```
 
-In GraphQL the directive order is significant and with our middlewares we use the order of directives to create a middleware pipeline through which the results flow. The resolver pipeline consists of a sequence of directive delegates, called one after the other.
+Directives with middleware or executable directives can be put on object types and on their field definitions or on the field selection in a query. Executable directives on an object type will replace the field resolver of every field of the annotated object type.
+
+### Order
+
+In GraphQL the directive order is significant and with our middleware we use the order of directives to create a resolver pipeline through which the result flows.
+
+The resolver pipeline consists of a sequence of directive delegates, called one after the other.
 
 Each delegate can perform operations before and after the next delegate. A delegate can also decide to not pass a resolver request to the next delegate, which is called short-circuiting the resolver pipeline. Short-circuiting is often desirable because it avoids unnecessary work.
 
-**Order**
 The order of middleware pipeline is defined by the order of the directives. Since, executable directives will flow from the object type to its field definitions the directives of the type would be called first in the order that they were annotated.
 
 ```graphql
@@ -170,8 +175,6 @@ If there were more directives in the query the would be appended to the directiv
 So now the order woul be like the following: `a, b, c, d, e, f`.
 
 Since, a middleware pipline effectively replaces the original resolver function every middleware can execute the original resolver by calling `ResolveAsync()` on the `IDirecvtiveContext`.
-
-Directives with middleware or executable directives can be put on object types and on their field definitions or on the field selection in a query. Executable directives on an object type will replace the field resolver of every field of the annotated object type.
 
 ### Method Binding
 

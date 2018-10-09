@@ -156,23 +156,23 @@ type Query {
 }
 
 type Bar @a @b {
-    bas: String @c @d
+    baz: String @c @d
 }
 ```
 
 So, the directives in the above example would be called in the following order `a, b, c, d`.
 
-If there were more directives in the query the would be appended to the directives from the type.
+If there were more directives in the query, they would be appended to the directives from the type.
 
 ```graphql
 {
     foo {
-        bas @e @f
+        baz @e @f
     }
 }
 ```
 
-So now the order woul be like the following: `a, b, c, d, e, f`.
+So, now the order would be like the following: `a, b, c, d, e, f`.
 
 Since, a middleware pipline effectively replaces the original resolver function every middleware can execute the original resolver by calling `ResolveAsync()` on the `IDirecvtiveContext`.
 

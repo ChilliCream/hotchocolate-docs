@@ -140,7 +140,34 @@ public class MyDirective
 
 In GraphQL the directive order is significant and with our middlewares we use the order of directives to create a middleware pipeline through which the results flow. The resolver pipeline consists of a sequence of directive delegates, called one after the other.
 
-You can short-circuit the pipline by not invoking the next delegate.
+Each delegate can perform operations before and after the next delegate. A delegate can also decide to not pass a resolver request to the next delegate, which is called short-circuiting the resolver pipeline. Short-circuiting is often desirable because it avoids unnecessary work.
+
+**Order**
+The order of middleware pipeline is defined by the order of the directives. Since, executable directives will flow from the object type to its field definitions the directives of the type would be called first in the order that they were annotated.
+
+```graphql
+type Query {
+    foo: Bar
+}
+
+type Bar @a @b {
+    bas: String @c @d
+}
+```
+
+So, the directives in the above example would be called in the following order `a, b, c, d`.
+
+If there were more directives in the query the would be appended to the directives from the type.
+
+```graphql
+{
+    foo {
+        bas @e @f
+    }
+}
+```
+
+So now the order woul be like the following: `a, b, c, d, e, f`.
 
 Since, a middleware pipline effectively replaces the original resolver function every middleware can execute the original resolver by calling `ResolveAsync()` on the `IDirecvtiveContext`.
 

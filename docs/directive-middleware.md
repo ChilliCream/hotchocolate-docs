@@ -174,11 +174,11 @@ If there were more directives in the query, they would be appended to the direct
 
 So, now the order would be like the following: `a, b, c, d, e, f`.
 
-Since, a middleware pipline effectively replaces the original resolver function every middleware can execute the original resolver by calling `ResolveAsync()` on the `IDirecvtiveContext`.
+Since, a middleware pipeline effectively replaces the original resolver function every middleware can execute the original resolver by calling `ResolveAsync()` on the `IDirecvtiveContext`.
 
 ### Method Binding
 
-A middleware can be bound to methods like with field resolvern and make use of argument injection.
+Like with field resolvers you can bind a middleware to method making use of argument injection.
 
 ```csharp
 public class MyDirectiveType

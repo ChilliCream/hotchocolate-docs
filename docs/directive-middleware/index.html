@@ -136,7 +136,7 @@ public class MyDirective
     public string Name { get; set; }
 }
 </code></pre>
-<p>In GraphQL the directive order is significant and with our middlewares we use the order of directives to create a middleware pipeline through which the results flow.</p>
+<p>In GraphQL the directive order is significant and with our middlewares we use the order of directives to create a middleware pipeline through which the results flow. The resolver pipeline consists of a sequence of directive delegates, called one after the other.</p>
 <p>You can short-circuit the pipline by not invoking the next delegate.</p>
 <p>Since, a middleware pipline effectively replaces the original resolver function every middleware can execute the original resolver by calling <code>ResolveAsync()</code> on the <code>IDirecvtiveContext</code>.</p>
 <p>Directives with middleware or executable directives can be put on object types and on their field definitions or on the field selection in a query. Executable directives on an object type will replace the field resolver of every field of the annotated object type.</p>

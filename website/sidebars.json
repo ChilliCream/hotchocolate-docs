@@ -14,6 +14,7 @@
     ],
     "General": [
       "general-schema-options",
+      "directive-middleware",
       "dependency-injection",
       "custom-scalar-types",
       "dataloaders"

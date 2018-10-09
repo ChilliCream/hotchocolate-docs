@@ -41,6 +41,9 @@
       "dependency-injection": {
         "title": "Dependency Injection"
       },
+      "directive-middleware": {
+        "title": "Middleware"
+      },
       "dotnet-cli": {
         "title": ".NET CLI"
       },

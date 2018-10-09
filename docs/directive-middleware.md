@@ -1,6 +1,6 @@
 ---
 id: directive-middleware
-title: Middleware
+title: Directive
 ---
 
 ## Introduction
@@ -112,7 +112,7 @@ public class FooType
 
 ## Middleware
 
-What makes directive with Hot Cocolate very useful is the ability to associate a middleware with a dirctive that overwrites / alternates the default field resolver behaviour of a field.
+What makes directive with Hot Cocolate very useful is the ability to associate a middleware with it that overwrites / alternates the default resolver behaviour of a field.
 
 In order to add a middleware to a directive you could declare it with the descriptor as a delegate.
 
@@ -139,4 +139,45 @@ public class MyDirective
 ```
 
 In GraphQL the directive order is significant and with our middlewares we use the order of directives to create a middleware pipeline through which the results flow.
+
+You can short-circuit the pipline by not invoking the next delegate.
+
+Since, a middleware pipline effectively replaces the original resolver function every middleware can execute the original resolver by calling `ResolveAsync()` on the `IDirecvtiveContext`.
+
+Directives with middleware or executable directives can be put on object types and on their field definitions or on the field selection in a query. Executable directives on an object type will replace the field resolver of every field of the annotated object type.
+
+### Method Binding
+
+A middleware can be bound to methods like with field resolvern and make use of argument injection.
+
+```csharp
+public class MyDirectiveType
+    : DirectiveType<MyDirective>
+{
+    protected override void Configure(IDirectiveTypeDescriptor descriptor)
+    {
+        descriptor.Name("my");
+        descriptor.Location(DirectiveLocation.Object);
+        descriptor.Middleware(next => context =>
+        {
+            context.Result = "Bar";
+            return next.Invoke();
+        })
+    }
+}
+
+public class MyDirective
+{
+    public string Name { get; set; }
+}
+
+public class CustomMiddleware
+{
+    public string Foo(MyDirective directive)
+    {
+        return directive.Name;
+    }
+}
+```
+
 

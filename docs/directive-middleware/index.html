@@ -137,7 +137,26 @@ public class MyDirective
 }
 </code></pre>
 <p>In GraphQL the directive order is significant and with our middlewares we use the order of directives to create a middleware pipeline through which the results flow. The resolver pipeline consists of a sequence of directive delegates, called one after the other.</p>
-<p>You can short-circuit the pipline by not invoking the next delegate.</p>
+<p>Each delegate can perform operations before and after the next delegate. A delegate can also decide to not pass a resolver request to the next delegate, which is called short-circuiting the resolver pipeline. Short-circuiting is often desirable because it avoids unnecessary work.</p>
+<p><strong>Order</strong>
+The order of middleware pipeline is defined by the order of the directives. Since, executable directives will flow from the object type to its field definitions the directives of the type would be called first in the order that they were annotated.</p>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Query</span> {
+    <span class="hljs-attribute">foo</span>: Bar
+}
+
+<span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Bar</span> @<span class="hljs-selector-tag">a</span> @<span class="hljs-selector-tag">b</span> {
+    <span class="hljs-attribute">bas</span>: String <span class="hljs-variable">@c</span> <span class="hljs-variable">@d</span>
+}
+</code></pre>
+<p>So, the directives in the above example would be called in the following order <code>a, b, c, d</code>.</p>
+<p>If there were more directives in the query the would be appended to the directives from the type.</p>
+<pre><code class="hljs css language-graphql">{
+    foo {
+        bas <span class="hljs-meta">@e</span> <span class="hljs-meta">@f</span>
+    }
+}
+</code></pre>
+<p>So now the order woul be like the following: <code>a, b, c, d, e, f</code>.</p>
 <p>Since, a middleware pipline effectively replaces the original resolver function every middleware can execute the original resolver by calling <code>ResolveAsync()</code> on the <code>IDirecvtiveContext</code>.</p>
 <p>Directives with middleware or executable directives can be put on object types and on their field definitions or on the field selection in a query. Executable directives on an object type will replace the field resolver of every field of the annotated object type.</p>
 <h3><a class="anchor" aria-hidden="true" id="method-binding"></a><a href="#method-binding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Method Binding</h3>

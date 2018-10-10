@@ -112,7 +112,7 @@ Since, the directive instance that we have added to our type is now a strong .ne
 
 ## Middleware
 
-What makes directive with Hot Cocolate very useful is the ability to associate a middleware with it that overwrites / alternates the default resolver behaviour of a field.
+What makes directive with Hot Chocolate very useful is the ability to associate a middleware with it that overwrites / alternates the default resolver behaviour of a field.
 
 In order to add a middleware to a directive you could declare it with the descriptor as a delegate.
 
@@ -127,7 +127,7 @@ public class MyDirectiveType
         descriptor.Middleware(next => context =>
         {
             context.Result = "Bar";
-            return next.Invoke();
+            return next.Invoke(context);
         })
     }
 }

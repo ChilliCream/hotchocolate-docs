@@ -19,7 +19,7 @@ public class Person
 }
 ```
 
-In our GraphQL schema do not want to deal with ID`s or anything. So our GraphQL schema should look like the follwoing:
+In our GraphQL schema we do not want to deal with ID`s or anything. So our GraphQL schema should look like the follwoing:
 
 ```GraphQL
 type Query {
@@ -34,7 +34,7 @@ type Person {
 
 This will let us drill into the friends and their friends and so on very nicely.
 
-Now lets tell our schema how the .net type translates to our desired schemm:
+Now lets tell our schema how the .net type translates to our desired schema:
 
 ```csharp
 public class PersonType : ObjectType<Person>

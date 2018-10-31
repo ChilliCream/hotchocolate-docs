@@ -28,7 +28,7 @@ In order to create a new GraphQL server that already contains the hello world ex
 dotnet new graphql-server -n MyProjectName
 ```
 
-If also love do develop .net in Visual Studio Code just run the following commands to get you started.
+If you also love to develop .net in Visual Studio Code just run the following commands to get you started.
 
 ```bash
 mkdir graphql-demo

@@ -46,7 +46,7 @@ dotnet restore
 <p>Define a new plain c# class called Query:</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Query</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Hello</span>(<span class="hljs-params"></span>) </span>=&gt; <span class="hljs-string">"world"</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Hello</span>(<span class="hljs-params"></span>)</span> =&gt; <span class="hljs-string">"world"</span>;
 }
 </code></pre>
 <p>Now let us create a new schema that uses this type and infers from it the GraphQL query type.</p>
@@ -94,7 +94,7 @@ Furthermore, we can only infer non-nullability from value types. Reference types
 <p>Next we should look at resolver arguments. GraphQL fields let you define arguments. So, if we adjust our hello method to include a new argument name of type string we would infer from the GraphQL field arguments.</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Query</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Hello</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> name</span>) </span>=&gt; <span class="hljs-string">$"Greetings <span class="hljs-subst">{name}</span>"</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Hello</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> name</span>)</span> =&gt; <span class="hljs-string">$"Greetings <span class="hljs-subst">{name}</span>"</span>;
 }
 </code></pre>
 <pre><code class="hljs css language-graphql"><span class="hljs-keyword">type</span> <span class="hljs-type">Query</span> {
@@ -104,12 +104,12 @@ Furthermore, we can only infer non-nullability from value types. Reference types
 <p>Also, you can add the <a href="https://github.com/ChilliCream/hotchocolate/blob/master/src/Core/Resolvers/IResolverContext.cs">resolver context</a> or any resolver context property as an argument to your method.</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Query</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Hello</span>(<span class="hljs-params">Schema schema, <span class="hljs-keyword">string</span> name</span>) </span>=&gt; <span class="hljs-string">$"Greetings <span class="hljs-subst">{name}</span> <span class="hljs-subst">{schema.Query.Name}</span>"</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Hello</span>(<span class="hljs-params">Schema schema, <span class="hljs-keyword">string</span> name</span>)</span> =&gt; <span class="hljs-string">$"Greetings <span class="hljs-subst">{name}</span> <span class="hljs-subst">{schema.Query.Name}</span>"</span>;
 }
 </code></pre>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Query</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Hello</span>(<span class="hljs-params">IResolverContext context, <span class="hljs-keyword">string</span> name</span>) </span>=&gt; <span class="hljs-string">$"Greetings <span class="hljs-subst">{name}</span> <span class="hljs-subst">{context.Service&lt;FooService&gt;().GetBar()}</span>"</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Hello</span>(<span class="hljs-params">IResolverContext context, <span class="hljs-keyword">string</span> name</span>)</span> =&gt; <span class="hljs-string">$"Greetings <span class="hljs-subst">{name}</span> <span class="hljs-subst">{context.Service&lt;FooService&gt;().GetBar()}</span>"</span>;
 }
 </code></pre>
 <p>This gives you the flexibility to tab into the data that is available in the query engine execution context and use it to make your resolvers more dynamic.</p>

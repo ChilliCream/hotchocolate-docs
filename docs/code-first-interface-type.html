@@ -38,8 +38,8 @@
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CharacterType</span>
     : <span class="hljs-title">InterfaceType</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IInterfaceTypeDescriptor descriptor</span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IInterfaceTypeDescriptor descriptor</span>)</span>
+    {
         descriptor.Name(<span class="hljs-string">"Character"</span>);
 
         descriptor.Field(<span class="hljs-string">"id"</span>)
@@ -59,8 +59,8 @@
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">DroidType</span>
     : <span class="hljs-title">ObjectType</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IInterfaceTypeDescriptor descriptor</span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IInterfaceTypeDescriptor descriptor</span>)</span>
+    {
         descriptor.Interface&lt;CharacterType&gt;();
 
         descriptor.Field(<span class="hljs-string">"id"</span>)

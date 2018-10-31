@@ -46,13 +46,13 @@
 {
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> MyCustomService _myCustomService;
 
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FooType</span>(<span class="hljs-params">MyCustomService myCustomService</span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FooType</span>(<span class="hljs-params">MyCustomService myCustomService</span>)</span>
+    {
         _myCustomService = myCustomService;
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IObjectTypeDescriptor desc</span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IObjectTypeDescriptor desc</span>)</span>
+    {
         desc.Field(<span class="hljs-string">"bar"</span>).Resolver(() =&gt; _myCustomService.GetBar());
     }
 }
@@ -62,8 +62,8 @@
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">FooType</span>
     : <span class="hljs-title">ObjectType</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IObjectTypeDescriptor desc</span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IObjectTypeDescriptor desc</span>)</span>
+    {
         desc.Field(<span class="hljs-string">"bar"</span>).Resolver(c =&gt; c.Service&lt;MyCustomService&gt;().GetBar());
     }
 }
@@ -71,8 +71,8 @@
 <p>If you have a clr-type representation of your schema type than you can also inject services as field resolver arguments. Injection of services as field resolver arguments should be your prefered choice since many of the services only have a request life time.</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Query</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Bar</span>(<span class="hljs-params">[Service]MyCustomService service</span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Bar</span>(<span class="hljs-params">[Service]MyCustomService service</span>)</span>
+    {
         <span class="hljs-keyword">return</span> <span class="hljs-string">"foo"</span>;
     }
 }
@@ -80,8 +80,8 @@
 <p>You are also able to inject parts from your field resolver context like the schem as field resolver argument.</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Query</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Bar</span>(<span class="hljs-params">ISchema schema, [Service]MyCustomService service</span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Bar</span>(<span class="hljs-params">ISchema schema, [Service]MyCustomService service</span>)</span>
+    {
         <span class="hljs-keyword">return</span> <span class="hljs-string">"foo"</span>;
     }
 }
@@ -90,8 +90,8 @@
 If you want to inject <code>HttpContext</code> as constructor argument you have to ensure that your type is not a singleton.</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Query</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Bar</span>(<span class="hljs-params">[Service]HttpContext httpContext</span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Bar</span>(<span class="hljs-params">[Service]HttpContext httpContext</span>)</span>
+    {
         <span class="hljs-keyword">return</span> <span class="hljs-string">"foo"</span>;
     }
 }

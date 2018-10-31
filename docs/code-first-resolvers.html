@@ -43,7 +43,7 @@
     <span class="hljs-keyword">public</span> List&lt;<span class="hljs-keyword">string</span>&gt; FriendIds { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
 }
 </code></pre>
-<p>In our GraphQL schema do not want to deal with ID`s or anything. So our GraphQL schema should look like the follwoing:</p>
+<p>In our GraphQL schema we do not want to deal with ID`s or anything. So our GraphQL schema should look like the follwoing:</p>
 <pre><code class="hljs css language-GraphQL">type Query {
     me: Person
 }
@@ -54,7 +54,7 @@ type </span>Person {
 }
 </code></pre>
 <p>This will let us drill into the friends and their friends and so on very nicely.</p>
-<p>Now lets tell our schema how the .net type translates to our desired schemm:</p>
+<p>Now lets tell our schema how the .net type translates to our desired schema:</p>
 <pre><code class="hljs css language-csharp">public class PersonType : ObjectType&lt;Person&gt;
 {
     protected override void Configure(IObjectDescriptor&lt;Person&gt; desc)

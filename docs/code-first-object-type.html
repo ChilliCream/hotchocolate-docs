@@ -248,8 +248,8 @@ public class BarType
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BarType</span>
   : <span class="hljs-title">ObjectType</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IObjectTypeDescriptor desc</span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IObjectTypeDescriptor desc</span>)</span>
+    {
         desc.Field(<span class="hljs-string">"foo"</span>).Resolver(() =&gt; <span class="hljs-string">"hello world"</span>);
     }
 }

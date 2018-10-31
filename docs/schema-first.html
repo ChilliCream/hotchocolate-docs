@@ -68,7 +68,7 @@ So, we added the ability to bind poco types to the schema.</p>
 </code></pre>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Query</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetHello</span>(<span class="hljs-params"></span>) </span>=&gt; <span class="hljs-string">"world"</span>;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetHello</span>(<span class="hljs-params"></span>)</span> =&gt; <span class="hljs-string">"world"</span>;
 }
 </code></pre>
 <p>Sometimes you have business obejcts that alread exist and that do not exactly match your schema.
@@ -77,7 +77,7 @@ In those cases you are able to create a new class that contains the resolvers fo
 <p>We now would just need to define our resolver type.</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">QueryResolvers</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetHello</span>(<span class="hljs-params">Query query</span>) </span>=&gt; query.GetHello();
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetHello</span>(<span class="hljs-params">Query query</span>)</span> =&gt; query.GetHello();
 }
 </code></pre>
 <p>Our schema would now be declared like the following:</p>

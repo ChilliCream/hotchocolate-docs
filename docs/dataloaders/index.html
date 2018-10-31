@@ -63,8 +63,8 @@
 <p>The above request fetches two persons in one go without the need to call the backend twice. The problem for the GraphQL backend is that field resolvers are atomic and do not have any knoledge about the query as a whole. So, a field resolver does not know that it will be called multiple times in parallel to fetch similar or equal data from the same data source.</p>
 <p>This basically represents the first case where <em>DataLoaders</em> help us by batching requests against our database or backend service. Currently, we allow <em>DataLoaders</em> per request and globally.</p>
 <p>So, let's look at some code in order to understand what they are doing. First, let's have a look at how we would write our field resolver without <em>DataLoaders</em>:</p>
-<pre><code class="hljs css language-csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;Person&gt; <span class="hljs-title">GetPerson</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> id, [Service]IPersonRepository repository</span>)
-</span>{
+<pre><code class="hljs css language-csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;Person&gt; <span class="hljs-title">GetPerson</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> id, [Service]IPersonRepository repository</span>)</span>
+{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> repository.GetPersonById(id);
 }
 </code></pre>
@@ -92,8 +92,8 @@
 </code></pre>
 <p>The <em>DataLoader</em> is now injected by the execution engine as a field resolver argument.</p>
 <p><em>DataLoaders</em> have to be injected at field resolver argument level and <strong>NOT</strong> as constructor arguments since the lifetime of a <em>DataLoader</em> is in many cases shorter than the class containing the field resolvers.</p>
-<pre><code class="hljs css language-csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> Task&lt;Person&gt; <span class="hljs-title">GetPerson</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> id, [DataLoader]PersonDataLoader personLoader</span>)
-</span>{
+<pre><code class="hljs css language-csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> Task&lt;Person&gt; <span class="hljs-title">GetPerson</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> id, [DataLoader]PersonDataLoader personLoader</span>)</span>
+{
     <span class="hljs-keyword">return</span> personLoader.LoadAsync(id);
 }
 </code></pre>

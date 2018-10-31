@@ -58,16 +58,16 @@
     : <span class="hljs-title">ScalarType</span>
 {
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">StringType</span>(<span class="hljs-params"></span>)
-        : <span class="hljs-title">base</span>(<span class="hljs-params"><span class="hljs-string">"String"</span></span>)
-    </span>{
+        : <span class="hljs-title">base</span>(<span class="hljs-params"><span class="hljs-string">"String"</span></span>)</span>
+    {
     }
 
     <span class="hljs-comment">// define which .net type represents your type</span>
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> Type NativeType { <span class="hljs-keyword">get</span>; } = <span class="hljs-keyword">typeof</span>(<span class="hljs-keyword">string</span>);
 
     <span class="hljs-comment">// define which literals this type can be parsed from.</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">IsInstanceOfType</span>(<span class="hljs-params">IValueNode literal</span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">IsInstanceOfType</span>(<span class="hljs-params">IValueNode literal</span>)</span>
+    {
         <span class="hljs-keyword">if</span> (literal == <span class="hljs-literal">null</span>)
         {
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentNullException(<span class="hljs-keyword">nameof</span>(literal));
@@ -78,8 +78,8 @@
     }
 
     <span class="hljs-comment">// define how a literal is parsed to the native .net type.</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">object</span> <span class="hljs-title">ParseLiteral</span>(<span class="hljs-params">IValueNode literal</span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">object</span> <span class="hljs-title">ParseLiteral</span>(<span class="hljs-params">IValueNode literal</span>)</span>
+    {
         <span class="hljs-keyword">if</span> (literal == <span class="hljs-literal">null</span>)
         {
             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentNullException(<span class="hljs-keyword">nameof</span>(literal));
@@ -101,8 +101,8 @@
     }
 
     <span class="hljs-comment">// define how a native type is parsed into a literal,</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> IValueNode <span class="hljs-title">ParseValue</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> <span class="hljs-keyword">value</span></span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> IValueNode <span class="hljs-title">ParseValue</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-literal">null</span>)
         {
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NullValueNode(<span class="hljs-literal">null</span>);
@@ -126,8 +126,8 @@
     <span class="hljs-comment">// define the result serialization. A valid output must be of the following .net types:</span>
     <span class="hljs-comment">// System.String, System.Char, System.Int16, System.Int32, System.Int64,</span>
     <span class="hljs-comment">// System.Float, System.Double, System.Decimal and System.Boolean</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">object</span> <span class="hljs-title">Serialize</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> <span class="hljs-keyword">value</span></span>)
-    </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">object</span> <span class="hljs-title">Serialize</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-literal">null</span>)
         {
             <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;

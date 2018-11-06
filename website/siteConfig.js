@@ -27,6 +27,7 @@ const siteConfig = {
   organizationUrl,
   headerLinks: [{
       doc: "introduction",
+      href: "/docs",
       label: "Docs"
     },
     {
@@ -75,7 +76,13 @@ const siteConfig = {
   twitter: true,
   twitterUsername: "Chilli_Cream",
   twitterImage: "img/cupcake.png",
-  cleanUrl: true
+  cleanUrl: true,
+  scrollToTop: true,
+  scrollToTopOptions: {
+    zIndex: 100,
+  },
+  enableUpdateTime: true,
+  enableUpdateBy: true
 };
 
 module.exports = siteConfig;

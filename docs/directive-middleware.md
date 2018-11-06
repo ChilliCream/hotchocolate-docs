@@ -1,6 +1,6 @@
 ---
 id: directive-middleware
-title: Directives
+title: Directives and Custom Directive Middleware
 ---
 
 ## Introduction
@@ -24,7 +24,7 @@ public class MyDirective
 In order to use a directive it has to be registered with the schema.
 
 ```csharp
-Schema.Create(c => 
+Schema.Create(c =>
 {
     c.RegisterDirective<MyDirective>();
 });
@@ -35,8 +35,8 @@ GraphQL specifies three directives in the spec (skip, include and depricated) wh
 The skip and include directives can be used in queries to in- or exclude fields from your query.
 
 ```graphql
-query foo($hideField: Boolean = false){
-    hello @skip(if: $hideField)
+query foo($hideField: Boolean = false) {
+  hello @skip(if: $hideField)
 }
 ```
 
@@ -152,11 +152,11 @@ The order of middleware pipeline is defined by the order of the directives. Sinc
 
 ```graphql
 type Query {
-    foo: Bar
+  foo: Bar
 }
 
 type Bar @a @b {
-    baz: String @c @d
+  baz: String @c @d
 }
 ```
 
@@ -166,9 +166,9 @@ If there were more directives in the query, they would be appended to the direct
 
 ```graphql
 {
-    foo {
-        baz @e @f
-    }
+  foo {
+    baz @e @f
+  }
 }
 ```
 

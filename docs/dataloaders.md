@@ -163,7 +163,9 @@ For more information about our _DataLoader_ implementation head over to our _Dat
 ## Custom Data Loaders
 
 We are supporting custom _DataLoader_ implementations. This means that you can register your own _DataLoader_ implementation with the execution engine.
-In order to register a custom _DataLoader_ implementation you have to provide a factory that creates the _DataLoader_ instance and if your _DataLoader_ can be triggered to start loading data you can pass in a delegate that invokes that trigger function on your _DataLoader_ instance. Our own implementation uses the same registration function and has no special hooks.
+In order to that you have to provide a factory that creates the _DataLoader_ instance and if your _DataLoader_ can be triggered to start loading data you can pass in a delegate that invokes that trigger function on your _DataLoader_ instance.
+
+Our own implementation uses the same registration function and has no special hooks.
 
 ```csharp
   void RegisterDataLoader<T>(
@@ -173,4 +175,4 @@ In order to register a custom _DataLoader_ implementation you have to provide a 
       Func<T, CancellationToken, Task> triggerLoaderAsync = null);
 ```
 
-The triggerLoaderAsync-delegate is raised when all resolvers of the current execution batch are initialized. This dies not mean that necessarily all resolvers already hit your _DataLoader_. We essentially just tell your _DataLoader_ that we have started all resolver tasks from the current batch.
+The triggerLoaderAsync-delegate is raised when all resolvers of the current execution batch are initialized. This does not necessarily mean that all resolvers have already hit your _DataLoader_. We essentially just tell your _DataLoader_ that we have started all resolver tasks from the current batch.

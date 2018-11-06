@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Object Type · Hot Chocolate</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;The object type is the most prominent type in GraphQL. There are currently two ways to describe an object type with the code-first approach.&lt;/p&gt;
+"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Object Type · Hot Chocolate"/><meta property="og:type" content="website"/><meta property="og:url" content="https://hotchocolate.io/index.html"/><meta property="og:description" content="&lt;p&gt;The object type is the most prominent type in GraphQL. There are currently two ways to describe an object type with the code-first approach.&lt;/p&gt;
+"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://hotchocolate.io/img/cupcake.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atelier-dune-light.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72800164-3', 'auto');
+              ga('send', 'pageview');
+            </script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster:700,400"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/signet.svg" alt="Hot Chocolate"/><h2 class="headerTitleWithLogo">Hot Chocolate</h2></a><a href="/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/next/introduction" target="_self">Docs</a></li><li class=""><a href="/docs/next/example-star-wars-code-first" target="_self">Examples</a></li><li class=""><a href="https://chillicream.com/blog" target="_blank">Blog</a></li><li class=""><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Code-First</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Quickstart</h3><ul><li class="navListItem"><a class="navItem" href="/docs/next/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/docs/next/code-first">Code-first</a></li><li class="navListItem"><a class="navItem" href="/docs/next/schema-first">Schema-first</a></li><li class="navListItem"><a class="navItem" href="/docs/next/dotnet-cli">.NET CLI</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Code-First</h3><ul><li class="navListItem"><a class="navItem" href="/docs/next/code-first-introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/docs/next/code-first-resolvers">Resolvers</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/next/code-first-object-type">Object Type</a></li><li class="navListItem"><a class="navItem" href="/docs/next/code-first-interface-type">Interface Type</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">General</h3><ul><li class="navListItem"><a class="navItem" href="/docs/next/general-schema-options">Schema Options</a></li><li class="navListItem"><a class="navItem" href="/docs/next/directive-middleware">Directives</a></li><li class="navListItem"><a class="navItem" href="/docs/next/dependency-injection">Dependency Injection</a></li><li class="navListItem"><a class="navItem" href="/docs/next/custom-scalar-types">Custom Scalar Types.</a></li><li class="navListItem"><a class="navItem" href="/docs/next/dataloaders">DataLoaders</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/ChilliCream/hotchocolate-docs/edit/master/docs/code-first-object-type.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">Object Type</h1></header><article><div><span><p>The object type is the most prominent type in GraphQL. There are currently two ways to describe an object type with the code-first approach.</p>
+<h2><a class="anchor" aria-hidden="true" id="objecttype-t"></a><a href="#objecttype-t" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ObjectType&lt;T&gt;</h2>
+<p>The first approach is by using the generic object type class which lets you specify an entity type that shall represent your schema type in .net. The object type descriptor will then try to automatically infer the GraphQL schema type from your .net type.</p>
+<pre><code class="hljs css language-csharp">public class Query
+{
+  public string GetHello() =&gt; "World";
+}
+
+public class QueryType
+  : ObjectType&lt;Query&gt;
+{
+
+}
+</code></pre>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Query</span> {
+  <span class="hljs-attribute">hello</span>: String
+}
+</code></pre>
+<p>In order to specify you intend more explicitly you can opt to use the <code>IObjectTypeDescriptor&lt;Query&gt;</code> that is accessible by overriding the configure method of the <code>QueryType</code>.</p>
+<pre><code class="hljs css language-csharp">public class Query
+{
+  public string GetHello() =&gt; "World";
+}
+
+public class QueryType
+  : ObjectType&lt;Query&gt;
+{
+    protected override void Configure(IObjectTypeDescriptor&lt;Query&gt; desc)
+    {
+        desc.Field(t =&gt; t.GetHello()).Type&lt;NonNullType&lt;StringType&gt;&gt;();
+    }
+}
+</code></pre>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Query</span> {
+  <span class="hljs-attribute">hello</span>: String!
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="object-type-descriptors"></a><a href="#object-type-descriptors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Object Type Descriptors</h2>
+<p>The following table shows the object type descriptor options:</p>
+<table>
+<thead>
+<tr><th>Name</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Name(string name)</td><td>Defines the name of the object type.</td></tr>
+<tr><td>Description(string description)</td><td>Defines the description of the object type that will be accessible through the introspection.</td></tr>
+<tr><td>Interface&lt;T&gt;()</td><td>Specifies an interface type that is implemented by this object type.</td></tr>
+<tr><td>IsOfType(IsOfType isOfType)</td><td>Defines a function that specifies if a specific resolver type is of the specified object type.</td></tr>
+<tr><td>BindFields(BindingBehavior bindingBehavior)</td><td>Specifies the field binding behaviour.</td></tr>
+<tr><td>Field&lt;TValue&gt;(Expression&lt;Func&lt;T, TValue&gt;&gt; propertyOrMethod)</td><td>Specifies field configuration of a method or property decalred in T.</td></tr>
+<tr><td>Field(string name)</td><td>Specifies a field that does not exist in T.</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="name"></a><a href="#name" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Name</h3>
+<p>The object type descriptor will by default resolve the name of the schema type from the provided type argument. If the type is annotated with the GraphQLNameAttribute than the name attribute will take precedence over the type name. The explicitly specified name will take precedence over both.</p>
+<p>Example name from type:</p>
+<pre><code class="hljs css language-csharp">public class Bar
+{
+  public string Foo { get; set; }
+}
+
+public class BarType
+  : ObjectType&lt;Bar&gt;
+{
+
+}
+</code></pre>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Bar</span> {
+  <span class="hljs-attribute">foo</span>: String
+}
+</code></pre>
+<p>Example name from attribute:</p>
+<pre><code class="hljs css language-csharp">[GraphQLName("Foo")]
+public class Bar
+{
+  public string Foo { get; set; }
+}
+
+public class BarType
+  : ObjectType&lt;Bar&gt;
+{
+
+}
+</code></pre>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Foo</span> {
+  <span class="hljs-attribute">foo</span>: String
+}
+</code></pre>
+<p>Example explicit name:</p>
+<pre><code class="hljs css language-csharp">[GraphQLName("Foo")]
+public class Bar
+{
+  public string Foo { get; set; }
+}
+
+public class BarType
+  : ObjectType&lt;Bar&gt;
+{
+    protected override void Configure(IObjectTypeDescriptor&lt;Bar&gt; desc)
+    {
+        desc.Name("Foo123");
+    }
+}
+</code></pre>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Foo123</span> {
+  <span class="hljs-attribute">foo</span>: String
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="description"></a><a href="#description" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Description</h3>
+<p>The description of a type will provide an additional text that describes a type to the schema introspection. This is useful with tools like GraphiQL. GraphQL descriptions are defined using the Markdown syntax (as specified by <a href="http://commonmark.org">CommonMark</a>).</p>
+<pre><code class="hljs css language-csharp">public class Bar
+{
+  public string Foo { get; set; }
+}
+
+public class BarType
+  : ObjectType&lt;Bar&gt;
+{
+    protected override void Configure(IObjectTypeDescriptor&lt;Bar&gt; desc)
+    {
+        desc.Description("Lorem ipsum dolor sit amet, consectetur adipiscing elit...");
+    }
+}
+</code></pre>
+<pre><code class="hljs css language-graphql"><span class="hljs-string">""</span><span class="hljs-string">"
+Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+"</span><span class="hljs-string">""</span><span class="hljs-built_in">
+type </span>Bar {
+  foo: String
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="isoftype"></a><a href="#isoftype" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>IsOfType</h3>
+<p>The object type descriptor will by default use an instance of approach to figure out if a resolver result is of a certain object type. In some cases when you either have no explicit type binding or you use a .net net type in multiple schema types it is necessary to specify a IsOfType delegate that determines the type of a resolver result.</p>
+<pre><code class="hljs css language-csharp">public class Bar
+{
+  public string Foo { get; set; }
+}
+
+public class BarType
+  : ObjectType&lt;Bar&gt;
+{
+    protected override void Configure(IObjectTypeDescriptor&lt;Bar&gt; desc)
+    {
+        desc.IsOfType((context, result) =&gt; result is string s &amp;&amp; s == "bar");
+    }
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="bindfields"></a><a href="#bindfields" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>BindFields</h3>
+<p>The object type descriptor will by default scan the provided entity type for additional fields. In some cases you might want to specify all the fields explicitly in order to have a more predictable schema. You might not want that a property or method that you add to your types automatically shows up in your schema. In those cases you can change the field binding behaviour to explicit.</p>
+<pre><code class="hljs css language-csharp">public class Bar
+{
+  public string Foo1 { get; set; }
+  public string Foo2 { get; set; }
+}
+
+public class BarType
+  : ObjectType&lt;Bar&gt;
+{
+    protected override void Configure(IObjectTypeDescriptor&lt;Bar&gt; desc)
+    {
+        desc.BindFields(BindingBehaviour.Explicit);
+        desc.Field(t =&gt; t.Foo1);
+    }
+}
+</code></pre>
+<pre><code class="hljs css language-graphql"><span class="hljs-keyword">type</span> <span class="hljs-type">Bar</span> {
+  foo1: <span class="hljs-type">String</span>
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="field"></a><a href="#field" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Field</h3>
+<p>There are two ways to define fields. First you can specify a field configuration by pointing to a property or method that is declared in your .net type.</p>
+<pre><code class="hljs css language-csharp">public class Bar
+{
+  public string Xyz { get; set; }
+}
+
+public class BarType
+  : ObjectType&lt;Bar&gt;
+{
+    protected override void Configure(IObjectTypeDescriptor&lt;Bar&gt; desc)
+    {
+        desc.Field(t =&gt; t.Xyz).Name("foo");
+    }
+}
+</code></pre>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Bar</span> {
+  <span class="hljs-attribute">foo</span>: String
+}
+</code></pre>
+<p>Second, you can define fields that do not have any representation in your .net type.</p>
+<pre><code class="hljs css language-csharp">public class Bar
+{
+  public string Xyz { get; set; }
+}
+
+public class BarType
+  : ObjectType&lt;Bar&gt;
+{
+    protected override void Configure(IObjectTypeDescriptor&lt;Bar&gt; desc)
+    {
+        desc.Field("foo").Resolver(() =&gt; "hello world");
+    }
+}
+</code></pre>
+<pre><code class="hljs css language-graphql"><span class="hljs-keyword">type</span> <span class="hljs-type">Bar</span> {
+  xyz: <span class="hljs-type">String</span>
+  foo: <span class="hljs-type">String</span>
+}
+</code></pre>
+<p>The field descriptor options are described in more detail <a href="/docs/next/code-first-object-type-field">here</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="objecttype"></a><a href="#objecttype" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ObjectType</h2>
+<p>The second approach to describe object types is with the non-generic object type. The non-generic type does not necessarily have a fixed .net type binding. This means that you have more flexibility in defining your schema type and how the data flows through the query engine.</p>
+<pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BarType</span>
+  : <span class="hljs-title">ObjectType</span>
+{
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IObjectTypeDescriptor desc</span>)</span>
+    {
+        desc.Field(<span class="hljs-string">"foo"</span>).Resolver(() =&gt; <span class="hljs-string">"hello world"</span>);
+    }
+}
+</code></pre>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Bar</span> {
+  <span class="hljs-attribute">foo</span>: String
+}
+</code></pre>
+<p>Compared to the generic descriptor interface you are loosing the generic field descriptor that is able to bind a field to a .net property or method.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/code-first-resolvers"><span class="arrow-prev">← </span><span>Resolvers</span></a><a class="docs-next button" href="/docs/next/code-first-interface-type"><span>Interface Type</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#objecttype-t">ObjectType\</a></li><li><a href="#object-type-descriptors">Object Type Descriptors</a><ul class="toc-headings"><li><a href="#name">Name</a></li><li><a href="#description">Description</a></li><li><a href="#isoftype">IsOfType</a></li><li><a href="#bindfields">BindFields</a></li><li><a href="#field">Field</a></li></ul></li><li><a href="#objecttype">ObjectType</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/general-schema-options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script></body></html>

@@ -21,6 +21,7 @@ const siteConfig = {
   repoUrl,
   gaTrackingId: "UA-72800164-3",
   projectName: "hotchocolate-docs",
+  realProjectName: "hotchocolate",
   organizationName: "chillicream",
   organizationTitle: "ChilliCream",
   organizationUrl,

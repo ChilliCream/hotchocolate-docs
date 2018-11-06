@@ -42,7 +42,7 @@
         "title": "Dependency Injection"
       },
       "directive-middleware": {
-        "title": "Middleware"
+        "title": "Directives"
       },
       "dotnet-cli": {
         "title": ".NET CLI"
@@ -66,6 +66,60 @@
         "title": "Introduction"
       },
       "schema-first": {
+        "title": "Schema-first"
+      },
+      "version-0.5.2-code-first-interface-type": {
+        "title": "Interface Type"
+      },
+      "version-0.5.2-code-first-introduction": {
+        "title": "Introduction"
+      },
+      "version-0.5.2-code-first-object-type": {
+        "title": "Object Type"
+      },
+      "version-0.5.2-code-first-resolvers": {
+        "title": "Resolvers"
+      },
+      "version-0.5.2-code-first": {
+        "title": "Code-first"
+      },
+      "version-0.5.2-custom-context": {
+        "title": "Custom Context Objects"
+      },
+      "version-0.5.2-custom-scalar-types": {
+        "title": "Custom Scalar Types."
+      },
+      "version-0.5.2-dataloaders": {
+        "title": "DataLoaders"
+      },
+      "version-0.5.2-dependency-injection": {
+        "title": "Dependency Injection"
+      },
+      "version-0.5.2-directive-middleware": {
+        "title": "Directives"
+      },
+      "version-0.5.2-dotnet-cli": {
+        "title": ".NET CLI"
+      },
+      "version-0.5.2-example-hello-world-code-first": {
+        "title": "Hello World"
+      },
+      "version-0.5.2-example-hello-world-schema-first": {
+        "title": "Hello World"
+      },
+      "version-0.5.2-example-star-wars-code-first": {
+        "title": "Star Wars"
+      },
+      "version-0.5.2-example-star-wars-schema-first": {
+        "title": "Star Wars"
+      },
+      "version-0.5.2-general-schema-options": {
+        "title": "Schema Options"
+      },
+      "version-0.5.2-introduction": {
+        "title": "Introduction"
+      },
+      "version-0.5.2-schema-first": {
         "title": "Schema-first"
       }
     },

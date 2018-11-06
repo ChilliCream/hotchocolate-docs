@@ -52,7 +52,10 @@ const siteConfig = {
     primaryColor: "#a28036",
     secondaryColor: "#a28036"
   },
-  stylesheets: ["https://fonts.googleapis.com/css?family=Lobster:700,400"],
+  stylesheets: [
+    "https://fonts.googleapis.com/css?family=Lobster:700,400",
+    "/css/code-block-buttons.css"
+  ],
   copyright: `Copyright © ${new Date().getFullYear()}`,
   editUrl: "https://github.com/ChilliCream/hotchocolate-docs/edit/master/docs/",
   /*algolia: {
@@ -63,7 +66,11 @@ const siteConfig = {
     // Highlight.js theme to use for syntax highlighting in code blocks
     theme: "atelier-dune-light"
   },
-  scripts: ["https://buttons.github.io/buttons.js"],
+  scripts: [
+    "https://buttons.github.io/buttons.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js",
+    "/js/code-block-buttons.js",
+  ],
   onPageNav: "separate",
   twitter: true,
   twitterUsername: "Chilli_Cream",

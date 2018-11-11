@@ -18,7 +18,8 @@
       "dependency-injection",
       "custom-scalar-types",
       "authorization",
-      "dataloaders"
+      "dataloaders",
+      "aspnet",
     ]
   },
   "examples": {

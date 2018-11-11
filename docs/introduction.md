@@ -9,13 +9,13 @@ Our API will let you start very quickly with pre-built templates that let you st
 
 ## Features
 
-1. Code-first approach
+1. Code-First approach
 
     Use C# to define your schema in a strong typed way.
 
     [Learn more](code-first.md)
 
-1. Schema-first approach
+1. Schema-First approach
 
     Use the GraphQL syntax to define your schema and bind simple methods or whole types to your GraphQL types.
 
@@ -27,7 +27,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
     [Learn more](custom-scalar-types.md)
 
-1. Support for data loader
+1. Support for DataLoader
 
     We have baked-in support for data loaders which makes batching and caching for faster query requests a breeze.
 
@@ -68,7 +68,6 @@ Our API will let you start very quickly with pre-built templates that let you st
     [Learn more](authorization.md)
 
 1. Subscriptions
-
 
     [Learn more](code-first-subscription.md)
 

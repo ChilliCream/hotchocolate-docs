@@ -25,6 +25,37 @@ The server is already configured for subscriptions over websockets and with a Gr
 
 ### Query Middleware
 
-The query middleware enables your GraphQL server to handle GraphQL query requests and handle GraphQL subscriptions via websockets. 
+The query middleware enables your GraphQL server to handle GraphQL query requests and handle GraphQL subscriptions.
 
+The middleware can handle POST, GET and WebSocket requests.
+
+```csharp
+app.UseGraphQL("/graphql");
+```
+
+
+```csharp
+app.UseGraphQL(new GraphQLMiddlewareOptions
+{
+    Path = "/graphql",
+    OnCreateRequest = (context, request, properties) =>
+    {
+        properties["foo"] = "bar";
+        return Task.CompletedTask;
+    }
+});
+```
+
+```csharp
+
+```
+
+```csharp
+
+```
+
+
+### Subscriptions
+
+For subscriptions we have opted to implement the `graphql-ws` protocol that works over websockets. The protocol was specified by [Apollo](https://www.apollographql.com) and is specified [here](https://github.com/apollographql/subscriptions-transport-ws).
 

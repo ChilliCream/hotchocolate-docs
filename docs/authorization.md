@@ -5,9 +5,9 @@ title: Authorization
 
 ## Authentication
 
-GraphQL defined by the spec does not specify how a user has to authenticate against a schema in order to execute queries and retrieve data. Authentication in ASP.net core and ASP.net classic is a solved problem domain. So, there are several ways to provide authentication support to an ASP.net API.
+GraphQL as defined by the spec does not specify how a user has to authenticate against a schema in order to execute queries and retrieve data. Authentication in ASP.net core and ASP.net classic is a solved problem domain. So, there are several ways to provide authentication support to an ASP.net API.
 
-So, in order to opt-in one of those solution just add an authentication middleware to your server and your API is protected.
+So, in order to opt-in one of those solutions just add an authentication middleware to your server and your API is protected.
 
 ## Authorization
 

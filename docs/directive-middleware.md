@@ -1,6 +1,6 @@
 ---
 id: directive-middleware
-title: Directives and Custom Directive Middleware
+title: Directives and Middleware
 ---
 
 ## Introduction

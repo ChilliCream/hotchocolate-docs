@@ -1,9 +1,9 @@
 {
   "docs": {
     "Quickstart": [
-      "introduction", 
-      "code-first", 
-      "schema-first", 
+      "introduction",
+      "code-first",
+      "schema-first",
       "dotnet-cli"
     ],
     "Code-First": [
@@ -17,6 +17,7 @@
       "directive-middleware",
       "dependency-injection",
       "custom-scalar-types",
+      "authorization",
       "dataloaders"
     ]
   },

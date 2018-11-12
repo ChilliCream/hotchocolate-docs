@@ -63,7 +63,7 @@ const siteConfig = {
     apiKey: "47d61652587888cd5144dcdd6fb9117b",
     indexName: "hotchocolate",
     algoliaOptions: {
-      facetFilters: ["language:$LANGUAGE", "version:$VERSION"],
+      facetFilters: ["language:LANGUAGE", "version:VERSION"],
     },
   },
   highlight: {

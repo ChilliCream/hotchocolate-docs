@@ -39,12 +39,12 @@ const siteConfig = {
       label: "Blog",
       external: true
     },
-    //{ search: false },
     {
       href: repoUrl,
       label: "GitHub",
       external: true
-    }
+    },
+    { search: false }
   ],
   headerIcon: "img/signet.svg",
   footerIcon: "img/signet.svg",
@@ -59,10 +59,13 @@ const siteConfig = {
   ],
   copyright: `Copyright © ${new Date().getFullYear()}`,
   editUrl: "https://github.com/ChilliCream/hotchocolate-docs/edit/master/docs/",
-  /*algolia: {
-    apiKey: "bf33c17016c2932f4993e27c5d3aba72",
-    indexName: "hotchocolate"
-  },*/
+  algolia: {
+    apiKey: "47d61652587888cd5144dcdd6fb9117b",
+    indexName: "hotchocolate",
+    algoliaOptions: {
+      facetFilters: ["language:$LANGUAGE", "version:$VERSION"],
+    },
+  },
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks
     theme: "atelier-dune-light"

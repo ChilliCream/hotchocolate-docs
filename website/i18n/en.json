@@ -5,8 +5,11 @@
     "previous": "Previous",
     "tagline": "A GraphQL Server for .net core and .net classic",
     "docs": {
-      "authentication": {
-        "title": "authentication"
+      "aspnet": {
+        "title": "ASP.net"
+      },
+      "authorization": {
+        "title": "Authorization"
       },
       "code-first-enum-type": {
         "title": "code-first-enum-type"
@@ -26,6 +29,9 @@
       "code-first-resolvers": {
         "title": "Resolvers"
       },
+      "code-first-subscription": {
+        "title": "code-first-subscription"
+      },
       "code-first": {
         "title": "Code-first"
       },
@@ -41,8 +47,11 @@
       "dependency-injection": {
         "title": "Dependency Injection"
       },
+      "diagnostics": {
+        "title": "Authorization"
+      },
       "directive-middleware": {
-        "title": "Directives"
+        "title": "Directives and Middleware"
       },
       "dotnet-cli": {
         "title": ".NET CLI"

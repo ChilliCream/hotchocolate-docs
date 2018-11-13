@@ -1,0 +1,65 @@
+---
+id: parser
+title: Parser and Lexer
+---
+
+The _Hot Chocolate_ parser is ported from the `graphql-js` reference implementation. We are constantly updating the lexer and parser to keep up with new spec features in order to keep it the fastest and most feature complete GraphQL parser in .net.
+
+## Getting Started
+
+If you want to build GraphQL tooling for .net or your own type system and query-engine feel free to built on top of the _Hot Chocolate_ parser.
+
+In order to use the parser install the follwing package:
+
+```bash
+dotnet add package HotChocolate.Language
+```
+
+In order to parse a GraphQL schema or query use it like the following:
+
+```csharp
+Parser parser = new Parser();
+DocumentNode document = parser.Parse("{ x { y } }");
+```
+
+We have created some visitor classes in order to make it easy to traverse the parsed syntax nodes.
+
+## Important Base Classes
+
+Here are some important base classes:
+
+- SyntaxVisitor
+  The `SyntaxVisitor` provides the basic visitation methods without any functionality to traverse the tree.
+
+- SyntaxWalkerBase
+  The `SyntaxWalkerBase` builts upon the `SyntaxVisitor` and adds basic functionality like `VisitMany` for traversing syntax nodes.
+
+- SchemaSyntaxWalker
+  The `SchemaSyntaxWalker` builts upon the `SyntaxWalkerBase` and adds functionality to automatically traverse type system syntax nodes. This syntax walker ignores query syntax nodes.
+  
+  In order to visit a specific type definition syntax node override the related visitation node and add your code. If you want the syntax walker to keep traversing after your code has been executed invoke the the original method implementation of the visitation-method after or before your code.
+
+  ```csharp
+  protected override void VisitDirectiveDefinition(
+      DirectiveDefinitionNode node,
+      YourContextType context)
+  {
+      _visited.Add(nameof(VisitDirectiveDefinition));
+      base.VisitDirectiveDefinition(node);
+  }
+  ```
+
+- SchemaSerializer
+  The `SchemaSerializer` is built upon the `SchemaSyntaxWalker` and serializes specific type definition syntax nodes to a GraphQL SDL. So, it is basically doing the reverse of the parser. With this you are able to modify a syntax graph and than serializing it back to a GraphQL string.
+
+- QuerySyntaxWalker
+  The `QuerySyntaxWalker` builts upon the `SyntaxWalkerBase` and adds functionality to automatically traverse query syntax nodes. This syntax walker ignores type system syntax nodes.
+
+- QuerySerializer
+  The `QuerySerializer` is built upon the `QuerySyntaxWalker` and serializes query syntax nodes to a GraphQL query string. With this you are able to modify a syntax graph and than serialize it back to a GraphQL string.
+
+## What's Coming Next
+
+We are currently working on another set of visitor classes that are able to rewrite a syntax graph.
+
+So, with the next view releases we will introduce a syntax rewriter that let`s visit nodes of a syntax graph and rewrite them. This will actually look very much like the roslyn guys from Microsoft did it with their code analysis APIs.

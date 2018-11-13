@@ -19,7 +19,8 @@
       "custom-scalar-types",
       "authorization",
       "dataloaders",
-      "aspnet"
+      "aspnet",
+      "parser"
     ]
   },
   "examples": {

@@ -19,3 +19,5 @@ dotnet run --project StarWars/StarWars.csproj -c release
 ```
 
 The service should start-up and run on the port 5000. Get GraphiQL and fire up your queries against the schema.
+
+The template source code is located [here](https://github.com/ChilliCream/hotchocolate-templates/tree/master/StarWars/content).

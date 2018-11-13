@@ -18,7 +18,7 @@ const versions = require(`${CWD}/versions.json`);
 
 function Versions() {
   const latestVersion = versions[0];
-  const repoUrl = `https://github.com/${siteConfig.organizationName}/${siteConfig.projectName}`;
+  const repoUrl = `https://github.com/${siteConfig.organizationName}/${siteConfig.realProjectName}`;
   return (
     <div className="docMainWrapper wrapper">
       <Container className="mainContainer versionsContainer">

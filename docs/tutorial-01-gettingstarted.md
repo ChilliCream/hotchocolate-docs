@@ -42,6 +42,8 @@ dotnet restore
 
 The _HotChocolate.AspNetCore_ package contains the ASP.net core middleware for hot chocolate and also includes the _Hot Chocolate_ query engine as a dependency.  This package basically provides all we need to get started.
 
+## Configuring the GraphQL server
+
 So, in order to configure our server lets open the `src/Server/Startup.cs` and rewrite the `ConfigureServices` method like the following:
 
 ```csharp
@@ -123,6 +125,8 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     app.UseGraphiQL();
 }
 ```
+
+## Testing the server
 
 Since we have now a UI that can execute queries against our server lets start our server and fire up our first GraphQL query against it:
 

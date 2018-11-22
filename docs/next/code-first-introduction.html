@@ -50,15 +50,15 @@
 <li><a href="https://graphql.org/learn/schema/#enumeration-types">Enum Type</a></li>
 <li><a href="https://graphql.org/learn/schema/#scalar-types">Scalar Type</a></li>
 </ul>
-<p>When describing your GraphQL API code-first you are starting with your existing code which is just common .net code.</p>
-<p>In order to give your types the right context in a GraphQL schema or more precisly to infer the GraphQL schema types from your .net APIs we are wrapping them into schema types that correlate to the corresponding schema type kind.</p>
-<p>Lets say we have a simpel .net type <code>Query</code> that has one method <code>GetFoo()</code> which returns a <code>System.String</code>:</p>
+<p>When describing your GraphQL API code-first you are starting with your existing code which is just common .NET code.</p>
+<p>In order to give your types the right context in a GraphQL schema or more precisely to infer the GraphQL schema types from your .NET APIs we are wrapping them into schema types that correlate to the corresponding schema type kind.</p>
+<p>Lets say we have a simple .NET type <code>Query</code> that has one method <code>GetFoo()</code> which returns a <code>System.String</code>:</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Query</span>
 {
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetFoo</span>(<span class="hljs-params"></span>)</span> =&gt; <span class="hljs-string">"Some Result"</span>;
 }
 </code></pre>
-<p>We cann add this type to our schema by registering it like the following:</p>
+<p>We can add this type to our schema by registering it like the following:</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">var</span> schema = Schema.Create(c =&gt;
 {
   c.RegisterType&lt;ObjectType&lt;Query&gt;&gt;();
@@ -76,10 +76,10 @@
   c.RegisterType&lt;Query&gt;();
 })
 </code></pre>
-<p>Here is a table that depicts how we will try to infer the schema types from your .net types:</p>
+<p>Here is a table that depicts how we will try to infer the schema types from your .NET types:</p>
 <table>
 <thead>
-<tr><th>.net Type</th><th>GraphQL Type</th></tr>
+<tr><th>.NET Type</th><th>GraphQL Type</th></tr>
 </thead>
 <tbody>
 <tr><td>non-abstract class</td><td>Object Type</td></tr>
@@ -125,15 +125,15 @@
 }
 </code></pre>
 <p>We are constantly working on this mechanism in order to support more cases. The most significant drawback at the moment is that we cannot detect if a reference type is meant as non-null-type or as nullable-type.</p>
-<p>In order to describe your intention more detailed or even describe types that do not exist in c# you can opt to use the schema types.</p>
-<p>There are basically to ways to describe your types explicitly. For smaller declarations we can pass into the constructor of a schema type a configuration delegate that specifies the schema type properties.</p>
+<p>In order to describe your intention more detailed or even describe types that do not exist in C# you can opt to use the schema types.</p>
+<p>There are basically two ways to describe your types explicitly. For smaller declarations we can pass into the constructor of a schema type a configuration delegate that specifies the schema type properties.</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">var</span> schema = Schema.Create(c =&gt;
 {
   c.RegisterType(<span class="hljs-keyword">new</span> ObjectType&lt;Foo&gt;(d =&gt; d.Name(<span class="hljs-string">"SuperFoo"</span>));
 })
 </code></pre>
 <p>Since, we would end up with a very long chain of method calls if you had to specify more than just the name, you can also inherit from ObjectType<T> and override the Configure method.</p>
-<p>It is important to note that you can mix and match plain .net types, schema types and types expressed in the GraphQL syntax. Moreover, even with the schema types in place you only have to fill in the gaps. So, if we only wanted the <code>Name</code> property of the <code>Person</code> type to be a non-null-type we would have to make the following change to our code.</p>
+<p>It is important to note that you can mix and match plain .NET types, schema types and types expressed in the GraphQL syntax. Moreover, even with the schema types in place you only have to fill in the gaps. So, if we only wanted the <code>Name</code> property of the <code>Person</code> type to be a non-null-type we would have to make the following change to our code.</p>
 <pre><code class="hljs css language-csharp">public class Query
 {
     public Person GetPerson() =&gt; new Person { Name = "Foo" };
@@ -169,7 +169,7 @@ var schema = Schema.Create(c =&gt;
     <span class="hljs-built_in">newFriend</span>(name: String): Person
 }
 </code></pre>
-<p>Moreover, we can add additional fields that our .net type does not contain:</p>
+<p>Moreover, we can add additional fields that our .NET type does not contain:</p>
 <pre><code class="hljs css language-csharp">public class PersonType : ObjectType&lt;Person&gt;
 {
     protected override void Configure(IObjectDescriptor&lt;Person&gt; desc)
@@ -197,7 +197,7 @@ var schema = Schema.Create(c =&gt;
 <li><a href="/docs/next/code-first-enum-type">Enum Type Descriptor</a></li>
 <li><a href="code-first-input-object-type.md">Input Object Type Descriptor</a></li>
 </ul>
-</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2018-8-27 by Michael Staib</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/dotnet-cli"><span class="arrow-prev">← </span><span>.NET CLI</span></a><a class="docs-next button" href="/docs/next/code-first-resolvers"><span>Resolvers</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/general-schema-options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2018-11-22 by Alexandr Shestakov</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/dotnet-cli"><span class="arrow-prev">← </span><span>.NET CLI</span></a><a class="docs-next button" href="/docs/next/code-first-resolvers"><span>Resolvers</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/general-schema-options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

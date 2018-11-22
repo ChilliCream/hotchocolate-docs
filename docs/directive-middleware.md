@@ -7,7 +7,7 @@ title: Directives and Middleware
 
 Directives provide a way in GraphQL to add annotations to the type system or query elements. These annotations can be used to provide meta data for code generators or even to change the execution behavior of the query engine on a GraphQL server.
 
-You can specify a directive by inehriting from `DirectiveType`:
+You can specify a directive by inheriting from `DirectiveType`:
 
 ```csharp
 public class MyDirective
@@ -30,7 +30,7 @@ Schema.Create(c =>
 });
 ```
 
-GraphQL specifies three directives in the spec (skip, include and depricated) which are always registered with your schema.
+GraphQL specifies three directives in the spec (skip, include and deprecated) which are always registered with your schema.
 
 The skip and include directives can be used in queries to in- or exclude fields from your query.
 
@@ -174,7 +174,7 @@ If there were more directives in the query, they would be appended to the direct
 
 So, now the order would be like the following: `a, b, c, d, e, f`.
 
-Since, a middleware pipeline effectively replaces the original resolver function every middleware can execute the original resolver by calling `ResolveAsync()` on the `IDirecvtiveContext`.
+Since, a middleware pipeline effectively replaces the original resolver function every middleware can execute the original resolver by calling `ResolveAsync()` on the `IDirectiveContext`.
 
 ### Method Binding
 

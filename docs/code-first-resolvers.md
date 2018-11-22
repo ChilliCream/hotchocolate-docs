@@ -73,7 +73,7 @@ public class Person
 Since the above solution would mess up your clean .net type we could also bind our resolver to a different type that contains our resolver method.
 
 ```csharp
-public class PersonResolvers
+public class PersonResolver
 {
     public Task<IEnumerable<Person>> GetFriends(Person person, [Service]IPersonRepository repository)
     {
@@ -98,7 +98,7 @@ The best way to use dependency injection with resolver types is to inject depend
 You can basically inject anything that is accessible through the resolver context. So, if you would like to know which field is being resolved you could just add `FieldNode` as a method argument and we would inject this into the method call.
 
 ```csharp
-public class PersonResolvers
+public class PersonResolver
 {
     public Task<IEnumerable<Person>> GetFriends(Person person, [Service]IPersonRepository repository, FieldNode fieldSelection)
     {
@@ -134,7 +134,7 @@ Resolver types can also be used as common resolvers where you share resolver log
 
 ## Resolver Context
 
-The resolver context represent the execution context for a specific field that is being resolved.
+The resolver context represents the execution context for a specific field that is being resolved.
 
 | Member        | Type | Description |
 | ------------- | ----------- | ----------- |

@@ -12,11 +12,11 @@ GraphQL basically specifies six type kinds excluding ListType and NonNullType:
 - [Enum Type](https://graphql.org/learn/schema/#enumeration-types)
 - [Scalar Type](https://graphql.org/learn/schema/#scalar-types)
 
-When describing your GraphQL API code-first you are starting with your existing code which is just common .net code.
+When describing your GraphQL API code-first you are starting with your existing code which is just common .NET code.
 
-In order to give your types the right context in a GraphQL schema or more precisly to infer the GraphQL schema types from your .net APIs we are wrapping them into schema types that correlate to the corresponding schema type kind.
+In order to give your types the right context in a GraphQL schema or more precisely to infer the GraphQL schema types from your .NET APIs we are wrapping them into schema types that correlate to the corresponding schema type kind.
 
-Lets say we have a simpel .net type `Query` that has one method `GetFoo()` which returns a `System.String`:
+Lets say we have a simple .NET type `Query` that has one method `GetFoo()` which returns a `System.String`:
 
 ```csharp
 public class Query
@@ -25,7 +25,7 @@ public class Query
 }
 ```
 
-We cann add this type to our schema by registering it like the following:
+We can add this type to our schema by registering it like the following:
 
 ```csharp
 var schema = Schema.Create(c =>
@@ -53,9 +53,9 @@ var schema = Schema.Create(c =>
 })
 ```
 
-Here is a table that depicts how we will try to infer the schema types from your .net types:
+Here is a table that depicts how we will try to infer the schema types from your .NET types:
 
-| .net Type        | GraphQL Type |
+| .NET Type        | GraphQL Type |
 | ------------- | ----------- |
 | non-abstract class | Object Type |
 | Enum | Enum Type |
@@ -107,9 +107,9 @@ type Person {
 
 We are constantly working on this mechanism in order to support more cases. The most significant drawback at the moment is that we cannot detect if a reference type is meant as non-null-type or as nullable-type.
 
-In order to describe your intention more detailed or even describe types that do not exist in c# you can opt to use the schema types.
+In order to describe your intention more detailed or even describe types that do not exist in C# you can opt to use the schema types.
 
-There are basically to ways to describe your types explicitly. For smaller declarations we can pass into the constructor of a schema type a configuration delegate that specifies the schema type properties.
+There are basically two ways to describe your types explicitly. For smaller declarations we can pass into the constructor of a schema type a configuration delegate that specifies the schema type properties.
 
 ```csharp
 var schema = Schema.Create(c =>
@@ -120,7 +120,7 @@ var schema = Schema.Create(c =>
 
 Since, we would end up with a very long chain of method calls if you had to specify more than just the name, you can also inherit from ObjectType<T> and override the Configure method.
 
-It is important to note that you can mix and match plain .net types, schema types and types expressed in the GraphQL syntax. Moreover, even with the schema types in place you only have to fill in the gaps. So, if we only wanted the `Name` property of the `Person` type to be a non-null-type we would have to make the following change to our code.
+It is important to note that you can mix and match plain .NET types, schema types and types expressed in the GraphQL syntax. Moreover, even with the schema types in place you only have to fill in the gaps. So, if we only wanted the `Name` property of the `Person` type to be a non-null-type we would have to make the following change to our code.
 
 ```csharp
 public class Query
@@ -161,7 +161,7 @@ type Person {
 }
 ```
 
-Moreover, we can add additional fields that our .net type does not contain:
+Moreover, we can add additional fields that our .NET type does not contain:
 
 ```csharp
 public class PersonType : ObjectType<Person>

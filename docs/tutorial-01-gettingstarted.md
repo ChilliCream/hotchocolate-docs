@@ -42,7 +42,7 @@ dotnet restore
 
 The _HotChocolate.AspNetCore_ package contains the ASP.net core middleware for hot chocolate and also includes the _Hot Chocolate_ query engine as a dependency.  This package basically provides all we need to get started.
 
-## Configuring the GraphQL server
+## Configuring the server
 
 So, in order to configure our server lets open the `src/Server/Startup.cs` and rewrite the `ConfigureServices` method like the following:
 
@@ -138,18 +138,19 @@ This `watch` command will compile and the run your server. Everytime a code file
 
 Since every thing should be running now lets open a browser and navigate to `http://localhost:5000/ui`.
 
-/// GraphiQL image
+![GraphiQL](/docs/assets/tutorial-01-gettingstarted-graphiql-empty.png)
 
+GraphiQL is divided into three areas, the left area lets you write queries, the middle area will show the result of an executed query and the right area will give you insights into the schema of your service.
 
-Lets write our first query. GraphQL queries describe the request that you want to execute as well as the data that you want. GraphQL has three well-known root types `Query`, `Mutation` and `Subscription`. `Query` basically represents  .....
-
-
+Lets write our first query an test our server setup.
 
 ```GraphQL
 {
     hello
 }
 ```
+
+After hitting the execute button GraphiQL you should receive the following result:
 
 ```json
 {
@@ -158,3 +159,5 @@ Lets write our first query. GraphQL queries describe the request that you want t
   }
 }
 ```
+
+GraphQL 

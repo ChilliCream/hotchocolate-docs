@@ -74,8 +74,14 @@
       "introduction": {
         "title": "Introduction"
       },
+      "parser": {
+        "title": "Parser"
+      },
       "schema-first": {
         "title": "Schema-first"
+      },
+      "tutorial-01-gettingstarted": {
+        "title": "Getting Started"
       },
       "version-0.5.2-code-first-interface-type": {
         "title": "Interface Type"

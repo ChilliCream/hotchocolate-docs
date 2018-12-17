@@ -160,4 +160,3 @@ After hitting the execute button GraphiQL you should receive the following resul
 }
 ```
 
-GraphQL 

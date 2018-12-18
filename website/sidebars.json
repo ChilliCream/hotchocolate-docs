@@ -20,7 +20,8 @@
       "authorization",
       "dataloaders",
       "aspnet",
-      "parser"
+      "parser",
+      "pagination"
     ]
   },
   "examples": {

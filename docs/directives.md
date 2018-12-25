@@ -1,6 +1,6 @@
 ---
-id: directive-middleware
-title: Directives and Middleware
+id: directives
+title: Directives
 ---
 
 ## Introduction
@@ -124,7 +124,7 @@ public class MyDirectiveType
     {
         descriptor.Name("my");
         descriptor.Location(DirectiveLocation.Object);
-        descriptor.Middleware(next => context =>
+        descriptor.Use(next => context =>
         {
             context.Result = "Bar";
             return next.Invoke(context);
@@ -188,7 +188,7 @@ public class MyDirectiveType
     {
         descriptor.Name("my");
         descriptor.Location(DirectiveLocation.Object);
-        descriptor.Middleware(next => context =>
+        descriptor.Use(next => context =>
         {
             context.Result = "Bar";
             return next.Invoke();

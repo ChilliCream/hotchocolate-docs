@@ -22,7 +22,8 @@
       "aspnet",
       "parser",
       "pagination",
-      "middleware"
+      "middleware",
+      "error-filter"
     ]
   },
   "examples": {

@@ -1,18 +1,12 @@
 {
   "docs": {
-    "Quickstart": [
+    "Introduction": [
       "introduction",
       "code-first",
       "schema-first",
       "dotnet-cli"
     ],
-    "Code-First": [
-      "code-first-introduction",
-      "code-first-resolvers",
-      "code-first-object-type",
-      "code-first-interface-type"
-    ],
-    "General": [
+    "API Reference": [
       "general-schema-options",
       "directive-middleware",
       "dependency-injection",
@@ -24,6 +18,12 @@
       "pagination",
       "middleware",
       "error-filter"
+    ],
+    "Guides": [
+      "code-first-introduction",
+      "code-first-resolvers",
+      "code-first-object-type",
+      "code-first-interface-type"
     ]
   },
   "examples": {

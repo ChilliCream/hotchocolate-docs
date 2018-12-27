@@ -18,7 +18,8 @@
       "pagination",
       "middleware",
       "error-filter",
-      "security"
+      "security",
+      "validation-rule"
     ],
     "Guides": [
       "code-first-introduction",

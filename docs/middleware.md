@@ -100,7 +100,7 @@ public class FooType
 
 You also can define you middleware as a class. There is no interface since you can choose services as payloads for your constructor and/or method.
 
-The method has to return `Task` and must be called `InvokeAsync` or `Invoke`. 
+The method has to return `Task` and must be called `InvokeAsync` or `Invoke`.
 
 Since, a middleware lifetime is basically bound to the lifetime of the executer you should only inject singletons into the constructor.
 
@@ -194,9 +194,9 @@ Once registered our directive can be used like the following in queries:
 
 ```graphql
 {
-    foo {
-        bar @upper
-    }
+  foo {
+    bar @upper
+  }
 }
 ```
 
@@ -206,11 +206,11 @@ This makes writing middlewares simpler since you do not have to write a middlewa
 
 Moreover, the middleware is only injected into the field resolver pipeline if needed so you do not have extra code running each time a field is resolved when it is not annotated with your directive.
 
-More about directives in particular can be read [here](directives.md)
+More about directives in particular can be read [here](directive.md)
 
 ## Query Middleware
 
-The query execution process itself is just made up of many query middleware components. 
+The query execution process itself is just made up of many query middleware components.
 
 For us it makes changes to the execution pipeline very simple. Moreover, we can write tests for each middleware component.
 
@@ -224,7 +224,7 @@ A query middleware is declared with the `QueryExecutionBuilder`.
 
 ```csharp
 QueryExecutionBuilder.New()
-    .Use(next => context => 
+    .Use(next => context =>
     {
         // your middleware code
     })

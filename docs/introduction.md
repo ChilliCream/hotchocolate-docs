@@ -48,7 +48,7 @@ Our API will let you start very quickly with pre-built templates that let you st
     }
     ```
 
-    [Learn more](directive-middleware.md)
+    [Learn more](directive.md)
 
 1. Authorization Directives
 

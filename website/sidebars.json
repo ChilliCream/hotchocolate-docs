@@ -7,8 +7,8 @@
       "dotnet-cli"
     ],
     "API Reference": [
-      "general-schema-options",
-      "directive-middleware",
+      "options",
+      "directive",
       "dependency-injection",
       "custom-scalar-types",
       "authorization",
@@ -17,7 +17,8 @@
       "parser",
       "pagination",
       "middleware",
-      "error-filter"
+      "error-filter",
+      "security"
     ],
     "Guides": [
       "code-first-introduction",

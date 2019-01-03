@@ -62,7 +62,19 @@ This, means that we reduced the roundtrips from our client to our server with Gr
 
 With _DataLoaders_ we can now centralise our person fetching and reduce the number of round trips to our data source.
 
-First, we have to create a _DataLoader_ that now acts as intermediary between a field resolver and the data source.
+In order to use _DataLoaders_ in with _HotChocolate_ we have to add the _DataLoader_ registry. The _DataLoader_ registry basically manages the data loader instances and interacts with the execution engine.
+
+```csharp
+services.AddDataLoaderRegistry();
+```
+
+Next, we have to create a _DataLoader_ that now acts as intermediary between a field resolver and the data source.
+
+You can either implement a _DataLoader_ as class or just provide us with a delegate that represents the fetch logic.
+
+## Class DataLoader
+
+Let us first look at the class _DataLoader_:
 
 ```csharp
 public class PersonDataLoader : DataLoaderBase<string, Person>
@@ -75,8 +87,9 @@ public class PersonDataLoader : DataLoaderBase<string, Person>
         _repository = repository;
     }
 
-    protected override Task<IReadOnlyList<Result<string>>> Fetch(
-        IReadOnlyList<string> keys)
+    protected override async Task<IReadOnlyList<Result<Person>>> FetchAsync(
+        IReadOnlyList<string> keys,
+        CancellationToken cancellationToken)
     {
         return _repository.GetPersonBatch(keys);
     }
@@ -94,16 +107,7 @@ public Task<Person> GetPerson(string id, [DataLoader]PersonDataLoader personLoad
 }
 ```
 
-Next, we have to register our _DataLoader_ with the schema. By default, _DataLoaders_ are registerd as per-request meaning that the execution engine will create one instance of each _DataLoader_ per-request **if** a field resolver has requested a _DataLoader_. This ensures that, _DataLoaders_ that are not beeing requested are not instantiated unnecessarily.
-
-```csharp
-Schema.Create(c =>
-{
-    // your other code...
-
-    c.RegisterDataLoader<PersonDataLoader>();
-});
-```
+It is important that you do not have to register a _DataLoader_ with your dependency injection provider. _HotChocolate_ will handle the instance management and register all _DataLoaders_ automatically with the _DataLoader_ registry that we have added earlier.
 
 Now, person requests in a single execution batch will be batched to the data source.
 
@@ -158,21 +162,100 @@ The best case now would be that we only fetch `c`, `d` and `e` since we have alr
 
 This is the second problem class the _DataLoader_ utility helps us with since the _DataLoader_ contains a cache and holds the resolved instances by default for the duration of your request.
 
-For more information about our _DataLoader_ implementation head over to our _DataLoader_ [GitHub repository](https://github.com/ChilliCream/greendonut).
+## Delegate DataLoader
 
-## Custom Data Loaders
+With the class _DataLoader_ you have full controll of how the _DataLoader_ works. But in many cases this control is not needed. We have specified four classes of _DataLoaders_ that can be specified as delegate.
 
-We are supporting custom _DataLoader_ implementations. This means that you can register your own _DataLoader_ implementation with the execution engine.
-In order to that you have to provide a factory that creates the _DataLoader_ instance and if your _DataLoader_ can be triggered to start loading data you can pass in a delegate that invokes that trigger function on your _DataLoader_ instance.
+### Batch DataLoader
 
-Our own implementation uses the same registration function and has no special hooks.
+Batch _DataLoaders_ collect request for entities per processing level and send them as a batch request to the data source.
+The batch _DataLoader_ gets the keys as a collection and expects a `Dictionar<TKey, TValue>` back.
 
 ```csharp
-  void RegisterDataLoader<T>(
-      string key,
-      ExecutionScope scope,
-      Func<IServiceProvider, T> loaderFactory = null,
-      Func<T, CancellationToken, Task> triggerLoaderAsync = null);
+public Task<Person> GetPerson(string id, IResolverContext context, [Service]IPersonRepository repository)
+{
+    return context.DataLoader("personLoader", keys => repository.GetPersonBatch(keys)).LoadAsync(id);
+}
 ```
 
-The triggerLoaderAsync-delegate is raised when all resolvers of the current execution batch are initialized. This does not necessarily mean that all resolvers have already hit your _DataLoader_. We essentially just tell your _DataLoader_ that we have started all resolver tasks from the current batch.
+The `DataLoader` extension method on `IResolverContext` gets or creates a batch _DataLoader_. So, this basically saves you writing the _DataLoader_ classes.
+
+### One to Many DataLoader
+
+The one to many _DataLoader_ is also a batch _DataLoader_ but instead of returning one entity per key it returns multiple entities per key. The one to many _DataLoader_ gets the keys as a collection and expects a `ILookup<TKey, TValue>` back.
+
+```csharp
+public Task<Person> GetPerson(string id, IResolverContext context, [Service]IPersonRepository repository)
+{
+    return context.DataLoader("personLoader", keys => repository.GetPersonBatch(keys).ToLookup(t => t.Id)).LoadAsync(id);
+}
+```
+
+### Single Request DataLoader
+
+The single request _DataLoader_ is basically the easiest to implement since there is no batching involved. So, we can just use the initial `GetPersonById` method. We, do not get the benifits of batching with this one but if in a query graph the same entity is twice resolved that we get the benefits of the _DataLoader_ caching.
+
+```csharp
+public Task<Person> GetPerson(string id, IResolverContext context, [Service]IPersonRepository repository)
+{
+    return context.DataLoader("personLoader", keys => repository.GetPersonById(keys)).LoadAsync(id);
+}
+```
+
+### Load Once Request DataLoader
+
+The load one request _DataLoader_ is not really a _DataLoader_ like described by facebook. It rather uses the infrastructure of the _DataLoader_ to provide a kind cache loader. So, basically you can use this one to cache the values of certain calls within a request.
+
+```csharp
+public Task<Person> GetPerson(string id, IResolverContext context, [Service]IPersonRepository repository)
+{
+    return context.DataLoader("cachingLoader", () => repository.GetSomeResource())();
+}
+```
+
+And since we do not have any keys here we just return a `Func<Task<TValue>>` that can be executed to fetch a value.
+
+## Stacked DataLoader
+
+This is more like an edge case that is supported than a certain type of _DataLoader_. Somtime we have more complex resolvers that might first fetch data from one _DataLoader_ and use that to fetch data from the next. With the new _DataLoader_ implementation this is supported and under test.
+
+```csharp
+public Task<IEnumerable<Customer>> GetCustomers(string personId, IResolverContext context, [Service]IPersonRepository personRepository, [Service]ICustomerRepository customerRepository)
+{
+    Person person = await context.DataLoader("personLoader", keys => repository.GetPersonById(keys)).LoadAsync(id);
+    return await context.DataLoader("customerLoader", keys => repository.GetCustomerById(keys)).LoadAsync(person.CustomerIds);
+}
+```
+
+## Global DataLoader
+
+Global _DataLoader_ are _DataLoader_ that are shared between request. This can be useful for caching strategies.
+
+In order to add support for global _DataLoaders_ you can add a second _DataLoader_ registry. This one has to be declared as singleton. It is important that you declare the global registry first since we use the last registered registry for ad-hoc registrations.
+
+```csharp
+services.AddSingleto<IDataLoaderRegistry, DataLoaderRegistry>();
+services.AddDataLoaderRegistry();
+```
+
+It is important to know that you always have to do `AddDataLoaderRegistry` since this also sets up the batch operation that is needed to hook up the execution engine with the _DataLoaders_.
+
+## GreenDonut
+
+For more information about our _DataLoader_ implementation head over to our _DataLoader_ [GitHub repository](https://github.com/ChilliCream/greendonut).
+
+## Migration form 0.6.x to 0.7.0
+
+We have removed the need to register _DataLoaders_ before using them. We also seperated execution options and services from the type system. So, with the new release you have to remove the `RegisterDataLoader` calls from your schema. Moreover, the _DataLoader_ `Fetch` method is now called `FetchAsync` and has now a `CancellationToken` as parameter. The main reason to change this method was the missing `CancellationToken` so that batch operations can be aborted.
+
+Here are the steps that you have to do in order to migrate:
+
+- Remove all RegisterDataLoader calls from the schema configuration.
+- Add `services.AddDataLoaderRegistry();` to you dependency injection configuration.
+- Update your fetch methods in your _DataLoaders_.
+
+## Custom Data Loaders and Batch Operations
+
+With the new API we are introducing the `IBatchOperation` interface. The query engine will fetch all batch operations and trigger those once all data resolvers in one batch are running. We have implemented this interface for our _DataLoaders_ aswell. So, if you want to implement some database batching or integrate a custom _DataLoader_ than this interface is your friend. There is also a look ahead available which will provide you with the fields that have to be fetched.
+
+If you are planung to implement something in this area get in contact with us and we provide you with more information.

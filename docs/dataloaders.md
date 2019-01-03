@@ -5,7 +5,7 @@ title: DataLoaders
 
 ## Data Loaders
 
-If you want to read more about _DataLoaders_ in general, you can head over to Facebook's [GitHub repository](https://github.com/facebook/dataloader).
+If you want to read more about _DataLoader_ in general, you can head over to Facebook's [GitHub repository](https://github.com/facebook/dataloader).
 
 GraphQL is very flexible in the way you can request data. This flexibility also introduces new classes of problems called _n+1_ issues for the GraphQL server developer.
 
@@ -43,9 +43,9 @@ So, a query against the above schema could look like the following:
 
 The above request fetches two persons in one go without the need to call the backend twice. The problem for the GraphQL backend is that field resolvers are atomic and do not have any knoledge about the query as a whole. So, a field resolver does not know that it will be called multiple times in parallel to fetch similar or equal data from the same data source.
 
-This basically represents the first case where _DataLoaders_ help us by batching requests against our database or backend service. Currently, we allow _DataLoaders_ per request and globally.
+This basically represents the first case where _DataLoader_ help us by batching requests against our database or backend service. Currently, we allow _DataLoader_ per request and globally.
 
-So, let's look at some code in order to understand what they are doing. First, let's have a look at how we would write our field resolver without _DataLoaders_:
+So, let's look at some code in order to understand what they are doing. First, let's have a look at how we would write our field resolver without _DataLoader_:
 
 ```csharp
 public async Task<Person> GetPerson(string id, [Service]IPersonRepository repository)
@@ -60,9 +60,9 @@ If you think that through you can see that each GraphQL request would cause mult
 
 This, means that we reduced the roundtrips from our client to our server with GraphQL but multiplied the roundtrips between the data sources and the service layer.
 
-With _DataLoaders_ we can now centralise our person fetching and reduce the number of round trips to our data source.
+With _DataLoader_ we can now centralise our person fetching and reduce the number of round trips to our data source.
 
-In order to use _DataLoaders_ in with _HotChocolate_ we have to add the _DataLoader_ registry. The _DataLoader_ registry basically manages the data loader instances and interacts with the execution engine.
+In order to use _DataLoader_ with _HotChocolate_ we have to add the _DataLoader_ registry. The _DataLoader_ registry basically manages the data loader instances and interacts with the execution engine.
 
 ```csharp
 services.AddDataLoaderRegistry();
@@ -98,7 +98,7 @@ public class PersonDataLoader : DataLoaderBase<string, Person>
 
 The _DataLoader_ is now injected by the execution engine as a field resolver argument.
 
-_DataLoaders_ have to be injected at field resolver argument level and **NOT** as constructor arguments since the lifetime of a _DataLoader_ is in many cases shorter than the class containing the field resolvers.
+_DataLoader_ have to be injected at field resolver argument level and **NOT** as constructor arguments since the lifetime of a _DataLoader_ is in many cases shorter than the class containing the field resolvers.
 
 ```csharp
 public Task<Person> GetPerson(string id, [DataLoader]PersonDataLoader personLoader)
@@ -107,11 +107,11 @@ public Task<Person> GetPerson(string id, [DataLoader]PersonDataLoader personLoad
 }
 ```
 
-It is important that you do not have to register a _DataLoader_ with your dependency injection provider. _HotChocolate_ will handle the instance management and register all _DataLoaders_ automatically with the _DataLoader_ registry that we have added earlier.
+It is important that you do not have to register a _DataLoader_ with your dependency injection provider. _HotChocolate_ will handle the instance management and register all _DataLoader_ automatically with the _DataLoader_ registry that we have added earlier.
 
 Now, person requests in a single execution batch will be batched to the data source.
 
-But there are still some more issues ahead that _DataLoaders_ will help us with. For that we should amend our query a little bit.
+But there are still some more issues ahead that _DataLoader_ will help us with. For that we should amend our query a little bit.
 
 ```graphql
 {
@@ -168,7 +168,8 @@ With the class _DataLoader_ you have full controll of how the _DataLoader_ works
 
 ### Batch DataLoader
 
-Batch _DataLoaders_ collect request for entities per processing level and send them as a batch request to the data source.
+The batch _DataLoader_ collects requests for entities per processing level and send them as a batch request to the data source.
+
 The batch _DataLoader_ gets the keys as a collection and expects a `Dictionar<TKey, TValue>` back.
 
 ```csharp
@@ -231,14 +232,14 @@ public Task<IEnumerable<Customer>> GetCustomers(string personId, IResolverContex
 
 Global _DataLoader_ are _DataLoader_ that are shared between request. This can be useful for caching strategies.
 
-In order to add support for global _DataLoaders_ you can add a second _DataLoader_ registry. This one has to be declared as singleton. It is important that you declare the global registry first since we use the last registered registry for ad-hoc registrations.
+In order to add support for global _DataLoader_ you can add a second _DataLoader_ registry. This one has to be declared as singleton. It is important that you declare the global registry first since we use the last registered registry for ad-hoc registrations.
 
 ```csharp
 services.AddSingleto<IDataLoaderRegistry, DataLoaderRegistry>();
 services.AddDataLoaderRegistry();
 ```
 
-It is important to know that you always have to do `AddDataLoaderRegistry` since this also sets up the batch operation that is needed to hook up the execution engine with the _DataLoaders_.
+It is important to know that you always have to do `AddDataLoaderRegistry` since this also sets up the batch operation that is needed to hook up the execution engine with the _DataLoader_.
 
 ## GreenDonut
 
@@ -246,16 +247,16 @@ For more information about our _DataLoader_ implementation head over to our _Dat
 
 ## Migration form 0.6.x to 0.7.0
 
-We have removed the need to register _DataLoaders_ before using them. We also seperated execution options and services from the type system. So, with the new release you have to remove the `RegisterDataLoader` calls from your schema. Moreover, the _DataLoader_ `Fetch` method is now called `FetchAsync` and has now a `CancellationToken` as parameter. The main reason to change this method was the missing `CancellationToken` so that batch operations can be aborted.
+We have removed the need to register _DataLoader_ before using them. We also seperated execution options and services from the type system. So, with the new release you have to remove the `RegisterDataLoader` calls from your schema. Moreover, the _DataLoader_ `Fetch` method is now called `FetchAsync` and has now a `CancellationToken` as parameter. The main reason to change this method was the missing `CancellationToken` so that batch operations can be aborted.
 
 Here are the steps that you have to do in order to migrate:
 
 - Remove all RegisterDataLoader calls from the schema configuration.
 - Add `services.AddDataLoaderRegistry();` to you dependency injection configuration.
-- Update your fetch methods in your _DataLoaders_.
+- Update your fetch methods in your _DataLoader_.
 
 ## Custom Data Loaders and Batch Operations
 
-With the new API we are introducing the `IBatchOperation` interface. The query engine will fetch all batch operations and trigger those once all data resolvers in one batch are running. We have implemented this interface for our _DataLoaders_ aswell. So, if you want to implement some database batching or integrate a custom _DataLoader_ than this interface is your friend. There is also a look ahead available which will provide you with the fields that have to be fetched.
+With the new API we are introducing the `IBatchOperation` interface. The query engine will fetch all batch operations and trigger those once all data resolvers in one batch are running. We have implemented this interface for our _DataLoader_ aswell. So, if you want to implement some database batching or integrate a custom _DataLoader_ than this interface is your friend. There is also a look ahead available which will provide you with the fields that have to be fetched.
 
 If you are planung to implement something in this area get in contact with us and we provide you with more information.

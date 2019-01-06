@@ -1,9 +1,11 @@
 ---
 id: custom-scalar-types
-title: Custom Scalar Types.
+title: Scalar Type Support
 ---
 
-The Hot Chocolate query engine has the following built-in scalar types:
+The Hot Chocolate query engine by default supports scalar types defined by the GraphQL specification.
+
+## Scalar Types
 
 | Type     | Description                                                 |
 | -------- | ----------------------------------------------------------- |
@@ -12,30 +14,63 @@ The Hot Chocolate query engine has the following built-in scalar types:
 | String   | UTF‐8 character sequences                                   |
 | Boolean  | Boolean type representing true or false                     |
 | ID       | unique identifier                                           |
+
+The query engine also provides support for a few more extended scalar types.
+
+## Extended Scalar Types
+
+| Type     | Description                                                 |
+| -------- | ----------------------------------------------------------- |
+| Long     | Signed 64-bit numeric non-fractional value                  |
+| Decimal  | .NET Floating Point Type                                    |
+| Url      | Url                                                         |
 | DateTime | ISO‐8601 date time                                          |
 | Date     | ISO‐8601 date                                               |
+| Uuid     | GUID                                                        |
 | Time     | ISO‐8601 time                                               |
-| Url      | Url                                                         |
 
-In some cases you may need to specify your own scalar types in order to fulfill your specific needs. 
+To use these types, they must be registered during schema configuration. You can choose to register all extended types at once.
 
-Moreover, Hot Chocolate let`s you swap out built-in scalar types and add your own implementation of any scalar type when the need for this should araise.
+```csharp
+var schema = Schema.Create(c =>
+{
+    // Register all 6 extended scalar types
+    c.RegisterExtendedScalarTypes();
+});
+```
+
+You can also choose to register these types individually.
+
+```csharp
+var schema = Schema.Create(c =>
+{
+    // Register only decimal and long type
+    c.RegisterType<DecimalType>();
+    c.RegisterType<LongType>();
+});
+```
+
+In some cases, you may even need to specify your own scalar types in order to fulfill your specific needs. 
+
+In addition; because the above extended scalar types are not registered automatically, you can choose to register your own implementation of an extended scalar type when the need should arise.
+
+## Custom Scalars
 
 In order to implement a new scalar type extend the type:  `ScalarType`.
 
-The following example shows you how a the GraphQL string type could have been implemented.
+The following example shows you how a Custom String type could be implemented.
 
 ```csharp
-public sealed class StringType
+public sealed class CustomStringType
     : ScalarType
 {
-    public StringType()
-        : base("String")
+    public CustomStringType()
+        : base("CustomString")
     {
     }
 
     // define which .NET type represents your type
-    public override Type NativeType { get; } = typeof(string);
+    public override Type ClrType { get; } = typeof(string);
 
     // define which literals this type can be parsed from.
     public override bool IsInstanceOfType(IValueNode literal)
@@ -117,6 +152,24 @@ public sealed class StringType
 
         throw new ArgumentException(
             "The specified value cannot be serialized by the StringType.");
+    }
+
+    public override bool TryDeserialize(object serialized, out object value)
+    {
+        if (serialized is null)
+        {
+            value = null;
+            return true;
+        }
+
+        if (serialized is string s)
+        {
+            value = s;
+            return true;
+        }
+
+        value = null;
+        return false;
     }
 }
 ```

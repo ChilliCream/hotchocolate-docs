@@ -21,9 +21,9 @@ Our API will let you start very quickly with pre-built templates that let you st
 
     [Learn more](schema-first.md)
 
-1. Custom Scalar Types
+1. Scalar Type Support
 
-    Define your own scalar types to make your schemas even richer.
+    We provide built-in support for GraphQL defined Scalar Types. You can also define your own scalar types to make your schemas even richer.
 
     [Learn more](custom-scalar-types.md)
 

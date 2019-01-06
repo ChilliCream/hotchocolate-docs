@@ -39,7 +39,7 @@
         "title": "Custom Context Objects"
       },
       "custom-scalar-types": {
-        "title": "Custom Scalar Types."
+        "title": "Scalar Type Support"
       },
       "dataloaders": {
         "title": "DataLoaders"
@@ -50,11 +50,14 @@
       "diagnostics": {
         "title": "Authorization"
       },
-      "directive-middleware": {
-        "title": "Directives and Middleware"
+      "directives": {
+        "title": "Directives"
       },
       "dotnet-cli": {
         "title": ".NET CLI"
+      },
+      "error-filter": {
+        "title": "Error Filter"
       },
       "example-hello-world-code-first": {
         "title": "Hello World"
@@ -68,14 +71,32 @@
       "example-star-wars-schema-first": {
         "title": "Star Wars"
       },
-      "general-schema-options": {
-        "title": "Schema Options"
-      },
       "introduction": {
         "title": "Introduction"
       },
+      "middleware": {
+        "title": "Middleware"
+      },
+      "options": {
+        "title": "Options"
+      },
+      "pagination": {
+        "title": "Pagination"
+      },
+      "parser": {
+        "title": "Parser"
+      },
       "schema-first": {
         "title": "Schema-first"
+      },
+      "security": {
+        "title": "Security"
+      },
+      "tutorial-01-gettingstarted": {
+        "title": "Getting Started"
+      },
+      "validation-rule": {
+        "title": "Validation Rules"
       },
       "version-0.5.2-code-first-interface-type": {
         "title": "Interface Type"
@@ -139,8 +160,11 @@
       "GitHub": "GitHub"
     },
     "categories": {
-      "Quickstart": "Quickstart",
+      "Introduction": "Introduction",
+      "API Reference": "API Reference",
+      "Guides": "Guides",
       "Code-First": "Code-First",
+      "Quickstart": "Quickstart",
       "General": "General"
     }
   },

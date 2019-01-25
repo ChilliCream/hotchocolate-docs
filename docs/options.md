@@ -38,6 +38,8 @@ We have built in some options that limit the execution engine in order do protec
 | IncludeExceptionDetails | bool     | `Debugger.IsAttached`      | Includes exeption details into the GraphQL errors. _\*\*_           |
 | MaxExecutionDepth       | int?     | `null`                     | The maximum allowed query depth of a query.                         |
 | QueryCacheSize          | int      | `100`                      | The amount of queries that can be cached for faster execution.      |
+| MaxOperationComplexity          | int?      | null                      | The allowed complexity of queries.      |
+| UseComplexityMultipliers          | bool?      | null                      | Specifies if multiplier arguments are used to calculate the query complexity.      |
 
 _\* Performance tracing is based on Apollo Tracing. The specification can be found [here](https://github.com/apollographql/apollo-tracing)._
 

@@ -19,7 +19,8 @@
       "middleware",
       "error-filter",
       "security",
-      "validation-rule"
+      "validation-rule",
+      "stitching"
     ],
     "Guides": [
       "code-first-introduction",

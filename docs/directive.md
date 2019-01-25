@@ -40,6 +40,23 @@ query foo($hideField: Boolean = false) {
 }
 ```
 
+## Repeatable
+
+Directives are by default unique, that means that you can annotate a directive just once to an object. If you want to add a specific directive type multiple times you have to specify the directive as repeatable.
+
+```csharp
+public class MyDirective
+    : DirectiveType
+{
+    protected override void Configure(IDirectiveTypeDescriptor descriptor)
+    {
+        descriptor.Name("my");
+        descriptor.Location(DirectiveLocation.Field);
+        descriptor.Repeatable();
+    }
+}
+```
+
 ## Typed Arguments
 
 Directive can have arguments that can be used to make them more flexible. So, if we had a directive like the following:
@@ -112,7 +129,9 @@ Since, the directive instance that we have added to our type is now a strong .ne
 
 ## Middleware
 
-What makes directive with Hot Chocolate very useful is the ability to associate a middleware with it that overwrites / alternates the default resolver behaviour of a field.
+What makes directive with Hot Chocolate very useful is the ability to associate a middleware with it. A middleware can alternate the result or even produce the result of a field. A directive middleware is only added to a field middleware pipeline when the directive was annotated to the object definition, the field definition or the field.
+
+Moreover, of the directive is repeatable the middleware will be added multiple times to the middleware alowing to build a real pipeline with it.
 
 In order to add a middleware to a directive you could declare it with the descriptor as a delegate.
 
@@ -174,38 +193,5 @@ If there were more directives in the query, they would be appended to the direct
 
 So, now the order would be like the following: `a, b, c, d, e, f`.
 
-Since, a middleware pipeline effectively replaces the original resolver function every middleware can execute the original resolver by calling `ResolveAsync()` on the `IDirectiveContext`.
+Every middleware can execute the original resolver function by calling `ResolveAsync()` on the `IDirectiveContext`.
 
-### Method Binding
-
-Like with field resolvers you can bind a middleware to method making use of argument injection.
-
-```csharp
-public class MyDirectiveType
-    : DirectiveType<MyDirective>
-{
-    protected override void Configure(IDirectiveTypeDescriptor descriptor)
-    {
-        descriptor.Name("my");
-        descriptor.Location(DirectiveLocation.Object);
-        descriptor.Use(next => context =>
-        {
-            context.Result = "Bar";
-            return next.Invoke();
-        })
-    }
-}
-
-public class MyDirective
-{
-    public string Name { get; set; }
-}
-
-public class CustomMiddleware
-{
-    public string Foo(MyDirective directive)
-    {
-        return directive.Name;
-    }
-}
-```

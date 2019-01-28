@@ -86,7 +86,7 @@ If you now want to support filtering and/or sorting on a pagable list you have t
 
 Let\`s enhance our example and add the capability to sort our list in descending order.
 
-We will do that by adding another argument `descending` to our field. If the argument is set to `true` than the list is sorted by descending order otherwise the set is sorted in ascending oder.
+We will do that by adding another argument `descending` to our field. If the argument is set to `true` than the list is sorted by descending order otherwise the set is sorted in ascending order.
 
 ```csharp
 public class QueryType
@@ -107,7 +107,7 @@ public class QueryType
                     ? (bool)d
                     : ctx.Argument<bool>("descending");
 
-                // set the curosr sorting property.
+                // set the cursor sorting property.
                 cursorProperties["descending"] = descending;
 
                 IEnumerable<string> strings = ctx.Parent<Query>().Strings;
@@ -170,7 +170,7 @@ The `UsePaging` extension provides an overload in which you can pass in a factor
 
 In case you want to provide pagination support for stored procedures or other data sources _Hot Chocolate_ allows you to do that as well.
 
-Our generic connection type expects the executed page to be of the type `IConnection`. So, basically the field resolver just has to reurn a class implementing that interface or using our default implementation `Connection<T>`.
+Our generic connection type expects the executed page to be of the type `IConnection`. So, basically the field resolver just has to return a class implementing that interface or using our default implementation `Connection<T>`.
 
 ```csharp
 public class QueryType

@@ -17,7 +17,7 @@
       "parser",
       "pagination",
       "middleware",
-      "error-filter",
+      "errors",
       "security",
       "validation-rule",
       "stitching"

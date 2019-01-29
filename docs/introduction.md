@@ -3,7 +3,7 @@ id: introduction
 title: Introduction
 ---
 
-Hot Chocolate is a new .net GraphQL server platform that can help you build a GraphQL layer over your existing and new infrastructure.
+Hot Chocolate is a .net GraphQL server platform that can help you build a GraphQL layer over your existing and new infrastructure.
 
 Our API will let you start very quickly with pre-built templates that let you start in seconds.
 
@@ -70,6 +70,10 @@ Our API will let you start very quickly with pre-built templates that let you st
 1. Subscriptions
 
     [Learn more](code-first-subscription.md)
+
+1. Schema Stitching
+
+    [Learn more](stitching.md)
 
 1. dotnet CLI Templates
 

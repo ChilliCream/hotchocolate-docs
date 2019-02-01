@@ -23,6 +23,7 @@
       "stitching"
     ],
     "Guides": [
+      "migration",
       "code-first-introduction",
       "code-first-resolvers",
       "code-first-object-type",

@@ -56,8 +56,8 @@
       "dotnet-cli": {
         "title": ".NET CLI"
       },
-      "error-filter": {
-        "title": "Error Filter"
+      "errors": {
+        "title": "Error"
       },
       "example-hello-world-code-first": {
         "title": "Hello World"
@@ -77,6 +77,9 @@
       "middleware": {
         "title": "Middleware"
       },
+      "migration": {
+        "title": "Migrating from 0.6.x"
+      },
       "options": {
         "title": "Options"
       },
@@ -91,6 +94,9 @@
       },
       "security": {
         "title": "Security"
+      },
+      "stitching": {
+        "title": "Schema Stitching"
       },
       "tutorial-01-gettingstarted": {
         "title": "Getting Started"

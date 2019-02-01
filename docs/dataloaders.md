@@ -245,16 +245,6 @@ It is important to know that you always have to do `AddDataLoaderRegistry` since
 
 For more information about our _DataLoader_ implementation head over to our _DataLoader_ [GitHub repository](https://github.com/ChilliCream/greendonut).
 
-## Migration form 0.6.x to 0.7.0
-
-We have removed the need to register _DataLoader_ before using them. We also seperated execution options and services from the type system. So, with the new release you have to remove the `RegisterDataLoader` calls from your schema. Moreover, the _DataLoader_ `Fetch` method is now called `FetchAsync` and has now a `CancellationToken` as parameter. The main reason to change this method was the missing `CancellationToken` so that batch operations can be aborted.
-
-Here are the steps that you have to do in order to migrate:
-
-- Remove all RegisterDataLoader calls from the schema configuration.
-- Add `services.AddDataLoaderRegistry();` to you dependency injection configuration.
-- Update your fetch methods in your _DataLoader_.
-
 ## Custom Data Loaders and Batch Operations
 
 With the new API we are introducing the `IBatchOperation` interface. The query engine will fetch all batch operations and trigger those once all data resolvers in one batch are running. We have implemented this interface for our _DataLoader_ aswell. So, if you want to implement some database batching or integrate a custom _DataLoader_ than this interface is your friend. There is also a look ahead available which will provide you with the fields that have to be fetched.

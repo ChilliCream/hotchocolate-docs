@@ -3,8 +3,7 @@
     "Introduction": [
       "introduction",
       "code-first",
-      "schema-first",
-      "dotnet-cli"
+      "schema-first"
     ],
     "API Reference": [
       "options",
@@ -24,10 +23,7 @@
     ],
     "Guides": [
       "migration",
-      "code-first-introduction",
-      "code-first-resolvers",
-      "code-first-object-type",
-      "code-first-interface-type"
+      "dotnet-cli"
     ]
   },
   "examples": {

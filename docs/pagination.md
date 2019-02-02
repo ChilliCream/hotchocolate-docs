@@ -7,7 +7,7 @@ Pagination is one of the common problems that you have to solve when implementin
 
 Pagingation solves this problem by giving the consumer the capability to fetch a set in chunks.
 
-There are various ways to implement pagingation in your server and you can basically do what ever feels best for you. 
+There are various ways to implement pagingation in your server and you can basically do what ever feels best for you.
 
 However, there are two models that you see in most GraphQL server implementations and we have some specific helpers for the later one.
 
@@ -71,7 +71,7 @@ public class QueryType
 {
     protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
     {
-        descriptor.Field(t => t.Strings).UsePaging<StringType, string>();
+        descriptor.Field(t => t.Strings).UsePaging<StringType>();
     }
 }
 ```
@@ -96,7 +96,7 @@ public class QueryType
     {
         descriptor.Field(t => t.Strings)
             .Argument("descending", a => a.Type<BooleanType>())
-            .UsePaging<StringType, string>()
+            .UsePaging<StringType>()
             .Resolver(ctx =>
             {
                 IDictionary<string, object> cursorProperties =
@@ -123,7 +123,7 @@ public class QueryType
 
 The previous example shows how we can access the cursor sorting properties and how we can pass the cursor sorting properties to the middleware.
 
-Our default solution makes it very easy to provide paging capabilities, but a custom optimized paging could yield better performance. 
+Our default solution makes it very easy to provide paging capabilities, but a custom optimized paging could yield better performance.
 
 For this you can extend our `QueryableConnectionResolver` implementation or opt in to implement `IConnection` by yourself.
 
@@ -137,7 +137,7 @@ public class QueryType
     {
         descriptor.Field(t => t.Strings)
             .Argument("descending", a => a.Type<BooleanType>())
-            .UsePaging<StringType, string>((source, pagingDetails) =>
+            .UsePaging<StringType>((source, pagingDetails) =>
                 new QueryableConnectionResolver<T>(
                     source, pagingDetails))
             .Resolver(ctx =>

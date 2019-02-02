@@ -168,55 +168,59 @@ With the class _DataLoader_ you have full controll of how the _DataLoader_ works
 
 ### Batch DataLoader
 
-The batch _DataLoader_ collects requests for entities per processing level and send them as a batch request to the data source.
+The batch _DataLoader_ collects requests for entities per processing level and send them as a batch request to the data source. Moreover, the _DataLoader_ caches the retrieved entries within a request.
 
-The batch _DataLoader_ gets the keys as a collection and expects a `Dictionar<TKey, TValue>` back.
-
-```csharp
-public Task<Person> GetPerson(string id, IResolverContext context, [Service]IPersonRepository repository)
-{
-    return context.DataLoader("personLoader", keys => repository.GetPersonBatch(keys)).LoadAsync(id);
-}
-```
-
-The `DataLoader` extension method on `IResolverContext` gets or creates a batch _DataLoader_. So, this basically saves you writing the _DataLoader_ classes.
-
-### One to Many DataLoader
-
-The one to many _DataLoader_ is also a batch _DataLoader_ but instead of returning one entity per key it returns multiple entities per key. The one to many _DataLoader_ gets the keys as a collection and expects a `ILookup<TKey, TValue>` back.
+The batch _DataLoader_ gets the keys as `IReadOnlyList<TKey>` and returns a `IReadOnlyDictionary<TKey, TValue>`.
 
 ```csharp
 public Task<Person> GetPerson(string id, IResolverContext context, [Service]IPersonRepository repository)
 {
-    return context.DataLoader("personLoader", keys => repository.GetPersonBatch(keys).ToLookup(t => t.Id)).LoadAsync(id);
+    return context.BatchDataLoader<string, Person>("personByIdBatch", keys => repository.GetPersonBatchAsync(keys)).LoadAsync(id);
 }
 ```
 
-### Single Request DataLoader
+_An example with the **Batch Dataloader** can be found [here](https://github.com/ChilliCream/hotchocolate-examples/blob/master/DataLoader/MessageType.cs)._
 
-The single request _DataLoader_ is basically the easiest to implement since there is no batching involved. So, we can just use the initial `GetPersonById` method. We, do not get the benifits of batching with this one but if in a query graph the same entity is twice resolved that we get the benefits of the _DataLoader_ caching.
+### Group DataLoader
+
+The Group _DataLoader_ is also a batch _DataLoader_ but instead of returning one entity per key it returns multiple entities per key. As with the Batch _DataLoader_ retrieved collections are cached within a request.
+
+The batch _DataLoader_ gets the keys as `IReadOnlyList<TKey>` and returns a `ILookup<TKey, TValue>`.
+
+```csharp
+public Task<IEnumerable<Person>> GetPersonByCountry(string country, IResolverContext context, [Service]IPersonRepository repository)
+{
+    return context.GroupDataLoader<string, Person>("personByCountry", keys => repository.GetPersonsByCountry(keys).ToLookup(t => t.Country)).LoadAsync(country);
+}
+```
+
+_An example with the **Batch Dataloader** can be found [here](https://github.com/ChilliCream/hotchocolate-examples/blob/master/DataLoader/QueryType.cs)._
+
+### Cache DataLoader
+
+The cache _DataLoader_ is basically the easiest to implement since there is no batching involved. So, we can just use the initial `GetPersonById` method. We, do not get the benefits of batching with this one, but if in a query graph the same entity is resolved twice we will load it only once from the data source.
 
 ```csharp
 public Task<Person> GetPerson(string id, IResolverContext context, [Service]IPersonRepository repository)
 {
-    return context.DataLoader("personLoader", keys => repository.GetPersonById(keys)).LoadAsync(id);
+    return context.CacheDataLoader<string, Person>("personById", keys => repository.GetPersonById(keys)).LoadAsync(id);
 }
 ```
 
-### Load Once Request DataLoader
+_An example with the **Batch Dataloader** can be found [here](https://github.com/ChilliCream/hotchocolate-examples/blob/master/DataLoader/MessageType.cs)._
 
-The load one request _DataLoader_ is not really a _DataLoader_ like described by facebook. It rather uses the infrastructure of the _DataLoader_ to provide a kind cache loader. So, basically you can use this one to cache the values of certain calls within a request.
+### Fetch Once
+
+`FetchOnceAsync` is not really a _DataLoader_ like described by facebook. It rather uses the infrastructure of our _DataLoader_ to provide an easy way to provide cache heavy resource calls that shall only be done once per request.
 
 ```csharp
 public Task<Person> GetPerson(string id, IResolverContext context, [Service]IPersonRepository repository)
 {
-    return context.DataLoader("cachingLoader", () => repository.GetSomeResource())();
+    return context.FetchOnceAsync("cachingLoader", () => repository.GetSomeResource());
 }
 ```
 
-And since we do not have any keys here we just return a `Func<Task<TValue>>` that can be executed to fetch a value.
-
-## Stacked DataLoader
+## Stacked DataLoader Calls
 
 This is more like an edge case that is supported than a certain type of _DataLoader_. Somtime we have more complex resolvers that might first fetch data from one _DataLoader_ and use that to fetch data from the next. With the new _DataLoader_ implementation this is supported and under test.
 
@@ -230,16 +234,16 @@ public Task<IEnumerable<Customer>> GetCustomers(string personId, IResolverContex
 
 ## Global DataLoader
 
-Global _DataLoader_ are _DataLoader_ that are shared between request. This can be useful for caching strategies.
+Global _DataLoader_ are _DataLoader_ that are shared between requests. This can be useful for certain caching strategies.
 
-In order to add support for global _DataLoader_ you can add a second _DataLoader_ registry. This one has to be declared as singleton. It is important that you declare the global registry first since we use the last registered registry for ad-hoc registrations.
+In order to add support for global _DataLoader_ you can add a second _DataLoader_ registry. This one has to be declared as singleton. It is important that you declare the global registry first since we use the last registry to register  ad-hoc _DataLoader_.
 
 ```csharp
 services.AddSingleto<IDataLoaderRegistry, DataLoaderRegistry>();
 services.AddDataLoaderRegistry();
 ```
 
-It is important to know that you always have to do `AddDataLoaderRegistry` since this also sets up the batch operation that is needed to hook up the execution engine with the _DataLoader_.
+It is important to know that you always have to do `AddDataLoaderRegistry` since this also sets up the batch operation that is needed to hook up the execution engine with the _DataLoader_ registry.
 
 ## GreenDonut
 

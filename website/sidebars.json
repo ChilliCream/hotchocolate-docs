@@ -13,6 +13,7 @@
       "authorization",
       "directive",
       "middleware",
+      "custom-context",
       "options",
       "aspnet",
       "parser",

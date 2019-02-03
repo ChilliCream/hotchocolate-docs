@@ -1,0 +1,36 @@
+{
+  "version-0.7.0-docs": {
+    "Introduction": [
+      "version-0.7.0-introduction",
+      "version-0.7.0-code-first",
+      "version-0.7.0-schema-first"
+    ],
+    "API Reference": [
+      "version-0.7.0-custom-scalar-types",
+      "version-0.7.0-dataloaders",
+      "version-0.7.0-pagination",
+      "version-0.7.0-dependency-injection",
+      "version-0.7.0-authorization",
+      "version-0.7.0-directive",
+      "version-0.7.0-middleware",
+      "version-0.7.0-custom-context",
+      "version-0.7.0-subscription",
+      "version-0.7.0-options",
+      "version-0.7.0-aspnet",
+      "version-0.7.0-parser",
+      "version-0.7.0-errors",
+      "version-0.7.0-security",
+      "version-0.7.0-validation-rule",
+      "version-0.7.0-stitching"
+    ],
+    "Guides": [
+      "version-0.7.0-migration",
+      "version-0.7.0-dotnet-cli"
+    ]
+  },
+  "version-0.7.0-examples": {
+    "Code-First": [
+      "version-0.7.0-example-star-wars-code-first"
+    ]
+  }
+}

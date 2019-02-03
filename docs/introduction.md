@@ -69,7 +69,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
 1. Subscriptions
 
-    [Learn more](code-first-subscription.md)
+    [Learn more](subscription.md)
 
 1. Schema Stitching
 

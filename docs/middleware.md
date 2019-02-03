@@ -102,7 +102,7 @@ You also can define you middleware as a class. There is no interface since you c
 
 The method has to return `Task` and must be called `InvokeAsync` or `Invoke`.
 
-Since, a middleware lifetime is basically bound to the lifetime of the executer you should only inject singletons into the constructor.
+Since, a middleware lifetime is basically bound to the lifetime of the executor you should only inject singletons into the constructor.
 
 Services with a scoped lifetime should be injected as method parameters.
 
@@ -148,9 +148,16 @@ descriptor.Field(t => Bar).UsePaging();
 
 The extension method hides the complexity of combining a middleware with arguments and so on and also reduces repetitive code.
 
-_As a side note, the `IMiddlewareContext` implements also `IResolverContext` so in a middleware you have access to all the context information that the resolver context has._
+### Executor Bound Middleware
 
-_You can even access all the results that the previous resolver in your path have produced by accessing the `Source` property which is exposed as a immutable stack of results._
+Field middleware components can also be declared on the `QueryExecutionBuilder`, this way the execution engine can be extended without having to declare field middleware components on a schema and query middleware components on the executor. The 'UseField' method let you consistently extend the execution engine through one interface.
+
+So, when should we put a field middleware on the schema level and when on the executor level.
+
+We should put anything on the schema level that is needed to make the schema work properly. Everything, that changes the way the query engine works or infrastructure components should go on the executor level since those are exchangable. This is especially true when you combine a query middleware with a field middleware.
+
+>As a side note, the `IMiddlewareContext` implements also `IResolverContext` so in a middleware you have access to all the context information that the resolver context has.
+>You can even access all the results that the previous resolver in your path have produced by accessing the `Source` property which is exposed as a immutable stack of results.
 
 ## Directive Middleware
 

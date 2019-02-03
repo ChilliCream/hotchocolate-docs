@@ -14,6 +14,7 @@
       "directive",
       "middleware",
       "custom-context",
+      "subscription",
       "options",
       "aspnet",
       "parser",

@@ -1,6 +1,6 @@
 ---
 id: errors
-title: Error
+title: Error Filter
 ---
 
 GraphQL errors in _Hot Chocolate_ are passed to the query result by returning an instance of `IError` or an enumerable of `IError` in a field resolver.

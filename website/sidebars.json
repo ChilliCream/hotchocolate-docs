@@ -16,6 +16,7 @@
       "custom-context",
       "subscription",
       "options",
+      "type-conversion",
       "aspnet",
       "parser",
       "errors",

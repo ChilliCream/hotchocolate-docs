@@ -46,6 +46,13 @@ class Footer extends React.Component {
           <div>
             <h5>Community</h5>
             <a
+              href={`${this.props.config.slackInvite}`}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              Join us on Slack
+            </a>
+            <a
               href={`https://twitter.com/${this.props.config.twitterUsername}`}
               target="_blank"
               rel="noreferrer noopener"

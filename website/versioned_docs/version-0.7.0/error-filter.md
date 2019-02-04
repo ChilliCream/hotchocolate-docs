@@ -25,7 +25,7 @@ return ErrorBuilder.New()
 
 If some other exception is thrown during the query execution then the execution engine will create an instance of `IError` with the message **Unexpected Execution Error** and the actual exception assigned to the error. However, the exception details will not be serialized so by default the user will only see the error message **Unexpected Execution Error**.
 
-If you want to translate exceptions into errors with usefull information then you can write an `IErrorFilter`.
+If you want to translate exceptions into errors with useful information then you can write an `IErrorFilter`.
 
 An error filter has to be registered with the execution builder like the following.
 

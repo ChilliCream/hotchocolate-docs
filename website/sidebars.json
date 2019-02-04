@@ -29,6 +29,9 @@
     ]
   },
   "examples": {
-    "Code-First": ["example-star-wars-code-first"]
+    "Code-First": [
+      "example-star-wars-code-first",
+      "example-other-code-first"
+    ]
   }
 }

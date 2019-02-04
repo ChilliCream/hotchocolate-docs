@@ -4,7 +4,7 @@ title: Authorization
 original_id: authorization
 ---
 
-## Authentication
+## Authentication
 
 GraphQL as defined by the spec does not specify how a user has to authenticate against a schema in order to execute queries and retrieve data. Authentication in ASP.net core and ASP.net classic is a solved problem domain. So, there are several ways to provide authentication support to an ASP.net API.
 
@@ -97,16 +97,16 @@ services.AddAuthorization(options =>
 });
 ```
 
-The `@authorize`-directive essentially uses the provided policy and runs it agains the ClaimsPrinciple that is associated with the current request.
+The `@authorize`-directive essentially uses the provided policy and runs it against the `ClaimsPrinciple` that is associated with the current request.
 
 More about policy-based authorization can be found in the Microsoft Documentation:
-[Policy-based authorization in ASP.NET Core | Microsoft Docs](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/policies?view=aspnetcore-2.1) 
+[Policy-based authorization in ASP.NET Core | Microsoft Docs](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/policies?view=aspnetcore-2.1)
 
 ## Query Requests
 
 Our query middleware creates a request and passes the request with additional meta-data to the query-engine. For example we provide a property called `ClaimsIdentity` that contains the user associated with the current request. These meta-data or custom request properties can be used within a field-middleware like the authorize middleware to change the default execution of a field resolver.
 
-So, you could use an authentication-middleware in ASP.net core to add all the user meta-data that you need to your claim-identity or you could hook some code in our middleware and add additional meta-data or even modify the ClaimsPrincipal.
+So, you could use an authentication-middleware in ASP.net core to add all the user meta-data that you need to your claim-identity or you could hook some code in our middleware and add additional meta-data or even modify the `ClaimsPrincipal`.
 
 ```csharp
 app.UseGraphQL(new GraphQLMiddlewareOptions

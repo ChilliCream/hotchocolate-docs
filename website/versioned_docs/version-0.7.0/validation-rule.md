@@ -7,7 +7,7 @@ original_id: validation-rule
 Validation rules can be used to validate queries before they are passed to the execution engine and by this save execution time.
 Validation results are cached with the query so that validation rules are only run once per query. In query validation rules you can access the query and the schema but the argument values and the variable values are not yet coerced. If you need access to those a field middleware might be better suited.
 
-## IQueryValidator
+## `IQueryValidator`
 
 The rule interface itself is simple, basically the validation middleware will call validate and pass in the schema and the parsed query.
 
@@ -18,9 +18,9 @@ public interface IQueryValidator
 }
 ```
 
-## QuerySyntaxWalker
+## `QuerySyntaxWalker`
 
-If your validation is just a simple lookup than you could just try to do that against the `DocumentNode` for everything where you would have to traverse the query graph or where you want to access only certain kinds of syntax nodes we recomend using the `QuerySyntaxWalker<T>`.
+If your validation is just a simple lookup than you could just try to do that against the `DocumentNode` for everything where you would have to traverse the query graph or where you want to access only certain kinds of syntax nodes we recommend using the `QuerySyntaxWalker<T>`.
 
 **Important: In your validation rules only validate your own errors and ignore other errors.**
 
@@ -55,4 +55,4 @@ QueryExecutionBuilder
     .Build(schema);
 ```
 
-_Since, the validation rule are instantiated like a query middleware you can only access services defined by the `QueryExecutionBuilder`._
+> Since the validation rules are instantiated like a query middleware, you can only access services defined by the `QueryExecutionBuilder`.

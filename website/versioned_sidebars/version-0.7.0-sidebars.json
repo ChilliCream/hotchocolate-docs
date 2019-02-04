@@ -30,7 +30,8 @@
   },
   "version-0.7.0-examples": {
     "Code-First": [
-      "version-0.7.0-example-star-wars-code-first"
+      "version-0.7.0-example-star-wars-code-first",
+      "version-0.7.0-example-other-code-first"
     ]
   }
 }

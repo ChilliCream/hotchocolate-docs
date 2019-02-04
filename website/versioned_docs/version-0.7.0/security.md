@@ -12,12 +12,12 @@ This is one of the main features of GraphQL but also poses one of the main chall
 
 _Hot Chocolate_ provides you with some basic strategies to make your backend more predictable and protect against queries that have a to high complexity and thus would pose a headache for your backend.
 
-## Pagination Ammount
+## Pagination Amount
 
 The first an most simple way to protect your api is to define how many items a page can have when you are using pagination. We added for this the scalar type `PaginationAmount`.
 
 ```csharp
-Schema.Create(c => 
+Schema.Create(c =>
 {
     c.RegisterType(new PaginationAmountType(50));
 });
@@ -61,7 +61,7 @@ Many GraphQL schemas expose cyclic graphs allowing for recursive queries like th
 
 Sure, GraphQL queries are finite and there is now way to craft a query that would crawl through your graph forever but you could write or generate a very big query that drills very deep in your graph.
 
-In order to limit the depth of queries you can enable a maximum execution depth and by doing this protect you query agains this kind of queries.
+In order to limit the depth of queries you can enable a maximum execution depth and by doing this protect you query against this kind of queries.
 
 It is important to know that the query will be validated before any execution is happening. So, in contrast to the execution timeout which will actually start executing a query the execution depth of a query is validated beforehand.
 
@@ -69,9 +69,9 @@ The query will be rejected when any of the provided operations exceeds the allow
 
 ## Query Complexity
 
-Query compexity is a very complex and useful tool to make your API secure. The query complexity assigns by default every field a complexity of `1`. The complexity of all fields in one of the operations of a query document is not allowed to to be greater than `MaxOperationComplexity` defined in the `QueryExecutionOptions`.
+Query complexity is a very complex and useful tool to make your API secure. The query complexity assigns by default every field a complexity of `1`. The complexity of all fields in one of the operations of a query document is not allowed to be greater than `MaxOperationComplexity` defined in the `QueryExecutionOptions`.
 
-This sounds fairly simple at first, but if you think more about this one than you start wondering that not every field has an equal complexity. So, you could add a higher complexity to fields that actually pull data, or to list fields and so on.
+This sounds fairly simple at first, but if you think more about this one, then you start wondering that not every field has an equal complexity. So, you could add a higher complexity to fields that actually pull data, or to list fields and so on.
 
 So, you should really think about what the complexity value of a field is.
 
@@ -81,7 +81,7 @@ The complexity of a field is annotated with the cost directive.
 type Foo {
   bar: [Bar] @cost(complexity: 5)
 }
-````
+```
 
 If you want to go even further in computing your complexity you can include multiplier properties. Multiplier, properties are properties that have an impact on how complex the field data loading task is.
 
@@ -93,7 +93,7 @@ type Foo {
 }
 ```
 
-Multipliers are only recognized when you set `UseComplexityMultipliers` in your execution options to `true`. If you opt-in to multipliers the complexity cannot any more be calculated by the validation rules at the beginning of the execution pipline but has to be calculated after the variables have been coerced since multiplier field arguments could have been provided as variables. This means that we already did some processing and used some more time on the validation.
+Multipliers are only recognized when you set `UseComplexityMultipliers` in your execution options to `true`. If you opt-in to multipliers the complexity cannot any more be calculated by the validation rules at the beginning of the execution pipeline but has to be calculated after the variables have been coerced since multiplier field arguments could have been provided as variables. This means that we already did some processing and used some more time on the validation.
 
 In both cases, with or without multipliers you can go even further with this one and provide your own multiplier calculation function that for example takes into account the depth of the field. By default we take the complexity as field complexity, or multiply the complexity by the multiplier fields but we give you a lot of context into the complexity calculation function and you could for example multiply the complexity by the depth of the field and so on.
 

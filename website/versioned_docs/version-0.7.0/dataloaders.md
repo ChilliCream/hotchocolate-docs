@@ -26,7 +26,7 @@ type Person {
 
 The above schema allows to fetch a person by its internal identifier and each person has a list of friends that is represented by a list of persons.
 
-Since GraphQL requests are not fixed requests like REST requests, the developer really defines what data he/she wants. This avoids overfetching data that you do not need and also saves you unecessary roundtrips to the GraphQL backend.
+Since GraphQL requests are not fixed requests like REST requests, the developer really defines what data he/she wants. This avoids over-fetching data that you do not need and also saves you unnecessary round-trips to the GraphQL backend.
 
 So, a query against the above schema could look like the following:
 
@@ -42,7 +42,7 @@ So, a query against the above schema could look like the following:
 }
 ```
 
-The above request fetches two persons in one go without the need to call the backend twice. The problem for the GraphQL backend is that field resolvers are atomic and do not have any knoledge about the query as a whole. So, a field resolver does not know that it will be called multiple times in parallel to fetch similar or equal data from the same data source.
+The above request fetches two persons in one go without the need to call the backend twice. The problem for the GraphQL backend is that field resolvers are atomic and do not have any knowledge about the query as a whole. So, a field resolver does not know that it will be called multiple times in parallel to fetch similar or equal data from the same data source.
 
 This basically represents the first case where _DataLoader_ help us by batching requests against our database or backend service. Currently, we allow _DataLoader_ per request and globally.
 
@@ -57,9 +57,9 @@ public async Task<Person> GetPerson(string id, [Service]IPersonRepository reposi
 
 The above example would result in two calls to the person repository that would than fetch the persons one by one from our data source.
 
-If you think that through you can see that each GraphQL request would cause multiple requests to our data source resulting in slugish performance and uneccessary roundtrips to our data source.
+If you think that through you can see that each GraphQL request would cause multiple requests to our data source resulting in sluggish performance and unnecessary round-trips to our data source.
 
-This, means that we reduced the roundtrips from our client to our server with GraphQL but multiplied the roundtrips between the data sources and the service layer.
+This, means that we reduced the round-trips from our client to our server with GraphQL but multiplied the round-trips between the data sources and the service layer.
 
 With _DataLoader_ we can now centralise our person fetching and reduce the number of round trips to our data source.
 
@@ -134,7 +134,7 @@ But there are still some more issues ahead that _DataLoader_ will help us with. 
 
 The above query now drills down into the friends property, which again yields persons.
 
-Let's, say our person object is located in a mongo database and the document would look something like the following:
+Let's say our person object is located in a Mongo database and the document would look something like the following:
 
 ```json
 {
@@ -165,7 +165,7 @@ This is the second problem class the _DataLoader_ utility helps us with since th
 
 ## Delegate DataLoader
 
-With the class _DataLoader_ you have full controll of how the _DataLoader_ works. But in many cases this control is not needed. We have specified four classes of _DataLoaders_ that can be specified as delegate.
+With the class _DataLoader_ you have full control of how the _DataLoader_ works. But in many cases this control is not needed. We have specified four classes of _DataLoaders_ that can be specified as delegate.
 
 ### Batch DataLoader
 
@@ -223,7 +223,7 @@ public Task<Person> GetPerson(string id, IResolverContext context, [Service]IPer
 
 ## Stacked DataLoader Calls
 
-This is more like an edge case that is supported than a certain type of _DataLoader_. Somtime we have more complex resolvers that might first fetch data from one _DataLoader_ and use that to fetch data from the next. With the new _DataLoader_ implementation this is supported and under test.
+This is more like an edge case that is supported than a certain type of _DataLoader_. Sometimes we have more complex resolvers that might first fetch data from one _DataLoader_ and use that to fetch data from the next. With the new _DataLoader_ implementation this is supported and under test.
 
 ```csharp
 public Task<IEnumerable<Customer>> GetCustomers(string personId, IResolverContext context, [Service]IPersonRepository personRepository, [Service]ICustomerRepository customerRepository)
@@ -252,6 +252,6 @@ For more information about our _DataLoader_ implementation head over to our _Dat
 
 ## Custom Data Loaders and Batch Operations
 
-With the new API we are introducing the `IBatchOperation` interface. The query engine will fetch all batch operations and trigger those once all data resolvers in one batch are running. We have implemented this interface for our _DataLoader_ aswell. So, if you want to implement some database batching or integrate a custom _DataLoader_ than this interface is your friend. There is also a look ahead available which will provide you with the fields that have to be fetched.
+With the new API we are introducing the `IBatchOperation` interface. The query engine will fetch all batch operations and trigger those once all data resolvers in one batch are running. We have implemented this interface for our _DataLoader_ as well. So, if you want to implement some database batching or integrate a custom _DataLoader_ than this interface is your friend. There is also a look ahead available which will provide you with the fields that have to be fetched.
 
-If you are planung to implement something in this area get in contact with us and we provide you with more information.
+If you are planning to implement something in this area, get in contact with us and we provide you with more information.

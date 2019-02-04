@@ -10,7 +10,7 @@ We have created a dotnet CLI template for the [GraphQL.org](https://graphql.org)
 dotnet new -i HotChocolate.Templates.StarWars
 ```
 
-After you have installed this template you can just fire up the follwing command in order to get the example up and running:
+After you have installed this template you can just fire up the following command in order to get the example up and running:
 
 ```bash
 mkdir starwars

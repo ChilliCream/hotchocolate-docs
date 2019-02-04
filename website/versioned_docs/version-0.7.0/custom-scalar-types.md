@@ -8,28 +8,28 @@ The Hot Chocolate query engine by default supports scalar types defined by the G
 
 ## Scalar Types
 
-| Type     | Description                                                 |
-| -------- | ----------------------------------------------------------- |
-| Int      | Signed 32‐bit numeric non‐fractional value                  |
-| Float    | Double‐precision fractional values as specified by IEEE 754 |
-| String   | UTF‐8 character sequences                                   |
-| Boolean  | Boolean type representing true or false                     |
-| ID       | unique identifier                                           |
+| Type      | Description                                                 |
+| --------- | ----------------------------------------------------------- |
+| `Int`     | Signed 32-bit numeric non-fractional value                  |
+| `Float`   | Double-precision fractional values as specified by IEEE 754 |
+| `String`  | UTF-8 character sequences                                   |
+| `Boolean` | Boolean type representing true or false                     |
+| `ID`      | unique identifier                                           |
 
 The query engine also provides support for a few more extended scalar types.
 
 ## Extended Scalar Types
 
-| Type     | Description                                                 |
-| -------- | ----------------------------------------------------------- |
-| Byte     |                                                             |
-| Short    | Signed 16-bit numeric non-fractional value                  |
-| Long     | Signed 64-bit numeric non-fractional value                  |
-| Decimal  | .NET Floating Point Type                                    |
-| Url      | Url                                                         |
-| DateTime | ISO‐8601 date time                                          |
-| Date     | ISO‐8601 date                                               |
-| Uuid     | GUID                                                        |
+| Type       | Description                                                 |
+| ---------- | ----------------------------------------------------------- |
+| `Byte`     |                                                             |
+| `Short`    | Signed 16-bit numeric non-fractional value                  |
+| `Long`     | Signed 64-bit numeric non-fractional value                  |
+| `Decimal`  | .NET Floating Point Type                                    |
+| `Url`      | Url                                                         |
+| `DateTime` | ISO-8601 date time                                          |
+| `Date`     | ISO-8601 date                                               |
+| `Uuid`     | GUID                                                        |
 
 To use these types, they must be registered during schema configuration. You can choose to register all extended types at once.
 
@@ -52,7 +52,7 @@ var schema = Schema.Create(c =>
 });
 ```
 
-In some cases, you may even need to specify your own scalar types in order to fulfill your specific needs. 
+In some cases, you may even need to specify your own scalar types in order to fulfill your specific needs.
 
 In addition; because the above extended scalar types are not registered automatically, you can choose to register your own implementation of an extended scalar type when the need should arise.
 

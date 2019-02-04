@@ -15,12 +15,12 @@ var schema = Schema.Create(c =>
 });
 ```
 
-## Dataloaders
+## DataLoaders
 
 We have removed the need to register _DataLoader_ before using them. We also separated execution options and services from the type system. So, with the new release you have to remove the `RegisterDataLoader` calls from your schema. Moreover, the _DataLoader_ `Fetch` method is now called `FetchAsync` and now has a `CancellationToken` parameter. The main reason to change this method was to provide the ability to abort batch operations through the use of `CancellationToken`.
 
 Here are the steps that you have to do in order to migrate:
 
-- Remove all RegisterDataLoader calls from the schema configuration.
+- Remove all `RegisterDataLoader` calls from the schema configuration.
 - Add `services.AddDataLoaderRegistry();` to you dependency injection configuration.
 - Update your fetch methods in your _DataLoader_.

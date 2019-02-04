@@ -10,7 +10,7 @@ _Hot Chocolate_ has three kinds of middleware. The query middleware which allows
 
 The most common way to extend the execution is to extend the pipeline that resolves data from a field.
 
-The field resolver itself is embeded in a middleware that will call the field\`s resolver if no other middleware component has produced a result for the field.
+The field resolver itself is embeded in a middleware that will call the field's resolver if no other middleware component has produced a result for the field.
 
 A field middleware can be used to convert the result of a field to fetch the result from a different source or even validate the arguments of a field. There are multiple use cases for which a field middleware is useful.
 

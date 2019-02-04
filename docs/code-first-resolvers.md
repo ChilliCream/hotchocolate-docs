@@ -19,7 +19,7 @@ public class Person
 }
 ```
 
-In our GraphQL schema we do not want to deal with ID`s or anything. So our GraphQL schema should look like the follwoing:
+In our GraphQL schema we do not want to deal with IDs or anything. So our GraphQL schema should look like the following:
 
 ```GraphQL
 type Query {
@@ -107,7 +107,7 @@ public class PersonResolver
 }
 ```
 
-Or, if you want to have access to the complete resolver context specify an argument of the type `IResolverContext`. 
+Or, if you want to have access to the complete resolver context specify an argument of the type `IResolverContext`.
 
 Moreover, if you specify arguments that are registered as `InputObjectType` or some other arguments that we do not recognise we will treat these as field arguments.
 
@@ -138,16 +138,16 @@ The resolver context represents the execution context for a specific field that 
 
 | Member        | Type | Description |
 | ------------- | ----------- | ----------- |
-| Schema | ISchema | The GraphQL schema. |
-| ObjectType | ObjectType | The object type on which the field resolver is being executed. |
-| Field | ObjectField | The field on which the field resolver is being executed. |
-| QueryDocument | DocumentNode | The query that is being executed. |
-| Operation | OperationDefinitionNode | The operation from the query that is being executed. |
-| FieldSelection | FieldNode | The field selection for which a field resolver is being executed. |
-| Source | ImmutableStack\<object\> | The source stack contains all previous resolver results of the current execution path |
-| Path | Path | The current execution path. |
-| Parent\<T\>() | T | Gets the previous (parent) resolver result. |
-| Argument\<T\>(string name) | T | Gets a specific field argument. |
-| Service\<T\>() | T | Gets as specific service from the dependency injection container. |
-| CustomContext\<T\>() | T | Gets a specific custom context object that can be used to build up a state. |
-| DataLoader\<T\>(string key) | T | Gets a specific DataLoader. |
+| `Schema` | `ISchema` | The GraphQL schema. |
+| `ObjectType` | `ObjectType` | The object type on which the field resolver is being executed. |
+| `Field` | `ObjectField` | The field on which the field resolver is being executed. |
+| `QueryDocument` | `DocumentNode` | The query that is being executed. |
+| `Operation` | `OperationDefinitionNode` | The operation from the query that is being executed. |
+| `FieldSelection` | `FieldNode` | The field selection for which a field resolver is being executed. |
+| `Source` | `ImmutableStack<object>` | The source stack contains all previous resolver results of the current execution path |
+| `Path` | `Path` | The current execution path. |
+| `Parent<T>()` | `T` | Gets the previous (parent) resolver result. |
+| `Argument<T>(string name)` | `T` | Gets a specific field argument. |
+| `Service<T>()` | `T` | Gets as specific service from the dependency injection container. |
+| `CustomContext<T>()` | `T` | Gets a specific custom context object that can be used to build up a state. |
+| `DataLoader<T>(string key)` | `T` | Gets a specific DataLoader. |

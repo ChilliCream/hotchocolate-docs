@@ -77,6 +77,6 @@ Our API will let you start very quickly with pre-built templates that let you st
 
 1. dotnet CLI Templates
 
-    In order to get you even faster started we are providing templates for the dotnet CLI which lets you setup a .net GraphQL server in les than 10 seconds.
+    In order to get you even faster started we are providing templates for the dotnet CLI which lets you setup a .net GraphQL server in less than 10 seconds.
 
     [Learn more](dotnet-cli.md)

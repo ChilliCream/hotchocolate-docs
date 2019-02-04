@@ -3,9 +3,9 @@ id: dependency-injection
 title: Dependency Injection
 ---
 
-We are supporting dependency injection via the IServiceProvider-interface. Since Hot Chocolate supports scoped services the service provider is passed in with the request. If you are using Hot Chocolate with ASP.net core or ASP.net classic then you do not have to think about how to setup dependency injection because we have already done that for you.
+We are supporting dependency injection via the `IServiceProvider` interface. Since Hot Chocolate supports scoped services the service provider is passed in with the request. If you are using Hot Chocolate with ASP.net core or ASP.net classic then you do not have to think about how to setup dependency injection because we have already done that for you.
 
-If you have a clr-type representation of your schema type than you can inject services as field resolver arguments. Injection of services as field resolver arguments should be your prefered choice since many of the services only have a request life time.
+If you have a CLR-type representation of your schema type than you can inject services as field resolver arguments. Injection of services as field resolver arguments should be your preferred choice since many of the services only have a request life time.
 
 ```csharp
 public class Query

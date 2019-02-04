@@ -56,7 +56,7 @@ var schema = Schema.Create(c => c.RegisterType(new ObjectType<Query>(
     d => d.Field(f => f.Hello()).Type<NonNullType<StringType>>())));
 ```
 
-Since this fluent chains could get very long you could also opt to declare a new class ObjectType that extends `ObjectType<Query>`.
+Since this fluent chains could get very long you could also opt to declare a new class `ObjectType` that extends `ObjectType<Query>`.
 
 ```csharp
 public class QueryType : ObjectType<Query>
@@ -90,7 +90,7 @@ type Query {
 }
 ```
 
-The foo field would use the specified delegate to resolve the field value. The fluent api offers you the same feature set as the GraphQL schema syntax.
+The foo field would use the specified delegate to resolve the field value. The fluent API offers you the same feature set as the GraphQL schema syntax.
 
 Next we should look at resolver arguments. GraphQL fields let you define arguments. So, if we adjust our hello method to include a new argument name of type string we would infer from the GraphQL field arguments.
 

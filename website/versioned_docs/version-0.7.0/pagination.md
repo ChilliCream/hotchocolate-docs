@@ -50,7 +50,7 @@ In cursor-based pagination, a cursor is used to keep track of where in the data 
 
 Relay’s support for pagination relies on the GraphQL server exposing connections in a standardized way. In the query, the connection model provides a standard mechanism for slicing and paginating the result set.
 
-_Hot Chocolate_ provides many helpers to make implementing a relay-style cursor pagination a simple task. 
+_Hot Chocolate_ provides many helpers to make implementing a relay-style cursor pagination a simple task.
 
 ### Pagination support through `IQueryable<T>`
 
@@ -77,7 +77,7 @@ public class QueryType
 }
 ```
 
-`UsePaging` adds the relay-style cursor pagination arguments defined by the spec, defines the return type of the field to be `ConnectionType<StringType>` and adds a paging field middleware to the field resolver pipeline. 
+`UsePaging` adds the relay-style cursor pagination arguments defined by the spec, defines the return type of the field to be `ConnectionType<StringType>` and adds a paging field middleware to the field resolver pipeline.
 
 The middleware can handle `IQueryable<T>` and `IEnumerable<T>`. This means that you can apply the middleware also to database drivers like entity framework or the mongo db client.
 
@@ -85,7 +85,7 @@ The database drivers will translate the queryable actions into native database q
 
 If you now want to support filtering and/or sorting on a pagable list you have to feed the sorting properties to the paging middleware so that the middleware can include them into the cursors. The cursors can than be used to recreate the data set in fetch more queries.
 
-Let\`s enhance our example and add the capability to sort our list in descending order.
+Let's enhance our example and add the capability to sort our list in descending order.
 
 We will do that by adding another argument `descending` to our field. If the argument is set to `true` than the list is sorted by descending order otherwise the set is sorted in ascending order.
 
@@ -192,9 +192,9 @@ public class QueryType
 
 You can implement your data resolver logic as resolver or if it is generalized enough you could implement it as a field middleware.
 
-A field middleware can be declared on the field or on the schema depending on what you want to do. 
+A field middleware can be declared on the field or on the schema depending on what you want to do.
 
-Let\`s say you want to write a middleware to provide pagination support specifically for SQL server than you could provide that as a middleware like we did for `IQueryable<T>`.
+Let's say you want to write a middleware to provide pagination support specifically for SQL server than you could provide that as a middleware like we did for `IQueryable<T>`.
 
 If you need help implementing a pagination solution just reach out to us and we are happy to help you.
 

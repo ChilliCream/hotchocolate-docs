@@ -9,13 +9,13 @@ _Hot Chocolate_ has three kinds of middleware. The query middleware which allows
 
 The most common way to extend the execution is to extend the pipeline that resolves data from a field.
 
-The field resolver itself is embeded in a middleware that will call the field\`s resolver if no other middleware component has produced a result for the field.
+The field resolver itself is embedded in a middleware that will call the field's resolver if no other middleware component has produced a result for the field.
 
 A field middleware can be used to convert the result of a field to fetch the result from a different source or even validate the arguments of a field. There are multiple use cases for which a field middleware is useful.
 
 A field middleware can be bound to a specific field or it can be included into the field resolver pipeline of all fields.
 
-So, let us first have a look at the simpelest case were we add a field middleware to every field of the middleware.
+So, let us first have a look at the simplest case where we add a field middleware to every field of the middleware.
 
 Our middleware shall resolve the field data if the source-object (parent-object) that is passed down to the field resolver pipeline is a dictionary.
 
@@ -43,7 +43,7 @@ Our middleware could also pass to the next pipeline if we want to allow other mi
 
 Another pattern is to reverse the execution of our middleware and first let the middleware components that come after our middleware process. This will let the other middleware compose the field result.
 
-Our field middlware can now convert the result that some other middleware component has produced.
+Our field middleware can now convert the result that some other middleware component has produced.
 
 ```csharp
 Schema.Create(
@@ -126,19 +126,19 @@ public class MyMiddleware
 }
 ```
 
-The class middlewares can be registerd as follows:
+The class middlewares can be registered as follows:
 
 ```csharp
 descriptor.Field(t => Bar).Use<MyMiddleware>();
 ```
 
-Also if you have custom parameters that you want to pass allong you can use our factory.
+Also if you have custom parameters that you want to pass along you can use our factory.
 
 ```csharp
 descriptor.Field(t => Bar).Use((services, next) => new MyMiddleware(next, "custom", "custom", services.GetRequiredService<FooBar>()));
 ```
 
-Our paging implementation for IQueryable is a field middleware and is provided through an extension method on `IObjectFieldDescriptor`.
+Our paging implementation for `IQueryable` is a field middleware and is provided through an extension method on `IObjectFieldDescriptor`.
 
 The extension method adds the middleware as well as the arguments that the middleware expects.
 
@@ -150,11 +150,11 @@ The extension method hides the complexity of combining a middleware with argumen
 
 ### Executor Bound Middleware
 
-Field middleware components can also be declared on the `QueryExecutionBuilder`, this way the execution engine can be extended without having to declare field middleware components on a schema and query middleware components on the executor. The 'UseField' method let you consistently extend the execution engine through one interface.
+Field middleware components can also be declared on the `QueryExecutionBuilder`, this way the execution engine can be extended without having to declare field middleware components on a schema and query middleware components on the executor. The `UseField` method let you consistently extend the execution engine through one interface.
 
 So, when should we put a field middleware on the schema level and when on the executor level.
 
-We should put anything on the schema level that is needed to make the schema work properly. Everything, that changes the way the query engine works or infrastructure components should go on the executor level since those are exchangable. This is especially true when you combine a query middleware with a field middleware.
+We should put anything on the schema level that is needed to make the schema work properly. Everything, that changes the way the query engine works or infrastructure components should go on the executor level since those are exchangeable. This is especially true when you combine a query middleware with a field middleware.
 
 >As a side note, the `IMiddlewareContext` implements also `IResolverContext` so in a middleware you have access to all the context information that the resolver context has.
 >You can even access all the results that the previous resolver in your path have produced by accessing the `Source` property which is exposed as a immutable stack of results.
@@ -163,11 +163,11 @@ We should put anything on the schema level that is needed to make the schema wor
 
 Directives can be used to annotate nearly everything in your schema or query. The annotation can than be used in a field middleware to change the way something is executed and so on.
 
-In order to make directives even more powerfull we added the ability to define a directive middleware which is executed whenever a directive is annotated to an object definition, field definition or field selection.
+In order to make directives even more powerful we added the ability to define a directive middleware which is executed whenever a directive is annotated to an object definition, field definition or field selection.
 
 So, first lets have a look at how to define a directive middleware.
 
-Lets say we want to have a directive that allways converts the result of annotated fields to an upper string.
+Let's say we want to have a directive that always converts the result of annotated fields to an upper string.
 
 ```csharp
 public class UpperDirectiveType
@@ -207,9 +207,9 @@ Once registered our directive can be used like the following in queries:
 }
 ```
 
-The directive middleware is then included into the resolver pipline of this field in this particular query.
+The directive middleware is then included into the resolver pipeline of this field in this particular query.
 
-This makes writing middlewares simpler since you do not have to write a middleware that has to check everytime if the field is annotated with a certain directive.
+This makes writing middlewares simpler since you do not have to write a middleware that has to check every time if the field is annotated with a certain directive.
 
 Moreover, the middleware is only injected into the field resolver pipeline if needed so you do not have extra code running each time a field is resolved when it is not annotated with your directive.
 

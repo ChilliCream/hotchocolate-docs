@@ -5,7 +5,7 @@ title: Object Type
 
 The object type is the most prominent type in GraphQL. There are currently two ways to describe an object type with the code-first approach.
 
-## ObjectType\<T\>
+## `ObjectType<T>`
 
 The first approach is by using the generic object type class which lets you specify an entity type that shall represent your schema type in .net. The object type descriptor will then try to automatically infer the GraphQL schema type from your .net type.
 
@@ -56,15 +56,15 @@ type Query {
 
 The following table shows the object type descriptor options:
 
-| Name                                                              | Description                                                                                    |
-| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| Name(string name)                                                 | Defines the name of the object type.                                                           |
-| Description(string description)                                   | Defines the description of the object type that will be accessible through the introspection.  |
-| Interface\<T\>()                                                  | Specifies an interface type that is implemented by this object type.                           |
-| IsOfType(IsOfType isOfType)                                       | Defines a function that specifies if a specific resolver type is of the specified object type. |
-| BindFields(BindingBehavior bindingBehavior)                       | Specifies the field binding behaviour.                                                         |
-| Field\<TValue\>(Expression\<Func\<T, TValue\>\> propertyOrMethod) | Specifies field configuration of a method or property decalred in T.                           |
-| Field(string name)                                                | Specifies a field that does not exist in T.                                                    |
+| Name | Description |
+| --- | --- |
+| `Name(string name)` | Defines the name of the object type. |
+| `Description(string description)` | Defines the description of the object type that will be accessible through the introspection. |
+| `Interface\<T\>()` | Specifies an interface type that is implemented by this object type. |
+| `IsOfType(IsOfType isOfType)` | Defines a function that specifies if a specific resolver type is of the specified object type. |
+| `BindFields(BindingBehavior bindingBehavior)` | Specifies the field binding behaviour. |
+| `Field\<TValue\>(Expression\<Func\<T, TValue\>\> propertyOrMethod)` | Specifies field configuration of a method or property declared in T. |
+| `Field(string name)` | Specifies a field that does not exist in T. |
 
 ### Name
 

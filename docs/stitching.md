@@ -45,7 +45,7 @@ type Consultant {
 }
 ```
 
-In real life this schema would boast a lot more information about our customer but this will surfice for our little demo.
+In real life this schema would boast a lot more information about our customer but this will suffice for our little demo.
 
 And our second schema dealing with the insurance contracts looks like the following:
 
@@ -106,7 +106,7 @@ type SomeOtherContract implements Contract {
 
 In order to make that happen you do not have to write actual code, we have create some directives that will tell the stitching layer what to do.
 
-Before we start, we have to give our schemas some names, these names will be used to direct remote queries to the right endpoint. 
+Before we start, we have to give our schemas some names, these names will be used to direct remote queries to the right endpoint.
 
 Let's name the customer schema `customers` and the contract schema `contracts`. With that let's decorate our desired schema.
 
@@ -211,9 +211,9 @@ Note that this is also the place where you would add authentication and header p
 
 The clients must be named clients and have to use the schema name that we used in our schema directive earlier.
 
-Next let's setup our remote schemas. Remote schemas are actually local schemas representing the remote schemas and allowing us to treat the remote schema as if it were a usual schema written with _Hot Chocolate_. 
+Next let's setup our remote schemas. Remote schemas are actually local schemas representing the remote schemas and allowing us to treat the remote schema as if it were a usual schema written with _Hot Chocolate_.
 
-This also allows us to create middleware components and other things on such a schema althogh the schema does not actually live in our process.
+This also allows us to create middleware components and other things on such a schema although the schema does not actually live in our process.
 
 So let us start with the customer schema, the customer schema does only use scalars defined in the spec. This means we do not have to declare any extra scalars to our stitching layer.
 
@@ -258,7 +258,7 @@ After both schemas are running start the stitching layer. The stitching layer ha
 
 The first call on the stitched schema takes a little longer (maybe 300 ~ 500 ms) since we are compiling the resolvers into a in-memory assembly. All further calls are fast (4 ~ 8 ms) in our example. The real life performance depends on how fast your connection to the stitched remote schemas is and how many data you are fetching. With the new batching layer that is coming soon the performance of the schema stitching should further improve.
 
-Open playground on http://localhost:5000/playground in order to fire up some requests agains our stitched schema and checkout the tracing tab for performance insights.
+Open playground on http://localhost:5000/playground in order to fire up some requests against our stitched schema and checkout the tracing tab for performance insights.
 
 The following query might be a good starting point since it will expose the ids of our objects.
 

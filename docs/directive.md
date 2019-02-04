@@ -125,13 +125,13 @@ public class FooType
 }
 ```
 
-Since, the directive instance that we have added to our type is now a strong .net type we do not have to fear changes to the directive structure or it`s name anymore.
+Since, the directive instance that we have added to our type is now a strong .net type we do not have to fear changes to the directive structure or its name anymore.
 
 ## Middleware
 
 What makes directive with Hot Chocolate very useful is the ability to associate a middleware with it. A middleware can alternate the result or even produce the result of a field. A directive middleware is only added to a field middleware pipeline when the directive was annotated to the object definition, the field definition or the field.
 
-Moreover, of the directive is repeatable the middleware will be added multiple times to the middleware alowing to build a real pipeline with it.
+Moreover, of the directive is repeatable the middleware will be added multiple times to the middleware allowing to build a real pipeline with it.
 
 In order to add a middleware to a directive you could declare it with the descriptor as a delegate.
 
@@ -159,7 +159,7 @@ public class MyDirective
 
 Directives with middleware or executable directives can be put on object types and on their field definitions or on the field selection in a query. Executable directives on an object type will replace the field resolver of every field of the annotated object type.
 
-### Order
+### Order
 
 In GraphQL the directive order is significant and with our middleware we use the order of directives to create a resolver pipeline through which the result flows.
 
@@ -194,4 +194,3 @@ If there were more directives in the query, they would be appended to the direct
 So, now the order would be like the following: `a, b, c, d, e, f`.
 
 Every middleware can execute the original resolver function by calling `ResolveAsync()` on the `IDirectiveContext`.
-

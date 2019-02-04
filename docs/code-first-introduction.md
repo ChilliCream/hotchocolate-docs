@@ -57,21 +57,21 @@ Here is a table that depicts how we will try to infer the schema types from your
 
 | .NET Type        | GraphQL Type |
 | ------------- | ----------- |
-| non-abstract class | Object Type |
-| Enum | Enum Type |
-| System.String | String |
-| System.Char | String |
-| System.Int16 | Short! |
-| System.Int32 | Int! |
-| System.Int64 | Long! |
-| System.Single | Float! |
-| System.Double | Float! |
-| System.Decimal | Decimal! |
-| System.DateTime | DateTime! |
+| non-abstract class | `Object` Type |
+| `Enum` | `Enum` Type |
+| `System.String` | `String` |
+| `System.Char` | `String` |
+| `System.Int16` | `Short!` |
+| `System.Int32` | `Int!` |
+| `System.Int64` | `Long!` |
+| `System.Single` | `Float!` |
+| `System.Double` | `Float!` |
+| `System.Decimal` | `Decimal!` |
+| `System.DateTime` | `DateTime!` |
 
-We even will automatically inspect your properties for further object types. This means that we are not only flattly mapping you properties but also all the referenced types.
+We even will automatically inspect your properties for further object types. This means that we are not only flatly mapping you properties but also all the referenced types.
 
-Let`s have a look at a small example:
+Let's have a look at a small example:
 
 ```csharp
 public class Query

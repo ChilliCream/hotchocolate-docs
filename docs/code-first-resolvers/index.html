@@ -24,7 +24,7 @@
     <span class="hljs-keyword">public</span> List&lt;<span class="hljs-keyword">string</span>&gt; FriendIds { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
 }
 </code></pre>
-<p>In our GraphQL schema we do not want to deal with ID`s or anything. So our GraphQL schema should look like the follwoing:</p>
+<p>In our GraphQL schema we do not want to deal with IDs or anything. So our GraphQL schema should look like the following:</p>
 <pre><code class="hljs css language-GraphQL">type Query {
     me: Person
 }
@@ -115,22 +115,22 @@ public class PersonType : ObjectType&lt;Person&gt;
 <tr><th>Member</th><th>Type</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td>Schema</td><td>ISchema</td><td>The GraphQL schema.</td></tr>
-<tr><td>ObjectType</td><td>ObjectType</td><td>The object type on which the field resolver is being executed.</td></tr>
-<tr><td>Field</td><td>ObjectField</td><td>The field on which the field resolver is being executed.</td></tr>
-<tr><td>QueryDocument</td><td>DocumentNode</td><td>The query that is being executed.</td></tr>
-<tr><td>Operation</td><td>OperationDefinitionNode</td><td>The operation from the query that is being executed.</td></tr>
-<tr><td>FieldSelection</td><td>FieldNode</td><td>The field selection for which a field resolver is being executed.</td></tr>
-<tr><td>Source</td><td>ImmutableStack&lt;object&gt;</td><td>The source stack contains all previous resolver results of the current execution path</td></tr>
-<tr><td>Path</td><td>Path</td><td>The current execution path.</td></tr>
-<tr><td>Parent&lt;T&gt;()</td><td>T</td><td>Gets the previous (parent) resolver result.</td></tr>
-<tr><td>Argument&lt;T&gt;(string name)</td><td>T</td><td>Gets a specific field argument.</td></tr>
-<tr><td>Service&lt;T&gt;()</td><td>T</td><td>Gets as specific service from the dependency injection container.</td></tr>
-<tr><td>CustomContext&lt;T&gt;()</td><td>T</td><td>Gets a specific custom context object that can be used to build up a state.</td></tr>
-<tr><td>DataLoader&lt;T&gt;(string key)</td><td>T</td><td>Gets a specific DataLoader.</td></tr>
+<tr><td><code>Schema</code></td><td><code>ISchema</code></td><td>The GraphQL schema.</td></tr>
+<tr><td><code>ObjectType</code></td><td><code>ObjectType</code></td><td>The object type on which the field resolver is being executed.</td></tr>
+<tr><td><code>Field</code></td><td><code>ObjectField</code></td><td>The field on which the field resolver is being executed.</td></tr>
+<tr><td><code>QueryDocument</code></td><td><code>DocumentNode</code></td><td>The query that is being executed.</td></tr>
+<tr><td><code>Operation</code></td><td><code>OperationDefinitionNode</code></td><td>The operation from the query that is being executed.</td></tr>
+<tr><td><code>FieldSelection</code></td><td><code>FieldNode</code></td><td>The field selection for which a field resolver is being executed.</td></tr>
+<tr><td><code>Source</code></td><td><code>ImmutableStack&lt;object&gt;</code></td><td>The source stack contains all previous resolver results of the current execution path</td></tr>
+<tr><td><code>Path</code></td><td><code>Path</code></td><td>The current execution path.</td></tr>
+<tr><td><code>Parent&lt;T&gt;()</code></td><td><code>T</code></td><td>Gets the previous (parent) resolver result.</td></tr>
+<tr><td><code>Argument&lt;T&gt;(string name)</code></td><td><code>T</code></td><td>Gets a specific field argument.</td></tr>
+<tr><td><code>Service&lt;T&gt;()</code></td><td><code>T</code></td><td>Gets as specific service from the dependency injection container.</td></tr>
+<tr><td><code>CustomContext&lt;T&gt;()</code></td><td><code>T</code></td><td>Gets a specific custom context object that can be used to build up a state.</td></tr>
+<tr><td><code>DataLoader&lt;T&gt;(string key)</code></td><td><code>T</code></td><td>Gets a specific DataLoader.</td></tr>
 </tbody>
 </table>
-</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2018-11-22 by Alexandr Shestakov</em></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#resolver-types">Resolver Types</a></li><li><a href="#resolver-context">Resolver Context</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-2-4 by Michael Staib</em></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#resolver-types">Resolver Types</a></li><li><a href="#resolver-context">Resolver Context</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

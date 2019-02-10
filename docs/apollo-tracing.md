@@ -25,7 +25,7 @@ object to enable _Apollo Tracing_. By default, as explained in the above table
 _Apollo Tracing_ is disabled. Let's take a look at the first example which
 describes how _Apollo Tracing_ is enabled permanently.
 
-**Enable _Apollo Tracing_ permanently**
+### Enable _Apollo Tracing_ permanently
 
 ```csharp
 public class Startup
@@ -51,7 +51,7 @@ public class Startup
 By setting the `TracingPreference` to `TracingPreference.Always`, we enabled
 _Apollo Tracing_ permanently; nothing else to do here. Done.
 
-**Enable _Apollo Tracing_ per query request**
+### Enable _Apollo Tracing_ per query request
 
 First, we need to enable _Apollo Tracing_ on the server-side. It's almost
 identical to the above example.

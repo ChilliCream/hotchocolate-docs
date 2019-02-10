@@ -1,9 +1,7 @@
 ---
 id: dataloaders
-title: DataLoaders
+title: Data Loaders
 ---
-
-## Data Loaders
 
 If you want to read more about _DataLoader_ in general, you can head over to Facebook's [GitHub repository](https://github.com/facebook/dataloader).
 

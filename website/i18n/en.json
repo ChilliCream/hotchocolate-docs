@@ -5,6 +5,9 @@
     "previous": "Previous",
     "tagline": "A GraphQL Server for .net core and .net classic",
     "docs": {
+      "apollo-tracing": {
+        "title": "Apollo Tracing"
+      },
       "aspnet": {
         "title": "ASP.net"
       },
@@ -29,26 +32,20 @@
       "code-first-resolvers": {
         "title": "Resolvers"
       },
-      "code-first-subscription": {
-        "title": "code-first-subscription"
-      },
       "code-first": {
         "title": "Code-first"
       },
       "custom-context": {
-        "title": "Custom Context Objects"
+        "title": "Custom Context Data"
       },
       "custom-scalar-types": {
         "title": "Scalar Type Support"
       },
       "dataloaders": {
-        "title": "DataLoaders"
+        "title": "Data Loaders"
       },
       "dependency-injection": {
         "title": "Dependency Injection"
-      },
-      "diagnostics": {
-        "title": "Authorization"
       },
       "directives": {
         "title": "Directives"
@@ -57,7 +54,7 @@
         "title": ".NET CLI"
       },
       "errors": {
-        "title": "Error"
+        "title": "Error Filter"
       },
       "example-hello-world-code-first": {
         "title": "Hello World"
@@ -65,11 +62,17 @@
       "example-hello-world-schema-first": {
         "title": "Hello World"
       },
+      "example-other-code-first": {
+        "title": "Other Examples"
+      },
       "example-star-wars-code-first": {
         "title": "Star Wars"
       },
       "example-star-wars-schema-first": {
         "title": "Star Wars"
+      },
+      "instrumentation": {
+        "title": "Instrumentation"
       },
       "introduction": {
         "title": "Introduction"
@@ -98,8 +101,14 @@
       "stitching": {
         "title": "Schema Stitching"
       },
+      "code-first-subscription": {
+        "title": "Subscriptions"
+      },
       "tutorial-01-gettingstarted": {
         "title": "Getting Started"
+      },
+      "type-conversion": {
+        "title": "Type Conversion"
       },
       "validation-rule": {
         "title": "Validation Rules"
@@ -157,6 +166,93 @@
       },
       "version-0.5.2-schema-first": {
         "title": "Schema-first"
+      },
+      "version-0.7.0-apollo-tracing": {
+        "title": "Apollo Tracing"
+      },
+      "version-0.7.0-aspnet": {
+        "title": "ASP.net"
+      },
+      "version-0.7.0-authorization": {
+        "title": "Authorization"
+      },
+      "version-0.7.0-code-first-introduction": {
+        "title": "Introduction"
+      },
+      "version-0.7.0-code-first-object-type": {
+        "title": "Object Type"
+      },
+      "version-0.7.0-code-first-resolvers": {
+        "title": "Resolvers"
+      },
+      "version-0.7.0-code-first": {
+        "title": "Code-first"
+      },
+      "version-0.7.0-custom-context": {
+        "title": "Custom Context Data"
+      },
+      "version-0.7.0-custom-scalar-types": {
+        "title": "Scalar Type Support"
+      },
+      "version-0.7.0-dataloaders": {
+        "title": "Data Loaders"
+      },
+      "version-0.7.0-dependency-injection": {
+        "title": "Dependency Injection"
+      },
+      "version-0.7.0-directives": {
+        "title": "Directives"
+      },
+      "version-0.7.0-errors": {
+        "title": "Error Filter"
+      },
+      "version-0.7.0-example-other-code-first": {
+        "title": "Other Examples"
+      },
+      "version-0.7.0-example-star-wars-code-first": {
+        "title": "Star Wars"
+      },
+      "version-0.7.0-instrumentation": {
+        "title": "Instrumentation"
+      },
+      "version-0.7.0-introduction": {
+        "title": "Introduction"
+      },
+      "version-0.7.0-middleware": {
+        "title": "Middleware"
+      },
+      "version-0.7.0-migration": {
+        "title": "Migrating from 0.6.x"
+      },
+      "version-0.7.0-options": {
+        "title": "Options"
+      },
+      "version-0.7.0-pagination": {
+        "title": "Pagination"
+      },
+      "version-0.7.0-parser": {
+        "title": "Parser"
+      },
+      "version-0.7.0-schema-first": {
+        "title": "Schema-first"
+      },
+      "version-0.7.0-security": {
+        "title": "Security"
+      },
+      "version-0.7.0-stitching": {
+        "title": "Schema Stitching"
+      },
+      "version-0.7.0-code-first-subscription": {
+        "title": "Subscriptions"
+      },
+      "version-0.7.0-tutorial-01-gettingstarted": {
+        "title": "Getting Started"
+      },
+      "version-0.7.0-type-conversion": {
+        "title": "Type Conversion"
+      },
+      "version-0.7.0-validation-rule": {
+        "title": "Validation Rules"
       }
     },
     "links": {

@@ -22,7 +22,9 @@
       "errors",
       "security",
       "validation-rule",
-      "stitching"
+      "stitching",
+      "instrumentation",
+      "apollo-tracing"
     ],
     "Guides": [
       "migration",

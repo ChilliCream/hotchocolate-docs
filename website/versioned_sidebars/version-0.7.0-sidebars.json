@@ -22,7 +22,9 @@
       "version-0.7.0-errors",
       "version-0.7.0-security",
       "version-0.7.0-validation-rule",
-      "version-0.7.0-stitching"
+      "version-0.7.0-stitching",
+      "version-0.7.0-instrumentation",
+      "version-0.7.0-apollo-tracing"
     ],
     "Guides": [
       "version-0.7.0-migration",

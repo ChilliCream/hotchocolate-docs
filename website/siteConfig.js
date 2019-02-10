@@ -76,6 +76,7 @@ const siteConfig = {
     "/js/code-block-buttons.js",
   ],
   onPageNav: "separate",
+  docsSideNavCollapsible: true,
   twitter: true,
   twitterUsername: "Chilli_Cream",
   twitterImage: "img/cupcake.png",

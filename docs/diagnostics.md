@@ -1,5 +1,0 @@
----
-id: diagnostics
-title: Authorization
----
-

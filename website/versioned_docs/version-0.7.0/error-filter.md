@@ -58,3 +58,11 @@ return ErrorBuilder.From(error)
     .SetCode("FOO_BAR")
     .Build();
 ```
+
+## Exception Details
+
+In order to automatically add exception details to your GraphQL error you can switch the execution option to include exception details. By default we will switch this on if the debugger is attached. You can overwrite the behavior by setting the option.
+
+```csharp
+Schema.Create(...).MakeExecutable(new QueryExecutionOptions { IncludeExceptionDetails = true });
+```

@@ -534,12 +534,16 @@ type User </span>{
 }
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="query-rewriter"></a><a href="#query-rewriter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Query Rewriter</h3>
-<p>As you can see it is quite easy to stitch multiple schemas together and enhance the locally. But how can we go further and hook into the query rewriter of the stitching engine.</p>
-<p>Let us for instance try to get rid of the <code>createdById</code> field of message. We actually need this field in order to fetch the <code>User</code> from the remote schema. In order to achieve that we could remove this field but request it as a hidden field whenever a <code>Message</code> object is resolved.</p>
-<p>We could then write a little field middleware that copies us the data into our scoped conetxt data so that we are consequently able to use the data in our <code>delegate</code> directive.</p>
-<p>The first thing we need to do is to create a new class that inherits from <code>QueryDelegationRewriterBase</code>.</p>
+<p>As you can see it is quite simple to stitch multiple schemas together and enhance them with the stitching builder.</p>
+<p><strong>But how can we go further and hook into the query rewriter of the stitching engine?</strong></p>
+<p>Let us for instance try to get rid of the <code>createdById</code> field of the <code>Message</code> type.</p>
+<p>We actually need this field in order to fetch the <code>User</code> from the remote schema. In order to be able to remove this field, we would need to be able to request it as some kind of a hidden field whenever a <code>Message</code> object is resolved.</p>
+<p>We could then write a little field middleware that copies us the hidden field data into our scoped conetext data, so that we are consequently able to use the id in our <code>delegate</code> directive.</p>
+<p>The stitching engine allows us to hook into the the query rewrite process and add our own rewrite logic that could add fields or even large sub-queries.</p>
+<p>The first thing we need to do here is to create a new class that inherits from <code>QueryDelegationRewriterBase</code>.</p>
 <p>The base class exposes two virtual methods <code>OnRewriteField</code> and <code>OnRewriteSelectionSet</code>.</p>
-<p>A selection set describes a selection of fields, fragments on a certain type. So, in order to fetch a hidden field every time a ceratain type is requested we would want to overwrite <code>OnRewriteSelectionSet</code>.</p>
+<p>A selection set describes a selection of fields and fragments on a certain type.</p>
+<p>So, in order to fetch a hidden field every time a ceratain type is requested we would want to overwrite <code>OnRewriteSelectionSet</code>.</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">private</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AddCreatedByIdQueryRewriter</span>
     : <span class="hljs-title">QueryDelegationRewriterBase</span>
 {
@@ -568,12 +572,15 @@ type User </span>{
     }
 }
 </code></pre>
-<p>The syntax nodes have a lot of those little rewrite helpers like <code>AddSelection</code>. These helper methods basically branch of the syntax tree and return the new version.</p>
-<p>Query delegation rewriter are registered with the dependency injection and not with our stitching builder.</p>
+<p>The syntax nodes have a lot of little rewrite helpers like <code>AddSelection</code>. These helper methods basically branch of the syntax tree and return a new version that contains the applied change. In our case we get a new <code>SelectionSetNode</code> that now also contains a field <code>createdBy</code> with an alias <code>createdById</code>. In a real-world implementations you should use a more complex alias name like <code>___internal_field_createdById</code> in order to avoid collisions with field selections of the query.</p>
+<p>Query delegation rewriters are registered with the dependency injection and not with our stitching builder.</p>
 <pre><code class="hljs css language-csharp">services.AddQueryDelegationRewriter&lt;AddCreatedByIdQueryRewriter&gt;();
 </code></pre>
-<p>With that setup the engine will always fetch the requested field for us when a <code>Message</code> object is requested.</p>
-<p>So, now let us move on to write a little middleware that copies this data into our scoped resolver context data map. The data in this map will only be available to the resolvers in the subtree if the message type.</p>
+<blockquote>
+<p>Query delegation rewriters are hosted as scoped services and you can be injected <code>IStitchingContext</code> and <code>ISchema</code> in order to access the remote schemas or the stitched schema for advanced type information.</p>
+</blockquote>
+<p>With that setup the stitching engine will always fetch the requested field for us when a <code>Message</code> object is requested.</p>
+<p>So, now let us move on to write a little middleware that copies this data into our scoped resolver context data map. The data in this map will only be available to the resolvers in the subtree of the message type.</p>
 <p>A field middleware has to be declared via the stitching builder.</p>
 <pre><code class="hljs css language-csharp">services.AddStitchedSchema(builder =&gt; builder
   .AddSchemaFromHttp(<span class="hljs-string">"messages"</span>)
@@ -604,9 +611,9 @@ type User </span>{
   })
 </code></pre>
 <blockquote>
-<p>We could also declare a field middleware as class. More about what you can do with a field middleware can be read <a href="/docs/next/middleware">here</a>.</p>
+<p>We could also declare a field middleware as class. More about what you can do with a field middleware can be found <a href="/docs/next/middleware">here</a>.</p>
 </blockquote>
-<p>With all of this in place we could now rewrite our <code>Message</code> type extension:</p>
+<p>With all of this in place we could now rewrite our <code>Message</code> type extension and access the <code>createdById</code> from the scoped context data:</p>
 <pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Message</span> {
   <span class="hljs-attribute">createdBy</span>: User!
     <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"users"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"user(id: $scopedContextData:createdById)"</span>)

@@ -96,7 +96,7 @@ type User {
 }
 ```
 
-Last but not least we have a third service handling the message analytics. In our example case we keep it simple and our analytics services just tracks three different counters per message. The schema for this service looks like the following:
+Last but not least we have a third service handling the message analytics. In our example case we keep it simple and our analytics service just tracks three different counters per message. The schema for this service looks like the following:
 
 ```graphql
 type Query {
@@ -153,7 +153,7 @@ dotnet add package HotChocolate.Stitching
 
 Now that our GraphQL server is ready we can start to configure the endpoints of our remote schemas.
 
-> Remote schemas are what we call the GraphQL schemas that we want include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Sangria, Hot Chocolate etc.) that serves its schema over HTTP. Also we can include local schemas that are created with the _Hot Chocolate_ .net API.
+> Remote schemas are what we call the GraphQL schemas that we want to include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Sangria, Hot Chocolate etc.) that serves its schema over HTTP. Also we can include local schemas that are created with the _Hot Chocolate_ .net API.
 
 The endpoints are declared by using a named `HttpClient` via the HttpClient factory that is included with ASP.net core.
 
@@ -196,7 +196,7 @@ services.AddStitchedSchema(builder => builder
   .AddSchemaFromHttp("analytics"));
 ```
 
-Since a stitched schema is the essentially no different to any other GraphQL schema, we can configure custom types, add custom middleware or do any other thing that we could do with a _Hot Chocolate_ GraphQL schema.
+Since a stitched schema is essentially no different to any other GraphQL schema, we can configure custom types, add custom middleware or do any other thing that we could do with a _Hot Chocolate_ GraphQL schema.
 
 In our example we are stitching together schemas that come with non-spec scalar types like `DateTime`. So, the stitching layer would report a schema error when stitching the above three schemas together since the `DateTime` scalar is unknown.
 
@@ -354,7 +354,7 @@ The context data can be used to map custom properties into our GraphQL resolvers
 
 > Documentation on how to add custom context data from a http request can be found [here](custom-context.md)
 
-OK, let\`s sum this up, with the `delegate` directive we are able to create powerful stitching resolvers without writing one line of c# code. Furthermore, we are able to create new types that make the API richer without those type having any representation in any of the remote schemas.
+OK, let\`s sum this up, with the `delegate` directive we are able to create powerful stitching resolvers without writing one line of c# code. Furthermore, we are able to create new types that make the API richer without those types having any representation in any of the remote schemas.
 
 In order to get our extensions integrated we need to add the extensions to our stitching builder. Like with the schema we have multiple extension methods to load the GraphQL SDL from a file or a string and so on.
 
@@ -604,7 +604,7 @@ The base class exposes two virtual methods `OnRewriteField` and `OnRewriteSelect
 
 A selection set describes a selection of fields and fragments on a certain type.
 
-So, in order to fetch a hidden field every time a ceratain type is requested we would want to overwrite `OnRewriteSelectionSet`.
+So, in order to fetch a hidden field every time a certain type is requested we would want to overwrite `OnRewriteSelectionSet`.
 
 ```csharp
 private class AddCreatedByIdQueryRewriter
@@ -725,7 +725,7 @@ Apart from the source schema rewriters we can also rewrite the schema document a
 IStitchingBuilder AddMergedDocumentRewriter(Func<DocumentNode, DocumentNode> rewrite);
 ```
 
-This can be very useful if we want to first let all source schema rewriter do their work and annotate the types. With the annotations in place we could write complex rewriter that further enhance our stitched schema.
+This can be very useful if we want to first let all source schema rewriters do their work and annotate the types. With the annotations in place we could write complex rewriters that further enhance our stitched schema.
 
 Also, if we just wanted to validate the schema for merge errors or collect information on the rewritten schema we are able to add schema visitors that run after all schema modifications are done.
 
@@ -850,7 +850,7 @@ We are currently supporting stitching `Query` and `Mutation`.
 
 With Version 9 we will introduce stitching the `Subscription` type.
 
-Stitching queries is straight forward and works like described earlier. Mutations are also quit straight forward, but it is often overlooked that mutations are executed with a different execution strategy.
+Stitching queries is straight forward and works like described earlier. Mutations are also quite straight forward, but it is often overlooked that mutations are executed with a different execution strategy.
 
 Query resolvers are executed in parallel when possible. All fields of a query have to be side-effect free.
 
@@ -871,7 +871,9 @@ mutation {
 }
 ```
 
-The above example first creates a user and then adds the created user to a group. This means that mutations can only stitched on the top level. Everything, that you stitch in the lower level is delegating to a query.
+The above example first creates a user and then adds the created user to a group. This means that mutations can only be stitched on the top level. Everything, that you stitch in the lower levels is delegating the request to a `Query` type.
+
+Or, even simpler put, only fields that are declared on the mutation type can delegate to a mutation field on a remote query.
 
 Let's put that in a context.
 
@@ -913,7 +915,7 @@ type UserMutations {
 
 ## Stitching Context
 
-The stitching engine provides a lot of extension points, but if we wanted to write the stitching for one specific resolver by ourselves then we could do that by using the `IStitchingContext` is a scoped service and can be resolved through the resolver context.
+The stitching engine provides a lot of extension points, but if we wanted to write the stitching for one specific resolver by ourselves then we could do that by using the `IStitchingContext` which is a scoped service and can be resolved through the resolver context.
 
 ```csharp
 IStitchingContext stitchingContext = context.Service<IStichingContext>();

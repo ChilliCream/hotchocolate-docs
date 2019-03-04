@@ -11,9 +11,9 @@ So, in order to opt-in one of those solutions just add an authentication middlew
 
 ## Authorization
 
-Authorization on the other hand is something that Hot Chocolate can provide some value to by introducing an `@authorize`-directive.
+Authorization on the other hand is something Hot Chocolate can provide some value to by introducing an `@authorize`-directive.
 
-The `@authorize`-directive basically is our `AuthorizeAttribute`. You can annotate this directive to type or field definitions in order to add authorization policies to them.
+The `@authorize`-directive basically is our `AuthorizeAttribute`. You can annotate this directive to type or field definitions in order to add authorization behaviour to them.
 
 But let's start at the beginning with this. In order to add authorization capabilities to your schema add the following package to your project:
 
@@ -21,7 +21,7 @@ But let's start at the beginning with this. In order to add authorization capabi
 dotnet add package HotChocolate.AspNetCore.Authorization
 ```
 
-Once you have added the package register the `@authorize`-directive type with the schema:
+In order to use the `@authorize`-directive we have to register it like the following:
 
 ```csharp
 Schema.Create(c =>
@@ -39,9 +39,35 @@ Once you have done that you can add the `@authorize`-directive to object type de
 Schema-First:
 
 ```graphql
+type Person @authorize {
+  name: String!
+  address: Address!
+}
+```
+
+Code-First:
+
+```csharp
+public class PersonType : ObjectType<Person>
+{
+    protected override Configure(IObjectTypeDescriptor<Person> descriptor)
+    {
+        descriptor.Directive(new AuthorizeDirective());
+        descriptor.Field(t => t.Address).Directive(new AuthorizeDirective());
+    }
+}
+```
+
+If we just add the `@authorize`-directive without specifying any arguments the authorize middleware will basically just enforce that a user is authenticated. If now user is authenticated the field middleware will rais a GraphQL error and the field value is set to null. If the field is a non-null field the standadr GraphQL non-null violation rule is applied like with any other GraphQL error.
+
+### Roles
+
+Schema-First:
+
+```graphql
 type Person @authorize(policy: "AllEmployees") {
-    name: String!
-    address: Address! @authorize(policy: "SalesDepartment")
+  name: String!
+  address: Address! @authorize(policy: "SalesDepartment")
 }
 ```
 
@@ -58,14 +84,16 @@ public class PersonType : ObjectType<Person>
 }
 ```
 
+### Authorization Policies
+
 The `@authorize`-directive on a field definition takes precedence over one that is added on the object type definition.
 
 So taking our example from earlier:
 
 ```graphql
 type Person @authorize(policy: "AllEmployees") {
-    name: String!
-    address: Address! @authorize(policy: "SalesDepartment")
+  name: String!
+  address: Address! @authorize(policy: "SalesDepartment")
 }
 ```
 
@@ -75,8 +103,8 @@ It is important to note that _policy-based authorization_ is only available with
 
 ```graphql
 type Person @authorize(roles: "ContentEditor") {
-    name: String!
-    address: Address! @authorize(roles: ["ContentEditor", "ContentReader"])
+  name: String!
+  address: Address! @authorize(roles: ["ContentEditor", "ContentReader"])
 }
 ```
 

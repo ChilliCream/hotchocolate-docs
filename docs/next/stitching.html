@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Schema Stitching · Hot Chocolate</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;What is schema stitching actually? Schema stitching is the capability to merge multiple GraphQL schemas into one schema on which queries can be queried.&lt;/p&gt;
-"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Schema Stitching · Hot Chocolate"/><meta property="og:type" content="website"/><meta property="og:url" content="https://hotchocolate.io/index.html"/><meta property="og:description" content="&lt;p&gt;What is schema stitching actually? Schema stitching is the capability to merge multiple GraphQL schemas into one schema on which queries can be queried.&lt;/p&gt;
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Schema Stitching · Hot Chocolate</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;What is schema stitching actually? Schema stitching is the capability to merge multiple GraphQL schemas into one schema that can be queried.&lt;/p&gt;
+"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Schema Stitching · Hot Chocolate"/><meta property="og:type" content="website"/><meta property="og:url" content="https://hotchocolate.io/index.html"/><meta property="og:description" content="&lt;p&gt;What is schema stitching actually? Schema stitching is the capability to merge multiple GraphQL schemas into one schema that can be queried.&lt;/p&gt;
 "/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://hotchocolate.io/img/cupcake.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atelier-dune-light.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -64,203 +64,564 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/ChilliCream/hotchocolate-docs/edit/master/docs/stitching.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">Schema Stitching</h1></header><article><div><span><p>What is schema stitching actually? Schema stitching is the capability to merge multiple GraphQL schemas into one schema on which queries can be queried.</p>
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/ChilliCream/hotchocolate-docs/edit/master/docs/stitching.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">Schema Stitching</h1></header><article><div><span><p>What is schema stitching actually? Schema stitching is the capability to merge multiple GraphQL schemas into one schema that can be queried.</p>
 <h2><a class="anchor" aria-hidden="true" id="introduction"></a><a href="#introduction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Introduction</h2>
-<p>So, for what is that useful? In our case we have lots of specialized services that serve data for a specific problem domain. Some of these services are GraphQL services, some of them are REST services and yes sadly a little portion of those are still SOAP services.</p>
-<p>Also, think about this, you cannot always start fresh and with schema stitching you can now create the schema of your <strong>dreams</strong> and merge all those other services into that new glorified schema.</p>
-<p>Apart from that UI teams tend to <strong>NOT</strong> want to know about all those domain services and their specifics. They want to be able to fetch the data they need with one call, no under- or over-fetching and most importantly no repeated fetching because you first needed to fetch that special id with which you now can fetch this other thing. No, what we really want here is to have one source of truth and one call to get exactly what we want. That's what GraphQL is all about.</p>
-<p>Furthermore, we believe the schemas should be consistent and provide a way that is easily to consume.</p>
-<p>With the preview version 0.7.0-preview.35 we are now introducing schema stitching capabilities to <a href="https://hotchocolate.io/"><em>Hot Chocolate</em></a>.</p>
-<p>In this post I will walk you through how you can use schema stitching, what will be available with version 0.7.0 and what features come with the next releases.</p>
+<p><strong>So, for what is that useful?</strong></p>
+<p>In our case we have lots of specialized services that serve data for specific problem domains. Some of these services are GraphQL services, some of them are REST services and yes sadly a little portion of those are still SOAP services.</p>
+<p>With <em>Hot Chocolate</em> schema stitching you are able to create a gateway that bundles all those services into one GraphQL schema.</p>
+<p><strong>Is schema stitching basically just putting two schemas together?</strong></p>
+<p>Just putting two schemas into one and avoid name collisions is simple. But what we want to achieve with schema stitching is one consistent schema.</p>
+<p><em>Hot Chocolate</em> schema stitching allows us to really integrate services into one schema by folding types into one another and even renaming or removing parts.</p>
+<p>With this we can create a consistent GraphQL schema that hides the implementation details of our backend services and provides the consumer of our endpoint with the capabillity to fetch the data they need with one call, no under- or over-fetching and most importantly no repeated fetching because you first needed to fetch that special id with which you now can then fetch this other thingy.</p>
 <h2><a class="anchor" aria-hidden="true" id="getting-started"></a><a href="#getting-started" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Getting Started</h2>
-<p>Assume we have two schemas one dealing with the customer data, basically the data that would be located in a CRM system of a company, the other representing insurance data about the customer, basically the technical domain specific data that gives you all the insights into the customers insurance contracts.</p>
-<p>The stitching layer is not limited to two schemas, you can actually stitch together how many schemas you want. But for our example we use those two mentioned schemas about customers and their contracts.</p>
-<p>So, let's say our customer schema looks something like the following:</p>
+<p>In order to showcase how schema stitching works and what the problems are let us assume we have a service like twitter, where a user can post messages.</p>
+<p>We have three teams working on internal micro-/domain-services that handle certain aspects.</p>
+<p>The first service is handling message stream and has the following schema:</p>
 <pre><code class="hljs css language-graphql">type Query {
-  customer(id: ID!):<span class="hljs-built_in"> Customer
-</span>  consultant(id: ID!): Consultant
+  messages(userId: ID!): [Message!]
+  message(messageId: ID!): Message
 }
 <span class="hljs-built_in">
-type Customer </span>{
-  id: ID!
-  name: String!
-  consultant: Consultant
+type </span>Mutation {
+  newMessage(input: NewMessageInput!): NewMessagePayload!
 }
 <span class="hljs-built_in">
-type </span>Consultant {
+type </span>Message {
   id: ID!
-  name: String!
+  text: String!
+  createdBy: ID!
+  createdAt: DateTime!
+  tags: [String!]
+}
+<span class="hljs-built_in">
+type </span>NewMessageInput {
+  text: String!
+  tags: [String!]
+}
+<span class="hljs-built_in">
+type </span>NewMessagePayload {
+  message: Message
 }
 </code></pre>
-<p>In real life this schema would boast a lot more information about our customer but this will suffice for our little demo.</p>
-<p>And our second schema dealing with the insurance contracts looks like the following:</p>
+<p>The second service is handling the users of the services and has the following schema:</p>
 <pre><code class="hljs css language-graphql">type Query {
-  contract(contractId: ID!): Contract
-  contracts(customerId: ID!): [Contract!]
+  user(userId: ID!): User!
+  users: [User!]
 }
 <span class="hljs-built_in">
-interface </span>Contract {
-  id: ID!
+type </span>Mutation {
+  newUser(input: NewUserInput!): NewUserPayload!
+  resetPassword(input: ResetPasswordInput!): ResetPasswordPayload!
 }
 <span class="hljs-built_in">
-type </span>LifeInsuranceContract implements Contract {
-  id: ID!
-  premium: Float
+type </span>NewUserInput {
+  username: String!
+  password: String!
 }
 <span class="hljs-built_in">
-type </span>SomeOtherContract implements Contract {
+type </span>ResetPasswordInput {
+  username: String!
+  password: String!
+}
+<span class="hljs-built_in">
+type </span>NewUserPayload {
+  user:<span class="hljs-built_in"> User
+</span>}
+<span class="hljs-built_in">
+type </span>ResetPasswordPayload {
+  user:<span class="hljs-built_in"> User
+</span>}
+<span class="hljs-built_in">
+type User </span>{
   id: ID!
-  expiryDate: DateTime
+  username: String!
 }
 </code></pre>
-<p>Imagine we have two servers serving up those schemas. The schema that we actually want for our UI team should look like the following:</p>
-<pre><code class="hljs css language-graphql">type Query {
-  customer(id: ID!):Customer
+<p>Last but not least we have a third service handling the message analytics. In our example case we keep it simple and our analytics services just tracks three different counters per message. The schema for this service looks like the following:</p>
+<pre><code class="hljs css language-graphql"><span class="hljs-keyword">type</span> Query {
+  analytics(<span class="hljs-symbol">messageId:</span> ID!, <span class="hljs-symbol">type:</span> CounterType!): MessageAnalytics
 }
-<span class="hljs-built_in">
-type Customer </span>{
-  id: ID!
-  name: String!
-  consultant: Consultant
-  contracts: [Contract!]
+
+<span class="hljs-keyword">type</span> MessageAnalytics {
+  <span class="hljs-symbol">id:</span> ID!
+  <span class="hljs-symbol">messageId:</span> ID!
+  <span class="hljs-symbol">count:</span> Int!
+  <span class="hljs-symbol">type:</span> CounterType!
 }
-<span class="hljs-built_in">
-type </span>Consultant {
-  id: ID!
-  name: String!
-}
-<span class="hljs-built_in">
-interface </span>Contract {
-  id: ID!
-}
-<span class="hljs-built_in">
-type </span>LifeInsuranceContract implements Contract {
-  id: ID!
-  premium: Float
-}
-<span class="hljs-built_in">
-type </span>SomeOtherContract implements Contract {
-  id: ID!
-  expiryDate: DateTime
+
+<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">CounterType</span> {</span>
+  VIEWS
+  LIKES
+  REPLIES
 }
 </code></pre>
-<p>In order to make that happen you do not have to write actual code, we have create some directives that will tell the stitching layer what to do.</p>
-<p>Before we start, we have to give our schemas some names, these names will be used to direct remote queries to the right endpoint.</p>
-<p>Let's name the customer schema <code>customers</code> and the contract schema <code>contracts</code>. With that let's decorate our desired schema.</p>
-<pre><code class="hljs css language-graphql">type Query {
-  customer(id: ID!):<span class="hljs-built_in"> Customer
-</span>    @schema(name: <span class="hljs-string">"customer"</span>)
-    @delegate
-}
-<span class="hljs-built_in">
-type Customer </span>{
-  id: ID!
-  name: String!
-  consultant: Consultant
-  contracts: [Contract!]
-    @schema(name: <span class="hljs-string">"contract"</span>)
-    @delegate(path: <span class="hljs-string">"contracts(customerId:<span class="hljs-variable">$fields</span>:id)"</span>)
-}
-<span class="hljs-built_in">
-type </span>Consultant {
-  id: ID!
-  name: String!
-}
-<span class="hljs-built_in">
-interface </span>Contract {
-  id: ID!
-}
-<span class="hljs-built_in">
-type </span>LifeInsuranceContract implements Contract {
-  id: ID!
-  premium: Float
-}
-<span class="hljs-built_in">
-type </span>SomeOtherContract implements Contract {
-  id: ID!
-  expiryDate: DateTime
-}
-</code></pre>
-<p><code>@schema</code> basically points to the source schema, so the stitching middleware will redirect calls to a schema with the name that is specified by this directive.</p>
-<p><code>@delegate</code> specifies how the data is fetched. If <code>@delegate</code> does not have any path specified than the middleware expects that the field on the target schema has the same specification.</p>
-<p>If we look at the <code>customer</code> field then the middleware will assume that the source schema has the same customer field as root field as our stitched schema.</p>
-<p>The <code>contracts</code> field on the other hand specifies a delegation path <code>contracts(customerId:$fields:id)</code>. The delegation path specifies the field that is called and where the arguments get their input from.</p>
-<p>Let us assume you have a deeper field from which you want to fetch data like the following.</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">foo</span>(<span class="hljs-attribute">id</span>:<span class="hljs-number">123</span>) {
-  <span class="hljs-selector-tag">bar</span> {
-    <span class="hljs-selector-tag">baz</span>(<span class="hljs-attribute">top</span>:<span class="hljs-number">1</span>) {
-      <span class="hljs-selector-tag">qux</span>
-    }
-  }
-}
-</code></pre>
-<p>Since, we did not want to cram a query like this into one string we allow this to be done with a flat path.</p>
-<pre><code class="hljs"><span class="hljs-function"><span class="hljs-title">foo</span><span class="hljs-params">(id:<span class="hljs-variable">$arguments</span>:arg1)</span></span><span class="hljs-selector-class">.bar</span><span class="hljs-selector-class">.baz</span>(<span class="hljs-attribute">top</span>:<span class="hljs-number">1</span>)
-</code></pre>
-<p>The argument assignment in the path can be done with GraphQL literals or with scope variables. The scope variables basically can refer to the fields of the declaring type (in case of our contracts field the declaring type is customer) and to the arguments of the field, in our case contracts has no arguments in the stitched schema.</p>
-<h2><a class="anchor" aria-hidden="true" id="server-configuration"></a><a href="#server-configuration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Server Configuration</h2>
-<p>Now that we have configured our schema let's create our server. The fastest way to do that is to use our server template.</p>
-<p>Install the server template to your dotnet CLI:</p>
+<p>With those three separate schemas our UI team would have to fetch from multiple endpoints. Even worse, in order to build a stream view that shows the message and the username who posted it they would have to first fetch the messages and could only then fetch the names of the users, after they have fetched all the messages they would have to do a separate call to fetch the users for each message. This is one of the very things GraphQL tries to solve.</p>
+<h2><a class="anchor" aria-hidden="true" id="setting-up-our-server"></a><a href="#setting-up-our-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setting up our server</h2>
+<p>Before we start with stitching intself lets get into how to setup our server.</p>
+<p>Every <em>Hot Chocolate</em> server can be a stitching server. In order to create a stitching server lets first use our dotnet cli template to create a plain <em>Hot Chocolate</em> server.</p>
+<p>If you do not have the <em>Hot Chocolate</em> GraphQL server template installed execute first the following command.</p>
 <pre><code class="hljs css language-bash">dotnet new -i HotChocolate.Templates.Server
 </code></pre>
-<p>Now let's create our server:</p>
-<pre><code class="hljs css language-bash">mkdir stitching
+<p>After that we will create a new folder and add a new server to that folder.</p>
+<pre><code class="hljs css language-bash">mkdir stitching-demo
+<span class="hljs-built_in">cd</span> stitching-demo
 dotnet new graphql-server
 </code></pre>
-<p>Open the server in the editor of your choice and upgrade the packages to 0.7.0-preview.35.</p>
-<p>Go to the Startup.cs and add the HTTP clients that shall access the remote schema endpoints like the following:</p>
-<pre><code class="hljs css language-csharp">services.AddHttpClient(<span class="hljs-string">"customer"</span>, client =&gt;
+<p>With this we have now a functioning GraphQL server with a simple hello world example. In order to make this server a stitching server we have now to add the <em>Hot Chocolate</em> stitching layer.</p>
+<pre><code class="hljs css language-bash">dotnet add package HotChocolate.Stitching
+</code></pre>
+<p>Now that our GraphQL server is ready we can configure the endpoints of our remote schemas.</p>
+<blockquote>
+<p>Remote schemas are what we call the GraphQL schemas that we want include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Snagria, etc.) that serves its schema up over HTTP. Also we can include local schemas that we have created with the <em>Hot Chocolate</em> .net API.</p>
+</blockquote>
+<p>The endpoints are declared by using a named <code>HttpClient</code> via the HttpClient factory that is included with ASP.net core.</p>
+<pre><code class="hljs css language-csharp">services.AddHttpClient(<span class="hljs-string">"messages"</span>, (sp, client) =&gt;
 {
-    client.BaseAddress = <span class="hljs-keyword">new</span> Uri(<span class="hljs-string">"http://127.0.0.1:5050"</span>);
+  client.BaseAddress = <span class="hljs-keyword">new</span> Uri(<span class="hljs-string">"http://127.0.0.1:5050"</span>);
 });
+services.AddHttpClient(<span class="hljs-string">"users"</span>, (sp, client) =&gt;
+{
+  client.BaseAddress = <span class="hljs-keyword">new</span> Uri(<span class="hljs-string">"http://127.0.0.1:5051"</span>);
+});
+services.AddHttpClient(<span class="hljs-string">"analytics"</span>, (sp, client) =&gt;
+{
+  client.BaseAddress = <span class="hljs-keyword">new</span> Uri(<span class="hljs-string">"http://127.0.0.1:5052"</span>);
+});
+</code></pre>
+<p>Now lets remove the parts from the server template that we don't need.</p>
+<pre><code class="hljs css language-csharp">services.AddDataLoaderRegistry();
 
-services.AddHttpClient(<span class="hljs-string">"contract"</span>, client =&gt;
+services.AddGraphQL(sp =&gt; Schema.Create(c =&gt;
 {
-    client.BaseAddress = <span class="hljs-keyword">new</span> Uri(<span class="hljs-string">"http://127.0.0.1:5051"</span>);
-});
+    c.RegisterQueryType&lt;Query&gt;();
+}));
 </code></pre>
-<p>Note that this is also the place where you would add authentication and header properties in order to access your remote schema endpoint.</p>
-<p>The clients must be named clients and have to use the schema name that we used in our schema directive earlier.</p>
-<p>Next let's setup our remote schemas. Remote schemas are actually local schemas representing the remote schemas and allowing us to treat the remote schema as if it were a usual schema written with <em>Hot Chocolate</em>.</p>
-<p>This also allows us to create middleware components and other things on such a schema although the schema does not actually live in our process.</p>
-<p>So let us start with the customer schema, the customer schema does only use scalars defined in the spec. This means we do not have to declare any extra scalars to our stitching layer.</p>
-<pre><code class="hljs css language-csharp">serviceCollection.AddRemoteQueryExecutor(b =&gt; b
-    .SetSchemaName(<span class="hljs-string">"customer"</span>)
-    .SetSchema(File.ReadAllText(<span class="hljs-string">"Customer.graphql"</span>)));
+<h2><a class="anchor" aria-hidden="true" id="stitching-builder"></a><a href="#stitching-builder" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Stitching Builder</h2>
+<p>The stitching builder is the main API to configure a stiched GraphQL schema. In order to have a simple automerge we have just to provide all the necessary schema names and the stitching layer will fetch the remote schemas via introspection on the first call to the stitched schema.</p>
+<pre><code class="hljs css language-csharp">services.AddStitchedSchema(builder =&gt; builder
+  .AddSchemaFromHttp(<span class="hljs-string">"messages"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"users"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"analytics"</span>));
 </code></pre>
-<p>Again we use our schema name that we used earlier and we are loading a schema file describing the remote schema into the remote executor. We are basically building with that a schema the way you would with the schema-first approach.</p>
-<p>Next, let's setup our contracts schema. The contracts schema uses a <code>DateTime</code> scalar, this one is not specified in the spec so we have to tell our schema to use this one. Since <em>Hot Chocolate</em> specified a bunch of extended scalars we can import one of those. If we do not have a scalar matching the one of the  remote schema we would need to implement this one by extending the class <code>ScalarType</code>.</p>
-<pre><code class="hljs css language-csharp">serviceCollection.AddRemoteQueryExecutor(b =&gt; b
-    .SetSchemaName(<span class="hljs-string">"contract"</span>)
-    .SetSchema(FileResource.Open(<span class="hljs-string">"Contract.graphql"</span>))
-    .AddScalarType&lt;DateTimeType&gt;());
+<p>Since a stitched schema is the same then any other GraphQL schema we can configure custom types, custom middleware or other things with it.</p>
+<p>In our example we are stitching together schemas that come with non-spec scalar types like <code>DateTime</code>. So, the stitching layer would report an error when stitching the above three schemas together since the <code>DateTime</code> scalar is unknown.</p>
+<p>In order to declare this custom scalar we can register the extended scalar set like with a regular <em>Hot Chocolate</em> GraphQL schema through the <code>AddSchemaConfiguration</code>-method on the stitching builder.</p>
+<pre><code class="hljs css language-csharp">services.AddStitchedSchema(builder =&gt; builder
+  .AddSchemaFromHttp(<span class="hljs-string">"messages"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"users"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"analytics"</span>))
+  .AddSchemaConfiguration(c =&gt;
+  {
+    c.RegisterExtendedScalarTypes();
+  })
 </code></pre>
-<p>Now that we have setup our remote schema let's stitch everything together by providing our prepared stitched schema file:</p>
-<pre><code class="hljs css language-csharp">serviceCollection.AddStitchedSchema(
-    FileResource.Open(<span class="hljs-string">"Stitching.graphql"</span>),
-    c =&gt; c.RegisterType&lt;DateTimeType&gt;());
+<blockquote>
+<p>For more information about our scalars can be found <a href="/docs/next/custom-scalar-types">here</a>.</p>
+</blockquote>
+<p>With this in place our schema now looks like the following:</p>
+<pre><code class="hljs css language-graphql">type Query {
+  messages(userId: ID!): [Message!]
+  message(messageId: ID!): Message
+  user(userId: ID!): User!
+  users: [User!]
+  analytics(messageId: ID!, type: CounterType!): MessageAnalytics
+}
+<span class="hljs-built_in">
+type </span>Mutation {
+  newMessage(input: NewMessageInput!): NewMessagePayload!
+  newUser(input: NewUserInput!): NewUserPayload!
+  resetPassword(input: ResetPasswordInput!): ResetPasswordPayload!
+}
+<span class="hljs-built_in">
+type </span>Message {
+  id: ID!
+  text: String!
+  createdBy: ID!
+  createdAt: DateTime!
+  tags: [String!]
+}
+<span class="hljs-built_in">
+type </span>NewMessageInput {
+  text: String!
+  tags: [String!]
+}
+<span class="hljs-built_in">
+type </span>NewMessagePayload {
+  message: Message
+}
+<span class="hljs-built_in">
+type </span>NewUserInput {
+  username: String!
+  password: String!
+}
+<span class="hljs-built_in">
+type </span>ResetPasswordInput {
+  username: String!
+  password: String!
+}
+<span class="hljs-built_in">
+type </span>NewUserPayload {
+  user:<span class="hljs-built_in"> User
+</span>}
+<span class="hljs-built_in">
+type </span>ResetPasswordPayload {
+  user:<span class="hljs-built_in"> User
+</span>}
+<span class="hljs-built_in">
+type User </span>{
+  id: ID!
+  username: String!
+}
+<span class="hljs-built_in">
+type </span>MessageAnalytics {
+  id: ID!
+  messageId: ID!
+  count: Int!
+  type: CounterType!
+}
+
+enum CounterType {
+  VIEWS
+  LIKES
+  REPLIES
+}
 </code></pre>
-<p>Again like before we have to provide the extended scalar type that we used for the contracts schema.</p>
-<p>Now, we are basically done and can fire up our server.</p>
-<h2><a class="anchor" aria-hidden="true" id="wrapping-things-up"></a><a href="#wrapping-things-up" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Wrapping things up</h2>
-<p>We have uploaded the above example to the following GitHub repo so you can see a working example of the schema stitching.</p>
-<p><a href="https://github.com/ChilliCream/hotchocolate-examples">Stitching Example</a></p>
-<p>If you are using the example start the two remote schemas by switching to their respective directory and call <code>dotnet run</code>.</p>
-<p>After both schemas are running start the stitching layer. The stitching layer has <code>Apollo Tracing</code> enabled. Start the stitching layer also with <code>dotnet run</code> since the debugger slows the performance significantly down.</p>
-<p>The first call on the stitched schema takes a little longer (maybe 300 ~ 500 ms) since we are compiling the resolvers into a in-memory assembly. All further calls are fast (4 ~ 8 ms) in our example. The real life performance depends on how fast your connection to the stitched remote schemas is and how many data you are fetching. With the new batching layer that is coming soon the performance of the schema stitching should further improve.</p>
-<p>Open playground on <a href="http://localhost:5000/playground">http://localhost:5000/playground</a> in order to fire up some requests against our stitched schema and checkout the tracing tab for performance insights.</p>
-<p>The following query might be a good starting point since it will expose the ids of our objects.</p>
+<p>We just achieved a simple schema merge without doing a lot. But honostly we would like to change some of the details. While the stitching result is nice what we want to do is to integrate it much more.</p>
+<h3><a class="anchor" aria-hidden="true" id="extending-types"></a><a href="#extending-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extending Types</h3>
+<p>So, the first thing that we would like to have is a new field on the query that is called <code>me</code>. The <code>me</code> fields should be the currently signed in user.</p>
+<p>Further, the user type should expose the message stream of the user, this way we could fetch the messages of the signed in user like the following:</p>
 <pre><code class="hljs css language-graphql">{
-  customers {
-    id
-    contracts {
-      id
+  me {
+    messages {
+      text
+      tags
     }
   }
 }
 </code></pre>
-<p>If you have further questions or need help you join our slack group: <a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg">Hot Chocolate on Slack</a>.</p>
-</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-2-4 by Sean Allred</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/validation-rule"><span class="arrow-prev">← </span><span>Validation Rules</span></a><a class="docs-next button" href="/docs/next/instrumentation"><span>Instrumentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#getting-started">Getting Started</a></li><li><a href="#server-configuration">Server Configuration</a></li><li><a href="#wrapping-things-up">Wrapping things up</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
+<p>In order to extend types in a stitched schema we can use the new GraphQL extend syntax that was introuced with the 2018 spec.</p>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Query</span> {
+  <span class="hljs-attribute">me</span>: User! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"users"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"user(id: $contextData:UserId)"</span>)
+}
+
+<span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">User</span> {
+  <span class="hljs-attribute">messages</span>: [Message!]
+    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"messages"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"messages(userId: $fields:Id)"</span>)
+}
+</code></pre>
+<p>With just that and no further code needed we have specified how the GraphQL stitching engine shall rewrite our schema.</p>
+<p>Let us disect the above GraphQL SDL in order to understand what just happend.</p>
+<p>First, let us have a look at the <code>Query</code> extensions. We declared a the field like we would do it in a schema-first approach. After that we annotated the field with the <code>delegate</code> directive. The delegate directive basically works like a middleware that will create a fetch on the specified schema.</p>
+<p>The <code>path</code>-argument on the <code>delegate</code> directive specifies how to fetch the data. The selection path can have multiple levels. So if you wanted to fetch just the username you could do that like the following:</p>
+<pre><code class="hljs css language-graphql"><span class="hljs-function"><span class="hljs-title">user</span><span class="hljs-params">(id: <span class="hljs-variable">$contextData</span>:UserId)</span></span><span class="hljs-selector-class">.username</span>
+</code></pre>
+<p>Moreover, we are using a special variable that can access the resolver context. Currently this variable has four scopes:</p>
+<ul>
+<li><p>Arguments</p>
+<p>Access arguments of the field: <code>$arguments:ArgumentName</code></p></li>
+<li><p>Fields</p>
+<p>Access fields of the declaring type: <code>$fields:FieldName</code></p></li>
+<li><p>ContextData</p>
+<p>Access properties of the request context data map: <code>$contextData:Key</code></p></li>
+<li><p>ScopedContextData</p>
+<p>Access properties of the scoped field context data map: <code>$contextData:Key</code></p></li>
+</ul>
+<p>The context data can be used to map custom properties into our GraphQL resolvers. In our case we will use it to map the internal user ID from the user claims into our context data map. This allows us to have some kind of abstraction between the actual HttpRequest and the data that is needed to process a GraphQL request.</p>
+<blockquote>
+<p>We have documentation on how to add custom context data from your http request <a href="/docs/next/custom-context">here</a></p>
+</blockquote>
+<p>OK, lets sum this up, with the <code>delegate</code> directive we are able to create powerfull stitching resolver without writing one line of c# code. We, are able to create powerful new types that make the API so much richer.</p>
+<p>In order to get our extensions integrated we need to add the extensions to our stitching builder. Like with the schema we have multiple extension methods to load the GraphQL SDL from a file or a string etc.</p>
+<p>In our case lets say we are loading int from a file called <code>Extensions.graphql</code>.</p>
+<pre><code class="hljs css language-csharp">services.AddStitchedSchema(builder =&gt; builder
+  .AddSchemaFromHttp(<span class="hljs-string">"messages"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"users"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"analytics"</span>))
+  .AddExtensionsFromFile(<span class="hljs-string">"./graphql/Extensions.graphql"</span>)
+  .AddSchemaConfiguration(c =&gt;
+  {
+    c.RegisterExtendedScalarTypes();
+  })
+</code></pre>
+<p>No with all of this in place we our schema now looks like the following:</p>
+<pre><code class="hljs css language-graphql">type Query {
+  me: User!
+  messages(userId: ID!): [Message!]
+  message(messageId: ID!): Message
+  user(userId: ID!): User!
+  users: [User!]
+  analytics(messageId: ID!, type: CounterType!): MessageAnalytics
+}
+<span class="hljs-built_in">
+type </span>Mutation {
+  newMessage(input: NewMessageInput!): NewMessagePayload!
+  newUser(input: NewUserInput!): NewUserPayload!
+  resetPassword(input: ResetPasswordInput!): ResetPasswordPayload!
+}
+<span class="hljs-built_in">
+type </span>Message {
+  id: ID!
+  text: String!
+  createdBy: ID!
+  createdAt: DateTime!
+  tags: [String!]
+}
+<span class="hljs-built_in">
+type </span>NewMessageInput {
+  text: String!
+  tags: [String!]
+}
+<span class="hljs-built_in">
+type </span>NewMessagePayload {
+  message: Message
+}
+<span class="hljs-built_in">
+type </span>NewUserInput {
+  username: String!
+  password: String!
+}
+<span class="hljs-built_in">
+type </span>ResetPasswordInput {
+  username: String!
+  password: String!
+}
+<span class="hljs-built_in">
+type </span>NewUserPayload {
+  user:<span class="hljs-built_in"> User
+</span>}
+<span class="hljs-built_in">
+type </span>ResetPasswordPayload {
+  user:<span class="hljs-built_in"> User
+</span>}
+<span class="hljs-built_in">
+type User </span>{
+  id: ID!
+  username: String!
+  messages: [Message!]
+}
+<span class="hljs-built_in">
+type </span>MessageAnalytics {
+  id: ID!
+  messageId: ID!
+  count: Int!
+  type: CounterType!
+}
+
+enum CounterType {
+  VIEWS
+  LIKES
+  REPLIES
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="renaming-and-removing-types"></a><a href="#renaming-and-removing-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Renaming and Removing Types</h3>
+<p>Though this is nice we would like to go even further. We would like now to enhance our <code>Message</code> type like the following:</p>
+<pre><code class="hljs css language-graphql"><span class="hljs-keyword">type</span> <span class="hljs-type">Message</span> {
+  id: <span class="hljs-type">ID</span>!
+  text: <span class="hljs-type">String</span>!
+  createdBy: <span class="hljs-type">User</span>
+  createdById: <span class="hljs-type">ID</span>!
+  createdAt: <span class="hljs-type">DateTime</span>!
+  tags: [<span class="hljs-type">String</span>!]
+  views: <span class="hljs-type">Int</span>!
+  likes: <span class="hljs-type">Int</span>!
+  replies: <span class="hljs-type">Int</span>!
+}
+</code></pre>
+<p>Moreover, we would like to remove the <code>analytics</code> field from our query type since we have integrated the analytics data into our <code>Message</code> type. Moreover, since with the root field gone we have no way to access <code>MessageAnalytics</code> and <code>CounterType</code> lets also get rid of these types.</p>
+<p>The stitching builder has powerfull refactoring functions for your schemas that can even be extended by writing custom rewriters. In order to remove a field or a type we can tell the stitching builder to ignore them.</p>
+<pre><code class="hljs css language-csharp">services.AddStitchedSchema(builder =&gt; builder
+  .AddSchemaFromHttp(<span class="hljs-string">"messages"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"users"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"analytics"</span>))
+  .AddExtensionsFromFile(<span class="hljs-string">"./graphql/Extensions.graphql"</span>)
+  .IgnoreField(<span class="hljs-string">"analytics"</span>, <span class="hljs-string">"Query"</span>, <span class="hljs-string">"analytics"</span>)
+  .IgnoreType(<span class="hljs-string">"analytics"</span>, <span class="hljs-string">"MessageAnalytics"</span>)
+  .IgnoreType(<span class="hljs-string">"analytics"</span>, <span class="hljs-string">"CounterType"</span>)
+  .AddSchemaConfiguration(c =&gt;
+  {
+    c.RegisterExtendedScalarTypes();
+  })
+</code></pre>
+<blockquote>
+<p>There are also methods for renaming types and fields where the stitching engine will take care that the schema is consitently rewritten so that all the type references will refer to the corrent type/field name.</p>
+</blockquote>
+<p>With that we have remove the types from our stitched schema. No, let us move on to extend our message type.</p>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Message</span> {
+  <span class="hljs-attribute">createdBy</span>: User!
+    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"users"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"user(id: $fields:createdById)"</span>)
+  <span class="hljs-attribute">views</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
+  <span class="hljs-attribute">likes</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
+  <span class="hljs-attribute">replies</span>: Int!
+    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
+}
+</code></pre>
+<p>Also we need to rename the field <code>createdBy</code> to <code>createdById</code>.</p>
+<pre><code class="hljs css language-csharp">services.AddStitchedSchema(builder =&gt; builder
+  .AddSchemaFromHttp(<span class="hljs-string">"messages"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"users"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"analytics"</span>))
+  .AddExtensionsFromFile(<span class="hljs-string">"./graphql/Extensions.graphql"</span>)
+  .IgnoreField(<span class="hljs-string">"analytics"</span>, <span class="hljs-string">"Query"</span>, <span class="hljs-string">"analytics"</span>)
+  .IgnoreType(<span class="hljs-string">"analytics"</span>, <span class="hljs-string">"MessageAnalytics"</span>)
+  .IgnoreType(<span class="hljs-string">"analytics"</span>, <span class="hljs-string">"CounterType"</span>)
+  .RenameField(<span class="hljs-string">"messages"</span>, <span class="hljs-string">"Message"</span>, <span class="hljs-string">"createdBy"</span>, <span class="hljs-string">"createdById"</span>)
+  .AddSchemaConfiguration(c =&gt;
+  {
+    c.RegisterExtendedScalarTypes();
+  })
+</code></pre>
+<blockquote>
+<p>It is important to now that the schema rewriters are executed before the schemas are merged and the extensions integrated.</p>
+</blockquote>
+<p>Our new schema now looks like the following:</p>
+<pre><code class="hljs css language-graphql">type Query {
+  me: User!
+  messages(userId: ID!): [Message!]
+  message(messageId: ID!): Message
+  user(userId: ID!): User!
+  users: [User!]
+}
+<span class="hljs-built_in">
+type </span>Mutation {
+  newMessage(input: NewMessageInput!): NewMessagePayload!
+  newUser(input: NewUserInput!): NewUserPayload!
+  resetPassword(input: ResetPasswordInput!): ResetPasswordPayload!
+}
+<span class="hljs-built_in">
+type </span>Message {
+  id: ID!
+  text: String!
+  createdBy:<span class="hljs-built_in"> User
+</span>  createdById: ID!
+  createdAt: DateTime!
+  tags: [String!]
+  views: Int!
+  likes: Int!
+  replies: Int!
+}
+<span class="hljs-built_in">
+type </span>NewMessageInput {
+  text: String!
+  tags: [String!]
+}
+<span class="hljs-built_in">
+type </span>NewMessagePayload {
+  message: Message
+}
+<span class="hljs-built_in">
+type </span>NewUserInput {
+  username: String!
+  password: String!
+}
+<span class="hljs-built_in">
+type </span>ResetPasswordInput {
+  username: String!
+  password: String!
+}
+<span class="hljs-built_in">
+type </span>NewUserPayload {
+  user:<span class="hljs-built_in"> User
+</span>}
+<span class="hljs-built_in">
+type </span>ResetPasswordPayload {
+  user:<span class="hljs-built_in"> User
+</span>}
+<span class="hljs-built_in">
+type User </span>{
+  id: ID!
+  username: String!
+  messages: [Message!]
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="query-rewriter"></a><a href="#query-rewriter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Query Rewriter</h3>
+<p>As you can see it is quite easy to stitch multiple schemas together and enhance the locally. But how can we go further and hook into the query rewriter of the stitching engine.</p>
+<p>Let us for instance try to get rid of the <code>createdById</code> field of message. We actually need this field in order to fetch the <code>User</code> from the remote schema. In order to achieve that we could remove this field but request it as a hidden field whenever a <code>Message</code> object is resolved.</p>
+<p>We could then write a little field middleware that copies us the data into our scoped conetxt data so that we are consequently able to use the data in our <code>delegate</code> directive.</p>
+<p>The first thing we need to do is to create a new class that inherits from <code>QueryDelegationRewriterBase</code>.</p>
+<p>The base class exposes two virtual methods <code>OnRewriteField</code> and <code>OnRewriteSelectionSet</code>.</p>
+<p>A selection set describes a selection of fields, fragments on a certain type. So, in order to fetch a hidden field every time a ceratain type is requested we would want to overwrite <code>OnRewriteSelectionSet</code>.</p>
+<pre><code class="hljs css language-csharp"><span class="hljs-keyword">private</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AddCreatedByIdQueryRewriter</span>
+    : <span class="hljs-title">QueryDelegationRewriterBase</span>
+{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> SelectionSetNode <span class="hljs-title">OnRewriteSelectionSet</span>(<span class="hljs-params">
+        NameString targetSchemaName,
+        IOutputType outputType,
+        IOutputField outputField,
+        SelectionSetNode selectionSet</span>)</span>
+    {
+        <span class="hljs-keyword">if</span>(outputType.NamedType() <span class="hljs-keyword">is</span> ObjectType objectType
+          &amp;&amp; objectType.Name.Equals(<span class="hljs-string">"Message"</span>))
+        {
+            <span class="hljs-keyword">return</span> selectionSet.AddSelection(
+                <span class="hljs-keyword">new</span> FieldNode
+                (
+                    <span class="hljs-literal">null</span>,
+                    <span class="hljs-keyword">new</span> NameNode(<span class="hljs-string">"createdBy"</span>),
+                    <span class="hljs-keyword">new</span> NameNode(<span class="hljs-string">"createdById"</span>),
+                    Array.Empty&lt;DirectiveNode&gt;(),
+                    Array.Empty&lt;ArgumentNode&gt;(),
+                    <span class="hljs-literal">null</span>
+                ));
+        }
+
+        <span class="hljs-keyword">return</span> selectionSet;
+    }
+}
+</code></pre>
+<p>The syntax nodes have a lot of those little rewrite helpers like <code>AddSelection</code>. These helper methods basically branch of the syntax tree and return the new version.</p>
+<p>Query delegation rewriter are registered with the dependency injection and not with our stitching builder.</p>
+<pre><code class="hljs css language-csharp">services.AddQueryDelegationRewriter&lt;AddCreatedByIdQueryRewriter&gt;();
+</code></pre>
+<p>With that setup the engine will always fetch the requested field for us when a <code>Message</code> object is requested.</p>
+<p>So, now let us move on to write a little middleware that copies this data into our scoped resolver context data map. The data in this map will only be available to the resolvers in the subtree if the message type.</p>
+<p>A field middleware has to be declared via the stitching builder.</p>
+<pre><code class="hljs css language-csharp">services.AddStitchedSchema(builder =&gt; builder
+  .AddSchemaFromHttp(<span class="hljs-string">"messages"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"users"</span>)
+  .AddSchemaFromHttp(<span class="hljs-string">"analytics"</span>))
+  .AddExtensionsFromFile(<span class="hljs-string">"./graphql/Extensions.graphql"</span>)
+  .IgnoreField(<span class="hljs-string">"analytics"</span>, <span class="hljs-string">"Query"</span>, <span class="hljs-string">"analytics"</span>)
+  .IgnoreType(<span class="hljs-string">"analytics"</span>, <span class="hljs-string">"MessageAnalytics"</span>)
+  .IgnoreType(<span class="hljs-string">"analytics"</span>, <span class="hljs-string">"CounterType"</span>)
+  .IgnoreField(<span class="hljs-string">"messages"</span>, <span class="hljs-string">"Message"</span>, <span class="hljs-string">"createdBy"</span>)
+  .AddSchemaConfiguration(c =&gt;
+  {
+    c.RegisterExtendedScalarTypes();
+
+    c.Use(next =&gt; <span class="hljs-keyword">async</span> context =&gt;
+    {
+        <span class="hljs-keyword">await</span> next.Invoke(context);
+
+        <span class="hljs-keyword">if</span>(context.Field.Type.NamedType() <span class="hljs-keyword">is</span> ObjectType objectType
+          &amp;&amp; objectType.Name.Equals(<span class="hljs-string">"Message"</span>)
+          &amp;&amp; context.Result <span class="hljs-keyword">is</span> IDictionary&lt;<span class="hljs-keyword">string</span>, <span class="hljs-keyword">object</span>&gt; data
+          &amp;&amp; data.TryGetValue(<span class="hljs-string">"createdById"</span>, <span class="hljs-keyword">out</span> <span class="hljs-keyword">object</span> <span class="hljs-keyword">value</span>))
+        {
+            context.ScopedContextData =
+                context.ScopedContextData.SetItem(<span class="hljs-string">"createdById"</span>, <span class="hljs-keyword">value</span>);
+        }
+    })
+  })
+</code></pre>
+<blockquote>
+<p>We could also declare a field middleware as class. More about what you can do with a field middleware can be read <a href="/docs/next/middleware">here</a>.</p>
+</blockquote>
+<p>With all of this in place we could now rewrite our <code>Message</code> type extension:</p>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Message</span> {
+  <span class="hljs-attribute">createdBy</span>: User!
+    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"users"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"user(id: $scopedContextData:createdById)"</span>)
+  <span class="hljs-attribute">views</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
+  <span class="hljs-attribute">likes</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
+  <span class="hljs-attribute">replies</span>: Int!
+    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="validating-a-stitched-schema"></a><a href="#validating-a-stitched-schema" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Validating a Stitched Schema</h3>
+<h3><a class="anchor" aria-hidden="true" id="customizing-stitching-builder"></a><a href="#customizing-stitching-builder" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Customizing Stitching Builder</h3>
+<h2><a class="anchor" aria-hidden="true" id="batching"></a><a href="#batching" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Batching</h2>
+<h2><a class="anchor" aria-hidden="true" id="root-types"></a><a href="#root-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Root Types</h2>
+<p>We are currently supporting stitching <code>Query</code> and <code>Mutation</code>. With Version 9 we will introduce stitching the <code>Subscription</code> type.</p>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-3-4 by Michael Staib</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/validation-rule"><span class="arrow-prev">← </span><span>Validation Rules</span></a><a class="docs-next button" href="/docs/next/instrumentation"><span>Instrumentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#getting-started">Getting Started</a></li><li><a href="#setting-up-our-server">Setting up our server</a></li><li><a href="#stitching-builder">Stitching Builder</a><ul class="toc-headings"><li><a href="#extending-types">Extending Types</a></li><li><a href="#renaming-and-removing-types">Renaming and Removing Types</a></li><li><a href="#query-rewriter">Query Rewriter</a></li><li><a href="#validating-a-stitched-schema">Validating a Stitched Schema</a></li><li><a href="#customizing-stitching-builder">Customizing Stitching Builder</a></li></ul></li><li><a href="#batching">Batching</a></li><li><a href="#root-types">Root Types</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

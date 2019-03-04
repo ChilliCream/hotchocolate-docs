@@ -588,7 +588,7 @@ Let us for instance try to get rid of the `createdById` field of the `Message` t
 
 We actually need this field in order to fetch the `User` from the remote schema. In order to be able to remove this field, we would need to be able to request it as some kind of a hidden field whenever a `Message` object is resolved.
 
-We could then write a little field middleware that copies us the hidden field data into our scoped conetext data, so that we are consequently able to use the id in our `delegate` directive.
+We could then write a little field middleware that copies us the hidden field data into our scoped context data, so that we are consequently able to use the id in our `delegate` directive.
 
 The stitching engine allows us to hook into the the query rewrite process and add our own rewrite logic that could add fields or even large sub-queries.
 

@@ -187,7 +187,7 @@ services.AddGraphQL(sp => Schema.Create(c =>
 
 ## Stitching Builder
 
-The stitching builder is the main API to configure a stiched GraphQL schema. In order to have a simple automerge we have just to provide all the necessary schema names and the stitching layer will fetch the remote schemas via introspection on the first call to the stitched schema.
+The stitching builder is the main API to configure a stitched GraphQL schema (GraphQL gateway). In order to have a simple auto-merge we have just to provide all the necessary schema names and the stitching layer will fetch the remote schemas via introspection on the first call to the stitched schema.
 
 ```csharp
 services.AddStitchedSchema(builder => builder
@@ -286,7 +286,7 @@ enum CounterType {
 }
 ```
 
-We have just achieved a simple schema merge without doing a lot of work. But honostly we would like to change some of the types. While the stitching result is nice, we would like to integrate the types with each other.
+We have just achieved a simple schema merge without doing a lot of work. But honestly we would like to change some of the types. While the stitching result is nice, we would like to integrate the types with each other.
 
 ### Extending Types
 
@@ -305,7 +305,7 @@ Further, the user type should expose the message stream of the user, this way we
 }
 ```
 
-In order to extend types in a stitched schema we can use the new GraphQL extend syntax that was introuced with the 2018 spec.
+In order to extend types in a stitched schema we can use the new GraphQL extend syntax that was introduced with the 2018 spec.
 
 ```graphql
 extend type Query {
@@ -320,7 +320,7 @@ extend type User {
 
 With just that and no further code needed we have specified how the GraphQL stitching engine shall rewrite our schema.
 
-Let us disect the above GraphQL SDL in order to understand what it does.
+Let us dissect the above GraphQL SDL in order to understand what it does.
 
 First, let us have a look at the `Query` extension. We declared a field like we would do with the schema-first approach. After that we annotated the field with the `delegate` directive. The `delegate` directive basically works like a middleware that delegates calls to to a remote schema.
 
@@ -354,11 +354,11 @@ The context data can be used to map custom properties into our GraphQL resolvers
 
 > Documentation on how to add custom context data from a http request can be found [here](custom-context.md)
 
-OK, lets sum this up, with the `delegate` directive we are able to create powerfull stitching resolvers without writing one line of c# code. Furtermore, we are able to create new types that make the API richer without those type having any representation in any of the remote schemas.
+OK, let\`s sum this up, with the `delegate` directive we are able to create powerful stitching resolvers without writing one line of c# code. Furthermore, we are able to create new types that make the API richer without those type having any representation in any of the remote schemas.
 
 In order to get our extensions integrated we need to add the extensions to our stitching builder. Like with the schema we have multiple extension methods to load the GraphQL SDL from a file or a string and so on.
 
-In our case lets say we are loading it from a file called `Extensions.graphql`.
+In our case let\`s say we are loading it from a file called `Extensions.graphql`.
 
 ```csharp
 services.AddStitchedSchema(builder => builder
@@ -465,9 +465,9 @@ type Message {
 
 Moreover, we would like to remove the `analytics` field from our query type since we have integrated the analytics data directly into our `Message` type.
 
-Since with the root field gone we have no way of accessing `MessageAnalytics` and `CounterType`, lets also get rid of these types.
+Since with the root field gone we have no way of accessing `MessageAnalytics` and `CounterType`, let\`s also get rid of these types.
 
-The stitching builder has powerfull refactoring functions that even can be extended by writing custom document- and type-rewriters.
+The stitching builder has powerful refactoring functions that even can be extended by writing custom document- and type-rewriters.
 
 In order to remove a field or a type we can tell the stitching builder to ignore them by calling one of the ignore extension methods.
 
@@ -592,9 +592,9 @@ As can be seen, it is quite simple to stitch multiple schemas together and enhan
 
 Let us for instance try to get rid of the `createdById` field of the `Message` type as we actually do not want to expose this field to the consumer of the stitched schema.
 
-Since our resolver for the newly introduced `createdBy` field is dependant on the `createdById` field in order to fetch the `User` from the remote schema, we would need to be able to request it as some kind of a hidden field whenever a `Message` object is resolved.
+Since our resolver for the newly introduced `createdBy` field is dependent on the `createdById` field in order to fetch the `User` from the remote schema, we would need to be able to request it as some kind of a hidden field whenever a `Message` object is resolved.
 
-We could then write a little field middleware that copies us the hidden field data into our scoped context data, so that we are consequently able to use the id in our `delegate` directive by accessing the `createdById` via the scoped context data instead of refering to a field of the `Message` type.
+We could then write a little field middleware that copies us the hidden field data into our scoped context data, so that we are consequently able to use the id in our `delegate` directive by accessing the `createdById` via the scoped context data instead of referring to a field of the `Message` type.
 
 The stitching engine allows us to hook into the the query rewrite process and add our own rewrite logic that could add fields or even large sub-queries.
 
@@ -741,7 +741,7 @@ The merge rules are chained and pass along what they cannot handle. The types of
 
 ## Authentication
 
-In many cases schemas will be protected by some sort of authetication. In most cases http requests are authenticated with bearer tokens that are passed along as `Authorization` header.
+In many cases schemas will be protected by some sort of authentication. In most cases http requests are authenticated with bearer tokens that are passed along as `Authorization` header.
 
 Moreover, the most common case that we have seen so far is that people want to pass the tokens along to the remote schema.
 
@@ -774,7 +774,7 @@ services.AddHttpClient("messages", (sp, client) =>
 
 Another variant can also be to store service tokens for the remote schemas with our GraphQL gateway.
 
-How you want to implement authentication storngly depends on your needs. With the reliance on the HttpClient factory from the ASP.net core foundation we are very flexibile and can handle multiple scenarios.
+How you want to implement authentication strongly depends on your needs. With the reliance on the HttpClient factory from the ASP.net core foundation we are very flexible and can handle multiple scenarios.
 
 ## Batching
 
@@ -850,7 +850,7 @@ We are currently supporting stitching `Query` and `Mutation`.
 
 With Version 9 we will introduce stitching the `Subscription` type.
 
-Stitching queries is straight forward and works like described earlier. Mutations are also quit streight forward, but it is often overlooked that mutations are executed with a different execution strategy.
+Stitching queries is straight forward and works like described earlier. Mutations are also quit straight forward, but it is often overlooked that mutations are executed with a different execution strategy.
 
 Query resolvers are executed in parallel when possible. All fields of a query have to be side-effect free.
 
@@ -873,7 +873,7 @@ mutation {
 
 The above example first creates a user and then adds the created user to a group. This means that mutations can only stitched on the top level. Everything, that you stitch in the lower level is delegating to a query.
 
-Lets put that in a context.
+Let's put that in a context.
 
 ```graphql
 type Mutation {

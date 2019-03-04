@@ -352,13 +352,13 @@ Currently this variable has four scopes:
 
 The context data can be used to map custom properties into our GraphQL resolvers. In our case we will use it to map the internal user ID from the user claims into our context data map. This allows us to have some kind of abstraction between the actual HttpRequest and the data that is needed to process a GraphQL request.
 
-> We have documentation on how to add custom context data from your http request [here](custom-context.md)
+> Documentation on how to add custom context data from your http request can be found [here](custom-context.md)
 
-OK, lets sum this up, with the `delegate` directive we are able to create powerfull stitching resolver without writing one line of c# code. We, are able to create powerful new types that make the API so much richer.
+OK, lets sum this up, with the `delegate` directive we are able to create powerfull stitching resolvers without writing one line of c# code. Furtermore, we are able to create new types that make the API richer without those type having any representation in any of the remote schemas.
 
-In order to get our extensions integrated we need to add the extensions to our stitching builder. Like with the schema we have multiple extension methods to load the GraphQL SDL from a file or a string etc.
+In order to get our extensions integrated we need to add the extensions to our stitching builder. Like with the schema we have multiple extension methods to load the GraphQL SDL from a file or a string and so on.
 
-In our case lets say we are loading int from a file called `Extensions.graphql`.
+In our case lets say we are loading it from a file called `Extensions.graphql`.
 
 ```csharp
 services.AddStitchedSchema(builder => builder
@@ -372,7 +372,7 @@ services.AddStitchedSchema(builder => builder
   })
 ```
 
-No with all of this in place we our schema now looks like the following:
+Now with all of this in place our schema looks like the following:
 
 ```graphql
 type Query {
@@ -447,7 +447,7 @@ enum CounterType {
 
 ### Renaming and Removing Types
 
-Though this is nice we would like to go even further. We would like now to enhance our `Message` type like the following:
+Though this is nice, we would like to go even further and enhance our `Message` type like the following:
 
 ```graphql
 type Message {
@@ -463,9 +463,13 @@ type Message {
 }
 ```
 
-Moreover, we would like to remove the `analytics` field from our query type since we have integrated the analytics data into our `Message` type. Moreover, since with the root field gone we have no way to access `MessageAnalytics` and `CounterType` lets also get rid of these types.
+Moreover, we would like to remove the `analytics` field from our query type since we have integrated the analytics data directly into our `Message` type.
 
-The stitching builder has powerfull refactoring functions for your schemas that can even be extended by writing custom rewriters. In order to remove a field or a type we can tell the stitching builder to ignore them.
+Since with the root field gone we have no way of accessing `MessageAnalytics` and `CounterType`, lets also get rid of these types.
+
+The stitching builder has powerfull refactoring functions for your schemas that can even be extended by writing custom documenr- and type-rewriters.
+
+In order to remove a field or a type we can tell the stitching builder to ignore them by calling one of the ignore extension methods.
 
 ```csharp
 services.AddStitchedSchema(builder => builder
@@ -482,9 +486,9 @@ services.AddStitchedSchema(builder => builder
   })
 ```
 
-> There are also methods for renaming types and fields where the stitching engine will take care that the schema is consitently rewritten so that all the type references will refer to the corrent type/field name.
+> There are also methods for renaming types and fields where the stitching engine will take care that the schema is consitently rewritten so that all the type references will refer to the corrent new type/field name.
 
-With that we have remove the types from our stitched schema. No, let us move on to extend our message type.
+With that we have removed the types from our stitched schema. Now, let us move on to extend our message type.
 
 ```graphql
 extend type Message {
@@ -497,7 +501,7 @@ extend type Message {
 }
 ```
 
-Also we need to rename the field `createdBy` to `createdById`.
+Since we introduced a new field `createdBy` that basically overwrites the field that we have already declared on our original `Message` type, we need to rename the original field `createdBy` to `createdById` so that we are still able to use it.
 
 ```csharp
 services.AddStitchedSchema(builder => builder
@@ -515,7 +519,7 @@ services.AddStitchedSchema(builder => builder
   })
 ```
 
-> It is important to now that the schema rewriters are executed before the schemas are merged and the extensions integrated.
+> It is important to now that the document- and type-rewriters are executed before the schemas are merged and the extensions integrated.
 
 Our new schema now looks like the following:
 
@@ -586,11 +590,11 @@ As you can see it is quite simple to stitch multiple schemas together and enhanc
 
 **But how can we go further and hook into the query rewriter of the stitching engine?**
 
-Let us for instance try to get rid of the `createdById` field of the `Message` type.
+Let us for instance try to get rid of the `createdById` field of the `Message` type as we actually do not want to expose this field to the consumer of the stitched schema.
 
-We actually need this field in order to fetch the `User` from the remote schema. In order to be able to remove this field, we would need to be able to request it as some kind of a hidden field whenever a `Message` object is resolved.
+Since our resolver for the newly introduced `createdBy` field is dependant on the `createdById` field in order to fetch the `User` from the remote schema, we would need to be able to request it as some kind of a hidden field whenever a `Message` object is resolved.
 
-We could then write a little field middleware that copies us the hidden field data into our scoped context data, so that we are consequently able to use the id in our `delegate` directive.
+We could then write a little field middleware that copies us the hidden field data into our scoped context data, so that we are consequently able to use the id in our `delegate` directive by accessing the `createdById` via the scoped context data instead of refering to a field of the `Message` type.
 
 The stitching engine allows us to hook into the the query rewrite process and add our own rewrite logic that could add fields or even large sub-queries.
 
@@ -632,7 +636,9 @@ private class AddCreatedByIdQueryRewriter
 }
 ```
 
-The syntax nodes have a lot of little rewrite helpers like `AddSelection`. These helper methods basically branch of the syntax tree and return a new version that contains the applied change. In our case we get a new `SelectionSetNode` that now also contains a field `createdBy` with an alias `createdById`. In a real-world implementations you should use a more complex alias name like `___internal_field_createdById` in order to avoid collisions with field selections of the query.
+The syntax nodes have a lot of little rewrite helpers like `AddSelection`. These helper methods basically branch of the syntax tree and return a new version that contains the applied change.
+
+In our case we get a new `SelectionSetNode` that now also contains a field `createdBy` with an alias `createdById`. In a real-world implementations you should use a more complex alias name like `___internal_field_createdById` in order to avoid collisions with field selections of the query.
 
 Query delegation rewriters are registered with the dependency injection and not with our stitching builder.
 
@@ -640,9 +646,9 @@ Query delegation rewriters are registered with the dependency injection and not 
 services.AddQueryDelegationRewriter<AddCreatedByIdQueryRewriter>();
 ```
 
-> Query delegation rewriters are hosted as scoped services and you can be injected `IStitchingContext` and `ISchema` in order to access the remote schemas or the stitched schema for advanced type information.
+> Query delegation rewriters are hosted as scoped services and can be injected with `IStitchingContext` and `ISchema` in order to access the remote schemas or the stitched schema for advanced type information.
 
-With that setup the stitching engine will always fetch the requested field for us when a `Message` object is requested.
+With that in place, the stitching engine will always fetch the requested field for us whenever a `Message` object is requested.
 
 So, now let us move on to write a little middleware that copies this data into our scoped resolver context data map. The data in this map will only be available to the resolvers in the subtree of the message type.
 
@@ -680,7 +686,7 @@ services.AddStitchedSchema(builder => builder
 
 > We could also declare a field middleware as class. More about what you can do with a field middleware can be found [here](middleware.md).
 
-With all of this in place we could now rewrite our `Message` type extension and access the `createdById` from the scoped context data:
+With all of this in place we can now rewrite our `Message` type extension and access the `createdById` from the scoped context data:
 
 ```graphql
 extend type Message {

@@ -13,7 +13,7 @@ So, in order to opt-in one of those solutions just add an authentication middlew
 
 Authorization on the other hand is something Hot Chocolate can provide some value to by introducing an `@authorize`-directive.
 
-The `@authorize`-directive basically is our `AuthorizeAttribute`. You can annotate this directive to type or field definitions in order to add authorization behaviour to them.
+The `@authorize`-directive basically is our `AuthorizeAttribute`. You can annotate this directive to `ObjectType`s or field definitions in order to add authorization behaviour to them.
 
 But let's start at the beginning with this. In order to add authorization capabilities to your schema add the following package to your project:
 
@@ -105,7 +105,7 @@ type Person @authorize(policy: "AllEmployees") {
 }
 ```
 
-In the above example the name field is accessible to all users that fall under the `AllEmployees` policy,whereas the directive on the address field takes precedence over the `@authorize`-directive on the object type definition. This means that only users can access the address field that fall under the `SalesDepartment` policy.
+In the above example the name field is accessible to all users that fall under the `AllEmployees` policy, whereas the directive on the address field takes precedence over the `@authorize`-directive on the object type definition. This means that only users can access the address field that fall under the `SalesDepartment` policy.
 
 It is important to note that _policy-based authorization_ is only available with ASP.net core. So, if you are working with ASP.net classic or if you just want a simple role based authorization you can still use our `@authorize`-directive with the roles argument.
 
@@ -148,7 +148,7 @@ More about policy-based authorization can be found in the Microsoft Documentatio
 
 ## Query Requests
 
-Our query middleware creates a request and passes the request with additional meta-data to the query-engine. For example we provide a property called `ClaimsIdentity` that contains the user associated with the current request. These meta-data or custom request properties can be used within a field-middleware like the authorize middleware to change the default execution of a field resolver.
+Our query middleware creates a request and passes the request with additional meta-data to the query-engine. For example we provide a property called `ClaimsIdentity` that contains the user associated with the current request. These meta-data or custom request properties can be used within a field-middleware like the authorize middleware to change the default execution off a field resolver.
 
 So, you could use an authentication-middleware in ASP.net core to add all the user meta-data that you need to your claim-identity or you could hook some code in our middleware and add additional meta-data or even modify the `ClaimsPrincipal`.
 

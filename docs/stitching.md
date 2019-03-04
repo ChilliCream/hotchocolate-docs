@@ -153,7 +153,7 @@ dotnet add package HotChocolate.Stitching
 
 Now that our GraphQL server is ready we can start to configure the endpoints of our remote schemas.
 
-> Remote schemas are what we call the GraphQL schemas that we want include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Sangria, etc.) that serves its schema up over HTTP. Also we can include local schemas that we have created with the _Hot Chocolate_ .net API.
+> Remote schemas are what we call the GraphQL schemas that we want include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Sangria, Hot Chocolate etc.) that serves its schema over HTTP. Also we can include local schemas that are created with the _Hot Chocolate_ .net API.
 
 The endpoints are declared by using a named `HttpClient` via the HttpClient factory that is included with ASP.net core.
 

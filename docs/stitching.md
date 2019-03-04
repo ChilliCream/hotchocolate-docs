@@ -174,7 +174,7 @@ services.AddHttpClient("analytics", (sp, client) =>
 
 Now let\`s remove the parts from the server template that we don't need.
 
-> We will show how some strategies of how to handle authenticated services later on.
+> We will show some strategies of how to handle authenticated services later on.
 
 ```csharp
 services.AddDataLoaderRegistry();
@@ -196,9 +196,9 @@ services.AddStitchedSchema(builder => builder
   .AddSchemaFromHttp("analytics"));
 ```
 
-Since a stitched schema is the same then any other GraphQL schema we can configure custom types, custom middleware or other things with it.
+Since a stitched schema is the essentially no different to any other GraphQL schema, we can configure custom types, add custom middleware or do any other thing that we could do with a _Hot Chocolate_ GraphQL schema.
 
-In our example we are stitching together schemas that come with non-spec scalar types like `DateTime`. So, the stitching layer would report an error when stitching the above three schemas together since the `DateTime` scalar is unknown.
+In our example we are stitching together schemas that come with non-spec scalar types like `DateTime`. So, the stitching layer would report a schema error when stitching the above three schemas together since the `DateTime` scalar is unknown.
 
 In order to declare this custom scalar we can register the extended scalar set like with a regular _Hot Chocolate_ GraphQL schema through the `AddSchemaConfiguration`-method on the stitching builder.
 
@@ -213,9 +213,9 @@ services.AddStitchedSchema(builder => builder
   })
 ```
 
-> For more information about our scalars can be found [here](custom-scalar-types.md).
+> More information about our scalars can be found [here](custom-scalar-types.md).
 
-With this in place our schema now looks like the following:
+With this in place our stitched schema now looks like the following:
 
 ```graphql
 type Query {
@@ -286,11 +286,11 @@ enum CounterType {
 }
 ```
 
-We just achieved a simple schema merge without doing a lot. But honostly we would like to change some of the details. While the stitching result is nice what we want to do is to integrate it much more.
+We have just achieved a simple schema merge without doing a lot of work. But honostly we would like to change some of the types. While the stitching result is nice, we would like to integrate the types with each other.
 
 ### Extending Types
 
-So, the first thing that we would like to have is a new field on the query that is called `me`. The `me` fields should be the currently signed in user.
+So, the first thing that we would like to have is a new field on the query that is called `me`. The `me` field shall represent the currently signed in user of our service.
 
 Further, the user type should expose the message stream of the user, this way we could fetch the messages of the signed in user like the following:
 
@@ -320,21 +320,23 @@ extend type User {
 
 With just that and no further code needed we have specified how the GraphQL stitching engine shall rewrite our schema.
 
-Let us disect the above GraphQL SDL in order to understand what just happend.
+Let us disect the above GraphQL SDL in order to understand what it does.
 
-First, let us have a look at the `Query` extensions. We declared a the field like we would do it in a schema-first approach. After that we annotated the field with the `delegate` directive. The delegate directive basically works like a middleware that will create a fetch on the specified schema.
+First, let us have a look at the `Query` extension. We declared a field like we would do with the schema-first approach. After that we annotated the field with the `delegate` directive. The `delegate` directive basically works like a middleware that delegates calls to to a remote schema.
 
-The `path`-argument on the `delegate` directive specifies how to fetch the data. The selection path can have multiple levels. So if you wanted to fetch just the username you could do that like the following:
+The `path`-argument on the `delegate` directive specifies how to fetch the data from the remote schema. The selection path can have multiple levels. So, if you wanted to fetch just the username you could do that like the following:
 
 ```graphql
 user(id: $contextData:UserId).username
 ```
 
-Moreover, we are using a special variable that can access the resolver context. Currently this variable has four scopes:
+Moreover, we are using a special variable that can access the resolver context.
+
+Currently this variable has four scopes:
 
 - Arguments
 
-  Access arguments of the field: `$arguments:ArgumentName`
+  Access arguments of the annotated field field: `$arguments:ArgumentName`
 
 - Fields
 

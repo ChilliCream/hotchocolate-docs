@@ -545,7 +545,7 @@ type User </span>{
 <p><strong>But how can we go further and hook into the query rewriter of the stitching engine?</strong></p>
 <p>Let us for instance try to get rid of the <code>createdById</code> field of the <code>Message</code> type.</p>
 <p>We actually need this field in order to fetch the <code>User</code> from the remote schema. In order to be able to remove this field, we would need to be able to request it as some kind of a hidden field whenever a <code>Message</code> object is resolved.</p>
-<p>We could then write a little field middleware that copies us the hidden field data into our scoped conetext data, so that we are consequently able to use the id in our <code>delegate</code> directive.</p>
+<p>We could then write a little field middleware that copies us the hidden field data into our scoped context data, so that we are consequently able to use the id in our <code>delegate</code> directive.</p>
 <p>The stitching engine allows us to hook into the the query rewrite process and add our own rewrite logic that could add fields or even large sub-queries.</p>
 <p>The first thing we need to do here is to create a new class that inherits from <code>QueryDelegationRewriterBase</code>.</p>
 <p>The base class exposes two virtual methods <code>OnRewriteField</code> and <code>OnRewriteSelectionSet</code>.</p>

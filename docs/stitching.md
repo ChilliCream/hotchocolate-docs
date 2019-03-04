@@ -719,20 +719,204 @@ In both types we could opt to use the rewriter and visitor base classes that are
 
 #### Merged Schema Rewriter
 
-We have
+Apart from the source schema rewriters we can also rewrite the schema document after it has been merged:
 
-IStitchingBuilder AddMergedDocumentRewriter(
-Func<DocumentNode, DocumentNode> rewrite);
-IStitchingBuilder AddMergedDocumentVisitor(
-Action<DocumentNode> visit);
+```csharp
+IStitchingBuilder AddMergedDocumentRewriter(Func<DocumentNode, DocumentNode> rewrite);
+```
 
-IStitchingBuilder AddMergeRule(
-MergeTypeRuleFactory factory);
+This can be very useful if we want to first let all source schema rewriter do their work and annotate the types. With the annotations in place we could write complex rewriter that further enhance our stitched schema.
 
-## Authentication
+Also, if we just wanted to validate the schema for merge errors or collect information on the rewritten schema we are able to add schema visitors that run after all schema modifications are done.
+
+```csharp
+IStitchingBuilder AddMergedDocumentVisitor(Action<DocumentNode> visit);
+```
+
+#### Merge Rules
+
+In most cases the default merge rules should be enough. But with more domain knowledge about the source schemas one could write more aggressive merge rules.
+
+The merge rules are chained and pass along what they cannot handle. The types of the various schemas are bucketed by name and passed to the merge rule chain.
+
+## Authentication
+
+In many cases schemas will be protected by some sort of authetication. In most cases http requests are authenticated with bearer tokens that are passed along as `Authorization` header.
+
+Moreover, the most common case that we have seen so far is that people want to pass the tokens along to the remote schema.
+
+The stitching engine creates a lazy query executor that will only start merging the schemas on the first call to the GraphQL gateway. This allows us to use the token of an incoming call to execute the introspection queries on the remote schemas. This also safes us from having to store some kind of service token with the GraphQL gateway.
+
+In order to pass on the incoming `Authorization` header to our registered HttpClients we need to first register the HttpContext accessor from ASP.net core.
+
+```csharp
+services.AddHttpContextAccessor();
+```
+
+Next, we need to update our HttpClient factory declaration:
+
+```csharp
+services.AddHttpClient("messages", (sp, client) =>
+{
+    HttpContext context = sp.GetRequiredService<IHttpContextAccessor>().HttpContext;
+
+    if (context.Request.Headers.ContainsKey("Authorization"))
+    {
+        client.DefaultRequestHeaders.Authorization =
+            AuthenticationHeaderValue.Parse(
+                context.Request.Headers["Authorization"]
+                    .ToString());
+    }
+
+    client.BaseAddress = new Uri("http://127.0.0.1:5050");
+});
+```
+
+Another variant can also be to store service tokens for the remote schemas with our GraphQL gateway.
+
+How you want to implement authentication storngly depends on your needs. With the reliance on the HttpClient factory from the ASP.net core foundation we are very flexibile and can handle multiple scenarios.
 
 ## Batching
 
+The stitching layer transparently batches queries to the remote schemas. So, if you extend types like the following:
+
+```graphql
+extend type Message {
+  views: Int! @delegate(schema: "analytics", path: "analytics(id: $fields:id)")
+  likes: Int! @delegate(schema: "analytics", path: "analytics(id: $fields:id)")
+  replies: Int!
+    @delegate(schema: "analytics", path: "analytics(id: $fields:id)")
+}
+```
+
+We do send only a single request to your remote schema instead of three. The batching mechanism works not only within one type but extends to all requests that are executed in a resolver batch.
+
+Furthermore, we are also including calls that are done through direct calls on the `IStitchingContext`.
+
+Batching works very similar to _DataLoader_ where the stitching engine sends requests through the `IRemoteQueryClient` which consequently only fetches the data once the query engine signals that all resolvers have been enqueued and have registered their calls against the remote schemas. This reduces the calls to the remote-schemas significantly and improves the overall performance.
+
+So, if we had two query calls:
+
+Query 1:
+
+```graphql
+{
+  customer(id: "abc") {
+    name
+    contracts {
+      id
+    }
+  }
+}
+```
+
+Query 2:
+
+```graphql
+{
+  customer(id: "def") {
+    name
+    contracts {
+      id
+    }
+  }
+}
+```
+
+We would merge those two queries into one:
+
+```graphql
+{
+  __1: customer(id: "abc") {
+    name
+    contracts {
+      id
+    }
+  }
+  __2: customer(id: "def") {
+    name
+    contracts {
+      id
+    }
+  }
+}
+```
+
+This lets the remote schema optimize the calls much better since now the remote schema could take advantage of things like _DataLoader_ etc.
+
 ## Root Types
 
-We are currently supporting stitching `Query` and `Mutation`. With Version 9 we will introduce stitching the `Subscription` type.
+We are currently supporting stitching `Query` and `Mutation`.
+
+With Version 9 we will introduce stitching the `Subscription` type.
+
+Stitching queries is straight forward and works like described earlier. Mutations are also quit streight forward, but it is often overlooked that mutations are executed with a different execution strategy.
+
+Query resolvers are executed in parallel when possible. All fields of a query have to be side-effect free.
+
+https://facebook.github.io/graphql/June2018/#sec-Normal-and-Serial-Execution
+
+> Normally the executor can execute the entries in a grouped field set in whatever order it chooses (normally in parallel). Because the resolution of fields other than top‐level mutation fields must always be side effect‐free and idempotent, the execution order must not affect the result, and hence the server has the freedom to execute the field entries in whatever order it deems optimal.
+
+The top‐level mutation fields are executed serially which guarantees that the top-level fields are executed one after the other.
+
+```graphql
+mutation {
+  createUser(userName: "foo") {
+    someFields
+  }
+  addUserToGroup(userName: "foo", groupName: "bar") {
+    someFields
+  }
+}
+```
+
+The above example first creates a user and then adds the created user to a group. This means that mutations can only stitched on the top level. Everything, that you stitch in the lower level is delegating to a query.
+
+Lets put that in a context.
+
+```graphql
+type Mutation {
+  newUser(input: NewUserInput!): NewUserPayload! @delegate(schema: "users")
+}
+
+type NewUserInput {
+  username: String!
+  password: String!
+}
+
+type NewUserPayload {
+  user: User
+}
+
+type User {
+  id: ID!
+  username: String!
+  messages: [Message!]
+    @delegate(schema: "messages", path: "messages(userId: $fields:Id)")
+}
+```
+
+In the above example we have a mutation that delegates the `newUser` field to the `newUser` mutation of the `users` schema. The mutation returns the `NewUserPayload` which has a field `user` that returns the newly created user. The `User` object delegates the `messages` field to the message schema. Since this field is resolved in the third level it will delegated to the query type of the `messages` schema.
+
+This also means that we cannot group mutations like we could group queries. So, something like the following would not work since it is not spec-compliant:
+
+```graphql
+type Mutation {
+  userMutations: UserMutations
+}
+
+type UserMutations {
+  newUser(input: NewUserInput): NewUserPayload
+}
+```
+
+## Stitching Context
+
+The stitching engine provides a lot of extension points, but if we wanted to write the stitching for one specific resolver by ourselfs then we could do that by using the `IStitchingContext` is a scoped service and can be resolved through the resolver context.
+
+```csharp
+IStitchingContext stitchingContext = context.Service<IStichingContext>();
+IRemoteQueryClient remoteQueryClient = stitchingContext.GetRemoteQueryClient("messages");
+IExecutionResult result = remoteQueryClient.ExecuteAsync("{ foo { bar } }")
+```

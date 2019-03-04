@@ -36,6 +36,8 @@ Schema.Create(c =>
 
 Once you have done that you can add the `@authorize`-directive to object type definitions or field definitions.
 
+The `@authorize`-directive on a field definition takes precedence over one that is added on the object type definition.
+
 Schema-First:
 
 ```graphql
@@ -58,16 +60,22 @@ public class PersonType : ObjectType<Person>
 }
 ```
 
-If we just add the `@authorize`-directive without specifying any arguments the authorize middleware will basically just enforce that a user is authenticated. If now user is authenticated the field middleware will rais a GraphQL error and the field value is set to null. If the field is a non-null field the standadr GraphQL non-null violation rule is applied like with any other GraphQL error.
+If we just add the `@authorize`-directive without specifying any arguments the authorize middleware will basically just enforces that a user is authenticated. 
+
+If no user is authenticated the field middleware will raise a GraphQL error and the field value is set to null. If the field is a non-null field the standard GraphQL non-null violation rule is applied like with any other GraphQL error.
 
 ### Roles
+
+In many case role based authorization is sufficient and was already available with ASP.net on the .Net Framework. 
+
+Moreover, role base authorization is setup quickly and does not need any other setup then providing the roles.
 
 Schema-First:
 
 ```graphql
-type Person @authorize(policy: "AllEmployees") {
+type Person @authorize(roles: "foo") {
   name: String!
-  address: Address! @authorize(policy: "SalesDepartment")
+  address: Address! @authorize(roles: ["foo" "bar"])
 }
 ```
 
@@ -78,17 +86,17 @@ public class PersonType : ObjectType<Person>
 {
     protected override Configure(IObjectTypeDescriptor<Person> descriptor)
     {
-        descriptor.Directive(new AuthorizeDirective("AllEmployees"));
-        descriptor.Field(t => t.Address).Directive(new AuthorizeDirective("SalesDepartment"));
+        descriptor.Directive(new AuthorizeDirective(new [] {"foo"}));
+        descriptor.Field(t => t.Address).Directive(new AuthorizeDirective(new [] {"foo", "bar"}));
     }
 }
 ```
 
 ### Authorization Policies
 
-The `@authorize`-directive on a field definition takes precedence over one that is added on the object type definition.
+If you are using ASP.net core then you can also opt-in using authorization policies.
 
-So taking our example from earlier:
+So taking our example from earlier we are instead of providing a role just provide a policy name:
 
 ```graphql
 type Person @authorize(policy: "AllEmployees") {
@@ -97,14 +105,23 @@ type Person @authorize(policy: "AllEmployees") {
 }
 ```
 
-The name field is accessible to all users that fall under the `AllEmployees` policy, whereas the directive on the address field takes precedence over the `@authorize`-directive on the object type definition. This means that only users can access the address field that fall under the `SalesDepartment` policy.
+In the above example the name field is accessible to all users that fall under the `AllEmployees` policy,whereas the directive on the address field takes precedence over the `@authorize`-directive on the object type definition. This means that only users can access the address field that fall under the `SalesDepartment` policy.
 
-It is important to note that _policy-based authorization_ is only available with ASP.net core. So, if you are working with ASP.net classic or if you just want a simple role based authorization you can still use our `@authorize`-directive.
+It is important to note that _policy-based authorization_ is only available with ASP.net core. So, if you are working with ASP.net classic or if you just want a simple role based authorization you can still use our `@authorize`-directive with the roles argument.
 
 ```graphql
 type Person @authorize(roles: "ContentEditor") {
   name: String!
   address: Address! @authorize(roles: ["ContentEditor", "ContentReader"])
+}
+```
+
+The `@authorize`-directive is repeatable, that means that you are able to chain the directives and only if all annotated conditions are true will you gain access to the data of the annotated field.
+
+```graphql
+type Person {
+  name: String!
+  address: Address! @authorize(policy: "AllEmployees") @authorize(policy: "SalesDepartment") @authorize(roles: "FooBar")
 }
 ```
 

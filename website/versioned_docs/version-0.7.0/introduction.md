@@ -1,6 +1,7 @@
 ---
-id: introduction
+id: version-0.7.0-introduction
 title: Introduction
+original_id: introduction
 ---
 
 Hot Chocolate is a .net GraphQL server platform that can help you build a GraphQL layer over your existing and new infrastructure.
@@ -69,13 +70,9 @@ Our API will let you start very quickly with pre-built templates that let you st
 
 1. Subscriptions
 
-    Subscriptions allow GraphQL clients to observe specific events and receive updates from the server in real-time.
-
     [Learn more](subscription.md)
 
 1. Schema Stitching
-
-    Schema stitching is the capability to merge multiple GraphQL schemas into one schema that can be queried.
 
     [Learn more](stitching.md)
 

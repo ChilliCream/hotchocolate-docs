@@ -13,7 +13,7 @@ Schema stitching is the capability to merge multiple GraphQL schemas into one sc
 
 In our case we have lots of specialized services that serve data for specific problem domains. Some of these services are GraphQL services, some of them are REST services and yes sadly a little portion of those are still SOAP services.
 
-With _Hot Chocolate_ schema stitching you are able to create a gateway that bundles all those services into one GraphQL schema.
+With _Hot Chocolate_ schema stitching we are able to create a gateway that bundles all those services into one GraphQL schema.
 
 **Is schema stitching basically just putting two schemas together?**
 
@@ -21,7 +21,7 @@ Just putting two schemas into one and avoid name collisions is simple. But what 
 
 _Hot Chocolate_ schema stitching allows us to really integrate services into one schema by folding types into one another and even renaming or removing parts.
 
-With this we can create a consistent GraphQL schema that hides the implementation details of our backend services and provides the consumer of our endpoint with the capability to fetch the data they need with one call, no under- or over-fetching and most importantly no repeated fetching because you first needed to fetch that special id with which you now can then fetch this other thingy.
+With this we can create a consistent GraphQL schema that hides the implementation details of our backend services and provides the consumer of our endpoint with the capability to fetch the data they need with one call, no under- or over-fetching and most importantly no repeated fetching because we first needed to fetch that special id with which we now can fetch this other thingy.
 
 ## Getting Started
 
@@ -324,7 +324,7 @@ Let us disect the above GraphQL SDL in order to understand what it does.
 
 First, let us have a look at the `Query` extension. We declared a field like we would do with the schema-first approach. After that we annotated the field with the `delegate` directive. The `delegate` directive basically works like a middleware that delegates calls to to a remote schema.
 
-The `path`-argument on the `delegate` directive specifies how to fetch the data from the remote schema. The selection path can have multiple levels. So, if you wanted to fetch just the username you could do that like the following:
+The `path`-argument on the `delegate` directive specifies how to fetch the data from the remote schema. The selection path can have multiple levels. So, if we wanted to fetch just the username we could do that like the following:
 
 ```graphql
 user(id: $contextData:UserId).username
@@ -352,7 +352,7 @@ Currently this variable has four scopes:
 
 The context data can be used to map custom properties into our GraphQL resolvers. In our case we will use it to map the internal user ID from the user claims into our context data map. This allows us to have some kind of abstraction between the actual HttpRequest and the data that is needed to process a GraphQL request.
 
-> Documentation on how to add custom context data from your http request can be found [here](custom-context.md)
+> Documentation on how to add custom context data from a http request can be found [here](custom-context.md)
 
 OK, lets sum this up, with the `delegate` directive we are able to create powerfull stitching resolvers without writing one line of c# code. Furtermore, we are able to create new types that make the API richer without those type having any representation in any of the remote schemas.
 
@@ -467,7 +467,7 @@ Moreover, we would like to remove the `analytics` field from our query type sinc
 
 Since with the root field gone we have no way of accessing `MessageAnalytics` and `CounterType`, lets also get rid of these types.
 
-The stitching builder has powerfull refactoring functions for your schemas that can even be extended by writing custom documenr- and type-rewriters.
+The stitching builder has powerfull refactoring functions that even can be extended by writing custom document- and type-rewriters.
 
 In order to remove a field or a type we can tell the stitching builder to ignore them by calling one of the ignore extension methods.
 
@@ -586,7 +586,7 @@ type User {
 
 ### Query Rewriter
 
-As you can see it is quite simple to stitch multiple schemas together and enhance them with the stitching builder.
+As can be seen, it is quite simple to stitch multiple schemas together and enhance them with the stitching builder.
 
 **But how can we go further and hook into the query rewriter of the stitching engine?**
 
@@ -638,7 +638,7 @@ private class AddCreatedByIdQueryRewriter
 
 The syntax nodes have a lot of little rewrite helpers like `AddSelection`. These helper methods basically branch of the syntax tree and return a new version that contains the applied change.
 
-In our case we get a new `SelectionSetNode` that now also contains a field `createdBy` with an alias `createdById`. In a real-world implementations you should use a more complex alias name like `___internal_field_createdById` in order to avoid collisions with field selections of the query.
+In our case we get a new `SelectionSetNode` that now also contains a field `createdBy` with an alias `createdById`. In a real-world implementation we should use a more complex alias name like `___internal_field_createdById` in order to avoid collisions with field selections of the query.
 
 Query delegation rewriters are registered with the dependency injection and not with our stitching builder.
 
@@ -684,7 +684,7 @@ services.AddStitchedSchema(builder => builder
   })
 ```
 
-> We could also declare a field middleware as class. More about what you can do with a field middleware can be found [here](middleware.md).
+> We could also declare a field middleware as class. More about what can be done with a field middleware can be found [here](middleware.md).
 
 With all of this in place we can now rewrite our `Message` type extension and access the `createdById` from the scoped context data:
 
@@ -699,9 +699,35 @@ extend type Message {
 }
 ```
 
-### Validating a Stitched Schema
-
 ### Customizing Stitching Builder
+
+The stitching builder can be extended on multiple levels by writing different kinds of schema syntax rewriter.
+
+#### Source Schema Rewriter
+
+The refactoring methods that we provide like `IgnoreField` or `RenameType` and so on rewrite the source schemas before they are merged.
+
+In order to rewrite the source schema we can opt to create a `IDocumentRewriter` that is able to rewrite the whole schema document, or a `ITypeRewriter` that only can rewrite parts of a type definition.
+
+If we wanted to delete a type or write a rewriter that also refactors the impacted types of a change then the `IDocumentRewriter` would be the way to go.
+
+If we wanted to rewrite just parts of a type like adding some documentation or adding new fields to a type, basically things that do not impact other types, we could opt for the `ITypeRewriter`.
+
+In both types we could opt to use the rewriter and visitor base classes that are included in our parser package.
+
+> Information about our parser can be found [here](parser.md).
+
+#### Merged Schema Rewriter
+
+We have
+
+IStitchingBuilder AddMergedDocumentRewriter(
+Func<DocumentNode, DocumentNode> rewrite);
+IStitchingBuilder AddMergedDocumentVisitor(
+Action<DocumentNode> visit);
+
+IStitchingBuilder AddMergeRule(
+MergeTypeRuleFactory factory);
 
 ## Authentication
 

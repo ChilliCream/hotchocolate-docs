@@ -336,11 +336,11 @@ enum CounterType {
 </ul>
 <p>The context data can be used to map custom properties into our GraphQL resolvers. In our case we will use it to map the internal user ID from the user claims into our context data map. This allows us to have some kind of abstraction between the actual HttpRequest and the data that is needed to process a GraphQL request.</p>
 <blockquote>
-<p>We have documentation on how to add custom context data from your http request <a href="/docs/next/custom-context">here</a></p>
+<p>Documentation on how to add custom context data from your http request can be found <a href="/docs/next/custom-context">here</a></p>
 </blockquote>
-<p>OK, lets sum this up, with the <code>delegate</code> directive we are able to create powerfull stitching resolver without writing one line of c# code. We, are able to create powerful new types that make the API so much richer.</p>
-<p>In order to get our extensions integrated we need to add the extensions to our stitching builder. Like with the schema we have multiple extension methods to load the GraphQL SDL from a file or a string etc.</p>
-<p>In our case lets say we are loading int from a file called <code>Extensions.graphql</code>.</p>
+<p>OK, lets sum this up, with the <code>delegate</code> directive we are able to create powerfull stitching resolvers without writing one line of c# code. Furtermore, we are able to create new types that make the API richer without those type having any representation in any of the remote schemas.</p>
+<p>In order to get our extensions integrated we need to add the extensions to our stitching builder. Like with the schema we have multiple extension methods to load the GraphQL SDL from a file or a string and so on.</p>
+<p>In our case lets say we are loading it from a file called <code>Extensions.graphql</code>.</p>
 <pre><code class="hljs css language-csharp">services.AddStitchedSchema(builder =&gt; builder
   .AddSchemaFromHttp(<span class="hljs-string">"messages"</span>)
   .AddSchemaFromHttp(<span class="hljs-string">"users"</span>)
@@ -351,7 +351,7 @@ enum CounterType {
     c.RegisterExtendedScalarTypes();
   })
 </code></pre>
-<p>No with all of this in place we our schema now looks like the following:</p>
+<p>Now with all of this in place our schema looks like the following:</p>
 <pre><code class="hljs css language-graphql">type Query {
   me: User!
   messages(userId: ID!): [Message!]
@@ -422,7 +422,7 @@ enum CounterType {
 }
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="renaming-and-removing-types"></a><a href="#renaming-and-removing-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Renaming and Removing Types</h3>
-<p>Though this is nice we would like to go even further. We would like now to enhance our <code>Message</code> type like the following:</p>
+<p>Though this is nice, we would like to go even further and enhance our <code>Message</code> type like the following:</p>
 <pre><code class="hljs css language-graphql"><span class="hljs-keyword">type</span> <span class="hljs-type">Message</span> {
   id: <span class="hljs-type">ID</span>!
   text: <span class="hljs-type">String</span>!
@@ -435,8 +435,10 @@ enum CounterType {
   replies: <span class="hljs-type">Int</span>!
 }
 </code></pre>
-<p>Moreover, we would like to remove the <code>analytics</code> field from our query type since we have integrated the analytics data into our <code>Message</code> type. Moreover, since with the root field gone we have no way to access <code>MessageAnalytics</code> and <code>CounterType</code> lets also get rid of these types.</p>
-<p>The stitching builder has powerfull refactoring functions for your schemas that can even be extended by writing custom rewriters. In order to remove a field or a type we can tell the stitching builder to ignore them.</p>
+<p>Moreover, we would like to remove the <code>analytics</code> field from our query type since we have integrated the analytics data directly into our <code>Message</code> type.</p>
+<p>Since with the root field gone we have no way of accessing <code>MessageAnalytics</code> and <code>CounterType</code>, lets also get rid of these types.</p>
+<p>The stitching builder has powerfull refactoring functions for your schemas that can even be extended by writing custom documenr- and type-rewriters.</p>
+<p>In order to remove a field or a type we can tell the stitching builder to ignore them by calling one of the ignore extension methods.</p>
 <pre><code class="hljs css language-csharp">services.AddStitchedSchema(builder =&gt; builder
   .AddSchemaFromHttp(<span class="hljs-string">"messages"</span>)
   .AddSchemaFromHttp(<span class="hljs-string">"users"</span>)
@@ -451,9 +453,9 @@ enum CounterType {
   })
 </code></pre>
 <blockquote>
-<p>There are also methods for renaming types and fields where the stitching engine will take care that the schema is consitently rewritten so that all the type references will refer to the corrent type/field name.</p>
+<p>There are also methods for renaming types and fields where the stitching engine will take care that the schema is consitently rewritten so that all the type references will refer to the corrent new type/field name.</p>
 </blockquote>
-<p>With that we have remove the types from our stitched schema. No, let us move on to extend our message type.</p>
+<p>With that we have removed the types from our stitched schema. Now, let us move on to extend our message type.</p>
 <pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Message</span> {
   <span class="hljs-attribute">createdBy</span>: User!
     <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"users"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"user(id: $fields:createdById)"</span>)
@@ -463,7 +465,7 @@ enum CounterType {
     <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
 }
 </code></pre>
-<p>Also we need to rename the field <code>createdBy</code> to <code>createdById</code>.</p>
+<p>Since we introduced a new field <code>createdBy</code> that basically overwrites the field that we have already declared on our original <code>Message</code> type, we need to rename the original field <code>createdBy</code> to <code>createdById</code> so that we are still able to use it.</p>
 <pre><code class="hljs css language-csharp">services.AddStitchedSchema(builder =&gt; builder
   .AddSchemaFromHttp(<span class="hljs-string">"messages"</span>)
   .AddSchemaFromHttp(<span class="hljs-string">"users"</span>)
@@ -479,7 +481,7 @@ enum CounterType {
   })
 </code></pre>
 <blockquote>
-<p>It is important to now that the schema rewriters are executed before the schemas are merged and the extensions integrated.</p>
+<p>It is important to now that the document- and type-rewriters are executed before the schemas are merged and the extensions integrated.</p>
 </blockquote>
 <p>Our new schema now looks like the following:</p>
 <pre><code class="hljs css language-graphql">type Query {
@@ -544,9 +546,9 @@ type User </span>{
 <h3><a class="anchor" aria-hidden="true" id="query-rewriter"></a><a href="#query-rewriter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Query Rewriter</h3>
 <p>As you can see it is quite simple to stitch multiple schemas together and enhance them with the stitching builder.</p>
 <p><strong>But how can we go further and hook into the query rewriter of the stitching engine?</strong></p>
-<p>Let us for instance try to get rid of the <code>createdById</code> field of the <code>Message</code> type.</p>
-<p>We actually need this field in order to fetch the <code>User</code> from the remote schema. In order to be able to remove this field, we would need to be able to request it as some kind of a hidden field whenever a <code>Message</code> object is resolved.</p>
-<p>We could then write a little field middleware that copies us the hidden field data into our scoped context data, so that we are consequently able to use the id in our <code>delegate</code> directive.</p>
+<p>Let us for instance try to get rid of the <code>createdById</code> field of the <code>Message</code> type as we actually do not want to expose this field to the consumer of the stitched schema.</p>
+<p>Since our resolver for the newly introduced <code>createdBy</code> field is dependant on the <code>createdById</code> field in order to fetch the <code>User</code> from the remote schema, we would need to be able to request it as some kind of a hidden field whenever a <code>Message</code> object is resolved.</p>
+<p>We could then write a little field middleware that copies us the hidden field data into our scoped context data, so that we are consequently able to use the id in our <code>delegate</code> directive by accessing the <code>createdById</code> via the scoped context data instead of refering to a field of the <code>Message</code> type.</p>
 <p>The stitching engine allows us to hook into the the query rewrite process and add our own rewrite logic that could add fields or even large sub-queries.</p>
 <p>The first thing we need to do here is to create a new class that inherits from <code>QueryDelegationRewriterBase</code>.</p>
 <p>The base class exposes two virtual methods <code>OnRewriteField</code> and <code>OnRewriteSelectionSet</code>.</p>
@@ -580,14 +582,15 @@ type User </span>{
     }
 }
 </code></pre>
-<p>The syntax nodes have a lot of little rewrite helpers like <code>AddSelection</code>. These helper methods basically branch of the syntax tree and return a new version that contains the applied change. In our case we get a new <code>SelectionSetNode</code> that now also contains a field <code>createdBy</code> with an alias <code>createdById</code>. In a real-world implementations you should use a more complex alias name like <code>___internal_field_createdById</code> in order to avoid collisions with field selections of the query.</p>
+<p>The syntax nodes have a lot of little rewrite helpers like <code>AddSelection</code>. These helper methods basically branch of the syntax tree and return a new version that contains the applied change.</p>
+<p>In our case we get a new <code>SelectionSetNode</code> that now also contains a field <code>createdBy</code> with an alias <code>createdById</code>. In a real-world implementations you should use a more complex alias name like <code>___internal_field_createdById</code> in order to avoid collisions with field selections of the query.</p>
 <p>Query delegation rewriters are registered with the dependency injection and not with our stitching builder.</p>
 <pre><code class="hljs css language-csharp">services.AddQueryDelegationRewriter&lt;AddCreatedByIdQueryRewriter&gt;();
 </code></pre>
 <blockquote>
-<p>Query delegation rewriters are hosted as scoped services and you can be injected <code>IStitchingContext</code> and <code>ISchema</code> in order to access the remote schemas or the stitched schema for advanced type information.</p>
+<p>Query delegation rewriters are hosted as scoped services and can be injected with <code>IStitchingContext</code> and <code>ISchema</code> in order to access the remote schemas or the stitched schema for advanced type information.</p>
 </blockquote>
-<p>With that setup the stitching engine will always fetch the requested field for us when a <code>Message</code> object is requested.</p>
+<p>With that in place, the stitching engine will always fetch the requested field for us whenever a <code>Message</code> object is requested.</p>
 <p>So, now let us move on to write a little middleware that copies this data into our scoped resolver context data map. The data in this map will only be available to the resolvers in the subtree of the message type.</p>
 <p>A field middleware has to be declared via the stitching builder.</p>
 <pre><code class="hljs css language-csharp">services.AddStitchedSchema(builder =&gt; builder
@@ -621,7 +624,7 @@ type User </span>{
 <blockquote>
 <p>We could also declare a field middleware as class. More about what you can do with a field middleware can be found <a href="/docs/next/middleware">here</a>.</p>
 </blockquote>
-<p>With all of this in place we could now rewrite our <code>Message</code> type extension and access the <code>createdById</code> from the scoped context data:</p>
+<p>With all of this in place we can now rewrite our <code>Message</code> type extension and access the <code>createdById</code> from the scoped context data:</p>
 <pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Message</span> {
   <span class="hljs-attribute">createdBy</span>: User!
     <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"users"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"user(id: $scopedContextData:createdById)"</span>)

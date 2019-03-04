@@ -646,18 +646,149 @@ type User </span>{
 <p>Information about our parser can be found <a href="/docs/next/parser">here</a>.</p>
 </blockquote>
 <h4><a class="anchor" aria-hidden="true" id="merged-schema-rewriter"></a><a href="#merged-schema-rewriter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Merged Schema Rewriter</h4>
-<p>We have</p>
-<p>IStitchingBuilder AddMergedDocumentRewriter(
-Func&lt;DocumentNode, DocumentNode&gt; rewrite);
-IStitchingBuilder AddMergedDocumentVisitor(
-Action<DocumentNode> visit);</p>
-<p>IStitchingBuilder AddMergeRule(
-MergeTypeRuleFactory factory);</p>
+<p>Apart from the source schema rewriters we can also rewrite the schema document after it has been merged:</p>
+<pre><code class="hljs css language-csharp"><span class="hljs-function">IStitchingBuilder <span class="hljs-title">AddMergedDocumentRewriter</span>(<span class="hljs-params">Func&lt;DocumentNode, DocumentNode&gt; rewrite</span>)</span>;
+</code></pre>
+<p>This can be very useful if we want to first let all source schema rewriter do their work and annotate the types. With the annotations in place we could write complex rewriter that further enhance our stitched schema.</p>
+<p>Also, if we just wanted to validate the schema for merge errors or collect information on the rewritten schema we are able to add schema visitors that run after all schema modifications are done.</p>
+<pre><code class="hljs css language-csharp"><span class="hljs-function">IStitchingBuilder <span class="hljs-title">AddMergedDocumentVisitor</span>(<span class="hljs-params">Action&lt;DocumentNode&gt; visit</span>)</span>;
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="merge-rules"></a><a href="#merge-rules" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Merge Rules</h4>
+<p>In most cases the default merge rules should be enough. But with more domain knowledge about the source schemas one could write more aggressive merge rules.</p>
+<p>The merge rules are chained and pass along what they cannot handle. The types of the various schemas are bucketed by name and passed to the merge rule chain.</p>
 <h2><a class="anchor" aria-hidden="true" id="authentication"></a><a href="#authentication" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Authentication</h2>
+<p>In many cases schemas will be protected by some sort of authetication. In most cases http requests are authenticated with bearer tokens that are passed along as <code>Authorization</code> header.</p>
+<p>Moreover, the most common case that we have seen so far is that people want to pass the tokens along to the remote schema.</p>
+<p>The stitching engine creates a lazy query executor that will only start merging the schemas on the first call to the GraphQL gateway. This allows us to use the token of an incoming call to execute the introspection queries on the remote schemas. This also safes us from having to store some kind of service token with the GraphQL gateway.</p>
+<p>In order to pass on the incoming <code>Authorization</code> header to our registered HttpClients we need to first register the HttpContext accessor from ASP.net core.</p>
+<pre><code class="hljs css language-csharp">services.AddHttpContextAccessor();
+</code></pre>
+<p>Next, we need to update our HttpClient factory declaration:</p>
+<pre><code class="hljs css language-csharp">services.AddHttpClient(<span class="hljs-string">"messages"</span>, (sp, client) =&gt;
+{
+    HttpContext context = sp.GetRequiredService&lt;IHttpContextAccessor&gt;().HttpContext;
+
+    <span class="hljs-keyword">if</span> (context.Request.Headers.ContainsKey(<span class="hljs-string">"Authorization"</span>))
+    {
+        client.DefaultRequestHeaders.Authorization =
+            AuthenticationHeaderValue.Parse(
+                context.Request.Headers[<span class="hljs-string">"Authorization"</span>]
+                    .ToString());
+    }
+
+    client.BaseAddress = <span class="hljs-keyword">new</span> Uri(<span class="hljs-string">"http://127.0.0.1:5050"</span>);
+});
+</code></pre>
+<p>Another variant can also be to store service tokens for the remote schemas with our GraphQL gateway.</p>
+<p>How you want to implement authentication storngly depends on your needs. With the reliance on the HttpClient factory from the ASP.net core foundation we are very flexibile and can handle multiple scenarios.</p>
 <h2><a class="anchor" aria-hidden="true" id="batching"></a><a href="#batching" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Batching</h2>
+<p>The stitching layer transparently batches queries to the remote schemas. So, if you extend types like the following:</p>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Message</span> {
+  <span class="hljs-attribute">views</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
+  <span class="hljs-attribute">likes</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
+  <span class="hljs-attribute">replies</span>: Int!
+    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
+}
+</code></pre>
+<p>We do send only a single request to your remote schema instead of three. The batching mechanism works not only within one type but extends to all requests that are executed in a resolver batch.</p>
+<p>Furthermore, we are also including calls that are done through direct calls on the <code>IStitchingContext</code>.</p>
+<p>Batching works very similar to <em>DataLoader</em> where the stitching engine sends requests through the <code>IRemoteQueryClient</code> which consequently only fetches the data once the query engine signals that all resolvers have been enqueued and have registered their calls against the remote schemas. This reduces the calls to the remote-schemas significantly and improves the overall performance.</p>
+<p>So, if we had two query calls:</p>
+<p>Query 1:</p>
+<pre><code class="hljs css language-graphql">{
+  customer(<span class="hljs-name">id:</span> <span class="hljs-string">"abc"</span>) {
+    name
+    contracts {
+      id
+    }
+  }
+}
+</code></pre>
+<p>Query 2:</p>
+<pre><code class="hljs css language-graphql">{
+  customer(<span class="hljs-name">id:</span> <span class="hljs-string">"def"</span>) {
+    name
+    contracts {
+      id
+    }
+  }
+}
+</code></pre>
+<p>We would merge those two queries into one:</p>
+<pre><code class="hljs css language-graphql">{
+  __1: customer(<span class="hljs-name">id:</span> <span class="hljs-string">"abc"</span>) {
+    name
+    contracts {
+      id
+    }
+  }
+  __2: customer(<span class="hljs-name">id:</span> <span class="hljs-string">"def"</span>) {
+    name
+    contracts {
+      id
+    }
+  }
+}
+</code></pre>
+<p>This lets the remote schema optimize the calls much better since now the remote schema could take advantage of things like <em>DataLoader</em> etc.</p>
 <h2><a class="anchor" aria-hidden="true" id="root-types"></a><a href="#root-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Root Types</h2>
-<p>We are currently supporting stitching <code>Query</code> and <code>Mutation</code>. With Version 9 we will introduce stitching the <code>Subscription</code> type.</p>
-</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-3-4 by Michael Staib</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/validation-rule"><span class="arrow-prev">← </span><span>Validation Rules</span></a><a class="docs-next button" href="/docs/next/instrumentation"><span>Instrumentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#getting-started">Getting Started</a></li><li><a href="#setting-up-our-server">Setting up our server</a></li><li><a href="#stitching-builder">Stitching Builder</a><ul class="toc-headings"><li><a href="#extending-types">Extending Types</a></li><li><a href="#renaming-and-removing-types">Renaming and Removing Types</a></li><li><a href="#query-rewriter">Query Rewriter</a></li><li><a href="#customizing-stitching-builder">Customizing Stitching Builder</a></li></ul></li><li><a href="#authentication">Authentication</a></li><li><a href="#batching">Batching</a></li><li><a href="#root-types">Root Types</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
+<p>We are currently supporting stitching <code>Query</code> and <code>Mutation</code>.</p>
+<p>With Version 9 we will introduce stitching the <code>Subscription</code> type.</p>
+<p>Stitching queries is straight forward and works like described earlier. Mutations are also quit streight forward, but it is often overlooked that mutations are executed with a different execution strategy.</p>
+<p>Query resolvers are executed in parallel when possible. All fields of a query have to be side-effect free.</p>
+<p><a href="https://facebook.github.io/graphql/June2018/#sec-Normal-and-Serial-Execution">https://facebook.github.io/graphql/June2018/#sec-Normal-and-Serial-Execution</a></p>
+<blockquote>
+<p>Normally the executor can execute the entries in a grouped field set in whatever order it chooses (normally in parallel). Because the resolution of fields other than top‐level mutation fields must always be side effect‐free and idempotent, the execution order must not affect the result, and hence the server has the freedom to execute the field entries in whatever order it deems optimal.</p>
+</blockquote>
+<p>The top‐level mutation fields are executed serially which guarantees that the top-level fields are executed one after the other.</p>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">mutation</span> {
+  <span class="hljs-selector-tag">createUser</span>(<span class="hljs-attribute">userName</span>: <span class="hljs-string">"foo"</span>) {
+    <span class="hljs-selector-tag">someFields</span>
+  }
+  <span class="hljs-selector-tag">addUserToGroup</span>(<span class="hljs-attribute">userName</span>: <span class="hljs-string">"foo"</span>, <span class="hljs-attribute">groupName</span>: <span class="hljs-string">"bar"</span>) {
+    <span class="hljs-selector-tag">someFields</span>
+  }
+}
+</code></pre>
+<p>The above example first creates a user and then adds the created user to a group. This means that mutations can only stitched on the top level. Everything, that you stitch in the lower level is delegating to a query.</p>
+<p>Lets put that in a context.</p>
+<pre><code class="hljs css language-graphql">type Mutation {
+  newUser(input: NewUserInput!): NewUserPayload! @delegate(schema: <span class="hljs-string">"users"</span>)
+}
+<span class="hljs-built_in">
+type </span>NewUserInput {
+  username: String!
+  password: String!
+}
+<span class="hljs-built_in">
+type </span>NewUserPayload {
+  user:<span class="hljs-built_in"> User
+</span>}
+<span class="hljs-built_in">
+type User </span>{
+  id: ID!
+  username: String!
+  messages: [Message!]
+    @delegate(schema: <span class="hljs-string">"messages"</span>, path: <span class="hljs-string">"messages(userId: <span class="hljs-variable">$fields</span>:Id)"</span>)
+}
+</code></pre>
+<p>In the above example we have a mutation that delegates the <code>newUser</code> field to the <code>newUser</code> mutation of the <code>users</code> schema. The mutation returns the <code>NewUserPayload</code> which has a field <code>user</code> that returns the newly created user. The <code>User</code> object delegates the <code>messages</code> field to the message schema. Since this field is resolved in the third level it will delegated to the query type of the <code>messages</code> schema.</p>
+<p>This also means that we cannot group mutations like we could group queries. So, something like the following would not work since it is not spec-compliant:</p>
+<pre><code class="hljs css language-graphql">type Mutation {
+  userMutations: UserMutations
+}
+<span class="hljs-built_in">
+type </span>UserMutations {
+  newUser(input: NewUserInput): NewUserPayload
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="stitching-context"></a><a href="#stitching-context" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Stitching Context</h2>
+<p>The stitching engine provides a lot of extension points, but if we wanted to write the stitching for one specific resolver by ourselfs then we could do that by using the <code>IStitchingContext</code> is a scoped service and can be resolved through the resolver context.</p>
+<pre><code class="hljs css language-csharp">IStitchingContext stitchingContext = context.Service&lt;IStichingContext&gt;();
+IRemoteQueryClient remoteQueryClient = stitchingContext.GetRemoteQueryClient(<span class="hljs-string">"messages"</span>);
+IExecutionResult result = remoteQueryClient.ExecuteAsync(<span class="hljs-string">"{ foo { bar } }"</span>)
+</code></pre>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-3-4 by Michael Staib</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/validation-rule"><span class="arrow-prev">← </span><span>Validation Rules</span></a><a class="docs-next button" href="/docs/next/instrumentation"><span>Instrumentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#getting-started">Getting Started</a></li><li><a href="#setting-up-our-server">Setting up our server</a></li><li><a href="#stitching-builder">Stitching Builder</a><ul class="toc-headings"><li><a href="#extending-types">Extending Types</a></li><li><a href="#renaming-and-removing-types">Renaming and Removing Types</a></li><li><a href="#query-rewriter">Query Rewriter</a></li><li><a href="#customizing-stitching-builder">Customizing Stitching Builder</a></li></ul></li><li><a href="#authentication">Authentication</a></li><li><a href="#batching">Batching</a></li><li><a href="#root-types">Root Types</a></li><li><a href="#stitching-context">Stitching Context</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

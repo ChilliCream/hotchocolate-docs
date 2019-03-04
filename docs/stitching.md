@@ -570,17 +570,25 @@ type User {
 
 ### Query Rewriter
 
-As you can see it is quite easy to stitch multiple schemas together and enhance the locally. But how can we go further and hook into the query rewriter of the stitching engine.
+As you can see it is quite simple to stitch multiple schemas together and enhance them with the stitching builder.
 
-Let us for instance try to get rid of the `createdById` field of message. We actually need this field in order to fetch the `User` from the remote schema. In order to achieve that we could remove this field but request it as a hidden field whenever a `Message` object is resolved.
+**But how can we go further and hook into the query rewriter of the stitching engine?**
 
-We could then write a little field middleware that copies us the data into our scoped conetxt data so that we are consequently able to use the data in our `delegate` directive.
+Let us for instance try to get rid of the `createdById` field of the `Message` type.
 
-The first thing we need to do is to create a new class that inherits from `QueryDelegationRewriterBase`.
+We actually need this field in order to fetch the `User` from the remote schema. In order to be able to remove this field, we would need to be able to request it as some kind of a hidden field whenever a `Message` object is resolved.
+
+We could then write a little field middleware that copies us the hidden field data into our scoped conetext data, so that we are consequently able to use the id in our `delegate` directive.
+
+The stitching engine allows us to hook into the the query rewrite process and add our own rewrite logic that could add fields or even large sub-queries.
+
+The first thing we need to do here is to create a new class that inherits from `QueryDelegationRewriterBase`.
 
 The base class exposes two virtual methods `OnRewriteField` and `OnRewriteSelectionSet`.
 
-A selection set describes a selection of fields, fragments on a certain type. So, in order to fetch a hidden field every time a ceratain type is requested we would want to overwrite `OnRewriteSelectionSet`.
+A selection set describes a selection of fields and fragments on a certain type.
+
+So, in order to fetch a hidden field every time a ceratain type is requested we would want to overwrite `OnRewriteSelectionSet`.
 
 ```csharp
 private class AddCreatedByIdQueryRewriter
@@ -612,17 +620,19 @@ private class AddCreatedByIdQueryRewriter
 }
 ```
 
-The syntax nodes have a lot of those little rewrite helpers like `AddSelection`. These helper methods basically branch of the syntax tree and return the new version.
+The syntax nodes have a lot of little rewrite helpers like `AddSelection`. These helper methods basically branch of the syntax tree and return a new version that contains the applied change. In our case we get a new `SelectionSetNode` that now also contains a field `createdBy` with an alias `createdById`. In a real-world implementations you should use a more complex alias name like `___internal_field_createdById` in order to avoid collisions with field selections of the query.
 
-Query delegation rewriter are registered with the dependency injection and not with our stitching builder.
+Query delegation rewriters are registered with the dependency injection and not with our stitching builder.
 
 ```csharp
 services.AddQueryDelegationRewriter<AddCreatedByIdQueryRewriter>();
 ```
 
-With that setup the engine will always fetch the requested field for us when a `Message` object is requested.
+> Query delegation rewriters are hosted as scoped services and you can be injected `IStitchingContext` and `ISchema` in order to access the remote schemas or the stitched schema for advanced type information.
 
-So, now let us move on to write a little middleware that copies this data into our scoped resolver context data map. The data in this map will only be available to the resolvers in the subtree if the message type.
+With that setup the stitching engine will always fetch the requested field for us when a `Message` object is requested.
+
+So, now let us move on to write a little middleware that copies this data into our scoped resolver context data map. The data in this map will only be available to the resolvers in the subtree of the message type.
 
 A field middleware has to be declared via the stitching builder.
 
@@ -656,9 +666,9 @@ services.AddStitchedSchema(builder => builder
   })
 ```
 
-> We could also declare a field middleware as class. More about what you can do with a field middleware can be read [here](middleware.md).
+> We could also declare a field middleware as class. More about what you can do with a field middleware can be found [here](middleware.md).
 
-With all of this in place we could now rewrite our `Message` type extension:
+With all of this in place we could now rewrite our `Message` type extension and access the `createdById` from the scoped context data:
 
 ```graphql
 extend type Message {

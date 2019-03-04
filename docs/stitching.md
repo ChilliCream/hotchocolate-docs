@@ -3,7 +3,9 @@ id: stitching
 title: Schema Stitching
 ---
 
-What is schema stitching actually? Schema stitching is the capability to merge multiple GraphQL schemas into one schema that can be queried.
+**What is schema stitching actually?**
+
+Schema stitching is the capability to merge multiple GraphQL schemas into one schema that can be queried.
 
 ## Introduction
 
@@ -19,15 +21,15 @@ Just putting two schemas into one and avoid name collisions is simple. But what 
 
 _Hot Chocolate_ schema stitching allows us to really integrate services into one schema by folding types into one another and even renaming or removing parts.
 
-With this we can create a consistent GraphQL schema that hides the implementation details of our backend services and provides the consumer of our endpoint with the capabillity to fetch the data they need with one call, no under- or over-fetching and most importantly no repeated fetching because you first needed to fetch that special id with which you now can then fetch this other thingy.
+With this we can create a consistent GraphQL schema that hides the implementation details of our backend services and provides the consumer of our endpoint with the capability to fetch the data they need with one call, no under- or over-fetching and most importantly no repeated fetching because you first needed to fetch that special id with which you now can then fetch this other thingy.
 
 ## Getting Started
 
 In order to showcase how schema stitching works and what the problems are let us assume we have a service like twitter, where a user can post messages.
 
-We have three teams working on internal micro-/domain-services that handle certain aspects.
+Moreover, let us assume we have three teams working on internal micro-/domain-services that handle certain aspects of that service.
 
-The first service is handling message stream and has the following schema:
+The first service is handling the message stream and has the following schema:
 
 ```graphql
 type Query {
@@ -115,13 +117,17 @@ enum CounterType {
 }
 ```
 
-With those three separate schemas our UI team would have to fetch from multiple endpoints. Even worse, in order to build a stream view that shows the message and the username who posted it they would have to first fetch the messages and could only then fetch the names of the users, after they have fetched all the messages they would have to do a separate call to fetch the users for each message. This is one of the very things GraphQL tries to solve.
+With those three separate schemas our UI team would have to fetch from multiple endpoints.
+
+Even worse for our UI team, in order to build a stream view that shows the message text and the name of the user who posted the message, they would have to first fetch all the messages and could only then fetch the names of the users.
+
+This is actually one of the very things GraphQL tries to solve.
 
 ## Setting up our server
 
-Before we start with stitching intself lets get into how to setup our server.
+Before we start with stitching itself let`s get into how to setup our server.
 
-Every _Hot Chocolate_ server can be a stitching server. In order to create a stitching server lets first use our dotnet cli template to create a plain _Hot Chocolate_ server.
+Every _Hot Chocolate_ server can be a stitching server. This means in order to get started we can just use the _Hot Chocolate_ GraphQL server template and modify it a little bit to make the server a stitching server.
 
 If you do not have the _Hot Chocolate_ GraphQL server template installed execute first the following command.
 
@@ -137,15 +143,17 @@ cd stitching-demo
 dotnet new graphql-server
 ```
 
-With this we have now a functioning GraphQL server with a simple hello world example. In order to make this server a stitching server we have now to add the _Hot Chocolate_ stitching layer.
+With this we have now a functioning GraphQL server with a simple hello world example.
+
+In order to make this server a stitching server we now have to add the _Hot Chocolate_ stitching engine.
 
 ```bash
 dotnet add package HotChocolate.Stitching
 ```
 
-Now that our GraphQL server is ready we can configure the endpoints of our remote schemas.
+Now that our GraphQL server is ready we can start to configure the endpoints of our remote schemas.
 
-> Remote schemas are what we call the GraphQL schemas that we want include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Snagria, etc.) that serves its schema up over HTTP. Also we can include local schemas that we have created with the _Hot Chocolate_ .net API.
+> Remote schemas are what we call the GraphQL schemas that we want include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Sangria, etc.) that serves its schema up over HTTP. Also we can include local schemas that we have created with the _Hot Chocolate_ .net API.
 
 The endpoints are declared by using a named `HttpClient` via the HttpClient factory that is included with ASP.net core.
 
@@ -164,7 +172,9 @@ services.AddHttpClient("analytics", (sp, client) =>
 });
 ```
 
-Now lets remove the parts from the server template that we don't need.
+Now let\`s remove the parts from the server template that we don't need.
+
+> We will show how some strategies of how to handle authenticated services later on.
 
 ```csharp
 services.AddDataLoaderRegistry();
@@ -684,6 +694,8 @@ extend type Message {
 ### Validating a Stitched Schema
 
 ### Customizing Stitching Builder
+
+## Authentication
 
 ## Batching
 

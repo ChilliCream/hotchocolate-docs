@@ -176,7 +176,7 @@ dotnet new graphql-server
 </code></pre>
 <p>Now that our GraphQL server is ready we can start to configure the endpoints of our remote schemas.</p>
 <blockquote>
-<p>Remote schemas are what we call the GraphQL schemas that we want include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Sangria, etc.) that serves its schema up over HTTP. Also we can include local schemas that we have created with the <em>Hot Chocolate</em> .net API.</p>
+<p>Remote schemas are what we call the GraphQL schemas that we want include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Sangria, Hot Chocolate etc.) that serves its schema over HTTP. Also we can include local schemas that are created with the <em>Hot Chocolate</em> .net API.</p>
 </blockquote>
 <p>The endpoints are declared by using a named <code>HttpClient</code> via the HttpClient factory that is included with ASP.net core.</p>
 <pre><code class="hljs css language-csharp">services.AddHttpClient(<span class="hljs-string">"messages"</span>, (sp, client) =&gt;

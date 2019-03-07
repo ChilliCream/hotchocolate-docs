@@ -6,12 +6,12 @@ title: Validation Rules
 Validation rules can be used to validate queries before they are passed to the execution engine and by this save execution time.
 Validation results are cached with the query so that validation rules are only run once per query. In query validation rules you can access the query and the schema but the argument values and the variable values are not yet coerced. If you need access to those a field middleware might be better suited.
 
-## `IQueryValidator`
+## `IQueryValidationRule`
 
 The rule interface itself is simple, basically the validation middleware will call validate and pass in the schema and the parsed query.
 
 ```csharp
-public interface IQueryValidator
+public interface IQueryValidationRule
 {
     QueryValidationResult Validate(ISchema schema, DocumentNode query);
 }

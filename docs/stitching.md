@@ -348,7 +348,7 @@ Currently this variable has four scopes:
 
 - ScopedContextData
 
-  Access properties of the scoped field context data map: `$contextData:Key`
+  Access properties of the scoped field context data map: `$scopedContextData:Key`
 
 The context data can be used to map custom properties into our GraphQL resolvers. In our case we will use it to map the internal user ID from the user claims into our context data map. This allows us to have some kind of abstraction between the actual HttpRequest and the data that is needed to process a GraphQL request.
 

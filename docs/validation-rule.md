@@ -55,3 +55,7 @@ QueryExecutionBuilder
 ```
 
 > Since the validation rules are instantiated like a query middleware, you can only access services defined by the `QueryExecutionBuilder`.
+
+## Blogs
+
+[Guarding against N+1 issues in GraphQL](https://compiledexperience.com/blog/posts/graphql-n+1)

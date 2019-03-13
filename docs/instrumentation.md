@@ -13,7 +13,7 @@ This allows us to just take the information we need for a certain logging soluti
 
 ## Events
 
-First let us have a look at what events we currently provide and what they mean.
+First let us have a look at what events _Hot Chocolate_ currently provides and what they mean. Later we will walk you through how to setup a `IDiagnosticObserver`.
 
 ### Query Events
 
@@ -59,32 +59,19 @@ public virtual void OnQueryError(
     IQueryContext context,
     Exception exception)
 {
-    context
-        .GetHttpContext()
-        .Features
-        .Get<HotChocolateActivity>()
-        ?.HandleQueryError(exception);
+    // ... your code
 }
 ```
 
-- Stop
-- Error
-
-HotChocolate.Execution.Query
-HotChocolate.Execution.Query.Start
-IQueryContext context
-HotChocolate.Execution.Query.Stop
-IQueryContext context
-IExecutionResult result
-HotChocolate.Execution.Query.Error
-IQueryContext context
-Exception exception
+### Parser Events
 
 HotChocolate.Execution.Parsing
 HotChocolate.Execution.Parsing.Start
 IQueryContext context
 HotChocolate.Execution.Parsing.Stop
 IQueryContext context
+
+### Validation Events
 
 HotChocolate.Execution.Validation
 HotChocolate.Execution.Validation.Start
@@ -94,6 +81,8 @@ IQueryContext context
 HotChocolate.Execution.Validation.Error
 IQueryContext context
 IReadOnlyCollection<IError>
+
+### Resolver Events
 
 HotChocolate.Execution.Resolver
 HotChocolate.Execution.Resolver.Start

@@ -20,4 +20,18 @@ dotnet run --project StarWars/StarWars.csproj -c release
 
 The service should start-up and run on the port 5000. In order to test your server and send queries head over to our playground endpoint: http://127.0.0.1:5000/playground
 
+Try a query like the following to get started:
+```
+{
+  human(id:1000) {
+    name,
+    appearsIn
+    friends {
+      name,
+      appearsIn
+    }
+  }
+}
+```
+
 The template source code is located [here](https://github.com/ChilliCream/hotchocolate-templates/tree/master/StarWars/content).

@@ -125,6 +125,7 @@
 <h3><a class="anchor" aria-hidden="true" id="validation-events"></a><a href="#validation-events" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Validation Events</h3>
 <p>The validation events are raised whenever the validation middleware is invoked. Like with the parsing middleware the validation middleware will cache validation results. This means that only the first validation of a query document can be used to measure the validation duration. The context property <code>DocumentRetrievedFromCache</code> can also be used in this case to detect if the validation result was pulled from the internal cache or if it was computed.</p>
 <h4><a class="anchor" aria-hidden="true" id="validation-start"></a><a href="#validation-start" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Validation Start</h4>
+<p>The validation start event is called once the validation middleware is invoked.</p>
 <pre><code class="hljs css language-csharp">[<span class="hljs-meta">DiagnosticName(<span class="hljs-meta-string">"HotChocolate.Execution.Validation.Start"</span>)</span>]
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">BeginValidation</span>(<span class="hljs-params">IQueryContext context</span>)</span>
 {
@@ -132,6 +133,7 @@
 }
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="validation-stop"></a><a href="#validation-stop" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Validation Stop</h4>
+<p>The stop event is raised once the validation finished. It is important to know that the stop event is even raised if a validation error is raised.</p>
 <pre><code class="hljs css language-csharp">[<span class="hljs-meta">DiagnosticName(<span class="hljs-meta-string">"HotChocolate.Execution.Validation.Stop"</span>)</span>]
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">EndValidation</span>(<span class="hljs-params">IQueryContext context</span>)</span>
 {
@@ -139,6 +141,7 @@
 }
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="validation-errors"></a><a href="#validation-errors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Validation Errors</h4>
+<p>The validation error event will be raised for each query document analysis that yields at least one error.</p>
 <pre><code class="hljs css language-csharp">[<span class="hljs-meta">DiagnosticName(<span class="hljs-meta-string">"HotChocolate.Execution.Validation.Error"</span>)</span>]
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnValidationError</span>(<span class="hljs-params">
     IQueryContext context,
@@ -148,18 +151,39 @@
 }
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="resolver-events"></a><a href="#resolver-events" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resolver Events</h3>
-<p>HotChocolate.Execution.Resolver
-HotChocolate.Execution.Resolver.Start
-IResolverContext context
-HotChocolate.Execution.Resolver.Stop
-IResolverContext context
-object result
-HotChocolate.Execution.Resolver.Error
-IResolverContext context
-IEnumerable<IError> errors</p>
-<pre><code class="hljs">
+<p>Resolver events are raised for every single resolver that is invoked. This is the perfect event to subscribe to if you want to add performance analysis or other resolver tracing solutions.</p>
+<blockquote>
+<p>Have a look at our <a href="https://github.com/ChilliCream/hotchocolate/blob/master/src/Core/Core/Execution/Instrumentation/ApolloTracingDiagnosticObserver.cs">ApolloTracingDiagnosticObserver</a> to get an idea of how to implement a perfomance anlysis solution.</p>
+</blockquote>
+<h4><a class="anchor" aria-hidden="true" id="resolver-start"></a><a href="#resolver-start" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resolver Start</h4>
+<p>The resolver start event is raised for each invocation of a resolver pipepline. The resolver pipeline is made-up of multiple field middleware components. The exact composition of such a pipeline varies on your setup.</p>
+<pre><code class="hljs css language-csharp">[<span class="hljs-meta">DiagnosticName(<span class="hljs-meta-string">"HotChocolate.Execution.Resolver.Start"</span>)</span>]
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">BeginResolveField</span>(<span class="hljs-params">IResolverContext context</span>)</span>
+{
+    <span class="hljs-comment">// ... your code</span>
+}
 </code></pre>
-<h2><a class="anchor" aria-hidden="true" id="getting-started"></a><a href="#getting-started" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Getting Started</h2>
+<h4><a class="anchor" aria-hidden="true" id="resolver-stop"></a><a href="#resolver-stop" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resolver Stop</h4>
+<p>The resolver stop event is raised once the execution of the resolver pipeline is completed. The provided result is the not completed result of the resolver. This means that the actual result that is integrated into the query result can differ since type converter and serialization are applied during field value completion.</p>
+<pre><code class="hljs css language-csharp">[<span class="hljs-meta">DiagnosticName(<span class="hljs-meta-string">"HotChocolate.Execution.Resolver.Stop"</span>)</span>]
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">EndResolveField</span>(<span class="hljs-params">
+    IResolverContext context,
+    <span class="hljs-keyword">object</span> result</span>)</span>
+{
+    <span class="hljs-comment">// ... your code</span>
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="resolver-error"></a><a href="#resolver-error" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resolver Error</h4>
+<p>The resolver error event is raised should one ore more resolver error occur.</p>
+<pre><code class="hljs css language-csharp">[<span class="hljs-meta">DiagnosticName(<span class="hljs-meta-string">"HotChocolate.Execution.Resolver.Error"</span>)</span>]
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnResolverError</span>(<span class="hljs-params">
+    IQueryContext context,
+    IEnumerable&lt;IError&gt; errors</span>)</span>
+{
+    <span class="hljs-comment">// ... your code</span>
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="how-to-subscribe"></a><a href="#how-to-subscribe" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to subscribe</h2>
 <p>In order to subscribe to the <em>Hot Chocolate</em> instrumentation events you have to create a class that implements the marker interface <code>IDiagnosticObserver</code>.</p>
 <pre><code class="hljs css language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyDiagnosticObserver</span>
     : <span class="hljs-title">IDiagnosticObserver</span>
@@ -231,11 +255,29 @@ IEnumerable<IError> errors</p>
     }
 }
 </code></pre>
-<p>There are two ways to register the diagnostics observer with the execution engine. You either can register the observer with the executor directly</p>
+<p>There are two ways to register the diagnostics observer with the execution engine. You can either register the observer with the executor directly through the <code>QueryExecutionBuilder</code> or you can add the diagnostic observer to your dependency injection provider.</p>
+<p>Registeing the observer with the <code>QueryExecutionBuilder</code> does not require any dependency injection provider but let`s you only inject infrastructure services.</p>
+<pre><code class="hljs css language-csharp">Schema.Create(c =&gt; ...)
+    .MakeExecutable(builder =&gt; builder
+        .AddDiagnosticObserver&lt;MyDiagnosticObserver&gt;()
+        .UseDefaultPipeline());
+</code></pre>
+<p>If you want to use the observer in conjunction with your dependency injection provider you can also add the observer to your services. We have added an extension method for <code>IServiceCollection</code> that mirrors the builder extension.</p>
+<pre><code class="hljs css language-csharp">services.AddDiagnosticObserver&lt;MyDiagnosticObserver&gt;();
+</code></pre>
+<p>If you are registering the diagnostics observer with the dependency injection you have to ensure that the resulting service provider is registered with the schema.</p>
+<p>If you are using our <code>AddGraphQL</code> or <code>AddStitchedSchema</code> extensions you should be covered. In the case that you are putting everything together yourself you will need to register the service provider with your schema manually.</p>
+<pre><code class="hljs css language-csharp">service.AddSingleton(sp =&gt; Schema.Create(c =&gt;
+{
+    c.RegisterServiceProvider(sp);
+}).AddSingleton(sp =&gt; sp.GetRequiredService&lt;ISchema&gt;().MakeExecutable());
+</code></pre>
 <h2><a class="anchor" aria-hidden="true" id="examples"></a><a href="#examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h2>
-<p>We have created a little example project that demonstartes how you can delegate <em>Hot Chocolate</em> events to the APS.Net core logger API.</p>
-<p><a href="https://github.com/ChilliCream/hotchocolate-examples/tree/master/Instrumentation">Example Project</a></p>
-</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-3-19 by Michael Staib</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/stitching"><span class="arrow-prev">← </span><span>Schema Stitching</span></a><a class="docs-next button" href="/docs/next/apollo-tracing"><span>Apollo Tracing</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#events">Events</a><ul class="toc-headings"><li><a href="#query-events">Query Events</a></li><li><a href="#parser-events">Parser Events</a></li><li><a href="#validation-events">Validation Events</a></li><li><a href="#resolver-events">Resolver Events</a></li></ul></li><li><a href="#getting-started">Getting Started</a></li><li><a href="#examples">Examples</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
+<p>We have created a little example project that demonstartes how you can delegate <em>Hot Chocolate</em> events to the ASP.Net core logger API.</p>
+<p><a href="https://github.com/ChilliCream/hotchocolate-examples/tree/master/Instrumentation">ASP.net ILogger Example</a></p>
+<p>We also have an implementation that we use in-production and builds upon Microsoft`s ETW. This is more complex since there is a lot of <code>unsafe</code> code parts.</p>
+<p><a href="https://github.com/ChilliCream/thor-client/tree/master/src/Clients/HotChocolate">ETW Example</a></p>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-3-19 by Michael Staib</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/stitching"><span class="arrow-prev">← </span><span>Schema Stitching</span></a><a class="docs-next button" href="/docs/next/apollo-tracing"><span>Apollo Tracing</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#events">Events</a><ul class="toc-headings"><li><a href="#query-events">Query Events</a></li><li><a href="#parser-events">Parser Events</a></li><li><a href="#validation-events">Validation Events</a></li><li><a href="#resolver-events">Resolver Events</a></li></ul></li><li><a href="#how-to-subscribe">How to subscribe</a></li><li><a href="#examples">Examples</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

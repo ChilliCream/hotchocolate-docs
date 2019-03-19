@@ -122,7 +122,7 @@ public void EndValidation(IQueryContext context)
 #### Validation Errors
 
 ```csharp
-[DiagnosticName("HotChocolate.Execution.Validation.Stop")]
+[DiagnosticName("HotChocolate.Execution.Validation.Error")]
 public void OnValidationError(
     IQueryContext context,
     IReadOnlyCollection<IError> errors)
@@ -147,7 +147,92 @@ IEnumerable<IError> errors
 
 ```
 
-## Examples
+## Getting Started
+
+In order to subscribe to the _Hot Chocolate_ instrumentation events you have to create a class that implements the marker interface `IDiagnosticObserver`.
+
+```csharp
+public class MyDiagnosticObserver
+    : IDiagnosticObserver
+{
+}
+```
+
+The observer subscribes to an event by adding a method that is annotated with the event name like the following:
+
+```csharp
+public class MyDiagnosticObserver
+    : IDiagnosticObserver
+{
+    [DiagnosticName("HotChocolate.Execution.Validation.Error")]
+    public void OnValidationError(
+        IQueryContext context,
+        IReadOnlyCollection<IError> errors)
+    {
+        // ... your code
+    }
+}
+```
+
+When subscribing to start/stop events you also have to add the actual event method, otherwise the diagnostic source will not enable the event.
+
+```csharp
+public class MyDiagnosticObserver
+    : IDiagnosticObserver
+{
+    [DiagnosticName("HotChocolate.Execution.Query")]
+    public void OnQuery(IQueryContext context)
+    {
+        // This method is used to enable start/stop events for query.
+    }
+
+    [DiagnosticName("HotChocolate.Execution.Query.Start")]
+    public void BeginQueryExecute(IQueryContext context)
+    {
+        // ... your code
+    }
+
+    [DiagnosticName("HotChocolate.Execution.Query.Stop")]
+    public void EndQueryExecute(
+        IQueryContext context,
+        IExecutionResult result)
+    {
+        // ... your code
+    }
+}
+```
+
+You can use the context data to pass tracing details like a custom request id between your events:
+
+```csharp
+public class MyDiagnosticObserver
+    : IDiagnosticObserver
+{
+    [DiagnosticName("HotChocolate.Execution.Query")]
+    public void OnQuery(IQueryContext context)
+    {
+        // This method is used to enable start/stop events for query.
+    }
+
+    [DiagnosticName("HotChocolate.Execution.Query.Start")]
+    public void BeginQueryExecute(IQueryContext context)
+    {
+        context.ContextData["TracingId"] = Guid.NewGuid();
+        // ... your code
+    }
+
+    [DiagnosticName("HotChocolate.Execution.Query.Stop")]
+    public void EndQueryExecute(
+        IQueryContext context,
+        IExecutionResult result)
+    {
+        Guid tracingId = (Guid)context.ContextData["TracingId"];
+        // ... your code
+    }
+}
+```
+
+There are two ways to register the diagnostics observer with the execution engine. You either can register the observer with the executor directly
 
 ## Examples
 

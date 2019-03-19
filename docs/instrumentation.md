@@ -101,6 +101,8 @@ The validation events are raised whenever the validation middleware is invoked. 
 
 #### Validation Start
 
+The validation start event is called once the validation middleware is invoked.
+
 ```csharp
 [DiagnosticName("HotChocolate.Execution.Validation.Start")]
 public void BeginValidation(IQueryContext context)
@@ -111,6 +113,8 @@ public void BeginValidation(IQueryContext context)
 
 #### Validation Stop
 
+The stop event is raised once the validation finished. It is important to know that the stop event is even raised if a validation error is raised.
+
 ```csharp
 [DiagnosticName("HotChocolate.Execution.Validation.Stop")]
 public void EndValidation(IQueryContext context)
@@ -120,6 +124,8 @@ public void EndValidation(IQueryContext context)
 ```
 
 #### Validation Errors
+
+The validation error event will be raised for each query document analysis that yields at least one error.
 
 ```csharp
 [DiagnosticName("HotChocolate.Execution.Validation.Error")]
@@ -133,21 +139,51 @@ public void OnValidationError(
 
 ### Resolver Events
 
-HotChocolate.Execution.Resolver
-HotChocolate.Execution.Resolver.Start
-IResolverContext context
-HotChocolate.Execution.Resolver.Stop
-IResolverContext context
-object result
-HotChocolate.Execution.Resolver.Error
-IResolverContext context
-IEnumerable<IError> errors
+Resolver events are raised for every single resolver that is invoked. This is the perfect event to subscribe to if you want to add performance analysis or other resolver tracing solutions.
 
+> Have a look at our [ApolloTracingDiagnosticObserver](https://github.com/ChilliCream/hotchocolate/blob/master/src/Core/Core/Execution/Instrumentation/ApolloTracingDiagnosticObserver.cs) to get an idea of how to implement a perfomance anlysis solution.
+
+#### Resolver Start
+
+The resolver start event is raised for each invocation of a resolver pipepline. The resolver pipeline is made-up of multiple field middleware components. The exact composition of such a pipeline varies on your setup.
+
+```csharp
+[DiagnosticName("HotChocolate.Execution.Resolver.Start")]
+public void BeginResolveField(IResolverContext context)
+{
+    // ... your code
+}
 ```
 
+#### Resolver Stop
+
+The resolver stop event is raised once the execution of the resolver pipeline is completed. The provided result is the not completed result of the resolver. This means that the actual result that is integrated into the query result can differ since type converter and serialization are applied during field value completion.
+
+```csharp
+[DiagnosticName("HotChocolate.Execution.Resolver.Stop")]
+public void EndResolveField(
+    IResolverContext context,
+    object result)
+{
+    // ... your code
+}
 ```
 
-## Getting Started
+#### Resolver Error
+
+The resolver error event is raised should one ore more resolver error occur.
+
+```csharp
+[DiagnosticName("HotChocolate.Execution.Resolver.Error")]
+public void OnResolverError(
+    IQueryContext context,
+    IEnumerable<IError> errors)
+{
+    // ... your code
+}
+```
+
+## How to subscribe
 
 In order to subscribe to the _Hot Chocolate_ instrumentation events you have to create a class that implements the marker interface `IDiagnosticObserver`.
 
@@ -232,10 +268,40 @@ public class MyDiagnosticObserver
 }
 ```
 
-There are two ways to register the diagnostics observer with the execution engine. You either can register the observer with the executor directly
+There are two ways to register the diagnostics observer with the execution engine. You can either register the observer with the executor directly through the `QueryExecutionBuilder` or you can add the diagnostic observer to your dependency injection provider.
+
+Registeing the observer with the `QueryExecutionBuilder` does not require any dependency injection provider but let`s you only inject infrastructure services.
+
+```csharp
+Schema.Create(c => ...)
+    .MakeExecutable(builder => builder
+        .AddDiagnosticObserver<MyDiagnosticObserver>()
+        .UseDefaultPipeline());
+```
+
+If you want to use the observer in conjunction with your dependency injection provider you can also add the observer to your services. We have added an extension method for `IServiceCollection` that mirrors the builder extension.
+
+```csharp
+services.AddDiagnosticObserver<MyDiagnosticObserver>();
+```
+
+If you are registering the diagnostics observer with the dependency injection you have to ensure that the resulting service provider is registered with the schema.
+
+If you are using our `AddGraphQL` or `AddStitchedSchema` extensions you should be covered. In the case that you are putting everything together yourself you will need to register the service provider with your schema manually.
+
+```csharp
+service.AddSingleton(sp => Schema.Create(c =>
+{
+    c.RegisterServiceProvider(sp);
+}).AddSingleton(sp => sp.GetRequiredService<ISchema>().MakeExecutable());
+```
 
 ## Examples
 
-We have created a little example project that demonstartes how you can delegate _Hot Chocolate_ events to the APS.Net core logger API.
+We have created a little example project that demonstartes how you can delegate _Hot Chocolate_ events to the ASP.Net core logger API.
 
-[Example Project](https://github.com/ChilliCream/hotchocolate-examples/tree/master/Instrumentation)
+[ASP.net ILogger Example](https://github.com/ChilliCream/hotchocolate-examples/tree/master/Instrumentation)
+
+We also have an implementation that we use in-production and builds upon Microsoft\`s ETW. This is more complex since there is a lot of `unsafe` code parts.
+
+[ETW Example](https://github.com/ChilliCream/thor-client/tree/master/src/Clients/HotChocolate)

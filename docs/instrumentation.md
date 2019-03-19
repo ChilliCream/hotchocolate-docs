@@ -73,7 +73,7 @@ The start event is raised once the parser middleware is invoked.
 
 ```csharp
 [DiagnosticName("HotChocolate.Execution.Parsing.Start")]
-public void BeginQueryExecute(IQueryContext context)
+public void BeginParsing(IQueryContext context)
 {
     // ... your code
 }
@@ -81,11 +81,11 @@ public void BeginQueryExecute(IQueryContext context)
 
 #### Stop Parsing
 
-The stop event is raised once the parser finished. It is important to know that the stop event is also raised if a syntax exception is called. The `Document` property on the context will be null in this case.
+The stop event is raised once the parser finished. It is important to know that the stop event is even raised if a `SyntaxException` is thrown. The `Document` property on the `IQueryContext` will be null in this case. The parser middleware will add a property to the context data indicating if the query was retrieved from the cache: `DocumentRetrievedFromCache`.
 
 ```csharp
 [DiagnosticName("HotChocolate.Execution.Parsing.Stop")]
-public void BeginQueryExecute(IQueryContext context)
+public void EndParsing(IQueryContext context)
 {
     // ... your code
 }
@@ -97,14 +97,39 @@ The parser will throw a `SyntaxException` if the query is not syntactically corr
 
 ### Validation Events
 
-HotChocolate.Execution.Validation
-HotChocolate.Execution.Validation.Start
-IQueryContext context
-HotChocolate.Execution.Validation.Stop
-IQueryContext context
-HotChocolate.Execution.Validation.Error
-IQueryContext context
-IReadOnlyCollection<IError>
+The validation events are raised whenever the validation middleware is invoked. Like with the parsing middleware the validation middleware will cache validation results. This means that only the first validation of a query document can be used to measure the validation duration. The context property `DocumentRetrievedFromCache` can also be used in this case to detect if the validation result was pulled from the internal cache or if it was computed.
+
+#### Validation Start
+
+```csharp
+[DiagnosticName("HotChocolate.Execution.Validation.Start")]
+public void BeginValidation(IQueryContext context)
+{
+    // ... your code
+}
+```
+
+#### Validation Stop
+
+```csharp
+[DiagnosticName("HotChocolate.Execution.Validation.Stop")]
+public void EndValidation(IQueryContext context)
+{
+    // ... your code
+}
+```
+
+#### Validation Errors
+
+```csharp
+[DiagnosticName("HotChocolate.Execution.Validation.Stop")]
+public void OnValidationError(
+    IQueryContext context,
+    IReadOnlyCollection<IError> errors)
+{
+    // ... your code
+}
+```
 
 ### Resolver Events
 
@@ -121,3 +146,11 @@ IEnumerable<IError> errors
 ```
 
 ```
+
+## Examples
+
+## Examples
+
+We have created a little example project that demonstartes how you can delegate _Hot Chocolate_ events to the APS.Net core logger API.
+
+[Example Project](https://github.com/ChilliCream/hotchocolate-examples/tree/master/Instrumentation)

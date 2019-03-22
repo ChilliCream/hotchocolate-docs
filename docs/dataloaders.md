@@ -237,7 +237,7 @@ Global _DataLoader_ are _DataLoader_ that are shared between requests. This can 
 In order to add support for global _DataLoader_ you can add a second _DataLoader_ registry. This one has to be declared as singleton. It is important that you declare the global registry first since we use the last registry to register  ad-hoc _DataLoader_.
 
 ```csharp
-services.AddSingleto<IDataLoaderRegistry, DataLoaderRegistry>();
+services.AddSingleton<IDataLoaderRegistry, DataLoaderRegistry>();
 services.AddDataLoaderRegistry();
 ```
 

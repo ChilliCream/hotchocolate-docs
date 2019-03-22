@@ -177,7 +177,7 @@ The resolver error event is raised should one or more resolver errors occurs.
 ```csharp
 [DiagnosticName("HotChocolate.Execution.Resolver.Error")]
 public void OnResolverError(
-    IQueryContext context,
+    IResolverContext context,
     IEnumerable<IError> errors)
 {
     // ... your code

@@ -825,7 +825,7 @@ How you want to implement authentication strongly depends on your needs. With th
 
 ## Making HTTP clients resilient
 
-When using stitching in production evironments it is important to configure the HTTP clients to be resilient against connection losses and other HTTP errors. Since we are using Microsoft HttpClient factory we can use `Polly` to configure retry policies and more. This is especially important if you are using external services like the github GraphQL schema.
+When using stitching in production environments it is important to configure the HTTP clients to be resilient against connection losses and other HTTP errors. Since we are using Microsoft HttpClient factory, we can use `Polly` to configure retry policies and more. This is especially important if you are using external services like the GitHub GraphQL schema.
 
 ```csharp
 services.AddHttpClient("GitHub", client =>
@@ -840,7 +840,7 @@ services.AddHttpClient("GitHub", client =>
 }));
 ```
 
-Microsoft provides a great documentation for polly and a recomend you to check it out: [Use HttpClientFactory to implement resilient HTTP requests](https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests).
+Microsoft provides a great documentation for Polly and we recommend to check it out: [Use HttpClientFactory to implement resilient HTTP requests](https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests).
 
 ## Batching
 

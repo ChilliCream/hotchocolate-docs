@@ -1,6 +1,7 @@
 ---
-id: instrumentation
+id: version-0.8.1-instrumentation
 title: Instrumentation
+original_id: instrumentation
 ---
 
 The _Hot Chocolate_ instrumentation allows you to receive internal instrumentation events and process them further. Instrumentation events are provided through a `DiagnosticSource`.

@@ -1,6 +1,7 @@
 ---
-id: custom-context
+id: version-0.8.1-custom-context
 title: Custom Context Data
+original_id: custom-context
 ---
 
 When implementing custom middleware, it can be useful to be able to store custom context data. This could be to build up a cache or other state data. Hot Chocolate has two types of context data that you can use.

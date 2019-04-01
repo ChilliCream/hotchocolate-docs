@@ -1,6 +1,7 @@
 ---
-id: stitching
+id: version-0.8.1-stitching
 title: Schema Stitching
+original_id: stitching
 ---
 
 **What is schema stitching actually?**

@@ -136,7 +136,7 @@ dotnet watch --project src/Server/ run
 
 This `watch` command will compile and the run your server. Every time a code file changes the `watch` command will recompile your server so we do not have to worry about compiling all the time. The server will per default be hosted on `http://localhost:5000`. GraphiQL will be served under `http://localhost:5000/ui`.
 
-Since every thing should be running now lets open a browser and navigate to `http://localhost:5000/ui`.
+Since every thing should be running now lets open a browser and navigate to `http://localhost:5000/graphiql`.
 
 /// GraphiQL image
 

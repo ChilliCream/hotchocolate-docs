@@ -3,9 +3,9 @@ id: code-first
 title: Code-first
 ---
 
-The code first schema approach lets you built your GraphQL schema with .net types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify your schema. All can be done in your favourite .net language.
+The code first schema approach lets us built our GraphQL schema with .Net types and gives us all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify our schema. All can be done in our favourite .Net language.
 
-Lets walk you through some examples in order to show the various approaches to define a schema.
+Lets walk through some examples in order to explore the various approaches to define a schema.
 
 First let us create our playground project to get started:
 
@@ -17,9 +17,9 @@ dotnet add package hotchocolate
 dotnet restore
 ```
 
-First we will look at how you can write plain .net objects that can be used to infer GraphQL schema types.
+OK, now lets look at how we can write plain .Net objects (POCOs) that can be used to infer GraphQL schema types.
 
-Define a new plain c# class called Query:
+Define a new POCO c# class called Query:
 
 ```csharp
 public class Query
@@ -28,19 +28,39 @@ public class Query
 }
 ```
 
-Now let us create a new schema that uses this type and infers from it the GraphQL query type.
+After that let us create a new schema that uses this type and infers from it the GraphQL query type.
 
 ```csharp
-var schema = Schema.Create(c => c.RegisterType<ObjectType<Query>>());
+ISchema schema = SchemaBuilder.New()
+    .AddQueryType<Query>()
+    .Create()
 ```
 
-We now have registered an object type with our new schema that is based on our Query class. The schema would look like this:
+We now have registered our type with our new schema. The type is registered as our query root type and the schema would look like the following if we had expressed it in the GraphQL SDL:
 
 ```graphql
 type Query {
   hello: String
 }
 ```
+
+The GraphQL spec defines three root types (Query, Mutation and Subscription). The root types represent our entry points to interact with the query engine. Although GraphQL is a query language we cannot just freely express what we want to query on our backend system. The root types basically define how we can interact with the GraphQL server. Each root type has a specific responsiblity and conveys certain guarantees to the user of a GraphQL API.
+
+The `Query`-type is the most prominent root type and allows us to ask for data. _Operations_ on the `Query`-type are side-effect-free and the server has the freedom to execute the fields in-parallel.
+
+The `Mutation`-type provides us with the semantic to change the data of our backend system, the root fields of a `Mutation`-type are **not** executed in parallel since each execution of a root-field is considered to change the data and thus **not** side-effect-free. Fields, above the root field level are again pure reads and will executed in-parallel.
+
+The `Subscription`-type provides us with realtime-
+
+
+
+
+
+
+
+
+
+
 
 We didn't even have to write resolvers due to the fact that the schema inferred those from the hello function. out hello function is basically our resolver.
 

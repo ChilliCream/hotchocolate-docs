@@ -113,241 +113,259 @@
       "validation-rule": {
         "title": "Validation Rules"
       },
-      "version-0.5.2-code-first-interface-type": {
+      "version-0.5.2/version-0.5.2-code-first-interface-type": {
         "title": "Interface Type"
       },
-      "version-0.5.2-code-first-introduction": {
+      "version-0.5.2/version-0.5.2-code-first-introduction": {
         "title": "Introduction"
       },
-      "version-0.5.2-code-first-object-type": {
+      "version-0.5.2/version-0.5.2-code-first-object-type": {
         "title": "Object Type"
       },
-      "version-0.5.2-code-first-resolvers": {
+      "version-0.5.2/version-0.5.2-code-first-resolvers": {
         "title": "Resolvers"
       },
-      "version-0.5.2-code-first": {
+      "version-0.5.2/version-0.5.2-code-first": {
         "title": "Code-first"
       },
-      "version-0.5.2-custom-context": {
+      "version-0.5.2/version-0.5.2-custom-context": {
         "title": "Custom Context Objects"
       },
-      "version-0.5.2-custom-scalar-types": {
+      "version-0.5.2/version-0.5.2-custom-scalar-types": {
         "title": "Custom Scalar Types."
       },
-      "version-0.5.2-dataloaders": {
+      "version-0.5.2/version-0.5.2-dataloaders": {
         "title": "DataLoaders"
       },
-      "version-0.5.2-dependency-injection": {
+      "version-0.5.2/version-0.5.2-dependency-injection": {
         "title": "Dependency Injection"
       },
-      "version-0.5.2-directive-middleware": {
+      "version-0.5.2/version-0.5.2-directive-middleware": {
         "title": "Directives"
       },
-      "version-0.5.2-dotnet-cli": {
+      "version-0.5.2/version-0.5.2-dotnet-cli": {
         "title": ".NET CLI"
       },
-      "version-0.5.2-example-hello-world-code-first": {
+      "version-0.5.2/version-0.5.2-example-hello-world-code-first": {
         "title": "Hello World"
       },
-      "version-0.5.2-example-hello-world-schema-first": {
+      "version-0.5.2/version-0.5.2-example-hello-world-schema-first": {
         "title": "Hello World"
       },
-      "version-0.5.2-example-star-wars-code-first": {
+      "version-0.5.2/version-0.5.2-example-star-wars-code-first": {
         "title": "Star Wars"
       },
-      "version-0.5.2-example-star-wars-schema-first": {
+      "version-0.5.2/version-0.5.2-example-star-wars-schema-first": {
         "title": "Star Wars"
       },
-      "version-0.5.2-general-schema-options": {
+      "version-0.5.2/version-0.5.2-general-schema-options": {
         "title": "Schema Options"
       },
-      "version-0.5.2-introduction": {
+      "version-0.5.2/version-0.5.2-introduction": {
         "title": "Introduction"
       },
-      "version-0.5.2-schema-first": {
+      "version-0.5.2/version-0.5.2-schema-first": {
         "title": "Schema-first"
       },
-      "version-0.7.0-apollo-tracing": {
+      "version-0.7.0/version-0.7.0-apollo-tracing": {
         "title": "Apollo Tracing"
       },
-      "version-0.7.0-aspnet": {
+      "version-0.7.0/version-0.7.0-aspnet": {
         "title": "ASP.net"
       },
-      "version-0.7.0-authorization": {
+      "version-0.7.0/version-0.7.0-authorization": {
         "title": "Authorization"
       },
-      "version-0.7.0-code-first-introduction": {
+      "version-0.7.0/version-0.7.0-code-first-introduction": {
         "title": "Introduction"
       },
-      "version-0.7.0-code-first-object-type": {
+      "version-0.7.0/version-0.7.0-code-first-object-type": {
         "title": "Object Type"
       },
-      "version-0.7.0-code-first-resolvers": {
+      "version-0.7.0/version-0.7.0-code-first-resolvers": {
         "title": "Resolvers"
       },
-      "version-0.7.0-code-first": {
+      "version-0.7.0/version-0.7.0-code-first": {
         "title": "Code-first"
       },
-      "version-0.7.0-custom-context": {
+      "version-0.7.0/version-0.7.0-custom-context": {
         "title": "Custom Context Data"
       },
-      "version-0.7.0-custom-scalar-types": {
+      "version-0.7.0/version-0.7.0-custom-scalar-types": {
         "title": "Scalar Type Support"
       },
-      "version-0.7.0-dataloaders": {
+      "version-0.7.0/version-0.7.0-dataloaders": {
         "title": "Data Loaders"
       },
-      "version-0.7.0-dependency-injection": {
+      "version-0.7.0/version-0.7.0-dependency-injection": {
         "title": "Dependency Injection"
       },
-      "version-0.7.0-directives": {
+      "version-0.7.0/version-0.7.0-directives": {
         "title": "Directives"
       },
-      "version-0.7.0-errors": {
+      "version-0.7.0/version-0.7.0-errors": {
         "title": "Error Filter"
       },
-      "version-0.7.0-example-other-code-first": {
+      "version-0.7.0/version-0.7.0-example-other-code-first": {
         "title": "Other Examples"
       },
-      "version-0.7.0-example-star-wars-code-first": {
+      "version-0.7.0/version-0.7.0-example-star-wars-code-first": {
         "title": "Star Wars"
       },
-      "version-0.7.0-instrumentation": {
+      "version-0.7.0/version-0.7.0-instrumentation": {
         "title": "Instrumentation"
       },
-      "version-0.7.0-introduction": {
+      "version-0.7.0/version-0.7.0-introduction": {
         "title": "Introduction"
       },
-      "version-0.7.0-middleware": {
+      "version-0.7.0/version-0.7.0-middleware": {
         "title": "Middleware"
       },
-      "version-0.7.0-migration": {
+      "version-0.7.0/version-0.7.0-migration": {
         "title": "Migrating from 0.6.x"
       },
-      "version-0.7.0-options": {
+      "version-0.7.0/version-0.7.0-options": {
         "title": "Options"
       },
-      "version-0.7.0-pagination": {
+      "version-0.7.0/version-0.7.0-pagination": {
         "title": "Pagination"
       },
-      "version-0.7.0-parser": {
+      "version-0.7.0/version-0.7.0-parser": {
         "title": "Parser"
       },
-      "version-0.7.0-schema-first": {
+      "version-0.7.0/version-0.7.0-schema-first": {
         "title": "Schema-first"
       },
-      "version-0.7.0-security": {
+      "version-0.7.0/version-0.7.0-security": {
         "title": "Security"
       },
-      "version-0.7.0-stitching": {
+      "version-0.7.0/version-0.7.0-stitching": {
         "title": "Schema Stitching"
       },
-      "version-0.7.0-code-first-subscription": {
+      "version-0.7.0/version-0.7.0-code-first-subscription": {
         "title": "Subscriptions"
       },
-      "version-0.7.0-tutorial-01-gettingstarted": {
+      "version-0.7.0/version-0.7.0-tutorial-01-gettingstarted": {
         "title": "Getting Started"
       },
-      "version-0.7.0-type-conversion": {
+      "version-0.7.0/version-0.7.0-type-conversion": {
         "title": "Type Conversion"
       },
-      "version-0.7.0-validation-rule": {
+      "version-0.7.0/version-0.7.0-validation-rule": {
         "title": "Validation Rules"
       },
-      "version-0.8.0-apollo-tracing": {
+      "version-0.8.0/version-0.8.0-apollo-tracing": {
         "title": "Apollo Tracing"
       },
-      "version-0.8.0-aspnet": {
+      "version-0.8.0/version-0.8.0-aspnet": {
         "title": "ASP.net"
       },
-      "version-0.8.0-authorization": {
+      "version-0.8.0/version-0.8.0-authorization": {
         "title": "Authorization"
       },
-      "version-0.8.0-code-first-introduction": {
+      "version-0.8.0/version-0.8.0-code-first-introduction": {
         "title": "Introduction"
       },
-      "version-0.8.0-code-first-object-type": {
+      "version-0.8.0/version-0.8.0-code-first-object-type": {
         "title": "Object Type"
       },
-      "version-0.8.0-code-first": {
+      "version-0.8.0/version-0.8.0-code-first": {
         "title": "Code-first"
       },
-      "version-0.8.0-custom-context": {
+      "version-0.8.0/version-0.8.0-custom-context": {
         "title": "Custom Context Data"
       },
-      "version-0.8.0-custom-scalar-types": {
+      "version-0.8.0/version-0.8.0-custom-scalar-types": {
         "title": "Scalar Type Support"
       },
-      "version-0.8.0-dataloaders": {
+      "version-0.8.0/version-0.8.0-dataloaders": {
         "title": "Data Loaders"
       },
-      "version-0.8.0-dependency-injection": {
+      "version-0.8.0/version-0.8.0-dependency-injection": {
         "title": "Dependency Injection"
       },
-      "version-0.8.0-directives": {
+      "version-0.8.0/version-0.8.0-directives": {
         "title": "Directives"
       },
-      "version-0.8.0-errors": {
+      "version-0.8.0/version-0.8.0-errors": {
         "title": "Error Filter"
       },
-      "version-0.8.0-example-other-code-first": {
+      "version-0.8.0/version-0.8.0-example-other-code-first": {
         "title": "Other Examples"
       },
-      "version-0.8.0-example-star-wars-code-first": {
+      "version-0.8.0/version-0.8.0-example-star-wars-code-first": {
         "title": "Star Wars"
       },
-      "version-0.8.0-instrumentation": {
+      "version-0.8.0/version-0.8.0-instrumentation": {
         "title": "Instrumentation"
       },
-      "version-0.8.0-introduction": {
+      "version-0.8.0/version-0.8.0-introduction": {
         "title": "Introduction"
       },
-      "version-0.8.0-middleware": {
+      "version-0.8.0/version-0.8.0-middleware": {
         "title": "Middleware"
       },
-      "version-0.8.0-migration": {
+      "version-0.8.0/version-0.8.0-migration": {
         "title": "Migrating from 0.6.x"
       },
-      "version-0.8.0-options": {
+      "version-0.8.0/version-0.8.0-options": {
         "title": "Options"
       },
-      "version-0.8.0-pagination": {
+      "version-0.8.0/version-0.8.0-pagination": {
         "title": "Pagination"
       },
-      "version-0.8.0-parser": {
+      "version-0.8.0/version-0.8.0-parser": {
         "title": "Parser"
       },
-      "version-0.8.0-resolvers": {
+      "version-0.8.0/version-0.8.0-resolvers": {
         "title": "Resolvers"
       },
-      "version-0.8.0-schema-first": {
+      "version-0.8.0/version-0.8.0-schema-first": {
         "title": "Schema-first"
       },
-      "version-0.8.0-security": {
+      "version-0.8.0/version-0.8.0-security": {
         "title": "Security"
       },
-      "version-0.8.0-stitching": {
+      "version-0.8.0/version-0.8.0-stitching": {
         "title": "Schema Stitching"
       },
-      "version-0.8.0-code-first-subscription": {
+      "version-0.8.0/version-0.8.0-code-first-subscription": {
         "title": "Subscriptions"
       },
-      "version-0.8.0-tutorial-01-gettingstarted": {
+      "version-0.8.0/version-0.8.0-tutorial-01-gettingstarted": {
         "title": "Getting Started"
       },
-      "version-0.8.0-type-conversion": {
+      "version-0.8.0/version-0.8.0-type-conversion": {
         "title": "Type Conversion"
       },
-      "version-0.8.0-validation-rule": {
+      "version-0.8.0/version-0.8.0-validation-rule": {
         "title": "Validation Rules"
       },
-      "version-0.8.1-rc.1-example-star-wars-code-first": {
+      "version-0.8.1-rc.1/version-0.8.1-rc.1-example-star-wars-code-first": {
         "title": "Star Wars"
       },
-      "version-0.8.1-rc.1-instrumentation": {
+      "version-0.8.1-rc.1/version-0.8.1-rc.1-instrumentation": {
         "title": "Instrumentation"
       },
-      "version-0.8.1-rc.1-stitching": {
+      "version-0.8.1-rc.1/version-0.8.1-rc.1-stitching": {
+        "title": "Schema Stitching"
+      },
+      "version-0.8.1/version-0.8.1-custom-context": {
+        "title": "Custom Context Data"
+      },
+      "version-0.8.1/version-0.8.1-dataloaders": {
+        "title": "Data Loaders"
+      },
+      "version-0.8.1/version-0.8.1-dotnet-cli": {
+        "title": ".NET CLI"
+      },
+      "version-0.8.1/version-0.8.1-instrumentation": {
+        "title": "Instrumentation"
+      },
+      "version-0.8.1/version-0.8.1-parser": {
+        "title": "Parser"
+      },
+      "version-0.8.1/version-0.8.1-stitching": {
         "title": "Schema Stitching"
       }
     },

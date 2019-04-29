@@ -6,6 +6,7 @@
       "schema-first"
     ],
     "API Reference": [
+      "schema",
       "custom-scalar-types",
       "resolvers",
       "dataloaders",

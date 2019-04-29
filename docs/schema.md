@@ -142,3 +142,16 @@ ISchema schema = SchemaBuilder.New()
     .Create();
 ```
 
+## Make Executable
+
+The schema object that we create with the `SchemaBuilder` describes the set of possible data we can query. In order to actually query data in that schema we have to make it executable.
+
+```csharp
+IQueryExecutor executor = schema.MakeExecutable();
+```
+
+We can create multiple executors on a single schema and define different execution rules on the executor.
+
+In most cases we will not need to now about this fact since most of the time the schema is hosted in ASP.Net and the middleware will take care of making it executable. But it is worth knowing in case we want to write a unit test or host a query executor in a different environment than ASP.Net.
+
+More about the query executor can be read [here](query-executor.md).

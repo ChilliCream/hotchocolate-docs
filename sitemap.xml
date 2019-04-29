@@ -33,6 +33,7 @@
 <url> <loc>https://hotchocolate.io/docs/next/parser</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/next/parser" /> </url>
 <url> <loc>https://hotchocolate.io/docs/next/resolvers</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/next/resolvers" /> </url>
 <url> <loc>https://hotchocolate.io/docs/next/schema-first</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/next/schema-first" /> </url>
+<url> <loc>https://hotchocolate.io/docs/next/schema</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/next/schema" /> </url>
 <url> <loc>https://hotchocolate.io/docs/next/security</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/next/security" /> </url>
 <url> <loc>https://hotchocolate.io/docs/next/stitching</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/next/stitching" /> </url>
 <url> <loc>https://hotchocolate.io/docs/next/code-first-subscription</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://hotchocolate.io/docs/next/code-first-subscription" /> </url>

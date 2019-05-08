@@ -27,7 +27,8 @@
       "validation-rule",
       "stitching",
       "instrumentation",
-      "apollo-tracing"
+      "apollo-tracing",
+      "conventions"
     ],
     "Guides": [
       "migration",

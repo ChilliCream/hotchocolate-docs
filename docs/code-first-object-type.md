@@ -3,7 +3,7 @@ id: code-first-object-type
 title: Object Type
 ---
 
-The object type is the most prominent type in GraphQL. There are currently two ways to describe an object type with the code-first approach.
+The object type is the most prominent output type in GraphQL. Basically each time you write a `Query`, `Mutation` or `Subscription` then you are already using an object type.
 
 ## `ObjectType<T>`
 
@@ -18,7 +18,6 @@ public class Query
 public class QueryType
   : ObjectType<Query>
 {
-
 }
 ```
 
@@ -28,7 +27,7 @@ type Query {
 }
 ```
 
-In order to specify you intend more explicitly you can opt to use the `IObjectTypeDescriptor<Query>` that is accessible by overriding the configure method of the `QueryType`.
+In order to specify your intend more explicitly you can opt to use the `IObjectTypeDescriptor<Query>` that is accessible by overriding the configure method of the `QueryType`.
 
 ```csharp
 public class Query

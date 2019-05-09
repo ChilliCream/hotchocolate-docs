@@ -7,7 +7,7 @@ _Hot Chocolate_ is built with extensibility in mind and allows you to customize 
 
 ## Introduction
 
-In order to know how to extend the type system it is important to know how we actually initialize our types. Types in _Hot Chocolate_ are initialized in three phases (create, assign name and complete type). Each phase can be extended. 
+In order to know how to extend the type system it is important to know how we actually initialize our types. Types in _Hot Chocolate_ are initialized in three phases (create, assign name and complete type). Each phase can be extended.
 
 ### Create
 
@@ -15,7 +15,7 @@ The type initializer creates the type instance and the type definition. The type
 
 ### Assign Name
 
-After all types are initialized the type initializer will start assigning the type names to the type instances. The name of a type can be dependant on another type. This capability is often used when other languages would actually opt for generics. 
+After all types are initialized the type initializer will start assigning the type names to the type instances. The name of a type can be dependant on another type. This capability is often used when other languages would actually opt for generics.
 
 Let\`s say we have a type `EdgeType<T>` where `T` is another schema type. The resulting concrete type shall construct its name by combining the name of the two types. So, `EdgeType<StringType>` will become `EdgeString` and so on.
 
@@ -27,22 +27,17 @@ The last phase of the type initilization process will complete the types, this m
 
 _Hot Chocolate_ allows to extend types by creating extension methods on specific descriptors or by inheriting from a type base class and overrding the initilization process. Both ways provide unique capabilities depending on what you want to do.
 
-## Extending Descriptors
+### Extending Descriptors
 
-Each descriptor now provides a new method called Extend. Extend returns an extension descriptor that allows us to integrate some logic with the type initialization pipeline.
+Each descriptor provides a method called `Extend`. `Extend` returns an extension descriptor which allows us to register some logic with the type initialization pipeline.
 
-Types are created in three phases:
+The extension descriptor provides extension points the three phases described earlier:
 
+- OnBeforeCreate
+  `OnBeforeCreate` will allow us to customize the type definition. It is important to know that this step is not allowed to be dependent on another type object. Also, at this point you will not have access to the type completion context.
 
+- OnBeforeNaming
+  `OnBeforeNaming` allows to provide logic to generate the name of a type. You can declare two kinds of dependencies in this step, either the dependency has to be named first or the dependency is allowed to be in any state.
 
-Complete Name After all types are created the names of the types will be completed.
-
-Complete Type In the last step the types will be completed, this means that for instance the fields are assigned, or the directives are retrieved and associated with a type etc. After this the type is completed and becomes immutable.
-
-The extension descriptor provides extension points to these three phases:
-
-OnBeforeCreate OnBeforeCreate will allow you to customize the type definition. It is important to know that this step is not allowed to be dependent on another type object. Also, at this point you will not have access to the type completion context.
-
-OnBeforeNaming OnBeforeNaming allows to provide logic to generate the name of a type. You can declare two kinds of dependencies in this step, either the dependency has to be named first or the dependency is allowed to be in any state.
-
-OnBeforeCompletion OnBeforeCompletion allows to provide further logic that modifies the type definition. For instance, we could be dependent on another type in order to generate fields based on the fields of that other type. You can declare two kinds of dependencies in this step, either the dependency has to be completed first or the dependency is allowed to be in any state.
+- OnBeforeCompletion
+  `OnBeforeCompletion` allows to provide further logic that modifies the type definition. For instance, we could be dependent on another type in order to generate fields based on the fields of that other type. You can declare two kinds of dependencies in this step, either the dependency has to be completed first or the dependency is allowed to be in any state.

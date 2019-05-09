@@ -7,13 +7,25 @@ _Hot Chocolate_ is built with extensibility in mind and allows you to customize 
 
 ## Introduction
 
-Types in _Hot Chocolate_ are initialized in three phases (create, assign name, complete type),
+In order to know how to extend the type system it is important to know how we actually initialize our types. Types in _Hot Chocolate_ are initialized in three phases (create, assign name and complete type). Each phase can be extended. 
 
 ### Create
 
-The type initializer creates the type instance and the type definition. The type definition contains all information to create and initialize a schema type. After the instance creation step is complted the type instance exists and is associated with a native .net type representation. The native .net type can be `object` but can also be something more specific like `string` or any other .net object. In this phase the type will also register all of its dependencies to other type system objects (types and directives) to the schema builder.
+The type initializer creates the type instance and the type definition. The type definition contains all information to create and initialize a schema type. After the instance creation step is completed the type instance exists and is associated with a native .net type representation. The native .net type can be `object` but can also be something more specific like `string` or any other .net object. In this phase the type will also register all of its dependencies to other type system objects (types and directives) to the type initializer.
 
-###
+### Assign Name
+
+After all types are initialized the type initializer will start assigning the type names to the type instances. The name of a type can be dependant on another type. This capability is often used when other languages would actually opt for generics. 
+
+Let\`s say we have a type `EdgeType<T>` where `T` is another schema type. The resulting concrete type shall construct its name by combining the name of the two types. So, `EdgeType<StringType>` will become `EdgeString` and so on.
+
+### Complete Type
+
+The last phase of the type initilization process will complete the types, this means that the type will manifest in its final form and become immutable. In this final phase the object type for instance builds its fields or the enum type for instance creates its values.
+
+## Extending Types
+
+__HotWe have two major ways __
 
 
 ## Extending Descriptors
@@ -22,7 +34,7 @@ Each descriptor now provides a new method called Extend. Extend returns an exten
 
 Types are created in three phases:
 
-Create Instance The initializer creates the type instance and the type definition. The type definition contains all information to create and initialize a type. After this step the type instance exists and is associated with a native .net type. The native .net type can be object but can also be something more specific. In this phase the type will also report all of its dependencies to the schema builder.
+
 
 Complete Name After all types are created the names of the types will be completed.
 

@@ -33,7 +33,9 @@
       "instrumentation",
       "apollo-tracing",
       "conventions",
-      "extending-types"
+      "extending-types",
+      "relay"
+
     ],
     "Guides": [
       "migration",

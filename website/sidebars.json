@@ -8,6 +8,10 @@
     "API Reference": [
       "schema",
       "schema-object-type",
+      "schema-input-object-type",
+      "custom-interface-types",
+      "schema-union-type",
+      "schema-enum-type",
       "custom-scalar-types",
       "resolvers",
       "dataloaders",

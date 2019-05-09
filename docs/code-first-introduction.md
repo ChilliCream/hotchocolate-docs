@@ -188,7 +188,7 @@ type Person {
 
 For more help on the configuration of the specific types checkout the specific type descriptor help pages:
 
-- [Object Type Descriptor](code-first-object-type.md)
+- [Object Type Descriptor](schema-object-type.md)
 - [Interface Type Descriptor](code-first-interface-type.md)
 - [Union Type Descriptor](code-first-union-type.md)
 - [Enum Type Descriptor](code-first-enum-type.md)

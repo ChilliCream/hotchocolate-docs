@@ -89,7 +89,7 @@ type Query {
 
 _Hot Chocolate_ will always try to figure the provided schema out, that means that we will infer the fields from the provided types. Also we can extend those types by declaring further fields. As with everything we can opt out of this behaviour.
 
-> In order to see more about what capabilities our ObjectType has head over [here](code-first-object-type.md).
+> In order to see more about what capabilities our ObjectType has head over [here](schema-object-type.md).
 
 As I mentioned earlier we can mix and match our approach and also extend schema-first fields with code-first:
 

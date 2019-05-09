@@ -28,7 +28,8 @@
       "stitching",
       "instrumentation",
       "apollo-tracing",
-      "conventions"
+      "conventions",
+      "extending-types"
     ],
     "Guides": [
       "migration",

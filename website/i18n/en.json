@@ -83,6 +83,9 @@
       "parser": {
         "title": "Parser"
       },
+      "relay": {
+        "title": "Relay"
+      },
       "resolvers": {
         "title": "Resolvers"
       },

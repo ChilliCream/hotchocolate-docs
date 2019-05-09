@@ -14,23 +14,14 @@
       "authorization": {
         "title": "Authorization"
       },
-      "code-first-enum-type": {
-        "title": "code-first-enum-type"
-      },
-      "code-first-interface-type": {
-        "title": "Interface Type"
-      },
       "code-first-introduction": {
         "title": "Introduction"
       },
-      "code-first-object-type-field": {
-        "title": "code-first-object-type-field"
-      },
-      "code-first-object-type": {
-        "title": "Object Type"
-      },
       "code-first": {
         "title": "Code-first"
+      },
+      "conventions": {
+        "title": "Conventions"
       },
       "custom-context": {
         "title": "Custom Context Data"
@@ -68,6 +59,9 @@
       "example-star-wars-schema-first": {
         "title": "Star Wars"
       },
+      "extending-types": {
+        "title": "Extending Types"
+      },
       "instrumentation": {
         "title": "Instrumentation"
       },
@@ -92,8 +86,26 @@
       "resolvers": {
         "title": "Resolvers"
       },
+      "schema-enum-type": {
+        "title": "Enum Type"
+      },
       "schema-first": {
         "title": "Schema-first"
+      },
+      "schema-input-object-type": {
+        "title": "schema-input-object-type"
+      },
+      "schema-interface-type": {
+        "title": "Interface Type"
+      },
+      "schema-object-type": {
+        "title": "Object Type"
+      },
+      "schema-union-type": {
+        "title": "schema-union-type"
+      },
+      "schema": {
+        "title": "Schema"
       },
       "security": {
         "title": "Security"

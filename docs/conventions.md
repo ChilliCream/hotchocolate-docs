@@ -9,3 +9,17 @@ When you build a schema with _Hot Chocolate_ we have a lot of conventions in pla
 `DefaultTypeInspector` on the other hand inspects the types and will infer the structure of the types.
 
 If we wanted for example to introduce custom attributes instead of our GraphQL* attributes than we could inherit from those two classes and overwrite what we want to change. In order to provide the schema builder with our new conventions class all we had to do is to register our convention instances with our dependency injection provider.
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSingleton<INamingConverions, MyNamingConventions>();
+
+    services.AddGraphQL(sp => Schema.Create(c =>
+    {
+        c.RegisterServiceProvider(sp);
+        c.RegisterQuerType<Foo>();
+    }));
+
+}
+```

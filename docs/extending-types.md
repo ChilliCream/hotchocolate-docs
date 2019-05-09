@@ -25,8 +25,7 @@ The last phase of the type initilization process will complete the types, this m
 
 ## Extending Types
 
-__HotWe have two major ways __
-
+_Hot Chocolate_ allows to extend types by creating extension methods on specific descriptors or by inheriting from a type base class and overrding the initilization process. Both ways provide unique capabilities depending on what you want to do.
 
 ## Extending Descriptors
 

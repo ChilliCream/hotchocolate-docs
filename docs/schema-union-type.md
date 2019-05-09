@@ -1,4 +1,4 @@
 ---
 id: schema-union-type
-title: Object Type
+title: Union Type
 ---

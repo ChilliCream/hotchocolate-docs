@@ -1,4 +1,4 @@
 ---
 id: schema-input-object-type
-title: Object Type
+title: Input Object Type
 ---

@@ -13,6 +13,8 @@ type Starship {
 }
 ```
 
+## Introduction
+
 An object in GraphQL consists of a collection of fields. Object field in GraphQL can have arguments, so you could compare it to methods in _C#_. Each field has a distinct type. All field types have to be output types (scalars, enums, objects, unions or interfaces). The arguments of a field on the other hand have to be input types scalars, enums and input objects).
 
 With _Hot Chocolate_ you can define and object by using the GraphQL SDL or by using C#. Each field of an object will get a resolver assigned that knows how to fetch the data for that field.
@@ -90,7 +92,9 @@ SchemaBuilder.New()
   .Create();
 ```
 
-Schema types will also allow me to add fields that are not on our current model.
+## Resolvers
+
+Schema types will also allow us to add fields that are not on our current model.
 Lets say we have the following C# model:
 
 ```csharp
@@ -136,287 +140,70 @@ The second thing that is important in this example os that we can introduce fiel
 
 > We are planing to support C# 8 and with that we will be able to infer non-nullability from reference types aswell.
 
-## `ObjectType<T>`
-
-The first approach is by using the generic object type class which lets you specify an entity type that shall represent your schema type in .net. The object type descriptor will then try to automatically infer the GraphQL schema type from your .net type.
+We also can use schema types if we have no model at all that represents that object. In these cases we have to write explicit resolvers for each of the fields:
 
 ```csharp
-public class Query
-{
-  public string GetHello() => "World";
-}
-
 public class QueryType
-  : ObjectType<Query>
+    : ObjectType
 {
-}
-```
-
-```graphql
-type Query {
-  hello: String
-}
-```
-
-In order to specify your intend more explicitly you can opt to use the `IObjectTypeDescriptor<Query>` that is accessible by overriding the configure method of the `QueryType`.
-
-```csharp
-public class Query
-{
-  public string GetHello() => "World";
-}
-
-public class QueryType
-  : ObjectType<Query>
-{
-    protected override void Configure(IObjectTypeDescriptor<Query> desc)
+    protected override Configure(IObjectTypeDescriptor descriptor)
     {
-        desc.Field(t => t.GetHello()).Type<NonNullType<StringType>>();
+        descriptor.Field("sayHello")
+            .Type<NonNullType<StringType>>()
+            .Resolver("Hello!");
     }
 }
 ```
 
-```graphql
-type Query {
-  hello: String!
-}
-```
-
-## Object Type Descriptors
-
-The following table shows the object type descriptor options:
-
-| Name                                                                | Description                                                                                    |
-| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `Name(string name)`                                                 | Defines the name of the object type.                                                           |
-| `Description(string description)`                                   | Defines the description of the object type that will be accessible through the introspection.  |
-| `Interface\<T\>()`                                                  | Specifies an interface type that is implemented by this object type.                           |
-| `IsOfType(IsOfType isOfType)`                                       | Defines a function that specifies if a specific resolver type is of the specified object type. |
-| `BindFields(BindingBehavior bindingBehavior)`                       | Specifies the field binding behaviour.                                                         |
-| `Field\<TValue\>(Expression\<Func\<T, TValue\>\> propertyOrMethod)` | Specifies field configuration of a method or property declared in T.                           |
-| `Field(string name)`                                                | Specifies a field that does not exist in T.                                                    |
-
-### Name
-
-The object type descriptor will by default resolve the name of the schema type from the provided type argument. If the type is annotated with the GraphQLNameAttribute than the name attribute will take precedence over the type name. The explicitly specified name will take precedence over both.
-
-Example name from type:
+You can also turn that around and write your resolver logic in your C# objects since we support method argument injection. So you could also create your `Person` type in c# like the following:
 
 ```csharp
-public class Bar
+public class Person
 {
-  public string Foo { get; set; }
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public Person GetFriends([Service]IPersonRepository repository) =>
+        repository.GetFriends(Id);
 }
 
-public class BarType
-  : ObjectType<Bar>
+public class PersonType
+    : ObjectType<Person>
 {
-
-}
-```
-
-```graphql
-type Bar {
-  foo: String
-}
-```
-
-Example name from attribute:
-
-```csharp
-[GraphQLName("Foo")]
-public class Bar
-{
-  public string Foo { get; set; }
-}
-
-public class BarType
-  : ObjectType<Bar>
-{
-
-}
-```
-
-```graphql
-type Foo {
-  foo: String
-}
-```
-
-Example explicit name:
-
-```csharp
-[GraphQLName("Foo")]
-public class Bar
-{
-  public string Foo { get; set; }
-}
-
-public class BarType
-  : ObjectType<Bar>
-{
-    protected override void Configure(IObjectTypeDescriptor<Bar> desc)
+    protected override Configure(IObjectTypeDescriptor<Person> descriptor)
     {
-        desc.Name("Foo123");
+        descriptor.Field(t => t.Name).Type<NonNullType<StringType>>();
+        descriptor.Field(t => t.GetFriends(default))
+            .Type<ListType<NonNullType<StringType>>>();
     }
 }
 ```
 
-```graphql
-type Foo123 {
-  foo: String
-}
-```
-
-### Description
-
-The description of a type will provide an additional text that describes a type to the schema introspection. This is useful with tools like GraphiQL. GraphQL descriptions are defined using the Markdown syntax (as specified by [CommonMark](http://commonmark.org)).
+Since in many cases we do not want to put resolver code in our models we can also split our type and still move the resolver code to a C# class:
 
 ```csharp
-public class Bar
+public class Person
 {
-  public string Foo { get; set; }
+    public int Id { get; set; }
+    public string Name { get; set; }
 }
 
-public class BarType
-  : ObjectType<Bar>
+public class PersonResolvers
 {
-    protected override void Configure(IObjectTypeDescriptor<Bar> desc)
+    public Person GetFriends(Person person, [Service]IPersonRepository repository) =>
+        repository.GetFriends(person.Id);
+}
+
+public class PersonType
+    : ObjectType<Person>
+{
+    protected override Configure(IObjectTypeDescriptor<Person> descriptor)
     {
-        desc.Description("Lorem ipsum dolor sit amet, consectetur adipiscing elit...");
+        descriptor.Field(t => t.Name).Type<NonNullType<StringType>>();
+        descriptor.Field<PersonResolvers>(t => t.GetFriends(default, default))
+            .Type<ListType<NonNullType<StringType>>>();
     }
 }
 ```
 
-```graphql
-"""
-Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-"""
-type Bar {
-  foo: String
-}
-```
-
-### IsOfType
-
-The object type descriptor will by default use an instance of approach to figure out if a resolver result is of a certain object type. In some cases when you either have no explicit type binding or you use a .net net type in multiple schema types it is necessary to specify a IsOfType delegate that determines the type of a resolver result.
-
-```csharp
-public class Bar
-{
-  public string Foo { get; set; }
-}
-
-public class BarType
-  : ObjectType<Bar>
-{
-    protected override void Configure(IObjectTypeDescriptor<Bar> desc)
-    {
-        desc.IsOfType((context, result) => result is string s && s == "bar");
-    }
-}
-```
-
-### BindFields
-
-The object type descriptor will by default scan the provided entity type for additional fields. In some cases you might want to specify all the fields explicitly in order to have a more predictable schema. You might not want that a property or method that you add to your types automatically shows up in your schema. In those cases you can change the field binding behaviour to explicit.
-
-```csharp
-public class Bar
-{
-  public string Foo1 { get; set; }
-  public string Foo2 { get; set; }
-}
-
-public class BarType
-  : ObjectType<Bar>
-{
-    protected override void Configure(IObjectTypeDescriptor<Bar> desc)
-    {
-        desc.BindFields(BindingBehaviour.Explicit);
-        desc.Field(t => t.Foo1);
-    }
-}
-```
-
-```graphql
-type Bar {
-  foo1: String
-}
-```
-
-### Field
-
-There are two ways to define fields. First you can specify a field configuration by pointing to a property or method that is declared in your .net type.
-
-```csharp
-public class Bar
-{
-  public string Xyz { get; set; }
-}
-
-public class BarType
-  : ObjectType<Bar>
-{
-    protected override void Configure(IObjectTypeDescriptor<Bar> desc)
-    {
-        desc.Field(t => t.Xyz).Name("foo");
-    }
-}
-```
-
-```graphql
-type Bar {
-  foo: String
-}
-```
-
-Second, you can define fields that do not have any representation in your .net type.
-
-```csharp
-public class Bar
-{
-  public string Xyz { get; set; }
-}
-
-public class BarType
-  : ObjectType<Bar>
-{
-    protected override void Configure(IObjectTypeDescriptor<Bar> desc)
-    {
-        desc.Field("foo").Resolver(() => "hello world");
-    }
-}
-```
-
-```graphql
-type Bar {
-  xyz: String
-  foo: String
-}
-```
-
-The field descriptor options are described in more detail [here](schema-object-type-field.md).
-
-## ObjectType
-
-The second approach to describe object types is with the non-generic object type. The non-generic type does not necessarily have a fixed .net type binding. This means that you have more flexibility in defining your schema type and how the data flows through the query engine.
-
-```csharp
-public class BarType
-  : ObjectType
-{
-    protected override void Configure(IObjectTypeDescriptor desc)
-    {
-        desc.Field("foo").Resolver(() => "hello world");
-    }
-}
-```
-
-```graphql
-type Bar {
-  foo: String
-}
-```
-
-Compared to the generic descriptor interface you are loosing the generic field descriptor that is able to bind a field to a .net property or method.
+> There is a ton more that you can do with resolvers to create the types like you want them to be. Head over to our resolver documentation [here](resolvers.md).

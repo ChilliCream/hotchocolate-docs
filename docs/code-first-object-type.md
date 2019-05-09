@@ -3,7 +3,7 @@ id: code-first-object-type
 title: Object Type
 ---
 
-The object type is the most prominent output type in GraphQL. Basically each time you write a `Query`, `Mutation` or `Subscription` then you are already using an object type.
+The object type is the most prominent output type in GraphQL. Basically each time you write a `Query`, `Mutation` or `Subscription` you are using an object type to as for data.
 
 ## `ObjectType<T>`
 

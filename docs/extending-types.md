@@ -41,3 +41,7 @@ The extension descriptor provides extension points the three phases described ea
 
 - OnBeforeCompletion
   `OnBeforeCompletion` allows to provide further logic that modifies the type definition. For instance, we could be dependent on another type in order to generate fields based on the fields of that other type. You can declare two kinds of dependencies in this step, either the dependency has to be completed first or the dependency is allowed to be in any state.
+
+### Extending Type Base Class
+
+

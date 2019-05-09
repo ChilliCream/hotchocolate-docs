@@ -3,7 +3,7 @@ id: dotnet-cli
 title: .NET CLI
 ---
 
-Because we love the new Microsoft .NET Command Line Interface we created a Hot Chocolate server template that lets you setup a new GraphQL server in seconds.
+Because we love the new Microsoft .NET command line interface we have created a Hot Chocolate server template that lets you setup a new GraphQL server in seconds.
 
 Here is how to install the Hot Chocolate template into your dotnet CLI:
 

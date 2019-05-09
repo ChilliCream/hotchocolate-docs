@@ -20,7 +20,7 @@ ISchema schema = SchemaBuilder.New()
     .Create();
 ```
 
-In code-first we can again choose two approaches and again we can mix and match them. The first approach is to define the GraphQL types via POCOS and infer the GraphQL schema types with conventions.
+In code-first we can again choose two approaches and again we can mix and match them. The first approach is to define the GraphQL types via POCOS and infer the GraphQL schema type structure with conventions.
 
 With conventions we could create our above schema like the following:
 

@@ -39,7 +39,7 @@ _Hot Chocolate_ provides a collection of conventions and attributes to express a
 
 > If you want to read more about conventions head over [here](conventions.md).
 
-The second and way to express a schema in code-first is to declare schema types. Schema types allow us to exactly express the structure and properties of our schema:
+The second way to express a schema in code-first is to declare schema types. Schema types allow us to exactly express the structure and properties of our schema:
 
 ```csharp
 public class QueryType

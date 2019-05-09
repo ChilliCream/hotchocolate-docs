@@ -20,6 +20,5 @@ public void ConfigureServices(IServiceCollection services)
         c.RegisterServiceProvider(sp);
         c.RegisterQuerType<Foo>();
     }));
-
 }
 ```

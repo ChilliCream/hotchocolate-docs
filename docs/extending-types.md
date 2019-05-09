@@ -7,7 +7,13 @@ _Hot Chocolate_ is built with extensibility in mind and allows you to customize 
 
 ## Introduction
 
-Types in _Hot Chocolate_ are 
+Types in _Hot Chocolate_ are initialized in three phases (create, assign name, complete type),
+
+### Create
+
+The type initializer creates the type instance and the type definition. The type definition contains all information to create and initialize a schema type. After the instance creation step is complted the type instance exists and is associated with a native .net type representation. The native .net type can be `object` but can also be something more specific like `string` or any other .net object. In this phase the type will also register all of its dependencies to other type system objects (types and directives) to the schema builder.
+
+###
 
 
 ## Extending Descriptors

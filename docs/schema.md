@@ -91,7 +91,7 @@ _Hot Chocolate_ will always try to figure the provided schema out, that means th
 
 > In order to see more about what capabilities our ObjectType has head over [here](code-first-object-type.md).
 
-As I mentioned earlier we can mix and match our approach and also extend schema-first fiels with code-first:
+As I mentioned earlier we can mix and match our approach and also extend schema-first fields with code-first:
 
 ```csharp
 public class QueryTypeExtension

@@ -35,7 +35,7 @@ ISchema schema = SchemaBuilder.New()
     .Create();
 ```
 
-_Hot Chocolate_ provides a collection of conventions and attributes to express a schema with POCOs, but if they are not what we want we can override them to make those our own. We can even declare our own set of attributes.
+_Hot Chocolate_ provides a collection of conventions and attributes to express a schema with POCOs, but if they are not what we want we can override them to make those rules our own. We can even declare our own set of attributes.
 
 > If you want to read more about conventions head over [here](conventions.md).
 

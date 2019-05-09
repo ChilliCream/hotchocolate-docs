@@ -1,5 +1,5 @@
 ---
-id: code-first-enum-type
+id: schema-enum-type
 title: Enum Type
 ---
 

@@ -1,5 +1,5 @@
 ---
-id: code-first-object-type
+id: schema-object-type
 title: Object Type
 ---
 
@@ -265,7 +265,7 @@ type Bar {
 }
 ```
 
-The field descriptor options are described in more detail [here](code-first-object-type-field.md).
+The field descriptor options are described in more detail [here](schema-object-type-field.md).
 
 ## ObjectType
 

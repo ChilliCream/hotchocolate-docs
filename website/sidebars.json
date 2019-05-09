@@ -7,7 +7,7 @@
     ],
     "API Reference": [
       "schema",
-      "code-first-object-type",
+      "schema-object-type",
       "custom-scalar-types",
       "resolvers",
       "dataloaders",

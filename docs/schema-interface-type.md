@@ -1,5 +1,5 @@
 ---
-id: code-first-interface-type
+id: schema-interface-type
 title: Interface Type
 ---
 

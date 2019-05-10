@@ -8,7 +8,7 @@
     "API Reference": [
       "schema",
       "schema-object-type",
-      "custom-interface-type",
+      "schema-interface-type",
       "schema-union-type",
       "schema-input-object-type",
       "schema-enum-type",

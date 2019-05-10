@@ -3,7 +3,7 @@ id: schema-object-type
 title: Object Type
 ---
 
-The object type is the most prominent output type in GraphQL and represents a kind of object you can fetch from your schema. The GraphQL schema representation of an objec looks like the following:
+The object type is the most prominent output type in GraphQL and represents a kind of object you can fetch from your schema. The GraphQL schema representation of an object looks like the following:
 
 ```GraphQL
 type Starship {
@@ -95,7 +95,7 @@ SchemaBuilder.New()
 ## Resolvers
 
 Schema types will also allow us to add fields that are not on our current model.
-Lets say we have the following C# model:
+Let\`s say we have the following C# model:
 
 ```csharp
 public class Person
@@ -133,14 +133,14 @@ public class PersonType
 }
 ```
 
-So, lets have a look at the above example, first we have our name field there, since we need to declare it non-nullable.
-But we do not have the `id` field there. _Hot Chocolate_ will always try to infer the usage of the provided type if it is not overriden by the user. You always can opt out of this behaviour and tell _Hot Chocolate_ that you do want to declare everything explicitly. In this case of value types _Hot Chocolate_ can infer the non-nullability correctly and you do not have to specify anything extra.
+Let\`s have a look at the above example, first we have our name field there, since we need to declare it non-nullable.
+But we do not have the `id` field there. _Hot Chocolate_ will always try to infer the usage of the provided type if it is not overridden by the user. You always can opt out of this behaviour and tell _Hot Chocolate_ that you do want to declare everything explicitly. In this case of value types _Hot Chocolate_ can infer the non-nullability correctly and you do not have to specify anything extra.
 
-The second thing that is important in this example os that we can introduce fields that are not on our model and that might even come from a completly different data source. In these cases we have to provide explicit resolvers since we can not infer the resolver the C# type.
+The second thing that is important in this example is that we can introduce fields that are not on our model and that might even come from a completely different data source. In these cases, we have to provide explicit resolvers since we cannot infer the resolver the C# type.
 
-> We are planing to support C# 8 and with that we will be able to infer non-nullability from reference types aswell.
+> We are planning to support C# 8 and with that we will be able to infer non-nullability from reference types as well.
 
-We also can use schema types if we have no model at all that represents that object. In these cases we have to write explicit resolvers for each of the fields:
+We also can use schema types if we have no model at all that represents that object. In these cases, we have to write explicit resolvers for each of the fields:
 
 ```csharp
 public class QueryType
@@ -155,7 +155,7 @@ public class QueryType
 }
 ```
 
-You can also turn that around and write your resolver logic in your C# objects since we support method argument injection. So you could also create your `Person` type in c# like the following:
+You can also turn that around and write your resolver logic in your C# objects since we support method argument injection. You could also create your `Person` type in c# like the following:
 
 ```csharp
 public class Person
@@ -206,4 +206,41 @@ public class PersonType
 }
 ```
 
-> There is a ton more that you can do with resolvers to create the types like you want them to be. Head over to our resolver documentation [here](resolvers.md).
+> More about resolvers can be read [here](resolvers.md).
+
+## Extension
+
+The GraphQL SDL supports extending obejcts types, this means that you can add fields to an existing object.
+
+```GraphQL
+extend type Person {
+    address: String!
+}
+```
+
+Extending types is useful for schema stitching but also when you want to add just something to an existing type. You might have some fields that are optional and that you do not always want to add to your service, or you might just want to separate your types by data source. The capability to extend types gives you flexibility.
+
+_Hot Chocolate_ supports extending types code-first and schema-first. Let\`s have a look at how we can extend our person object with code-first:
+
+```csharp
+public class PersonTypeExtension
+    : ObjectTypeExtension
+{
+    protected override Configure(IObjectTypeDescriptor descriptor)
+    {
+        descriptor.Name("Person");
+        descriptor.Field("address")
+            .Type<NonNullType<StringType>>()
+            .Resolver(/"Resolver Logic"/);
+    }
+}
+```
+
+```csharp
+SchemaBuilder.New()
+  .AddType<PersonType>()
+  .AddType<PersonTypeExtension>()
+  .Create();
+```
+
+Type extensions bascially work like usual types and are also added like usual types. This makes it easy to reuse code and to learn using the API.

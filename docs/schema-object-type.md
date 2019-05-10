@@ -13,11 +13,9 @@ type Starship {
 }
 ```
 
-## Introduction
+An object in GraphQL consists of a collection of fields. Object fields in GraphQL can have arguments, so you could compare it to methods in _C#_. Each field has a distinct type. All field types have to be output types (scalars, enums, objects, unions or interfaces). The arguments of a field on the other hand have to be input types scalars, enums and input objects).
 
-An object in GraphQL consists of a collection of fields. Object field in GraphQL can have arguments, so you could compare it to methods in _C#_. Each field has a distinct type. All field types have to be output types (scalars, enums, objects, unions or interfaces). The arguments of a field on the other hand have to be input types scalars, enums and input objects).
-
-With _Hot Chocolate_ you can define and object by using the GraphQL SDL or by using C#. Each field of an object will get a resolver assigned that knows how to fetch the data for that field.
+With _Hot Chocolate_ you can define an object by using the GraphQL SDL syntax or by using C#. Each field of an object will get a resolver assigned that knows how to fetch the data for that field.
 
 A single GraphQL object might be the composition of data that comes from several data sources.
 

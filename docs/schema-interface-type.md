@@ -23,7 +23,7 @@ type Starship implements Node {
 }
 ```
 
-One object can implement multiple interfaces and is not limited to one.
+A single object can implement multiple interfaces and is not limited to just one.
 
 An interface in GraphQL consists of a collection of fields. Multiple objects can implement this interface.
 

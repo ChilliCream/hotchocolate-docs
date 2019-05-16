@@ -13,7 +13,7 @@ If we wanted for example to introduce custom attributes instead of our GraphQL* 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-    services.AddSingleton<INamingConverions, MyNamingConventions>();
+    services.AddSingleton<INamingConventions, MyNamingConventions>();
 
     services.AddGraphQL(sp => Schema.Create(c =>
     {

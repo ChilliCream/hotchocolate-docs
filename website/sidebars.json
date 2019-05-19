@@ -6,14 +6,21 @@
       "schema-first"
     ],
     "API Reference": [
-      "schema",
-      "schema-object-type",
-      "schema-interface-type",
-      "schema-union-type",
-      "schema-input-object-type",
-      "schema-enum-type",
-      "custom-scalar-types",
-      "resolvers",
+      {
+        "type": "subcategory",
+        "label": "Schema Definition",
+        "ids": [
+          "schema",
+          "schema-object-type",
+          "schema-interface-type",
+          "schema-union-type",
+          "schema-input-object-type",
+          "schema-enum-type",
+          "schema-descriptions",
+          "custom-scalar-types",
+          "resolvers"
+        ]
+      },
       "dataloaders",
       "pagination",
       "dependency-injection",

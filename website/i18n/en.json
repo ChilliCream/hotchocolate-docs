@@ -89,6 +89,9 @@
       "resolvers": {
         "title": "Resolvers"
       },
+      "schema-documentation": {
+        "title": "Schema Documentation"
+      },
       "schema-enum-type": {
         "title": "Enum Type"
       },
@@ -96,7 +99,7 @@
         "title": "Schema-first"
       },
       "schema-input-object-type": {
-        "title": "schema-input-object-type"
+        "title": "Input Object Type"
       },
       "schema-interface-type": {
         "title": "Interface Type"

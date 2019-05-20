@@ -16,7 +16,7 @@ const siteConfig = {
   tagline: "A GraphQL Server for .net core and .net classic",
   url: "https://hotchocolate.io",
   cname: "hotchocolate.io",
-  usePrism: ["jsx", "csharp"],
+  usePrism: ["csharp", "graphql"],
   baseUrl: "/",
   blogUrl,
   repoUrl,

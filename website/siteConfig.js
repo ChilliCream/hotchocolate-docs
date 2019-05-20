@@ -16,7 +16,7 @@ const siteConfig = {
   tagline: "A GraphQL Server for .net core and .net classic",
   url: "https://hotchocolate.io",
   cname: "hotchocolate.io",
-  usePrism: ["csharp", "graphql"],
+  usePrism: true,
   baseUrl: "/",
   blogUrl,
   repoUrl,
@@ -70,7 +70,7 @@ const siteConfig = {
   },
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks
-    theme: "atelier-dune-light"
+    theme: "monokai-sublime"
   },
   scripts: [
     "https://buttons.github.io/buttons.js",

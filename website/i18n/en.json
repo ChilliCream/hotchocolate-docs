@@ -89,8 +89,8 @@
       "resolvers": {
         "title": "Resolvers"
       },
-      "schema-documentation": {
-        "title": "Schema Documentation"
+      "schema-descriptions": {
+        "title": "Schema Descriptions"
       },
       "schema-enum-type": {
         "title": "Enum Type"

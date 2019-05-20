@@ -7,9 +7,10 @@ As with any API, documentation is an important of describing the data and querie
 
 ## Schema-first
 In schema-first scenarios the schema parser supports the inclusion of description strings. When a schema string includes such descriptions, they will be available through your typically introspection queries.
+
 <!--DOCUSAURUS_CODE_TABS-->
 <!-- C# -->
-```
+```csharp
 Schema.Create(@"
 """"""
 A droid in the Star Wars universe.
@@ -52,8 +53,9 @@ c =>
     c.BindResolver(() => "R2D2").To("Droid", "name");
 });
 ```
+
 <!-- GraphQL -->
-```
+```graphql
 """
 A droid in the Star Wars universe.
 """
@@ -96,9 +98,10 @@ In code-first schemas there are multiple ways to describe the types and queries 
 
 ### XML Documentation
 Out of the box, _Hot Chocolate_ has the ability to automatically generate API documentation from your existing [XML documentation comments](https://docs.microsoft.com/en-us/dotnet/csharp/codedoc). For example, given the following C# code with XML documentation strings you will have the following GraphQL schema.
+
 <!--DOCUSAURUS_CODE_TABS-->
 <!--C#-->
-```
+```csharp
 /// <summary>
 /// A droid in the Star Wars universe.
 /// </summary>
@@ -146,8 +149,9 @@ public class Query {
     }
 }
 ```
+
 <!--GraphQL-->
-```
+```graphql
 """
 A droid in the Star Wars universe.
 """
@@ -208,7 +212,7 @@ _Hot Chocolate_ also provides a `GraphQLDescriptionAttribute` that can be used t
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--C#-->
-```
+```csharp
 [GraphQLDescription("I am a droid in the Star Wars universe.")]
 public class Droid
 {
@@ -229,8 +233,9 @@ public class Query
     }
 }
 ```
+
 <!--GraphQL-->
-```
+```graphql
 """
 A droid in the Star Wars universe.
 """
@@ -261,7 +266,7 @@ The `IObjecTypeDescriptor<T>` includes fluent APIs that enable setting descripti
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--C#-->
-```
+```csharp
 public class Droid
 {
     public string Id { get; set; }
@@ -285,7 +290,7 @@ public class DroidType : ObjectType<Droid>
 ```
 
 <!--GraphQL-->
-```
+```graphql
 """
 A droid in the Star Wars Universe.
 """
@@ -303,7 +308,7 @@ type Droid {
 Similar to the previous options, the fluent APIs also provide the ability to generate descriptions for the queries and their arguments.
 <!--DOCUSAURUS_CODE_TABS-->
 <!--C#-->
-```
+```csharp
 public class Query
 {
     public Droid GetDroid(string id)
@@ -329,7 +334,7 @@ public class QueryType : ObjectType<Query>
 ```
 
 <!--GraphQL-->
-```
+```graphql
 type Query {
     """
     Search for droids.

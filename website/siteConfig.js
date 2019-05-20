@@ -16,6 +16,7 @@ const siteConfig = {
   tagline: "A GraphQL Server for .net core and .net classic",
   url: "https://hotchocolate.io",
   cname: "hotchocolate.io",
+  usePrism: ["jsx", "csharp"],
   baseUrl: "/",
   blogUrl,
   repoUrl,
@@ -25,7 +26,8 @@ const siteConfig = {
   organizationName: "chillicream",
   organizationTitle: "ChilliCream",
   organizationUrl,
-  headerLinks: [{
+  headerLinks: [
+    {
       doc: "introduction",
       href: "/docs",
       label: "Docs"
@@ -63,8 +65,8 @@ const siteConfig = {
     apiKey: "47d61652587888cd5144dcdd6fb9117b",
     indexName: "hotchocolate",
     algoliaOptions: {
-      facetFilters: ["language:LANGUAGE", "version:VERSION"],
-    },
+      facetFilters: ["language:LANGUAGE", "version:VERSION"]
+    }
   },
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks
@@ -73,7 +75,7 @@ const siteConfig = {
   scripts: [
     "https://buttons.github.io/buttons.js",
     "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js",
-    "/js/code-block-buttons.js",
+    "/js/code-block-buttons.js"
   ],
   onPageNav: "separate",
   docsSideNavCollapsible: true,
@@ -83,11 +85,12 @@ const siteConfig = {
   cleanUrl: true,
   scrollToTop: true,
   scrollToTopOptions: {
-    zIndex: 100,
+    zIndex: 100
   },
   enableUpdateTime: true,
   enableUpdateBy: true,
-  slackInvite: "https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg"
+  slackInvite:
+    "https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg"
 };
 
 module.exports = siteConfig;

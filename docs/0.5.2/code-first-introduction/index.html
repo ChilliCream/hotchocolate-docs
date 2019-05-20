@@ -89,9 +89,9 @@
 </code></pre>
 <p>By wrapping <code>Query</code> as <code>ObjectType&lt;Query&gt;</code> we essentially tell the schema setup that <code>Query</code> is an object type and the schema setup will try to infer the rest of this type automatically.</p>
 <p>So, without much effort we now have a GraphQL Schema that looks like the following:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Query</span> {
-  <span class="hljs-attribute">foo</span>: String
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">foo</span><span class="token punctuation">:</span> String
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In many cases we can even infer the schema type. So you can just register your types and the schema will try to figure out what the specified type shall represent in your GraphQL schema.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">var</span> schema <span class="token operator">=</span> Schema<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span>c <span class="token operator">=></span>
@@ -138,14 +138,14 @@
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
 <p>The above schema would look like the following in the GraphQL syntax:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Query</span> {
-  <span class="hljs-attribute">person</span>: Person
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">person</span><span class="token punctuation">:</span> Person
+<span class="token punctuation">}</span>
 
-<span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Person</span> {
-    <span class="hljs-attribute">name</span>: String
-    <span class="hljs-built_in">newFriend</span>(name: String): Person
-}
+<span class="token keyword">type</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token attr-name">name</span><span class="token punctuation">:</span> String
+    <span class="token attr-name">newFriend</span><span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span><span class="token punctuation">:</span> Person
+<span class="token punctuation">}</span>
 </code></pre>
 <p>We are constantly working on this mechanism in order to support more cases. The most significant drawback at the moment is that we cannot detect if a reference type is meant as non-null-type or as nullable-type.</p>
 <p>In order to describe your intention more detailed or even describe types that do not exist in c# you can opt to use the schema types.</p>
@@ -183,14 +183,14 @@
   c<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">RegisterType</span><span class="token punctuation">&lt;</span><span class="token class-name">PersonType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Query</span> {
-  <span class="hljs-attribute">person</span>: Person
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">person</span><span class="token punctuation">:</span> Person
+<span class="token punctuation">}</span>
 
-<span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Person</span> {
-    <span class="hljs-attribute">name</span>: String!
-    <span class="hljs-built_in">newFriend</span>(name: String): Person
-}
+<span class="token keyword">type</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+    <span class="token attr-name">newFriend</span><span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span><span class="token punctuation">:</span> Person
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Moreover, we can add additional fields that our .net type does not contain:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonType</span> <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Person<span class="token operator">></span>
@@ -202,15 +202,15 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Query</span> {
-  <span class="hljs-attribute">person</span>: Person
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">person</span><span class="token punctuation">:</span> Person
+<span class="token punctuation">}</span>
 
-<span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Person</span> {
-    <span class="hljs-attribute">name</span>: String!
-    <span class="hljs-built_in">newFriend</span>(name: String): Person
-    newField: String
-}
+<span class="token keyword">type</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+    <span class="token attr-name">newFriend</span><span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span><span class="token punctuation">:</span> Person
+    <span class="token attr-name">newField</span><span class="token punctuation">:</span> String
+<span class="token punctuation">}</span>
 </code></pre>
 <p>For more help on the configuration of the specific types checkout the specific type descriptor help pages:</p>
 <ul>

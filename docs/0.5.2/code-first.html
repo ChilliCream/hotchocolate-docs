@@ -84,9 +84,9 @@ dotnet restore
 <pre><code class="hljs css language-csharp"><span class="token keyword">var</span> schema <span class="token operator">=</span> Schema<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span>c <span class="token operator">=></span> c<span class="token punctuation">.</span>RegisterType<span class="token operator">&lt;</span>ObjectType<span class="token operator">&lt;</span>Query<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>We now have registered an object type with our new schema that is based on our Query class. The schema would look like this:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Query</span> {
-  <span class="hljs-attribute">hello</span>: String
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">hello</span><span class="token punctuation">:</span> String
+<span class="token punctuation">}</span>
 </code></pre>
 <p>We didn't even have to write resolvers due to the fact that the schema inferred those from the hello function. out hello function is basically our resolver.</p>
 <p>But there are some catches here. At the moment we can only infer scalar types like string, int etc..
@@ -116,10 +116,10 @@ Furthermore, we can only infer non-nullability from value types. Reference types
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Our new resulting schema would now look like the following:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-keyword">type</span> <span class="hljs-type">Query</span> {
-  hello: <span class="hljs-type">String</span>!
-  foo: <span class="hljs-type">String</span>
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">hello</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">foo</span><span class="token punctuation">:</span> String
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The foo field would use the specified delegate to resolve the field value. The fluent api offers you the same feature set as the GraphQL schema syntax.</p>
 <p>Next we should look at resolver arguments. GraphQL fields let you define arguments. So, if we adjust our hello method to include a new argument name of type string we would infer from the GraphQL field arguments.</p>
@@ -128,9 +128,9 @@ Furthermore, we can only infer non-nullability from value types. Reference types
     <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">Hello</span><span class="token punctuation">(</span><span class="token keyword">string</span> name<span class="token punctuation">)</span> <span class="token operator">=></span> $<span class="token string">"Greetings {name}"</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<pre><code class="hljs css language-graphql"><span class="hljs-keyword">type</span> <span class="hljs-type">Query</span> {
-  hello(name: <span class="hljs-type">String</span>): <span class="hljs-type">String</span>
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">hello</span><span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span><span class="token punctuation">:</span> String
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Also, you can add the <a href="https://github.com/ChilliCream/hotchocolate/blob/master/src/Core/Resolvers/IResolverContext.cs">resolver context</a> or any resolver context property as an argument to your method.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>

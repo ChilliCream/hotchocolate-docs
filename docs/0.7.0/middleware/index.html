@@ -204,11 +204,11 @@ You can even access all the results that the previous resolver in your path have
 <pre><code class="hljs css language-csharp">Schema<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">RegisterDirective</span><span class="token punctuation">&lt;</span><span class="token class-name">UpperDirectiveType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Once registered our directive can be used like the following in queries:</p>
-<pre><code class="hljs css language-graphql">{
-  foo {
-    bar @upper
-  }
-}
+<pre><code class="hljs css language-graphql"><span class="token punctuation">{</span>
+  foo <span class="token punctuation">{</span>
+    bar <span class="token directive function">@upper</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The directive middleware is then included into the resolver pipeline of this field in this particular query.</p>
 <p>This makes writing middlewares simpler since you do not have to write a middleware that has to check every time if the field is annotated with a certain directive.</p>

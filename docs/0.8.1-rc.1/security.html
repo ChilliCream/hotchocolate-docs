@@ -80,29 +80,29 @@
 <p><em>By default a query is limited to 30 seconds.</em></p>
 <h2><a class="anchor" aria-hidden="true" id="query-depth"></a><a href="#query-depth" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Query Depth</h2>
 <p>Many GraphQL schemas expose cyclic graphs allowing for recursive queries like the following:</p>
-<pre><code class="hljs css language-graphql">{
-  me {
-    friends {
-      friends {
-        friends {
-          friends {
-            friends {
-              friends {
-                friends {
-                  friends {
-                    friends {
-                      #...
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+<pre><code class="hljs css language-graphql"><span class="token punctuation">{</span>
+  me <span class="token punctuation">{</span>
+    friends <span class="token punctuation">{</span>
+      friends <span class="token punctuation">{</span>
+        friends <span class="token punctuation">{</span>
+          friends <span class="token punctuation">{</span>
+            friends <span class="token punctuation">{</span>
+              friends <span class="token punctuation">{</span>
+                friends <span class="token punctuation">{</span>
+                  friends <span class="token punctuation">{</span>
+                    friends <span class="token punctuation">{</span>
+                      <span class="token comment">#...</span>
+                    <span class="token punctuation">}</span>
+                  <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Sure, GraphQL queries are finite and there is now way to craft a query that would crawl through your graph forever but you could write or generate a very big query that drills very deep in your graph.</p>
 <p>In order to limit the depth of queries you can enable a maximum execution depth and by doing this protect you query against this kind of queries.</p>
@@ -113,15 +113,15 @@
 <p>This sounds fairly simple at first, but if you think more about this one, then you start wondering that not every field has an equal complexity. So, you could add a higher complexity to fields that actually pull data, or to list fields and so on.</p>
 <p>So, you should really think about what the complexity value of a field is.</p>
 <p>The complexity of a field is annotated with the cost directive.</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Foo</span> {
-  <span class="hljs-attribute">bar</span>: [Bar] <span class="hljs-variable">@cost</span>(<span class="hljs-attribute">complexity</span>: <span class="hljs-number">5</span>)
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Foo</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">bar</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Bar<span class="token punctuation">]</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">complexity</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>If you want to go even further in computing your complexity you can include multiplier properties. Multiplier, properties are properties that have an impact on how complex the field data loading task is.</p>
 <p>Take a paging field for instance in which you can pass the amount of items that you want to load, than you could define that field as a multiplier of your complexity:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Foo</span> {
-  <span class="hljs-selector-tag">bar</span>(<span class="hljs-attribute">take</span>:Int): <span class="hljs-selector-attr">[Bar]</span> @<span class="hljs-selector-tag">cost</span>(<span class="hljs-attribute">complexity</span>: <span class="hljs-number">5</span> <span class="hljs-attribute">multipliers</span>:[take])
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Foo</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">bar</span><span class="token punctuation">(</span><span class="token attr-name">take</span><span class="token punctuation">:</span>Int<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Bar<span class="token punctuation">]</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">complexity</span><span class="token punctuation">:</span> <span class="token number">5</span> <span class="token attr-name">multipliers</span><span class="token punctuation">:</span><span class="token punctuation">[</span>take<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Multipliers are only recognized when you set <code>UseComplexityMultipliers</code> in your execution options to <code>true</code>. If you opt-in to multipliers the complexity cannot any more be calculated by the validation rules at the beginning of the execution pipeline but has to be calculated after the variables have been coerced since multiplier field arguments could have been provided as variables. This means that we already did some processing and used some more time on the validation.</p>
 <p>In both cases, with or without multipliers you can go even further with this one and provide your own multiplier calculation function that for example takes into account the depth of the field. By default we take the complexity as field complexity, or multiply the complexity by the multiplier fields but we give you a lot of context into the complexity calculation function and you could for example multiply the complexity by the depth of the field and so on.</p>

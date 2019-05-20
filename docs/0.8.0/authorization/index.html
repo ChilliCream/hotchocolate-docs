@@ -86,10 +86,10 @@
 <p>Once you have done that you can add the <code>@authorize</code>-directive to object type definitions or field definitions.</p>
 <p>The <code>@authorize</code>-directive on a field definition takes precedence over one that is added on the object type definition.</p>
 <p>Schema-First:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-keyword">type</span> <span class="hljs-type">Person</span> @authorize {
-  name: <span class="hljs-type">String</span>!
-  address: <span class="hljs-type">Address</span>!
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Person</span> <span class="token directive function">@authorize</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">address</span><span class="token punctuation">:</span> Address<span class="token operator">!</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Code-First:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonType</span> <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Person<span class="token operator">></span>
@@ -107,10 +107,10 @@
 <p>In many case role based authorization is sufficient and was already available with ASP.net on the .Net Framework.</p>
 <p>Moreover, role base authorization is setup quickly and does not need any other setup then providing the roles.</p>
 <p>Schema-First:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Person</span> @<span class="hljs-selector-tag">authorize</span>(<span class="hljs-attribute">roles</span>: <span class="hljs-string">"foo"</span>) {
-  <span class="hljs-attribute">name</span>: String!
-  <span class="hljs-attribute">address</span>: Address! <span class="hljs-variable">@authorize</span>(<span class="hljs-attribute">roles</span>: [<span class="hljs-string">"foo"</span> <span class="hljs-string">"bar"</span>])
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Person</span> <span class="token directive function">@authorize</span><span class="token punctuation">(</span><span class="token attr-name">roles</span><span class="token punctuation">:</span> <span class="token string">"foo"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">address</span><span class="token punctuation">:</span> Address<span class="token operator">!</span> <span class="token directive function">@authorize</span><span class="token punctuation">(</span><span class="token attr-name">roles</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"foo"</span> <span class="token string">"bar"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Code-First:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonType</span> <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Person<span class="token operator">></span>
@@ -125,23 +125,23 @@
 <h3><a class="anchor" aria-hidden="true" id="authorization-policies"></a><a href="#authorization-policies" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Authorization Policies</h3>
 <p>If you are using ASP.net core then you can also opt-in using authorization policies.</p>
 <p>So taking our example from earlier we are instead of providing a role just provide a policy name:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Person</span> @<span class="hljs-selector-tag">authorize</span>(<span class="hljs-attribute">policy</span>: <span class="hljs-string">"AllEmployees"</span>) {
-  <span class="hljs-attribute">name</span>: String!
-  <span class="hljs-attribute">address</span>: Address! <span class="hljs-variable">@authorize</span>(<span class="hljs-attribute">policy</span>: <span class="hljs-string">"SalesDepartment"</span>)
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Person</span> <span class="token directive function">@authorize</span><span class="token punctuation">(</span><span class="token attr-name">policy</span><span class="token punctuation">:</span> <span class="token string">"AllEmployees"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">address</span><span class="token punctuation">:</span> Address<span class="token operator">!</span> <span class="token directive function">@authorize</span><span class="token punctuation">(</span><span class="token attr-name">policy</span><span class="token punctuation">:</span> <span class="token string">"SalesDepartment"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In the above example the name field is accessible to all users that fall under the <code>AllEmployees</code> policy, whereas the directive on the address field takes precedence over the <code>@authorize</code>-directive on the object type definition. This means that only users can access the address field that fall under the <code>SalesDepartment</code> policy.</p>
 <p>It is important to note that <em>policy-based authorization</em> is only available with ASP.net core. So, if you are working with ASP.net classic or if you just want a simple role based authorization you can still use our <code>@authorize</code>-directive with the roles argument.</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Person</span> @<span class="hljs-selector-tag">authorize</span>(<span class="hljs-attribute">roles</span>: <span class="hljs-string">"ContentEditor"</span>) {
-  <span class="hljs-attribute">name</span>: String!
-  <span class="hljs-attribute">address</span>: Address! <span class="hljs-variable">@authorize</span>(<span class="hljs-attribute">roles</span>: [<span class="hljs-string">"ContentEditor"</span>, <span class="hljs-string">"ContentReader"</span>])
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Person</span> <span class="token directive function">@authorize</span><span class="token punctuation">(</span><span class="token attr-name">roles</span><span class="token punctuation">:</span> <span class="token string">"ContentEditor"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">address</span><span class="token punctuation">:</span> Address<span class="token operator">!</span> <span class="token directive function">@authorize</span><span class="token punctuation">(</span><span class="token attr-name">roles</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"ContentEditor"</span><span class="token punctuation">,</span> <span class="token string">"ContentReader"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The <code>@authorize</code>-directive is repeatable, that means that you are able to chain the directives and only if all annotated conditions are true will you gain access to the data of the annotated field.</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Person</span> {
-  <span class="hljs-attribute">name</span>: String!
-  <span class="hljs-attribute">address</span>: Address! <span class="hljs-variable">@authorize</span>(<span class="hljs-attribute">policy</span>: <span class="hljs-string">"AllEmployees"</span>) <span class="hljs-variable">@authorize</span>(<span class="hljs-attribute">policy</span>: <span class="hljs-string">"SalesDepartment"</span>) <span class="hljs-variable">@authorize</span>(<span class="hljs-attribute">roles</span>: <span class="hljs-string">"FooBar"</span>)
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">address</span><span class="token punctuation">:</span> Address<span class="token operator">!</span> <span class="token directive function">@authorize</span><span class="token punctuation">(</span><span class="token attr-name">policy</span><span class="token punctuation">:</span> <span class="token string">"AllEmployees"</span><span class="token punctuation">)</span> <span class="token directive function">@authorize</span><span class="token punctuation">(</span><span class="token attr-name">policy</span><span class="token punctuation">:</span> <span class="token string">"SalesDepartment"</span><span class="token punctuation">)</span> <span class="token directive function">@authorize</span><span class="token punctuation">(</span><span class="token attr-name">roles</span><span class="token punctuation">:</span> <span class="token string">"FooBar"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="policy-based-authorization-in-aspnet-core"></a><a href="#policy-based-authorization-in-aspnet-core" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Policy-based authorization in ASP.NET Core</h2>
 <p>Policy-based authorization in ASP.NET Core does not any longer prescribe you in which way you describe your requirements. Now, with policy-based authorization you could just say that a certain field can only be accessed if the user is 21 or older or that a user did provide his passport as evidence of his/her identity.</p>

@@ -78,83 +78,83 @@
 <p>In order to showcase how schema stitching works and what the problems are let us assume we have a service like twitter, where a user can post messages.</p>
 <p>Moreover, let us assume we have three teams working on internal micro-/domain-services that handle certain aspects of that service.</p>
 <p>The first service is handling the message stream and has the following schema:</p>
-<pre><code class="hljs css language-graphql">type Query {
-  messages(userId: ID!): [Message!]
-  message(messageId: ID!): Message
-}
-<span class="hljs-built_in">
-type </span>Mutation {
-  newMessage(input: NewMessageInput!): NewMessagePayload!
-}
-<span class="hljs-built_in">
-type </span>Message {
-  id: ID!
-  text: String!
-  createdBy: ID!
-  createdAt: DateTime!
-  tags: [String!]
-}
-<span class="hljs-built_in">
-type </span>NewMessageInput {
-  text: String!
-  tags: [String!]
-}
-<span class="hljs-built_in">
-type </span>NewMessagePayload {
-  message: Message
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">message</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Message
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newMessage</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewMessageInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewMessagePayload<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">createdAt</span><span class="token punctuation">:</span> DateTime<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessageInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessagePayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">message</span><span class="token punctuation">:</span> Message
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The second service is handling the users of the services and has the following schema:</p>
-<pre><code class="hljs css language-graphql">type Query {
-  user(userId: ID!): User!
-  users: [User!]
-}
-<span class="hljs-built_in">
-type </span>Mutation {
-  newUser(input: NewUserInput!): NewUserPayload!
-  resetPassword(input: ResetPasswordInput!): ResetPasswordPayload!
-}
-<span class="hljs-built_in">
-type </span>NewUserInput {
-  username: String!
-  password: String!
-}
-<span class="hljs-built_in">
-type </span>ResetPasswordInput {
-  username: String!
-  password: String!
-}
-<span class="hljs-built_in">
-type </span>NewUserPayload {
-  user:<span class="hljs-built_in"> User
-</span>}
-<span class="hljs-built_in">
-type </span>ResetPasswordPayload {
-  user:<span class="hljs-built_in"> User
-</span>}
-<span class="hljs-built_in">
-type User </span>{
-  id: ID!
-  username: String!
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">users</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload<span class="token operator">!</span>
+  <span class="token attr-name">resetPassword</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> ResetPasswordInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> ResetPasswordPayload<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Last but not least we have a third service handling the message analytics. In our example case we keep it simple and our analytics service just tracks three different counters per message. The schema for this service looks like the following:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-keyword">type</span> Query {
-  analytics(<span class="hljs-symbol">messageId:</span> ID!, <span class="hljs-symbol">type:</span> CounterType!): MessageAnalytics
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">analytics</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> MessageAnalytics
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">type</span> MessageAnalytics {
-  <span class="hljs-symbol">id:</span> ID!
-  <span class="hljs-symbol">messageId:</span> ID!
-  <span class="hljs-symbol">count:</span> Int!
-  <span class="hljs-symbol">type:</span> CounterType!
-}
+<span class="token keyword">type</span> <span class="token class-name">MessageAnalytics</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">count</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">CounterType</span> {</span>
-  VIEWS
-  LIKES
-  REPLIES
-}
+<span class="token keyword">enum</span> <span class="token class-name">CounterType</span> <span class="token punctuation">{</span>
+  <span class="token constant">VIEWS</span>
+  <span class="token constant">LIKES</span>
+  <span class="token constant">REPLIES</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>With those three separate schemas our UI team would have to fetch from multiple endpoints.</p>
 <p>Even worse for our UI team, in order to build a stream view that shows the message text and the name of the user who posted the message, they would have to first fetch all the messages and could only then fetch the names of the users.</p>
@@ -226,101 +226,101 @@ services<span class="token punctuation">.</span><span class="token function">Add
 <p>More information about our scalars can be found <a href="/docs/0.8.0/custom-scalar-types">here</a>.</p>
 </blockquote>
 <p>With this in place our stitched schema now looks like the following:</p>
-<pre><code class="hljs css language-graphql">type Query {
-  messages(userId: ID!): [Message!]
-  message(messageId: ID!): Message
-  user(userId: ID!): User!
-  users: [User!]
-  analytics(messageId: ID!, type: CounterType!): MessageAnalytics
-}
-<span class="hljs-built_in">
-type </span>Mutation {
-  newMessage(input: NewMessageInput!): NewMessagePayload!
-  newUser(input: NewUserInput!): NewUserPayload!
-  resetPassword(input: ResetPasswordInput!): ResetPasswordPayload!
-}
-<span class="hljs-built_in">
-type </span>Message {
-  id: ID!
-  text: String!
-  createdBy: ID!
-  createdAt: DateTime!
-  tags: [String!]
-}
-<span class="hljs-built_in">
-type </span>NewMessageInput {
-  text: String!
-  tags: [String!]
-}
-<span class="hljs-built_in">
-type </span>NewMessagePayload {
-  message: Message
-}
-<span class="hljs-built_in">
-type </span>NewUserInput {
-  username: String!
-  password: String!
-}
-<span class="hljs-built_in">
-type </span>ResetPasswordInput {
-  username: String!
-  password: String!
-}
-<span class="hljs-built_in">
-type </span>NewUserPayload {
-  user:<span class="hljs-built_in"> User
-</span>}
-<span class="hljs-built_in">
-type </span>ResetPasswordPayload {
-  user:<span class="hljs-built_in"> User
-</span>}
-<span class="hljs-built_in">
-type User </span>{
-  id: ID!
-  username: String!
-}
-<span class="hljs-built_in">
-type </span>MessageAnalytics {
-  id: ID!
-  messageId: ID!
-  count: Int!
-  type: CounterType!
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">message</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Message
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">users</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">analytics</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> MessageAnalytics
+<span class="token punctuation">}</span>
 
-enum CounterType {
-  VIEWS
-  LIKES
-  REPLIES
-}
+<span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newMessage</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewMessageInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewMessagePayload<span class="token operator">!</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload<span class="token operator">!</span>
+  <span class="token attr-name">resetPassword</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> ResetPasswordInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> ResetPasswordPayload<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">createdAt</span><span class="token punctuation">:</span> DateTime<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessageInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessagePayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">message</span><span class="token punctuation">:</span> Message
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">MessageAnalytics</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">count</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> <span class="token class-name">CounterType</span> <span class="token punctuation">{</span>
+  <span class="token constant">VIEWS</span>
+  <span class="token constant">LIKES</span>
+  <span class="token constant">REPLIES</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>We have just achieved a simple schema merge without doing a lot of work. But honestly we would like to change some of the types. While the stitching result is nice, we would like to integrate the types with each other.</p>
 <h3><a class="anchor" aria-hidden="true" id="extending-types"></a><a href="#extending-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extending Types</h3>
 <p>So, the first thing that we would like to have is a new field on the query that is called <code>me</code>. The <code>me</code> field shall represent the currently signed in user of our service.</p>
 <p>Further, the user type should expose the message stream of the user, this way we could fetch the messages of the signed in user like the following:</p>
-<pre><code class="hljs css language-graphql">{
-  me {
-    messages {
+<pre><code class="hljs css language-graphql"><span class="token punctuation">{</span>
+  me <span class="token punctuation">{</span>
+    messages <span class="token punctuation">{</span>
       text
       tags
-    }
-  }
-}
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In order to extend types in a stitched schema we can use the new GraphQL extend syntax that was introduced with the 2018 spec.</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Query</span> {
-  <span class="hljs-attribute">me</span>: User! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"users"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"user(id: $contextData:UserId)"</span>)
-}
+<pre><code class="hljs css language-graphql">extend <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">me</span><span class="token punctuation">:</span> User<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"users"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"user(id: $contextData:UserId)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">User</span> {
-  <span class="hljs-attribute">messages</span>: [Message!]
-    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"messages"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"messages(userId: $fields:Id)"</span>)
-}
+extend <span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"messages"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"messages(userId: $fields:Id)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>With just that and no further code needed we have specified how the GraphQL stitching engine shall rewrite our schema.</p>
 <p>Let us dissect the above GraphQL SDL in order to understand what it does.</p>
 <p>First, let us have a look at the <code>Query</code> extension. We declared a field like we would do with the schema-first approach. After that we annotated the field with the <code>delegate</code> directive. The <code>delegate</code> directive basically works like a middleware that delegates calls to to a remote schema.</p>
 <p>The <code>path</code>-argument on the <code>delegate</code> directive specifies how to fetch the data from the remote schema. The selection path can have multiple levels. So, if we wanted to fetch just the username we could do that like the following:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-function"><span class="hljs-title">user</span><span class="hljs-params">(id: <span class="hljs-variable">$contextData</span>:UserId)</span></span><span class="hljs-selector-class">.username</span>
+<pre><code class="hljs css language-graphql">user<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token variable">$contextData</span><span class="token punctuation">:</span>UserId<span class="token punctuation">)</span>.username
 </code></pre>
 <p>Moreover, we are using a special variable that can access the resolver context.</p>
 <p>Currently this variable has four scopes:</p>
@@ -352,88 +352,88 @@ enum CounterType {
   <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
 <p>Now with all of this in place our schema looks like the following:</p>
-<pre><code class="hljs css language-graphql">type Query {
-  me: User!
-  messages(userId: ID!): [Message!]
-  message(messageId: ID!): Message
-  user(userId: ID!): User!
-  users: [User!]
-  analytics(messageId: ID!, type: CounterType!): MessageAnalytics
-}
-<span class="hljs-built_in">
-type </span>Mutation {
-  newMessage(input: NewMessageInput!): NewMessagePayload!
-  newUser(input: NewUserInput!): NewUserPayload!
-  resetPassword(input: ResetPasswordInput!): ResetPasswordPayload!
-}
-<span class="hljs-built_in">
-type </span>Message {
-  id: ID!
-  text: String!
-  createdBy: ID!
-  createdAt: DateTime!
-  tags: [String!]
-}
-<span class="hljs-built_in">
-type </span>NewMessageInput {
-  text: String!
-  tags: [String!]
-}
-<span class="hljs-built_in">
-type </span>NewMessagePayload {
-  message: Message
-}
-<span class="hljs-built_in">
-type </span>NewUserInput {
-  username: String!
-  password: String!
-}
-<span class="hljs-built_in">
-type </span>ResetPasswordInput {
-  username: String!
-  password: String!
-}
-<span class="hljs-built_in">
-type </span>NewUserPayload {
-  user:<span class="hljs-built_in"> User
-</span>}
-<span class="hljs-built_in">
-type </span>ResetPasswordPayload {
-  user:<span class="hljs-built_in"> User
-</span>}
-<span class="hljs-built_in">
-type User </span>{
-  id: ID!
-  username: String!
-  messages: [Message!]
-}
-<span class="hljs-built_in">
-type </span>MessageAnalytics {
-  id: ID!
-  messageId: ID!
-  count: Int!
-  type: CounterType!
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">me</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">message</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Message
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">users</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">analytics</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> MessageAnalytics
+<span class="token punctuation">}</span>
 
-enum CounterType {
-  VIEWS
-  LIKES
-  REPLIES
-}
+<span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newMessage</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewMessageInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewMessagePayload<span class="token operator">!</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload<span class="token operator">!</span>
+  <span class="token attr-name">resetPassword</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> ResetPasswordInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> ResetPasswordPayload<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">createdAt</span><span class="token punctuation">:</span> DateTime<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessageInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessagePayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">message</span><span class="token punctuation">:</span> Message
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">MessageAnalytics</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">count</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> <span class="token class-name">CounterType</span> <span class="token punctuation">{</span>
+  <span class="token constant">VIEWS</span>
+  <span class="token constant">LIKES</span>
+  <span class="token constant">REPLIES</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="renaming-and-removing-types"></a><a href="#renaming-and-removing-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Renaming and Removing Types</h3>
 <p>Though this is nice, we would like to go even further and enhance our <code>Message</code> type like the following:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-keyword">type</span> <span class="hljs-type">Message</span> {
-  id: <span class="hljs-type">ID</span>!
-  text: <span class="hljs-type">String</span>!
-  createdBy: <span class="hljs-type">User</span>
-  createdById: <span class="hljs-type">ID</span>!
-  createdAt: <span class="hljs-type">DateTime</span>!
-  tags: [<span class="hljs-type">String</span>!]
-  views: <span class="hljs-type">Int</span>!
-  likes: <span class="hljs-type">Int</span>!
-  replies: <span class="hljs-type">Int</span>!
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> User
+  <span class="token attr-name">createdById</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">createdAt</span><span class="token punctuation">:</span> DateTime<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">views</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">likes</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">replies</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Moreover, we would like to remove the <code>analytics</code> field from our query type since we have integrated the analytics data directly into our <code>Message</code> type.</p>
 <p>Since with the root field gone we have no way of accessing <code>MessageAnalytics</code> and <code>CounterType</code>, let`s also get rid of these types.</p>
@@ -456,14 +456,14 @@ enum CounterType {
 <p>There are also methods for renaming types and fields where the stitching engine will take care that the schema is consitently rewritten so that all the type references will refer to the corrent new type/field name.</p>
 </blockquote>
 <p>With that we have removed the types from our stitched schema. Now, let us move on to extend our message type.</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Message</span> {
-  <span class="hljs-attribute">createdBy</span>: User!
-    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"users"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"user(id: $fields:createdById)"</span>)
-  <span class="hljs-attribute">views</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
-  <span class="hljs-attribute">likes</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
-  <span class="hljs-attribute">replies</span>: Int!
-    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
-}
+<pre><code class="hljs css language-graphql">extend <span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"users"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"user(id: $fields:createdById)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">views</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">likes</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">replies</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Since we introduced a new field <code>createdBy</code> that basically overwrites the field that we have already declared on our original <code>Message</code> type, we need to rename the original field <code>createdBy</code> to <code>createdById</code> so that we are still able to use it.</p>
 <pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddStitchedSchema</span><span class="token punctuation">(</span>builder <span class="token operator">=></span> builder
@@ -484,64 +484,64 @@ enum CounterType {
 <p>It is important to now that the document- and type-rewriters are executed before the schemas are merged and the extensions integrated.</p>
 </blockquote>
 <p>Our new schema now looks like the following:</p>
-<pre><code class="hljs css language-graphql">type Query {
-  me: User!
-  messages(userId: ID!): [Message!]
-  message(messageId: ID!): Message
-  user(userId: ID!): User!
-  users: [User!]
-}
-<span class="hljs-built_in">
-type </span>Mutation {
-  newMessage(input: NewMessageInput!): NewMessagePayload!
-  newUser(input: NewUserInput!): NewUserPayload!
-  resetPassword(input: ResetPasswordInput!): ResetPasswordPayload!
-}
-<span class="hljs-built_in">
-type </span>Message {
-  id: ID!
-  text: String!
-  createdBy:<span class="hljs-built_in"> User
-</span>  createdById: ID!
-  createdAt: DateTime!
-  tags: [String!]
-  views: Int!
-  likes: Int!
-  replies: Int!
-}
-<span class="hljs-built_in">
-type </span>NewMessageInput {
-  text: String!
-  tags: [String!]
-}
-<span class="hljs-built_in">
-type </span>NewMessagePayload {
-  message: Message
-}
-<span class="hljs-built_in">
-type </span>NewUserInput {
-  username: String!
-  password: String!
-}
-<span class="hljs-built_in">
-type </span>ResetPasswordInput {
-  username: String!
-  password: String!
-}
-<span class="hljs-built_in">
-type </span>NewUserPayload {
-  user:<span class="hljs-built_in"> User
-</span>}
-<span class="hljs-built_in">
-type </span>ResetPasswordPayload {
-  user:<span class="hljs-built_in"> User
-</span>}
-<span class="hljs-built_in">
-type User </span>{
-  id: ID!
-  username: String!
-  messages: [Message!]
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">me</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">message</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Message
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">users</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newMessage</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewMessageInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewMessagePayload<span class="token operator">!</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload<span class="token operator">!</span>
+  <span class="token attr-name">resetPassword</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> ResetPasswordInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> ResetPasswordPayload<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> User
+  <span class="token attr-name">createdById</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">createdAt</span><span class="token punctuation">:</span> DateTime<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">views</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">likes</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">replies</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessageInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessagePayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">message</span><span class="token punctuation">:</span> Message
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="query-rewriter"></a><a href="#query-rewriter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Query Rewriter</h3>
 <p>As can be seen, it is quite simple to stitch multiple schemas together and enhance them with the stitching builder.</p>
@@ -625,14 +625,14 @@ type User </span>{
 <p>We could also declare a field middleware as class. More about what can be done with a field middleware can be found <a href="/docs/0.8.0/middleware">here</a>.</p>
 </blockquote>
 <p>With all of this in place we can now rewrite our <code>Message</code> type extension and access the <code>createdById</code> from the scoped context data:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Message</span> {
-  <span class="hljs-attribute">createdBy</span>: User!
-    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"users"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"user(id: $scopedContextData:createdById)"</span>)
-  <span class="hljs-attribute">views</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
-  <span class="hljs-attribute">likes</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
-  <span class="hljs-attribute">replies</span>: Int!
-    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
-}
+<pre><code class="hljs css language-graphql">extend <span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"users"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"user(id: $scopedContextData:createdById)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">views</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">likes</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">replies</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="customizing-stitching-builder"></a><a href="#customizing-stitching-builder" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Customizing Stitching Builder</h3>
 <p>The stitching builder can be extended on multiple levels by writing different kinds of schema syntax rewriter.</p>
@@ -683,52 +683,52 @@ type User </span>{
 <p>How you want to implement authentication strongly depends on your needs. With the reliance on the HttpClient factory from the ASP.net core foundation we are very flexible and can handle multiple scenarios.</p>
 <h2><a class="anchor" aria-hidden="true" id="batching"></a><a href="#batching" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Batching</h2>
 <p>The stitching layer transparently batches queries to the remote schemas. So, if you extend types like the following:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">extend</span> <span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Message</span> {
-  <span class="hljs-attribute">views</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
-  <span class="hljs-attribute">likes</span>: Int! <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
-  <span class="hljs-attribute">replies</span>: Int!
-    <span class="hljs-variable">@delegate</span>(<span class="hljs-attribute">schema</span>: <span class="hljs-string">"analytics"</span>, <span class="hljs-attribute">path</span>: <span class="hljs-string">"analytics(id: $fields:id)"</span>)
-}
+<pre><code class="hljs css language-graphql">extend <span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">views</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">likes</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">replies</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>We do send only a single request to your remote schema instead of three. The batching mechanism works not only within one type but extends to all requests that are executed in a resolver batch.</p>
 <p>Furthermore, we are also including calls that are done through direct calls on the <code>IStitchingContext</code>.</p>
 <p>Batching works very similar to <em>DataLoader</em> where the stitching engine sends requests through the <code>IRemoteQueryClient</code> which consequently only fetches the data once the query engine signals that all resolvers have been enqueued and have registered their calls against the remote schemas. This reduces the calls to the remote-schemas significantly and improves the overall performance.</p>
 <p>So, if we had two query calls:</p>
 <p>Query 1:</p>
-<pre><code class="hljs css language-graphql">{
-  customer(<span class="hljs-name">id:</span> <span class="hljs-string">"abc"</span>) {
+<pre><code class="hljs css language-graphql"><span class="token punctuation">{</span>
+  customer<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token string">"abc"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     name
-    contracts {
+    contracts <span class="token punctuation">{</span>
       id
-    }
-  }
-}
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Query 2:</p>
-<pre><code class="hljs css language-graphql">{
-  customer(<span class="hljs-name">id:</span> <span class="hljs-string">"def"</span>) {
+<pre><code class="hljs css language-graphql"><span class="token punctuation">{</span>
+  customer<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token string">"def"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     name
-    contracts {
+    contracts <span class="token punctuation">{</span>
       id
-    }
-  }
-}
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>We would merge those two queries into one:</p>
-<pre><code class="hljs css language-graphql">{
-  __1: customer(<span class="hljs-name">id:</span> <span class="hljs-string">"abc"</span>) {
+<pre><code class="hljs css language-graphql"><span class="token punctuation">{</span>
+  <span class="token attr-name">__1</span><span class="token punctuation">:</span> customer<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token string">"abc"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     name
-    contracts {
+    contracts <span class="token punctuation">{</span>
       id
-    }
-  }
-  __2: customer(<span class="hljs-name">id:</span> <span class="hljs-string">"def"</span>) {
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token attr-name">__2</span><span class="token punctuation">:</span> customer<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token string">"def"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     name
-    contracts {
+    contracts <span class="token punctuation">{</span>
       id
-    }
-  }
-}
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>This lets the remote schema optimize the calls much better since now the remote schema could take advantage of things like <em>DataLoader</em> etc.</p>
 <h2><a class="anchor" aria-hidden="true" id="root-types"></a><a href="#root-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Root Types</h2>
@@ -741,47 +741,47 @@ type User </span>{
 <p>Normally the executor can execute the entries in a grouped field set in whatever order it chooses (normally in parallel). Because the resolution of fields other than top‐level mutation fields must always be side effect‐free and idempotent, the execution order must not affect the result, and hence the server has the freedom to execute the field entries in whatever order it deems optimal.</p>
 </blockquote>
 <p>The top‐level mutation fields are executed serially which guarantees that the top-level fields are executed one after the other.</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">mutation</span> {
-  <span class="hljs-selector-tag">createUser</span>(<span class="hljs-attribute">userName</span>: <span class="hljs-string">"foo"</span>) {
-    <span class="hljs-selector-tag">someFields</span>
-  }
-  <span class="hljs-selector-tag">addUserToGroup</span>(<span class="hljs-attribute">userName</span>: <span class="hljs-string">"foo"</span>, <span class="hljs-attribute">groupName</span>: <span class="hljs-string">"bar"</span>) {
-    <span class="hljs-selector-tag">someFields</span>
-  }
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">mutation</span> <span class="token punctuation">{</span>
+  createUser<span class="token punctuation">(</span><span class="token attr-name">userName</span><span class="token punctuation">:</span> <span class="token string">"foo"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    someFields
+  <span class="token punctuation">}</span>
+  addUserToGroup<span class="token punctuation">(</span><span class="token attr-name">userName</span><span class="token punctuation">:</span> <span class="token string">"foo"</span><span class="token punctuation">,</span> <span class="token attr-name">groupName</span><span class="token punctuation">:</span> <span class="token string">"bar"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    someFields
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The above example first creates a user and then adds the created user to a group. This means that mutations can only be stitched on the top level. Everything, that you stitch in the lower levels is delegating the request to a <code>Query</code> type.</p>
 <p>Or, even simpler put, only fields that are declared on the mutation type can delegate to a mutation field on a remote query.</p>
 <p>Let's put that in a context.</p>
-<pre><code class="hljs css language-graphql">type Mutation {
-  newUser(input: NewUserInput!): NewUserPayload! @delegate(schema: <span class="hljs-string">"users"</span>)
-}
-<span class="hljs-built_in">
-type </span>NewUserInput {
-  username: String!
-  password: String!
-}
-<span class="hljs-built_in">
-type </span>NewUserPayload {
-  user:<span class="hljs-built_in"> User
-</span>}
-<span class="hljs-built_in">
-type User </span>{
-  id: ID!
-  username: String!
-  messages: [Message!]
-    @delegate(schema: <span class="hljs-string">"messages"</span>, path: <span class="hljs-string">"messages(userId: <span class="hljs-variable">$fields</span>:Id)"</span>)
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"users"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"messages"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"messages(userId: $fields:Id)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In the above example we have a mutation that delegates the <code>newUser</code> field to the <code>newUser</code> mutation of the <code>users</code> schema. The mutation returns the <code>NewUserPayload</code> which has a field <code>user</code> that returns the newly created user. The <code>User</code> object delegates the <code>messages</code> field to the message schema. Since this field is resolved in the third level it will delegated to the query type of the <code>messages</code> schema.</p>
 <p>This also means that we cannot group mutations like we could group queries. So, something like the following would not work since it is not spec-compliant:</p>
-<pre><code class="hljs css language-graphql">type Mutation {
-  userMutations: UserMutations
-}
-<span class="hljs-built_in">
-type </span>UserMutations {
-  newUser(input: NewUserInput): NewUserPayload
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">userMutations</span><span class="token punctuation">:</span> UserMutations
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">UserMutations</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload
+<span class="token punctuation">}</span>
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="stitching-context"></a><a href="#stitching-context" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Stitching Context</h2>
 <p>The stitching engine provides a lot of extension points, but if we wanted to write the stitching for one specific resolver by ourselves then we could do that by using the <code>IStitchingContext</code> which is a scoped service and can be resolved through the resolver context.</p>

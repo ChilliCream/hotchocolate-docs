@@ -74,9 +74,9 @@ dotnet add package hotchocolate -v 0.1.1
 dotnet restore
 </code></pre>
 <p>Now let us define a simple hello world schema:</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Query</span> {
-    <span class="hljs-attribute">hello</span>: String
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+    <span class="token attr-name">hello</span><span class="token punctuation">:</span> String
+<span class="token punctuation">}</span>
 </code></pre>
 <p>So, in order to get started lets make this schema executable by binding resolvers to it:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">var</span> schema <span class="token operator">=</span> Schema<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span>

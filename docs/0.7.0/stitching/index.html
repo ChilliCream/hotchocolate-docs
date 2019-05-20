@@ -76,123 +76,123 @@
 <p>Assume we have two schemas one dealing with the customer data, basically the data that would be located in a CRM system of a company, the other representing insurance data about the customer, basically the technical domain specific data that gives you all the insights into the customers insurance contracts.</p>
 <p>The stitching layer is not limited to two schemas, you can actually stitch together how many schemas you want. But for our example we use those two mentioned schemas about customers and their contracts.</p>
 <p>So, let's say our customer schema looks something like the following:</p>
-<pre><code class="hljs css language-graphql">type Query {
-  customer(id: ID!):<span class="hljs-built_in"> Customer
-</span>  consultant(id: ID!): Consultant
-}
-<span class="hljs-built_in">
-type Customer </span>{
-  id: ID!
-  name: String!
-  consultant: Consultant
-}
-<span class="hljs-built_in">
-type </span>Consultant {
-  id: ID!
-  name: String!
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">customer</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Customer
+  <span class="token attr-name">consultant</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Consultant
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Customer</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">consultant</span><span class="token punctuation">:</span> Consultant
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Consultant</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In real life this schema would boast a lot more information about our customer but this will suffice for our little demo.</p>
 <p>And our second schema dealing with the insurance contracts looks like the following:</p>
-<pre><code class="hljs css language-graphql">type Query {
-  contract(contractId: ID!): Contract
-  contracts(customerId: ID!): [Contract!]
-}
-<span class="hljs-built_in">
-interface </span>Contract {
-  id: ID!
-}
-<span class="hljs-built_in">
-type </span>LifeInsuranceContract implements Contract {
-  id: ID!
-  premium: Float
-}
-<span class="hljs-built_in">
-type </span>SomeOtherContract implements Contract {
-  id: ID!
-  expiryDate: DateTime
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">contract</span><span class="token punctuation">(</span><span class="token attr-name">contractId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Contract
+  <span class="token attr-name">contracts</span><span class="token punctuation">(</span><span class="token attr-name">customerId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Contract<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">Contract</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">LifeInsuranceContract</span> <span class="token keyword">implements</span> <span class="token class-name">Contract</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">premium</span><span class="token punctuation">:</span> Float
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">SomeOtherContract</span> <span class="token keyword">implements</span> <span class="token class-name">Contract</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">expiryDate</span><span class="token punctuation">:</span> DateTime
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Imagine we have two servers serving up those schemas. The schema that we actually want for our UI team should look like the following:</p>
-<pre><code class="hljs css language-graphql">type Query {
-  customer(id: ID!):Customer
-}
-<span class="hljs-built_in">
-type Customer </span>{
-  id: ID!
-  name: String!
-  consultant: Consultant
-  contracts: [Contract!]
-}
-<span class="hljs-built_in">
-type </span>Consultant {
-  id: ID!
-  name: String!
-}
-<span class="hljs-built_in">
-interface </span>Contract {
-  id: ID!
-}
-<span class="hljs-built_in">
-type </span>LifeInsuranceContract implements Contract {
-  id: ID!
-  premium: Float
-}
-<span class="hljs-built_in">
-type </span>SomeOtherContract implements Contract {
-  id: ID!
-  expiryDate: DateTime
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">customer</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span>Customer
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Customer</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">consultant</span><span class="token punctuation">:</span> Consultant
+  <span class="token attr-name">contracts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Contract<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Consultant</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">Contract</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">LifeInsuranceContract</span> <span class="token keyword">implements</span> <span class="token class-name">Contract</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">premium</span><span class="token punctuation">:</span> Float
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">SomeOtherContract</span> <span class="token keyword">implements</span> <span class="token class-name">Contract</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">expiryDate</span><span class="token punctuation">:</span> DateTime
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In order to make that happen you do not have to write actual code, we have create some directives that will tell the stitching layer what to do.</p>
 <p>Before we start, we have to give our schemas some names, these names will be used to direct remote queries to the right endpoint.</p>
 <p>Let's name the customer schema <code>customers</code> and the contract schema <code>contracts</code>. With that let's decorate our desired schema.</p>
-<pre><code class="hljs css language-graphql">type Query {
-  customer(id: ID!):<span class="hljs-built_in"> Customer
-</span>    @schema(name: <span class="hljs-string">"customer"</span>)
-    @delegate
-}
-<span class="hljs-built_in">
-type Customer </span>{
-  id: ID!
-  name: String!
-  consultant: Consultant
-  contracts: [Contract!]
-    @schema(name: <span class="hljs-string">"contract"</span>)
-    @delegate(path: <span class="hljs-string">"contracts(customerId:<span class="hljs-variable">$fields</span>:id)"</span>)
-}
-<span class="hljs-built_in">
-type </span>Consultant {
-  id: ID!
-  name: String!
-}
-<span class="hljs-built_in">
-interface </span>Contract {
-  id: ID!
-}
-<span class="hljs-built_in">
-type </span>LifeInsuranceContract implements Contract {
-  id: ID!
-  premium: Float
-}
-<span class="hljs-built_in">
-type </span>SomeOtherContract implements Contract {
-  id: ID!
-  expiryDate: DateTime
-}
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">customer</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Customer
+    <span class="token directive function">@schema</span><span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token string">"customer"</span><span class="token punctuation">)</span>
+    <span class="token directive function">@delegate</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Customer</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">consultant</span><span class="token punctuation">:</span> Consultant
+  <span class="token attr-name">contracts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Contract<span class="token operator">!</span><span class="token punctuation">]</span>
+    <span class="token directive function">@schema</span><span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token string">"contract"</span><span class="token punctuation">)</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"contracts(customerId:$fields:id)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Consultant</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">Contract</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">LifeInsuranceContract</span> <span class="token keyword">implements</span> <span class="token class-name">Contract</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">premium</span><span class="token punctuation">:</span> Float
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">SomeOtherContract</span> <span class="token keyword">implements</span> <span class="token class-name">Contract</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">expiryDate</span><span class="token punctuation">:</span> DateTime
+<span class="token punctuation">}</span>
 </code></pre>
 <p><code>@schema</code> basically points to the source schema, so the stitching middleware will redirect calls to a schema with the name that is specified by this directive.</p>
 <p><code>@delegate</code> specifies how the data is fetched. If <code>@delegate</code> does not have any path specified than the middleware expects that the field on the target schema has the same specification.</p>
 <p>If we look at the <code>customer</code> field then the middleware will assume that the source schema has the same customer field as root field as our stitched schema.</p>
 <p>The <code>contracts</code> field on the other hand specifies a delegation path <code>contracts(customerId:$fields:id)</code>. The delegation path specifies the field that is called and where the arguments get their input from.</p>
 <p>Let us assume you have a deeper field from which you want to fetch data like the following.</p>
-<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">foo</span>(<span class="hljs-attribute">id</span>:<span class="hljs-number">123</span>) {
-  <span class="hljs-selector-tag">bar</span> {
-    <span class="hljs-selector-tag">baz</span>(<span class="hljs-attribute">top</span>:<span class="hljs-number">1</span>) {
-      <span class="hljs-selector-tag">qux</span>
-    }
-  }
-}
+<pre><code class="hljs css language-graphql">foo<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span><span class="token number">123</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  bar <span class="token punctuation">{</span>
+    baz<span class="token punctuation">(</span><span class="token attr-name">top</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      qux
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Since, we did not want to cram a query like this into one string we allow this to be done with a flat path.</p>
 <pre><code class="hljs"><span class="hljs-function"><span class="hljs-title">foo</span><span class="hljs-params">(id:<span class="hljs-variable">$arguments</span>:arg1)</span></span><span class="hljs-selector-class">.bar</span><span class="hljs-selector-class">.baz</span>(<span class="hljs-attribute">top</span>:<span class="hljs-number">1</span>)
@@ -250,14 +250,14 @@ services<span class="token punctuation">.</span><span class="token function">Add
 <p>The first call on the stitched schema takes a little longer (maybe 300 ~ 500 ms) since we are compiling the resolvers into a in-memory assembly. All further calls are fast (4 ~ 8 ms) in our example. The real life performance depends on how fast your connection to the stitched remote schemas is and how many data you are fetching. With the new batching layer that is coming soon the performance of the schema stitching should further improve.</p>
 <p>Open playground on <a href="http://localhost:5000/playground">http://localhost:5000/playground</a> in order to fire up some requests against our stitched schema and checkout the tracing tab for performance insights.</p>
 <p>The following query might be a good starting point since it will expose the ids of our objects.</p>
-<pre><code class="hljs css language-graphql">{
-  customers {
+<pre><code class="hljs css language-graphql"><span class="token punctuation">{</span>
+  customers <span class="token punctuation">{</span>
     id
-    contracts {
+    contracts <span class="token punctuation">{</span>
       id
-    }
-  }
-}
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>If you have further questions or need help you join our slack group: <a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg">Hot Chocolate on Slack</a>.</p>
 </span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-2-4 by Michael Staib</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/0.7.0/validation-rule"><span class="arrow-prev">← </span><span>Validation Rules</span></a><a class="docs-next button" href="/docs/0.7.0/instrumentation"><span>Instrumentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#getting-started">Getting Started</a></li><li><a href="#server-configuration">Server Configuration</a></li><li><a href="#wrapping-things-up">Wrapping things up</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first-introduction.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>

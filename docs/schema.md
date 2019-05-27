@@ -121,6 +121,28 @@ type Query {
 
 This is very useful with schema stitching, since this allows us to consume remote schmeas and extend them with code-first.
 
+## Binding Types
+
+Types in a schema can be bound to a specific .Net type. When the schema builder infers schema types from .net types it will basically lookup to which schema type a .net type can be bound. For instance a `string` will be bound to a `StringType`.
+
+We can also bind additonal types to a single schema type. For instance we can bind the `System.Guid` to our `StringType`.
+
+```csharp
+ISchema schema = SchemaBuilder.New()
+    ...
+    .BindClrType<Guid, StringType>()
+    .Create();
+```
+
+You can also rebind scalars with this, so instead of the default `int` to `IntType` binding we could bind that as well to our `StringType`.
+
+```csharp
+ISchema schema = SchemaBuilder.New()
+    ...
+    .BindClrType<int, StringType>()
+    .Create();
+```
+
 ## Overwriting Schema Properties
 
 Like with any type in _Hot Chocolate_ we can inherit from schema in order to provide further logic and details. If we for instance wanted to provide a schema description or decorate the schema with directives, we could do that like the following:

@@ -715,6 +715,21 @@ If we wanted to rewrite just parts of a type like adding some documentation or a
 
 In both types we could opt to use the rewriter and visitor base classes that are included in our parser package.
 
+The type rewriter provides us also with a simple way to automatically rewrite fields and decorate them with the delegation attribute.
+
+```csharp
+var path = new SelectionPathComponent(
+    field.Name,
+    field.Arguments.Select(t => new ArgumentNode(
+        t.Name,
+        new ScopedVariableNode(
+            null,
+            new NameNode(ScopeNames.Arguments),
+            t.Name))).ToList());
+
+field.AddDelegationPath("schemaName", path);
+```
+
 > Information about our parser can be found [here](parser.md).
 
 ### Merged Schema Rewriter

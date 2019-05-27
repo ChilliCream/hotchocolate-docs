@@ -35,7 +35,7 @@ ISchema schema = SchemaBuilder.New()
     .Create();
 ```
 
-_Hot Chocolate_ provides a collection of conventions and attributes to express a schema with POCOs. In many cases the default conventions should be enough, but from version 9 on we have centralised these conventions into two classes. If you do not like our default conventions or if you want to bring your own set of custom attributes then you can overwrite or extend the default conventions.
+_Hot Chocolate_ provides a collection of conventions and attributes to express a schema with POCOs. In many cases the default conventions should be enough, but from version 9 on we have centralised these conventions into two classes. If you do not like our default conventions or if you want to bring your own set of custom attributes, then you can overwrite or extend the default conventions.
 
 > If you want to read more about conventions head over [here](conventions.md).
 
@@ -87,11 +87,11 @@ type Query {
 }
 ```
 
-_Hot Chocolate_ will always try to figure the provided schema out, that means that we will infer the fields from the provided types. Also we can extend those types by declaring further fields. As with everything we can opt out of this behaviour.
+_Hot Chocolate_ will always try to figure the provided schema out, that means that we will infer the fields from the provided types. Also, we can extend those types by declaring further fields. As with everything we can opt out of this behavior.
 
 > In order to see more about what capabilities our ObjectType has head over [here](schema-object-type.md).
 
-As I mentioned earlier we can mix and match our approach and also extend schema-first fields with code-first:
+As I mentioned earlier, we can mix and match our approach and also extend schema-first fields with code-first:
 
 ```csharp
 public class QueryTypeExtension
@@ -123,10 +123,10 @@ This is very useful with schema stitching, since this allows us to consume remot
 
 ## Overwriting Schema Properties
 
-Like with any type in _Hot Chocolate_ we can inherit from schema in order to provide further logic and details. If we for instance wanted to provide a schema description or decorate the schema with directives we could do that like the following:
+Like with any type in _Hot Chocolate_ we can inherit from schema in order to provide further logic and details. If we for instance wanted to provide a schema description or decorate the schema with directives, we could do that like the following:
 
 ```csharp
-public class MySchema 
+public class MySchema
     : Schema
 {
     protected override void Configure(ISchemaDescriptor descriptor)
@@ -152,6 +152,6 @@ IQueryExecutor executor = schema.MakeExecutable();
 
 We can create multiple executors on a single schema and define different execution rules on the executor.
 
-In most cases we will not need to now about this fact since most of the time the schema is hosted in ASP.Net and the middleware will take care of making it executable. But it is worth knowing it in case we want to write a unit test, host a query executor in a different environment than ASP.Net, or change the behaviour of the executor.
+In most cases we will not need to now, about this fact since most of the time the schema is hosted in ASP.Net and the middleware will take care of making it executable. But it is worth knowing it in case we want to write a unit test, host a query executor in a different environment than ASP.Net, or change the behavior of the executor.
 
 > More about the query executor can be read [here](query-executor.md).

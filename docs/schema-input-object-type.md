@@ -12,7 +12,7 @@ input StarshipInput {
 }
 ```
 
-In contrast to the object type the input object type cannot have have field arguments. Think of the input object as a way to push structured data to your service. The input object is ideal when pushing data mutations but you can also use it on queries and subscriptions.
+In contrast to the object type the input object type cannot have field arguments. Think of the input object as a way to push structured data to your service. The input object is ideal when pushing data mutations, but you can also use it on queries and subscriptions.
 
 ```GraphQL
 input StarshipInput {
@@ -60,6 +60,6 @@ public Task<object> StarshipResolver(IResolverContext context)
 }
 ```
 
-> Note, that this kind of conversion is done in the resolvers pipeline instead of in the query pipeline.
+> Note, that this kind of conversion is done in the resolver`s pipeline instead of in the query pipeline.
 
 Compatible .Net types are types to which we are able to map the properties. The .Net type is allowed to have more or less fields then the input type specifies. Moreover, the .Net Type is allowed to have properties that cannot be matched.

@@ -29,7 +29,7 @@ An interface in GraphQL consists of a collection of fields. Multiple objects can
 
 With _Hot Chocolate_ you can define an interface by using the GraphQL SDL syntax or by using C#. In contrast to objects we do not need to specify resolvers for interface fields since the interface only specifies the structure of the data that can be queried but not how to retrieve the data.
 
-In order to specify an interface we only have to write an actual C# interface.
+In order to specify an interface, we only have to write an actual C# interface.
 
 ```csharp
 public interface INode
@@ -79,12 +79,12 @@ SchemaBuilder.New()
   .Create();
 ```
 
-There are two important things to know here, if you are using a generic schema-type or if you are registering the interface directly with the schema than you do not have to explcitly specify with the object type that the object is implementing this schema since we can infer that.
+There are two important things to know here, if you are using a generic schema-type or if you are registering the interface directly with the schema than you do not have to explicitly specify with the object type that the object is implementing this schema since we can infer that.
 
 Let me give you an example:
 
 ```csharp
-public class Foo : INode 
+public class Foo : INode
 {
     string Id { get; }
 }

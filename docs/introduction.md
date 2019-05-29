@@ -30,7 +30,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    [Learn more](code-first.md)
 
-2. Schema-First approach
+1. Schema-First approach
 
    Use the GraphQL schema definition language to define your schema and bind simple methods or whole types to it.
 
@@ -52,9 +52,11 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    [Learn more](schema-first.md)
 
-3. Mixed approach
+1. Mix it all together
 
-   The mixed approach or the "what ever makes you happy" approach lets you mix and match everything. With the _Hot Chocolate_ `SchemaBuilder` you can declare types however you want. Define a type schema-first and extend that same type with code-first.
+   With the _Hot Chocolate_ `SchemaBuilder` you can declare types however you want. Define a type schema-first and extend that same type with code-first.
+
+   **What ever makes you happy!**
 
    ```csharp
    public class QueryResolver
@@ -85,13 +87,13 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    [Learn more](schema.md)
 
-4. Scalar Type Support
+1. Support for Custom Scalars
 
    We provide built-in support for GraphQL defined Scalar Types. Moreover, you can also define your own scalar types to make your schemas even richer.
 
    [Learn more](custom-scalar-types.md)
 
-5. Support for DataLoader
+   1. Support for DataLoader
 
    We have baked-in support for data loaders which makes batching and caching for faster query requests a breeze.
 
@@ -107,7 +109,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    [Learn more](dataloaders.md)
 
-6. Custom Directives
+1. Support for Custom Directives
 
    Implement your own directives and change the execution behaviour of your types.
 
@@ -125,7 +127,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    [Learn more](directive.md)
 
-7. Authorization Directives
+1. Built-in Authorization Directives
 
    Use ASP.net Core policies on your fields to enable field base authorization.
 
@@ -142,28 +144,28 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    [Learn more](authorization.md)
 
-8. Subscriptions
+1. Support for GraphQL Subscriptions
 
    Subscriptions allow GraphQL clients to observe specific events and receive updates from the server in real-time.
 
    [Learn more](subscription.md)
 
-9. Schema Stitching
+1. Schema Stitching
 
    Schema stitching will give you the capability to build small GraphQL services and stitch them together into one rich schema. This gives you flexibility in your development process and confidence once you are ready to deploy. Update only parts of your schema without the need to deploy always everything.
 
    [Learn more](stitching.md)
 
-10. GraphQL Server
+1. GraphQL Server
 
-We support ASP.Net Core and ASP.Net Classic and constantly update these implementations. Hosting our GraphQL server with one of there frameworks is as easy as eating pie :)
+   We support ASP.Net Core and ASP.Net Classic and constantly update these implementations. Hosting our GraphQL server with one of there frameworks is as easy as eating pie :)
 
-Furthermore, you can host _Hot Chocolate_ as an Azure Function or AWS Lambda.
+   Furthermore, you can host _Hot Chocolate_ as an Azure Function or AWS Lambda.
 
-[Learn more](aspnet.md)
+   [Learn more](aspnet.md)
 
-11. dotnet CLI Templates
+1. dotnet CLI Templates
 
-In order to get you even faster started we are providing templates for the dotnet CLI which lets you setup a .net GraphQL server in less than 10 seconds.
+   In order to get you even faster started we are providing templates for the dotnet CLI which lets you setup a .net GraphQL server in less than 10 seconds.
 
-[Learn more](dotnet-cli.md)
+   [Learn more](dotnet-cli.md)

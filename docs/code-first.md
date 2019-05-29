@@ -3,11 +3,11 @@ id: code-first
 title: Code-first
 ---
 
-The code first schema approach lets you built your GraphQL schema with .net types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify your schema. All can be done in your favourite .net language.
+The code-first schema approach lets you built your GraphQL schema with .Net types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify your schema you can be everything in your favourite .Net language.
 
-Lets walk you through some examples in order to show the various approaches to define a schema.
+OK, let us get started aLets walk you through some examples in order to show the various approaches to define a schema.
 
-First let us create our playground project to get started:
+First let us create a project to get started:
 
 ```bash
 mkdir graphql-demo
@@ -17,7 +17,7 @@ dotnet add package hotchocolate
 dotnet restore
 ```
 
-First we will look at how you can write plain .net objects that can be used to infer GraphQL schema types.
+First we will look at how you can write plain .Net objects that can be used to infer GraphQL schema types.
 
 Define a new plain c# class called Query:
 
@@ -31,10 +31,12 @@ public class Query
 Now let us create a new schema that uses this type and infers from it the GraphQL query type.
 
 ```csharp
-var schema = Schema.Create(c => c.RegisterType<ObjectType<Query>>());
+var schema = SchemaBuilder.New()
+  .AddQueryType<Query>()
+  .Create();
 ```
 
-We now have registered an object type with our new schema that is based on our Query class. The schema would look like this:
+We now have registered an object type with our new schema that is based on our Query class. The schema would look like the following:
 
 ```graphql
 type Query {
@@ -42,21 +44,21 @@ type Query {
 }
 ```
 
-We didn't even have to write resolvers due to the fact that the schema inferred those from the hello function. out hello function is basically our resolver.
+We didn't even have to write resolvers due to the fact that the schema inferred those from the hello function. Our hello function is basically our resolver.
 
-But there are some catches here. At the moment we can only infer scalar types like string, int etc..
-Furthermore, we can only infer non-nullability from value types. Reference types like System.String will always be inferred as nullable type since all reference types in .net are nullable.
+If you want to opt into more GraphQL features that cannot be inferred from a .Net type you can either use our schema types or use attributes.
 
-Fear not, because there is a simple solution to this. If you want to redefine or add more fields to an existing type you can always opt-in to our fluent API to declare your intention.
-
-So, if we wanted the return type of hello to be a non-null string than we could tell our schema that like this.
+So, if we wanted the return type of our `hello` field to be a non-null string than we could tell our schema that like this:
 
 ```csharp
-var schema = Schema.Create(c => c.RegisterType(new ObjectType<Query>(
-    d => d.Field(f => f.Hello()).Type<NonNullType<StringType>>())));
+var schema = SchemaBuilder.New()
+    .AddQueryType<Query>(d => d
+        .Field(f => f.Hello())
+        .Type<NonNullType<StringType>>())
+    .Create();
 ```
 
-Since this fluent chains could get very long you could also opt to declare a new class `ObjectType` that extends `ObjectType<Query>`.
+Since these fluent chains could get very long you can also opt to declare a new class `QueryType` that extends `ObjectType<Query>` and add this to your schema.
 
 ```csharp
 public class QueryType : ObjectType<Query>
@@ -66,9 +68,13 @@ public class QueryType : ObjectType<Query>
         descriptor.Field(f => f.Hello()).Type<NonNullType<StringType>>();
     }
 }
+
+var schema = SchemaBuilder.New()
+    .AddQueryType<QueryType>();
+    .Create();
 ```
 
-Also, you can add fields that are not based on your .net poco types.
+Furthermore, you can add fields that are not based on your .Net type `Query`.
 
 ```csharp
 public class QueryType : ObjectType<Query>
@@ -90,9 +96,11 @@ type Query {
 }
 ```
 
-The foo field would use the specified delegate to resolve the field value. The fluent API offers you the same feature set as the GraphQL schema syntax.
+The `foo` field would use the specified delegate to resolve the field value. The fluent API offers you the same feature set as the GraphQL schema syntax.
 
-Next we should look at resolver arguments. GraphQL fields let you define arguments. So, if we adjust our hello method to include a new argument name of type string we would infer from the GraphQL field arguments.
+Next let us have a look at resolver arguments. GraphQL fields let you define arguments, so the are more like methods in C# that properties.
+
+If we add a parameter to our `Hello` method the `SchemaBuilder` will translate that into a GraphQL field argument.
 
 ```csharp
 public class Query
@@ -107,20 +115,24 @@ type Query {
 }
 ```
 
-Also, you can add the [resolver context](https://github.com/ChilliCream/hotchocolate/blob/master/src/Core/Resolvers/IResolverContext.cs) or any resolver context property as an argument to your method.
+In order to get access to the resolver context in your resilver you can just add the `IResolverContext` as method parameter and the query engine will inject you the context:
 
 ```csharp
 public class Query
 {
-    public string Hello(Schema schema, string name) => $"Greetings {name} {schema.Query.Name}";
+    public string Hello(IResolverContext context, string name) =>
+        $"Greetings {name} {context.Service<FooService>().GetBar()}";
 }
 ```
 
-```csharp
-public class Query
-{
-    public string Hello(IResolverContext context, string name) => $"Greetings {name} {context.Service<FooService>().GetBar()}";
-}
-```
+There is a lot more that you can do with code-first and this was just a quick introduction. In order to learn more head over to the following documentation articles:
 
-This gives you the flexibility to tab into the data that is available in the query engine execution context and use it to make your resolvers more dynamic.
+If you want to read more about the `ScheamBuilder` head over [here](schema.md).
+
+If you are interested about resolvers in more detail [this](resolvers.md) might be the right place for you.
+
+You are all fired up and want to get started with a little tutorial walking you through an end-to-end example with `MongoDB` as your database? [Follow me](tutorial-mongo.md)!
+
+OK, OK, you already have an idea on what to do an you are just looking for way to setup this whole thing with ASP.Net Core or ASP.Net Classic? [This](aspnet.md) is where you find more on that.
+
+If you want to set _Hot Chocolate_ up with AWS Lambda or Azure Functions head over to our slack channel, we do not yet have documentation on that but an example project showing how to. We are constantly adding to our documentation and will include documentation on that soon.

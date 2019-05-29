@@ -12,9 +12,9 @@ GraphQL basically specifies six type kinds excluding ListType and NonNullType:
 - [Enum Type](https://graphql.org/learn/schema/#enumeration-types)
 - [Scalar Type](https://graphql.org/learn/schema/#scalar-types)
 
-When describing your GraphQL API code-first you are starting with your existing code which is just common .NET code.
+When describing your GraphQL API code-first you are starting with your existing code which is just plain .NET code.
 
-In order to give your types the right context in a GraphQL schema or more precisely to infer the GraphQL schema types from your .NET APIs we are wrapping them into schema types that correlate to the corresponding schema type kind.
+In order to give your types the right context in a GraphQL schema or more precisely to infer the GraphQL schema types from your .NET APIs we are wrapping them into schema types.
 
 Lets say we have a simple .NET type `Query` that has one method `GetFoo()` which returns a `System.String`:
 
@@ -55,19 +55,19 @@ var schema = Schema.Create(c =>
 
 Here is a table that depicts how we will try to infer the schema types from your .NET types:
 
-| .NET Type        | GraphQL Type |
-| ------------- | ----------- |
+| .NET Type          | GraphQL Type  |
+| ------------------ | ------------- |
 | non-abstract class | `Object` Type |
-| `Enum` | `Enum` Type |
-| `System.String` | `String` |
-| `System.Char` | `String` |
-| `System.Int16` | `Short!` |
-| `System.Int32` | `Int!` |
-| `System.Int64` | `Long!` |
-| `System.Single` | `Float!` |
-| `System.Double` | `Float!` |
-| `System.Decimal` | `Decimal!` |
-| `System.DateTime` | `DateTime!` |
+| `Enum`             | `Enum` Type   |
+| `System.String`    | `String`      |
+| `System.Char`      | `String`      |
+| `System.Int16`     | `Short!`      |
+| `System.Int32`     | `Int!`        |
+| `System.Int64`     | `Long!`       |
+| `System.Single`    | `Float!`      |
+| `System.Double`    | `Float!`      |
+| `System.Decimal`   | `Decimal!`    |
+| `System.DateTime`  | `DateTime!`   |
 
 We even will automatically inspect your properties for further object types. This means that we are not only flatly mapping you properties but also all the referenced types.
 
@@ -100,8 +100,8 @@ type Query {
 }
 
 type Person {
-    name: String
-    newFriend(name: String): Person
+  name: String
+  newFriend(name: String): Person
 }
 ```
 
@@ -156,8 +156,8 @@ type Query {
 }
 
 type Person {
-    name: String!
-    newFriend(name: String): Person
+  name: String!
+  newFriend(name: String): Person
 }
 ```
 
@@ -180,9 +180,9 @@ type Query {
 }
 
 type Person {
-    name: String!
-    newFriend(name: String): Person
-    newField: String
+  name: String!
+  newFriend(name: String): Person
+  newField: String
 }
 ```
 

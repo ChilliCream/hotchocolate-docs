@@ -75,7 +75,7 @@
 <h2><a class="anchor" aria-hidden="true" id="features"></a><a href="#features" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Features</h2>
 <ol>
 <li><p>Code-First approach</p>
-<p>Use C# to define your schema in a strong typed way.</p>
+<p>Use your favorite .Net language to define your schema.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>
 <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">Hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"World!"</span><span class="token punctuation">;</span>
@@ -91,7 +91,7 @@ Console<span class="token punctuation">.</span><span class="token function">Writ
 </code></pre>
 <p><a href="/docs/next/code-first">Learn more</a></p></li>
 <li><p>Schema-First approach</p>
-<p>Use the GraphQL syntax to define your schema and bind simple methods or whole types to your GraphQL types.</p>
+<p>Use the GraphQL schema definition language to define your schema and bind simple methods or whole types to it.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">QueryResolver</span>
 <span class="token punctuation">{</span>
    <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">Hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"World!"</span><span class="token punctuation">;</span>
@@ -107,8 +107,9 @@ Console<span class="token punctuation">.</span><span class="token function">Writ
 Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>executor<span class="token punctuation">.</span><span class="token function">Execute</span><span class="token punctuation">(</span><span class="token string">"{ hello }"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p><a href="/docs/next/schema-first">Learn more</a></p></li>
-<li><p>Mixed-First approach</p>
-<p>The mixed approach or the &quot;what ever makes you happy&quot; approach lets you mix and match everything. With the <em>Hot Chocolate</em> <code>SchemaBuilder</code> you can declare types however you wnat. Declare a type schema-first and extend that same type with code-first.</p>
+<li><p>Mix it all together</p>
+<p>With the <em>Hot Chocolate</em> <code>SchemaBuilder</code> you can declare types however you want. Define a type schema-first and extend that same type with code-first.</p>
+<p><strong>What ever makes you happy!</strong></p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">QueryResolver</span>
 <span class="token punctuation">{</span>
    <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">Hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"World!"</span><span class="token punctuation">;</span>
@@ -135,10 +136,12 @@ Console<span class="token punctuation">.</span><span class="token function">Writ
 Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span>executor<span class="token punctuation">.</span><span class="token function">Execute</span><span class="token punctuation">(</span><span class="token string">"{ hello foo }"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p><a href="/docs/next/schema">Learn more</a></p></li>
-<li><p>Scalar Type Support</p>
+<li><p>Support for Custom Scalars</p>
 <p>We provide built-in support for GraphQL defined Scalar Types. Moreover, you can also define your own scalar types to make your schemas even richer.</p>
-<p><a href="/docs/next/custom-scalar-types">Learn more</a></p></li>
-<li><p>Support for DataLoader</p>
+<p><a href="/docs/next/custom-scalar-types">Learn more</a></p>
+<ol>
+<li>Support for DataLoader</li>
+</ol>
 <p>We have baked-in support for data loaders which makes batching and caching for faster query requests a breeze.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonResolvers</span>
 <span class="token punctuation">{</span>
@@ -149,7 +152,7 @@ Console<span class="token punctuation">.</span><span class="token function">Writ
 <span class="token punctuation">}</span>
 </code></pre>
 <p><a href="/docs/next/dataloaders">Learn more</a></p></li>
-<li><p>Custom Directives</p>
+<li><p>Support for Custom Directives</p>
 <p>Implement your own directives and change the execution behaviour of your types.</p>
 <pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
   <span class="token attr-name">employee</span><span class="token punctuation">(</span><span class="token attr-name">employeeId</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Employee
@@ -162,7 +165,7 @@ Console<span class="token punctuation">.</span><span class="token function">Writ
 <span class="token punctuation">}</span>
 </code></pre>
 <p><a href="/docs/next/directives">Learn more</a></p></li>
-<li><p>Authorization Directives</p>
+<li><p>Built-in Authorization Directives</p>
 <p>Use ASP.net Core policies on your fields to enable field base authorization.</p>
 <pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
   <span class="token attr-name">employee</span><span class="token punctuation">(</span><span class="token attr-name">employeeId</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Employee
@@ -174,7 +177,7 @@ Console<span class="token punctuation">.</span><span class="token function">Writ
 <span class="token punctuation">}</span>
 </code></pre>
 <p><a href="/docs/next/authorization">Learn more</a></p></li>
-<li><p>Subscriptions</p>
+<li><p>Support for GraphQL Subscriptions</p>
 <p>Subscriptions allow GraphQL clients to observe specific events and receive updates from the server in real-time.</p>
 <p><a href="/docs/next/code-first-subscription">Learn more</a></p></li>
 <li><p>Schema Stitching</p>
@@ -184,10 +187,6 @@ Console<span class="token punctuation">.</span><span class="token function">Writ
 <p>We support ASP.Net Core and ASP.Net Classic and constantly update these implementations. Hosting our GraphQL server with one of there frameworks is as easy as eating pie :)</p>
 <p>Furthermore, you can host <em>Hot Chocolate</em> as an Azure Function or AWS Lambda.</p>
 <p><a href="/docs/next/aspnet">Learn more</a></p></li>
-<li><p>Tooling</p>
-<p>We think developer and comminity first, this is why we invest heavily in rich developer tooling. If you want to get serious with GraphQL forget about all the GraphiQL tooling you have seen so far and get yourself a Banana Cakepop.</p>
-<p><img src="IMAGE" alt="license"></p>
-<p>Coming soon ...</p></li>
 <li><p>dotnet CLI Templates</p>
 <p>In order to get you even faster started we are providing templates for the dotnet CLI which lets you setup a .net GraphQL server in less than 10 seconds.</p>
 <p><a href="/docs/next/dotnet-cli">Learn more</a></p></li>

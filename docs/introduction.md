@@ -7,6 +7,8 @@ Hot Chocolate is a .net GraphQL server platform that can help you build a GraphQ
 
 Our API will let you start very quickly with pre-built templates that let you start in seconds.
 
+> If you are completely new to GraphQL then we now have a nice [tutorial](tutorial-mongo.md) that explains GraphQL by building a GraphQL server with _Hot Chocolate_. The tutorial starts with a simple hello world and by the time you have finished the tutorial you will know what GraphQL is and how to use things like _DataLoader_ an subscriptions.
+
 ## Features
 
 1. Code-First approach
@@ -93,7 +95,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    [Learn more](custom-scalar-types.md)
 
-   1. Support for DataLoader
+1. Support for DataLoader
 
    We have baked-in support for data loaders which makes batching and caching for faster query requests a breeze.
 
@@ -102,7 +104,10 @@ Our API will let you start very quickly with pre-built templates that let you st
    {
       public Task<Person> GetPerson(string id, IResolverContext context, [Service]IPersonRepository repository)
       {
-        return context.BatchDataLoader<string, Person>("personByIdBatch", keys => repository.GetPersonBatchAsync(keys)).LoadAsync(id);
+        return context.BatchDataLoader<string, Person>(
+            "personByIdBatch",
+            repository.GetPersonBatchAsync)
+            .LoadAsync(id);
       }
    }
    ```

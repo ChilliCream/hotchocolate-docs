@@ -5,17 +5,7 @@ title: Code-first
 
 The code-first schema approach lets you built your GraphQL schema with .Net types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify your schema you can be everything in your favourite .Net language.
 
-OK, let us get started aLets walk you through some examples in order to show the various approaches to define a schema.
-
-First let us create a project to get started:
-
-```bash
-mkdir graphql-demo
-cd graphql-demo
-dotnet new console
-dotnet add package hotchocolate
-dotnet restore
-```
+OK, let us get started and walk you through some examples in order to show the various approaches to define a schema.
 
 First we will look at how you can write plain .Net objects that can be used to infer GraphQL schema types.
 

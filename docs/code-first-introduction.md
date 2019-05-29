@@ -3,7 +3,7 @@ id: code-first-introduction
 title: Introduction
 ---
 
-GraphQL basically specifies six type kinds excluding ListType and NonNullType:
+GraphQL specifies six type kinds excluding ListType and NonNullType:
 
 - [Object Type](https://graphql.org/learn/schema/#object-types-and-fields)
 - [Interface Type](https://graphql.org/learn/schema/#interfaces)
@@ -28,10 +28,9 @@ public class Query
 We can add this type to our schema by registering it like the following:
 
 ```csharp
-var schema = Schema.Create(c =>
-{
-  c.RegisterType<ObjectType<Query>>();
-})
+var schema = SchemaBuilder.New()
+  .AddQueryType<Query>()
+  .Create();
 ```
 
 By wrapping `Query` as `ObjectType<Query>` we essentially tell the schema setup that `Query` is an object type and the schema setup will try to infer the rest of this type automatically.
@@ -47,10 +46,9 @@ type Query {
 In many cases we can even infer the schema type. So you can just register your types and the schema will try to figure out what the specified type shall represent in your GraphQL schema.
 
 ```csharp
-var schema = Schema.Create(c =>
-{
-  c.RegisterType<Query>();
-})
+var schema = SchemaBuilder.New()
+  .AddQueryType<Query>()
+  .Create();
 ```
 
 Here is a table that depicts how we will try to infer the schema types from your .NET types:
@@ -86,10 +84,9 @@ public class Person
     public Person GetNewFriend(string name) => new Person { Name = "Foo" };
 }
 
-var schema = Schema.Create(c =>
-{
-  c.RegisterType<Query>();
-})
+var schema = SchemaBuilder.New()
+  .AddQueryType<Query>()
+  .Create();
 ```
 
 The above schema would look like the following in the GraphQL syntax:
@@ -112,10 +109,9 @@ In order to describe your intention more detailed or even describe types that do
 There are basically two ways to describe your types explicitly. For smaller declarations we can pass into the constructor of a schema type a configuration delegate that specifies the schema type properties.
 
 ```csharp
-var schema = Schema.Create(c =>
-{
-  c.RegisterType(new ObjectType<Foo>(d => d.Name("SuperFoo"));
-})
+var schema = SchemaBuilder.New()
+  .AddObjectType<Foo>(d => d.Name("SuperFoo"))
+  .Create();
 ```
 
 Since, we would end up with a very long chain of method calls if you had to specify more than just the name, you can also inherit from ObjectType<T> and override the Configure method.
@@ -143,11 +139,10 @@ public class PersonType : ObjectType<Person>
     }
 }
 
-var schema = Schema.Create(c =>
-{
-  c.RegisterType<Query>();
-  c.RegisterType<PersonType>();
-})
+var schema = SchemaBuilder.New()
+  .AddQueryType<Query>()
+  .AddType<PersonType>()
+  .Create();
 ```
 
 ```graphql
@@ -189,7 +184,7 @@ type Person {
 For more help on the configuration of the specific types checkout the specific type descriptor help pages:
 
 - [Object Type Descriptor](schema-object-type.md)
-- [Interface Type Descriptor](code-first-interface-type.md)
-- [Union Type Descriptor](code-first-union-type.md)
-- [Enum Type Descriptor](code-first-enum-type.md)
-- [Input Object Type Descriptor](code-first-input-object-type.md)
+- [Interface Type Descriptor](schema-interface-type.md)
+- [Union Type Descriptor](schema-union-type.md)
+- [Enum Type Descriptor](schema-enum-type.md)
+- [Input Object Type Descriptor](schema-input-object-type.md)

@@ -1,0 +1,57 @@
+{
+  "version-9.0.0-rc.5-docs": {
+    "Introduction": [
+      "version-9.0.0-rc.5-introduction",
+      "version-9.0.0-rc.5-code-first",
+      "version-9.0.0-rc.5-schema-first"
+    ],
+    "API Reference": [
+      {
+        "type": "subcategory",
+        "label": "Schema Definition",
+        "ids": [
+          "version-9.0.0-rc.5-schema",
+          "version-9.0.0-rc.5-schema-object-type",
+          "version-9.0.0-rc.5-schema-interface-type",
+          "version-9.0.0-rc.5-schema-union-type",
+          "version-9.0.0-rc.5-schema-input-object-type",
+          "version-9.0.0-rc.5-schema-enum-type",
+          "version-9.0.0-rc.5-schema-descriptions",
+          "version-9.0.0-rc.5-custom-scalar-types",
+          "version-9.0.0-rc.5-resolvers"
+        ]
+      },
+      "version-9.0.0-rc.5-dataloaders",
+      "version-9.0.0-rc.5-pagination",
+      "version-9.0.0-rc.5-dependency-injection",
+      "version-9.0.0-rc.5-authorization",
+      "version-9.0.0-rc.5-directive",
+      "version-9.0.0-rc.5-middleware",
+      "version-9.0.0-rc.5-custom-context",
+      "version-9.0.0-rc.5-subscription",
+      "version-9.0.0-rc.5-options",
+      "version-9.0.0-rc.5-type-conversion",
+      "version-9.0.0-rc.5-aspnet",
+      "version-9.0.0-rc.5-parser",
+      "version-9.0.0-rc.5-errors",
+      "version-9.0.0-rc.5-security",
+      "version-9.0.0-rc.5-validation-rule",
+      "version-9.0.0-rc.5-stitching",
+      "version-9.0.0-rc.5-instrumentation",
+      "version-9.0.0-rc.5-apollo-tracing",
+      "version-9.0.0-rc.5-conventions",
+      "version-9.0.0-rc.5-extending-types",
+      "version-9.0.0-rc.5-relay"
+    ],
+    "Guides": [
+      "version-9.0.0-rc.5-migration",
+      "version-9.0.0-rc.5-dotnet-cli"
+    ]
+  },
+  "version-9.0.0-rc.5-examples": {
+    "Code-First": [
+      "version-9.0.0-rc.5-example-star-wars-code-first",
+      "version-9.0.0-rc.5-example-other-code-first"
+    ]
+  }
+}

@@ -3,104 +3,107 @@ id: schema-first
 title: Schema-first
 ---
 
-GraphQL has an easy and beautiful syntax to describe schemas. Hot Chocolate supports native GraphQL schemas and lets you bind resolvers or types to the.
+GraphQL has an easy and beautiful syntax to describe schemas. 
 
-Let's walk you through some examples in order to show the various approaches to define a schema.
+Hot Chocolate supports the GraphQL schema definition language and lets you easily bind resolvers or types to the defined schema.
 
-First let us create our playground project to get started:
-
-```bash
-mkdir graphql-demo
-cd graphql-demo
-dotnet new console
-dotnet add package hotchocolate -v 0.1.1
-dotnet restore
-```
-
-Now let us define a simple hello world schema:
+OK, let us get started by defining a simple hello world schema:
 
 ```graphql
 type Query {
-    hello: String
+  hello: String
 }
 ```
 
-So, in order to get started lets make this schema executable by binding resolvers to it:
+In order to host the above schema we have to use the SchemaBuilder to load it and then bind a resolver to the `hello` field.
 
 ```csharp
-var schema = Schema.Create(
-    @"
-    type Query {
-        hello: String
-    }
-    ",
-    c => c.BindResolver(() => "world").To("Query", "hello"));
+var schema = SchemaBuilder.New()
+    .AddDocumentFromString(
+        @"
+        type Query {
+            hello: String
+        }")
+    .AddResolver("Query", "Hello", () => "world")
+    .Create();
 ```
 
 If you have larger schemas it may be not feasible for you to define resolvers for all of your fields.
-So, we added the ability to bind poco types to the schema.
+
+The easier way in these cases is to write classes that contain your resolvers and bind those to the various types.
 
 ```csharp
-var schema = Schema.Create(
-    @"
-    type Query {
-        hello: String
-    }
-    ",
-    c => c.BindType<Query>());
-```
+var schema = SchemaBuilder.New()
+    .AddDocumentFromString(
+        @"
+        type Query {
+            hello: String
+        }")
+    .BindComplexType<Query>()
+    .Create();
 
-```csharp
 public class Query
 {
     public string GetHello() => "world";
 }
 ```
 
-Sometimes you have business objects that already exist and that do not exactly match your schema.
-In those cases you are able to create a new class that contains the resolvers for your class and that lets you inject your business object into this resolver type.
+Sometimes you have business objects that already exist and that do not exactly match your schema like in the above example.
 
-So, in our example the query time that was defined in the above example represents our business object that might already existed before we defined our schema.
+In these cases you can easily tell the `SchemaBuilder` how it can map your business object to the schema type.
 
-We now would just need to define our resolver type.
+```csharp
+var schema = SchemaBuilder.New()
+    .AddDocumentFromString(
+        @"
+        type Query {
+            hello: String
+        }")
+    .BindComplexType<Query>(c => c.Field(t => t.GetGreetings()).To("hello"))
+    .Create();
+
+public class Query
+{
+    public string GetGreetings() => "world";
+}
+```
+
+Furthermore, we can add new functionality on top of our business objects without changing them. This is done by adding a new type that basically contains only resolvers. _Hot Chocolate_ differentiates between the data objects and the resolver objects and lets you bind both to the schema.
 
 ```csharp
 public class QueryResolvers
 {
-    public string GetHello(Query query) => query.GetHello();
+    public string GetHello([Parent]Query query) => query.GetGreetings();
 }
 ```
 
 Our schema would now be declared like the following:
 
 ```csharp
-var schema = Schema.Create(
-    @"
-    type Query {
-        hello: String
-    }
-    ",
-    c => c.BindResolver<QueryResolvers>().To<Query>());
+var schema = SchemaBuilder.New()
+    .AddDocumentFromString(
+        @"
+        type Query {
+            hello: String
+        }")
+    .BindComplexType<Query>(c => c.Field(t => t.GetGreetings()))
+    .BindResolver<QueryResolvers>(c => c.To<Query>())
+    .Create();
 ```
 
-You can also mix and match resolvers:
+You can also mix and match resolvers binding, type bindings, delegate resolver or even bring in some code-first:
 
 ```csharp
-var schema = Schema.Create(
-    @"
-    type Query {
-        hello: String
-        foo: Foo
-    }
-
-    type Foo {
-        bar: String
-    }
-    ",
-    c =>
-    {
-        c.BindResolver<QueryResolvers>().To<Query>();
-        c.BindResolver(() => "hello foo").To("Query", "foo");
-        c.BindResolver(ctx => ctx.Parent<string>()).To("Foo", "bar");
-    });
+var schema = SchemaBuilder.New()
+    .AddDocumentFromString(
+        @"
+        type Query {
+            hello: String
+            foo: Bar
+        }")
+    .BindComplexType<Query>(c => c.Field(t => t.GetGreetings()))
+    .BindResolver<QueryResolvers>(c => c.To<Query>())
+    .AddResolver("Query", "foo", () => new Bar())
+    .AddType<BarType>()
+    .Create();
 ```

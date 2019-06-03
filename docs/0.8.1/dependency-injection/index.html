@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Dependency Injection · Hot Chocolate</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;We are supporting dependency injection via the &lt;code&gt;IServiceProvider&lt;/code&gt; interface. Since Hot Chocolate supports scoped services the service provider is passed in with the request. If you are using Hot Chocolate with ASP.net core or ASP.net classic then you do not have to think about how to setup dependency injection because we have already done that for you.&lt;/p&gt;
+"/><meta name="docsearch:version" content="0.8.1"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Dependency Injection · Hot Chocolate"/><meta property="og:type" content="website"/><meta property="og:url" content="https://hotchocolate.io/"/><meta property="og:description" content="&lt;p&gt;We are supporting dependency injection via the &lt;code&gt;IServiceProvider&lt;/code&gt; interface. Since Hot Chocolate supports scoped services the service provider is passed in with the request. If you are using Hot Chocolate with ASP.net core or ASP.net classic then you do not have to think about how to setup dependency injection because we have already done that for you.&lt;/p&gt;
+"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://hotchocolate.io/img/cupcake.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72800164-3', 'auto');
+              ga('send', 'pageview');
+            </script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster:700,400"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/prism.css"/><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/signet.svg" alt="Hot Chocolate"/><h2 class="headerTitleWithLogo">Hot Chocolate</h2></a><a href="/versions"><h3>0.8.1</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/0.8.1/introduction" target="_self">Docs</a></li><li class=""><a href="/docs/0.8.1/example-star-wars-code-first" target="_self">Examples</a></li><li class=""><a href="https://chillicream.com/blog" target="_blank">Blog</a></li><li class=""><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>API Reference</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Introduction<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/0.8.1/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/code-first">Code-first</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/schema-first">Schema-first</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">API Reference<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/0.8.1/custom-scalar-types">Scalar Type Support</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/resolvers">Resolvers</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/dataloaders">Data Loaders</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/pagination">Pagination</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/0.8.1/dependency-injection">Dependency Injection</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/authorization">Authorization</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/middleware">Middleware</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/custom-context">Custom Context Data</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/options">Options</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/type-conversion">Type Conversion</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/aspnet">ASP.net</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/parser">Parser</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/errors">Error Filter</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/security">Security</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/validation-rule">Validation Rules</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/stitching">Schema Stitching</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/instrumentation">Instrumentation</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/apollo-tracing">Apollo Tracing</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Guides<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/0.8.1/migration">Migrating from 0.6.x</a></li><li class="navListItem"><a class="navItem" href="/docs/0.8.1/dotnet-cli">.NET CLI</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/ChilliCream/hotchocolate-docs/edit/master/docs/dependency-injection.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">Dependency Injection</h1></header><article><div><span><p>We are supporting dependency injection via the <code>IServiceProvider</code> interface. Since Hot Chocolate supports scoped services the service provider is passed in with the request. If you are using Hot Chocolate with ASP.net core or ASP.net classic then you do not have to think about how to setup dependency injection because we have already done that for you.</p>
+<p>If you have a CLR-type representation of your schema type than you can inject services as field resolver arguments. Injection of services as field resolver arguments should be your preferred choice since many of the services only have a request life time.</p>
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">Bar</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token class-name">Service</span><span class="token punctuation">]</span><span class="token class-name">MyCustomService</span> service<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"foo"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>You are also able to inject parts from your field resolver context like the schema as field resolver argument.</p>
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">Bar</span><span class="token punctuation">(</span><span class="token class-name">ISchema</span> schema<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token class-name">Service</span><span class="token punctuation">]</span><span class="token class-name">MyCustomService</span> service<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"foo"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Moreover, you have access to the <code>HttpContext</code> through field resolver argument injection. You should only inject <code>HttpContext</code> as field resolver argument since the lifetime of <code>HttpContext</code> is bound to a single request.
+If you want to inject <code>HttpContext</code> as constructor argument you have to ensure that your type is not a singleton or use the <code>IHttpContextAccessor</code>.</p>
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">Bar</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token class-name">Service</span><span class="token punctuation">]</span><span class="token class-name">HttpContext</span> httpContext<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"foo"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-2-4 by Sean Allred</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/0.8.1/pagination"><span class="arrow-prev">← </span><span>Pagination</span></a><a class="docs-next button" href="/docs/0.8.1/authorization"><span>Authorization</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '47d61652587888cd5144dcdd6fb9117b',
+                indexName: 'hotchocolate',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {"facetFilters":["language:en","version:0.8.1"]}
+              });
+            </script></body></html>

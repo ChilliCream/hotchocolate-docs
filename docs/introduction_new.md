@@ -7,6 +7,8 @@ Hot Chocolate is a .net GraphQL server platform that can help you build a GraphQ
 
 Our API will let you start very quickly with pre-built templates that let you start in seconds.
 
+> If you are completely new to GraphQL then we now have a nice [tutorial](tutorial-mongo.md) that explains GraphQL by building a GraphQL server with _Hot Chocolate_. The tutorial starts with a simple hello world and by the time you have finished the tutorial you will know what GraphQL is and how to use things like _DataLoader_ an subscriptions.
+
 ## Features
 
 1. Code-First approach

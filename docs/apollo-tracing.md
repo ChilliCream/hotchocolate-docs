@@ -34,14 +34,14 @@ public class Startup
     {
         // Registering services / repositories here; omitted for brevity
 
-        services.AddGraphQL(sp => Schema.Create(c =>
-        {
-            // Registering schema types and so on here; omitted for brevity
-        }),
-        new QueryExecutionOptions
-        {
-            TracingPreference = TracingPreference.Always
-        });
+        services.AddGraphQL(sp => SchemaBuilder.New()
+          .AddQueryType<QueryType>()
+          // Registering schema types and so on here; omitted for brevity
+          .Create()),
+          new QueryExecutionOptions
+          {
+              TracingPreference = TracingPreference.Always
+          });
     }
 
     // Code omitted for brevity

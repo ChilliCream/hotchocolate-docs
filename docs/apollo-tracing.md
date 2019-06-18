@@ -14,11 +14,11 @@ Due to built-in _Apollo Tracing_ support it's actually very simple to enable
 this feature. There is an option named `TracingPreference` which takes one of
 three states. In the following table we find all of these states explained.
 
-| Key        | Description |
-| ---------- | ----------- |
-| `Never`    | _Apollo Tracing_ is disabled; this is the default value. |
+| Key        | Description                                                                                                                    |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `Never`    | _Apollo Tracing_ is disabled; this is the default value.                                                                       |
 | `OnDemand` | _Apollo Tracing_ is enabled partially which means that it traces only by passing a special header to a specific query request. |
-| `Always`   | _Apollo Tracing_ is enabled completely which means all query requests will be traced automatically. |
+| `Always`   | _Apollo Tracing_ is enabled completely which means all query requests will be traced automatically.                            |
 
 When creating your GraphQL schema, we just need to add an additional option
 object to enable _Apollo Tracing_. By default, as explained in the above table
@@ -63,14 +63,14 @@ public class Startup
     {
         // Registering services / repositories here; omitted for brevity
 
-        services.AddGraphQL(sp => Schema.Create(c =>
-        {
-            // Registering schema types and so on here; omitted for brevity
-        }),
-        new QueryExecutionOptions
-        {
-            TracingPreference = TracingPreference.OnDemand
-        });
+        services.AddGraphQL(sp => SchemaBuilder.New()
+          .AddQueryType<QueryType>()
+          // Registering schema types and so on here; omitted for brevity
+          .Create()),
+          new QueryExecutionOptions
+          {
+              TracingPreference = TracingPreference.OnDemand
+          });
     }
 
     // Code omitted for brevity
@@ -85,6 +85,6 @@ implement the mapping from the HTTP header to the query request property by
 our self which isn't very difficult actually. See how it's solved in the
 _Hot Chocolate_ [ASP.Net Core and Framework stack].
 
-[ASP.Net Core and Framework stack]: https://github.com/ChilliCream/hotchocolate/blob/master/src/Server/AspNetCore/QueryMiddlewareBase.cs#L161-L171
+[asp.net core and framework stack]: https://github.com/ChilliCream/hotchocolate/blob/master/src/Server/AspNetCore/QueryMiddlewareBase.cs#L161-L171
 [performance tracing specification]: https://github.com/apollographql/apollo-tracing
 [specification]: https://facebook.github.io/graphql

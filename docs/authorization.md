@@ -24,14 +24,11 @@ dotnet add package HotChocolate.AspNetCore.Authorization
 In order to use the `@authorize`-directive we have to register it like the following:
 
 ```csharp
-Schema.Create(c =>
-{
-    ...
-
-    c.RegisterAuthorizeDirectiveType();
-
-    ...
-});
+SchemaBuilder.New()
+  ...
+  .AddAuthorizeDirectiveType()
+  ...
+  .Create();
 ```
 
 Once you have done that you can add the `@authorize`-directive to object type definitions or field definitions.
@@ -54,19 +51,19 @@ public class PersonType : ObjectType<Person>
 {
     protected override Configure(IObjectTypeDescriptor<Person> descriptor)
     {
-        descriptor.Directive(new AuthorizeDirective());
-        descriptor.Field(t => t.Address).Directive(new AuthorizeDirective());
+        descriptor.Authorize();
+        descriptor.Field(t => t.Address).Authorize();
     }
 }
 ```
 
-If we just add the `@authorize`-directive without specifying any arguments the authorize middleware will basically just enforces that a user is authenticated. 
+If we just add the `@authorize`-directive without specifying any arguments the authorize middleware will basically just enforces that a user is authenticated.
 
 If no user is authenticated the field middleware will raise a GraphQL error and the field value is set to null. If the field is a non-null field the standard GraphQL non-null violation rule is applied like with any other GraphQL error.
 
 ### Roles
 
-In many case role based authorization is sufficient and was already available with ASP.net on the .Net Framework. 
+In many case role based authorization is sufficient and was already available with ASP.net on the .Net Framework.
 
 Moreover, role base authorization is setup quickly and does not need any other setup then providing the roles.
 
@@ -75,7 +72,7 @@ Schema-First:
 ```graphql
 type Person @authorize(roles: "foo") {
   name: String!
-  address: Address! @authorize(roles: ["foo" "bar"])
+  address: Address! @authorize(roles: ["foo", "bar"])
 }
 ```
 
@@ -86,8 +83,8 @@ public class PersonType : ObjectType<Person>
 {
     protected override Configure(IObjectTypeDescriptor<Person> descriptor)
     {
-        descriptor.Directive(new AuthorizeDirective(new [] {"foo"}));
-        descriptor.Field(t => t.Address).Directive(new AuthorizeDirective(new [] {"foo", "bar"}));
+        descriptor.Authorize(new [] {"foo"});
+        descriptor.Field(t => t.Address).Authorize(new [] {"foo", "bar"});
     }
 }
 ```
@@ -121,7 +118,10 @@ The `@authorize`-directive is repeatable, that means that you are able to chain 
 ```graphql
 type Person {
   name: String!
-  address: Address! @authorize(policy: "AllEmployees") @authorize(policy: "SalesDepartment") @authorize(roles: "FooBar")
+  address: Address!
+    @authorize(policy: "AllEmployees")
+    @authorize(policy: "SalesDepartment")
+    @authorize(roles: "FooBar")
 }
 ```
 
@@ -140,6 +140,8 @@ services.AddAuthorization(options =>
                 (c.Type == ClaimTypes.Country))));
 });
 ```
+
+> **Important**: we are passing the resolver context as resource to the policy so that you have access to all the data of your resolver.
 
 The `@authorize`-directive essentially uses the provided policy and runs it against the `ClaimsPrinciple` that is associated with the current request.
 

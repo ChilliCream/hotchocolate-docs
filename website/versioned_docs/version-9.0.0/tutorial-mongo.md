@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-tutorial-01-gettingstarted
+id: version-9.0.0-tutorial-01-gettingstarted
 title: Getting Started
 original_id: tutorial-01-gettingstarted
 ---

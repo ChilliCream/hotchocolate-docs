@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-code-first
+id: version-9.0.0-code-first
 title: Code-first
 original_id: code-first
 ---

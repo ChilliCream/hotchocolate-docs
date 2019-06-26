@@ -1,6 +1,7 @@
 ---
-id: custom-scalar-types
+id: version-9.0.0-custom-scalar-types
 title: Scalar Type Support
+original_id: custom-scalar-types
 ---
 
 Scalar types in GraphQL represent the leaf types of your graphs like `String`, `Int`. Scalar values represent the  concrete data that is exposed..

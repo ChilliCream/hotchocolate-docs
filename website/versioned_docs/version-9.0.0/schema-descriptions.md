@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-schema-descriptions
+id: version-9.0.0-schema-descriptions
 title: Schema Descriptions
 original_id: schema-descriptions
 ---

@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-extending-types
+id: version-9.0.0-extending-types
 title: Extending Types
 original_id: extending-types
 ---

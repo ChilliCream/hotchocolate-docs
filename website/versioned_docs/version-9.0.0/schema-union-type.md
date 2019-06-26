@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-schema-union-type
+id: version-9.0.0-schema-union-type
 title: Union Type
 original_id: schema-union-type
 ---

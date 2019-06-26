@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-schema-object-type
+id: version-9.0.0-schema-object-type
 title: Object Type
 original_id: schema-object-type
 ---

@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-schema-first
+id: version-9.0.0-schema-first
 title: Schema-first
 original_id: schema-first
 ---

@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-schema-interface-type
+id: version-9.0.0-schema-interface-type
 title: Interface Type
 original_id: schema-interface-type
 ---

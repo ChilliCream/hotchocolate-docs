@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-schema-input-object-type
+id: version-9.0.0-schema-input-object-type
 title: Input Object Type
 original_id: schema-input-object-type
 ---

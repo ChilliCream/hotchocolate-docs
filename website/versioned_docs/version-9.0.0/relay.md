@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-relay
+id: version-9.0.0-relay
 title: Relay
 original_id: relay
 ---

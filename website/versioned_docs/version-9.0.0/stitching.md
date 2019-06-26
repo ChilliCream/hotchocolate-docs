@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-stitching
+id: version-9.0.0-stitching
 title: Schema Stitching
 original_id: stitching
 ---

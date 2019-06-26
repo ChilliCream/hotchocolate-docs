@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-code-first-introduction
+id: version-9.0.0-code-first-introduction
 title: Introduction
 original_id: code-first-introduction
 ---

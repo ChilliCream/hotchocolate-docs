@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-conventions
+id: version-9.0.0-conventions
 title: Conventions
 original_id: conventions
 ---
@@ -16,10 +16,9 @@ public void ConfigureServices(IServiceCollection services)
 {
     services.AddSingleton<INamingConventions, MyNamingConventions>();
 
-    services.AddGraphQL(sp => Schema.Create(c =>
-    {
-        c.RegisterServiceProvider(sp);
-        c.RegisterQuerType<Foo>();
-    }));
+    services.AddGraphQL(sp => SchemaBuiler.New()
+        .AddQueryType<Foo>()
+        .AddServices(sp)
+        .Create());
 }
 ```

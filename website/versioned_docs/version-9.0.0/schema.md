@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-schema
+id: version-9.0.0-schema
 title: Schema
 original_id: schema
 ---

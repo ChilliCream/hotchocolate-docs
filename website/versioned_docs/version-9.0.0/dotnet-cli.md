@@ -1,5 +1,5 @@
 ---
-id: version-9.0.0-rc.5-dotnet-cli
+id: version-9.0.0-dotnet-cli
 title: .NET CLI
 original_id: dotnet-cli
 ---

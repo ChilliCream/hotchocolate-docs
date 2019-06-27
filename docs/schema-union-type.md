@@ -48,7 +48,7 @@ public class FooBarBaz
 }
 ```
 
-In order to make this more convenient and infer if an object type belongs to a union type set we backed in support for marker interfaces.
+In order to make this more convenient and infer if an object type belongs to a union type set we baked in support for marker interfaces.
 
 ```csharp
 public interface IFooBarBaz { }

@@ -5,13 +5,13 @@ title: Resolvers
 
 In GraphQL resolvers describe the logic that fetches data for a specific field.
 
-Field resolvers run independently from each other fields and allow the execution engine to parallelize their execution.
+Field resolvers run independently of each other which allows the execution engine to parallelize their execution.
 
-This independent approch to fetch data allows us to build powerfull schemas that consists of multiple data sources in a very simple way.
+This independent approach to fetch data allows us to build powerful schemas that consists of multiple data sources in a very simple way.
 
-Since, we have two major approaches with _Hot Chocolate_ to define a schema we also have two approaches how to declare our resolvers. We will start by looking at how we can declare resolvers with the schema-first approach and the look at how this is done in the code-first world.
+Since we have two major approaches with _Hot Chocolate_ to define a schema, we also have two approaches to declaring our resolvers. We will start by looking at how we can declare resolvers with the schema-first approach and then look at how this is done in the code-first world.
 
-It is important to know that we can mix both approaches. Moreover, resolvers are integrated as a component into the field-middleware-pipeline. A field-middleware is more complex but can also open up more scenarios. One could for instance write a middleware that resolves the data for multiple fields from a creatain well-defined data source.
+It is important to know that we can mix both approaches. Moreover, resolvers are integrated as a component into the field-middleware-pipeline. A field-middleware is more complex but can also open up more scenarios. One could for instance write a middleware that resolves the data for multiple fields of a certain well-defined data source.
 
 > More about what a field-middleware can do can be found [here](middleware.md).
 
@@ -59,7 +59,7 @@ services.AddGraphQL(
 
 Entities are handled differently than resolver types.
 
-First of all you are able to path in an entity object on which the resolvers are executed. In this case the query engine will do nothing and operate on the passed in entity.
+First of all you are able to pass in an entity object on which the resolvers are executed. In this case the query engine will do nothing and operate on the passed in entity.
 
 If no initial root value was passed into the query engine, the query engine will create a new `Query` object by itself. The instance will be disposed (if disposable) after the request was completed.
 

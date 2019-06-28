@@ -34,4 +34,4 @@ Try a query like the following to get started:
 }
 ```
 
-The template source code is located [here](https://github.com/ChilliCream/hotchocolate-templates/tree/master/StarWars/content).
+The template source code is located [here](https://github.com/ChilliCream/hotchocolate/tree/master/examples).

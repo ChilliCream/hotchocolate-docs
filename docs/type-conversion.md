@@ -3,7 +3,7 @@ id: type-conversion
 title: Type Conversion
 ---
 
-For what do we need the type conversion API on Hot Chocolate?
+**For what do we need the type conversion API on Hot Chocolate?**
 
 Let us have a look at a simple example to answer this question and also to show how this is solved with Hot Chocolate.
 
@@ -18,7 +18,7 @@ public class Message
 }
 ```
 
-We want the `Id` property to be of the `IdType` in the GraphQL schema. The Hot Chocolate query execution engine does not know how `ObjectId` is serialized or deserialized. 
+We want the `Id` property to be of the `IdType` in the GraphQL schema. The Hot Chocolate query execution engine does not know how `ObjectId` is serialized or deserialized.
 
 Moreover, `IdType` uses `System.String` as .net representation of it`s values.
 
@@ -31,8 +31,39 @@ TypeConversion.Default.Register<string, ObjectId>(from => ObjectId.Parse(from));
 TypeConversion.Default.Register<ObjectId, string>(from => from.ToString());
 ```
 
-You can also implement `ITypeConverter` if you want to write classes instead of delegates,
+## Dependency Injection Support
 
-Furthermore, you can register your own `ITypeConversion` with the dependency injection to opt-out of the default converters.
+You can also add your type converters to the dependency injection. Using dependency injection for the type converters lets you more easily write tests that verify behaviour of your API in various scenarious.
 
-Further, you can register a specific type conversion instance with the dependency injection to provide specific converters to a specific schema instance.
+The first thing you have to ensure is that your schema has access to the service provider, which can be done like the following:
+
+```csharp
+service.AddGraphQL(sp => SchemaBuilder.New()
+  .AddServices(sp)
+  ...
+  .Create()
+```
+
+After this is done converters can be registered like the following:
+
+```csharp
+services.AddTypeConverter<string, ObjectId>(from => ObjectId.Parse(from));
+```
+
+Moreover, you are able to put your conversion code into a class like the follwing:
+
+```csharp
+public class StringObjectIdConverter
+    : TypeConverter<string, ObjectId>
+{
+    public ObjectId Convert(string from) => ObjectId.Parse(from);
+}
+```
+
+This makes sense if you have more complex code to write to specify your conversion.
+
+The class can also be registered with the dependency injection like the following:
+
+```csharp
+services.AddTypeConverter<StringObjectIdConverter>();
+```

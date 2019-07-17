@@ -29,13 +29,12 @@ public class Query
 }
 ```
 
-Moreover, you have access to the `HttpContext` through field resolver argument injection. You should only inject `HttpContext` as field resolver argument since the lifetime of `HttpContext` is bound to a single request.
-If you want to inject `HttpContext` as constructor argument you have to ensure that your type is not a singleton or use the `IHttpContextAccessor`.
+Moreover, you have access to the `HttpContext` through field resolver argument injection. You should only inject `IHttpContextAccessor` as field resolver argument since the lifetime of `HttpContext` is bound to a single request.
 
 ```csharp
 public class Query
 {
-    public string Bar([Service]HttpContext httpContext)
+    public string Bar([Service]IHttpContextAccessor contextAccessor)
     {
         return "foo";
     }

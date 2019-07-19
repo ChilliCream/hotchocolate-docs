@@ -45,7 +45,7 @@ services.AddInMemorySubscriptionProvider();
 or
 
 ```csharp
-services.AddRedisSubscriptionProvider();
+services.AddRedisSubscriptionProvider(configuration);
 ```
 
 Once this is setup subscriptions are generally available. In order to define subscriptions we have to create a subscription type. The subscription type is just a regular `ObjectType`, so we create it like any other root type.
@@ -113,3 +113,30 @@ public class OnReviewMessage
 ```
 
 If you want to have a working example for subscription head over to our ASP.net Core [example](https://github.com/ChilliCream/hotchocolate/tree/master/examples/AspNetCore.StarWars).
+
+## In-Memory Provider
+
+The in-memory subscription provider does not need any configuration and is easily setup:
+
+```csharp
+services.AddInMemorySubscriptionProvider();
+```
+
+## Redis Provider
+
+The redis subscription provider uses Redis as pub/sub system to handle messages, this enables you to run multiple instances of the _Hot Chocolate_ server and handle subscription events reliable.
+
+```csharp
+var configuration = new ConfigurationOptions
+{
+    Ssl = true,
+    AbortOnConnectFail = false,
+    Password = password
+};
+
+configuration.EndPoints.Add("host:port");
+
+services.AddRedisSubscriptionProvider(configuration);
+```
+
+Our Redis subscription provider uses the `StackExchange.Redis` Redis client underneath an we have integration tests against the Azure Cache.

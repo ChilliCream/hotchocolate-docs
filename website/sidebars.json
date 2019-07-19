@@ -28,7 +28,7 @@
       "directive",
       "middleware",
       "custom-context",
-      "subscription",
+      "code-first-subscription",
       "options",
       "type-conversion",
       "aspnet",
@@ -42,7 +42,6 @@
       "conventions",
       "extending-types",
       "relay"
-
     ],
     "Guides": [
       "migration",

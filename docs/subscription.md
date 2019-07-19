@@ -124,7 +124,12 @@ services.AddInMemorySubscriptionProvider();
 
 ## Redis Provider
 
-The redis subscription provider uses Redis as pub/sub system to handle messages, this enables you to run multiple instances of the _Hot Chocolate_ server and handle subscription events reliable.
+The redis subscription provider uses Redis as pub/sub system to handle messages, this enables you to run multiple instances of the _Hot Chocolate_ server and handle subscription events reliably.
+
+In order to use the Redis provider add the following package:
+`HotChocolate.Subscriptions.Redis`
+
+After you have added the package you can add the redis subscription provider to your services like the following:
 
 ```csharp
 var configuration = new ConfigurationOptions

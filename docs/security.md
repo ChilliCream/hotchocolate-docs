@@ -16,10 +16,10 @@ _Hot Chocolate_ provides you with some basic strategies to make your backend mor
 The first an most simple way to protect your api is to define how many items a page can have when you are using pagination. We added for this the scalar type `PaginationAmount`.
 
 ```csharp
-Schema.Create(c =>
-{
-    c.RegisterType(new PaginationAmountType(50));
-});
+SchemaBuilder.New()
+  .AddType(new PaginationAmountType(50))
+  ...
+  .Create();
 ```
 
 ## Execution Timeout

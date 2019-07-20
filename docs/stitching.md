@@ -179,10 +179,7 @@ Now let\`s remove the parts from the server template that we don't need.
 ```csharp
 services.AddDataLoaderRegistry();
 
-services.AddGraphQL(sp => Schema.Create(c =>
-{
-    c.RegisterQueryType<Query>();
-}));
+services.AddGraphQL(sp => SchemaBuilder.New().AddType<Query>().Create());
 ```
 
 ## Stitching Builder

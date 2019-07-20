@@ -22,14 +22,13 @@ builder.Use(next => context =>
 ### Field Middleware Example
 
 ```csharp
-Schema.Create(c =>
-{
-  c.Use(next => context =>
+SchemaBuilder.New()
+  .Use(next => context =>
   {
       context.ContextData["foo"] = "bar";
       return next.Invoke(context);
-  });
-});
+  })
+  .Create();
 ```
 
 ## Scoped Context Data

@@ -24,10 +24,9 @@ public class MyDirective
 In order to use a directive it has to be registered with the schema.
 
 ```csharp
-Schema.Create(c =>
-{
-    c.RegisterDirective<MyDirective>();
-});
+SchemaBuilder.New()
+    .AddDirectiveType<MyDirective>()
+    .Create();
 ```
 
 GraphQL specifies three directives in the spec (skip, include and deprecated) which are always registered with your schema.

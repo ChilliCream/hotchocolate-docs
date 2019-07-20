@@ -9,6 +9,8 @@ Moreover, you can throw a `QueryException` that will be be caught by the query e
 
 One further way to raise an error are non-terminating field errors. This can be raised by using `IResolverContext.RaiseError`. So, with this you can provide a result and raise an error for your current field.
 
+> If you do want to log errors head over to our diagnostic source [documentation](instrumentation.md) and see how you can hook up your logging framework of choice to it. 
+
 ## Error Builder
 
 Since, errors can have a lot of properties depending on your case we have introduced a new error builder which provides a nice API without thousends of overloads.
@@ -26,12 +28,18 @@ If some other exception is thrown during the query execution then the execution 
 
 If you want to translate exceptions into errors with useful information then you can write an `IErrorFilter`.
 
-An error filter has to be registered with the execution builder like the following.
+An error filter has to be registered with the execution builder or with your dependency injection.
 
 ```csharp
 IQueryExecuter executer = schema.MakeExecutable(builder =>
     builder.UseDefaultPipeline(options)
         .AddErrorFilter<MyErrorFilter>());
+```
+
+OR
+
+```csharp
+services.AddErrorFilter<MyErrorFilter>();
 ```
 
 It is also possible to just register the error filter as a delegate like the following.
@@ -63,5 +71,11 @@ return ErrorBuilder.From(error)
 In order to automatically add exception details to your GraphQL error you can switch the execution option to include exception details. By default we will switch this on if the debugger is attached. You can overwrite the behavior by setting the option.
 
 ```csharp
-Schema.Create(...).MakeExecutable(new QueryExecutionOptions { IncludeExceptionDetails = true });
+SchemaBuilder.New()
+    ...
+    .Create()
+    .MakeExecutable(new QueryExecutionOptions
+    {
+        IncludeExceptionDetails = true
+    });
 ```

@@ -145,7 +145,75 @@ Our API will let you start very quickly with pre-built templates that let you st
    }
    ```
 
+   ```csharp
+   public class QueryType : ObjectType<Query>
+   {
+       protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+       {
+         descriptor.Authorize("Everyone");
+         descriptor.Field(t => t.Hello()).Authorize("HumanResources");
+       }
+   }
+   ```
+
    [Learn more](authorization.md)
+   
+1. Built-in Support for Filters
+
+   We support database filters that offer you rich query capabilities through your GraphQL API.
+
+   ```csharp
+   public class QueryType : ObjectType<Query>
+   {
+       protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+       {
+         descriptor.Field(t => t.GetPersons()).UseFiltering();
+       }
+   }
+   ```
+
+   ```graphql
+   query filterPersons {
+     persons(where: { OR: [ { name_contains: "foo" } { name_starts_with: "bar" } ] })
+     {
+       name
+       friends {
+         name
+       }
+     }
+   }
+   ```
+
+   [Learn more](filters.md)
+
+1. Built-in Support for Relay Paging
+
+   Our paging support is just plug-and-play :)
+
+   ```csharp
+   public class QueryType : ObjectType<Query>
+   {
+       protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+       {
+         descriptor.Field(t => t.GetPersons()).UsePaging<PersonType>();
+       }
+   }
+   ```
+
+   ```graphql
+   query filterPersons {
+     persons(first: 10)
+     {
+       edges {
+         node {
+           name
+         }
+       }
+     }
+   }
+   ```
+
+   [Learn more](pagination.md)
 
 1. Support for GraphQL Subscriptions
 

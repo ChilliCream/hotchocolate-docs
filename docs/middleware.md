@@ -20,8 +20,8 @@ So, let us first have a look at the simplest case where we add a field middlewar
 Our middleware shall resolve the field data if the source-object (parent-object) that is passed down to the field resolver pipeline is a dictionary.
 
 ```csharp
-Schema.Create(
-    c => c.Use(next => context =>
+SchemaBuilder.New()
+    .Use(next => context =>
     {
         if(context.Parent<object>() is IDictionary<string, object> dict)
         {
@@ -32,7 +32,9 @@ Schema.Create(
         {
             return _next(context);
         }
-    }));
+    })
+    ...
+    .Create();
 ```
 
 In your middleware you can always decide if your middleware completes the pipeline or if it shall call the next pipeline component.
@@ -46,8 +48,8 @@ Another pattern is to reverse the execution of our middleware and first let the 
 Our field middleware can now convert the result that some other middleware component has produced.
 
 ```csharp
-Schema.Create(
-    c => c.Use(next => async context =>
+SchemaBuilder.New()
+    .Use(next => async context =>
     {
         await _next(context);
 
@@ -55,7 +57,9 @@ Schema.Create(
         {
             context.Result = s.ToUpper();
         }
-    }));
+    })
+    ...
+    .Create();
 ```
 
 Lets now have a look of how you can bind a middleware to a specific field.
@@ -63,8 +67,8 @@ Lets now have a look of how you can bind a middleware to a specific field.
 The first way to do that is to use `Map` on the schema configuration and basically map a middleware to a specific field.
 
 ```csharp
-Schema.Create(
-    c => c.Map("Query", "field", next => async context =>
+SchemaBuilder.New()
+    .Map("Query", "field", next => async context =>
     {
         await _next(context);
 
@@ -72,7 +76,9 @@ Schema.Create(
         {
             context.Result = s.ToUpper();
         }
-    }));
+    })
+    ...
+    .Create();
 ```
 
 Map is especially useful if you are building your schema with the schema-first approach.
@@ -85,15 +91,16 @@ public class FooType
 {
     protected override void Configure(IObjectTypeDescriptor<Foo> descriptor)
     {
-        descriptor.Field(t => t.Bar).Use(next => async context =>
-        {
-            await _next(context);
-
-            if(context.Result is string s)
+        descriptor.Field(t => t.Bar)
+            .Use(next => async context =>
             {
-                context.Result = s.ToUpper();
-            }
-        });
+                await _next(context);
+
+                if(context.Result is string s)
+                {
+                    context.Result = s.ToUpper();
+                }
+            });
     }
 }
 ```
@@ -194,7 +201,9 @@ public class UpperDirectiveType
 Directives have to be registered with the schema in order to be used in queries or schema types.
 
 ```csharp
-Schema.Create(t => t.RegisterDirective<UpperDirectiveType>());
+SchemaBuilder.New()
+    .AddDirectiveType<UpperDirectiveType>()
+    .Create();
 ```
 
 Once registered our directive can be used like the following in queries:

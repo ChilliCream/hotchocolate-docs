@@ -301,7 +301,9 @@ There are two ways to register the diagnostics observer with the execution engin
 Registering the observer with the `QueryExecutionBuilder` does not require any dependency injection provider, but let`s you only inject infrastructure services.
 
 ```csharp
-Schema.Create(c => ...)
+SchemaBuilder.New()
+    ...
+    .Create()
     .MakeExecutable(builder => builder
         .AddDiagnosticObserver<MyDiagnosticObserver>()
         .UseDefaultPipeline());
@@ -318,10 +320,15 @@ If you are registering the diagnostics observer with the dependency injection yo
 If you are using our `AddGraphQL` or `AddStitchedSchema` extensions, you should be covered. In the case that you are putting everything together yourself you will need to register the service provider with your schema manually.
 
 ```csharp
-service.AddSingleton(sp => Schema.Create(c =>
-{
-    c.RegisterServiceProvider(sp);
-}).AddSingleton(sp => sp.GetRequiredService<ISchema>().MakeExecutable());
+service.AddSingleton(sp => SchemaBuilder.New()
+    .AddServices(sp)
+    ...
+    .Create());
+
+QueryExecutionBuilder
+    .New()
+    .UseDefaultPipeline()
+    .Populate(services);
 ```
 
 ## Examples

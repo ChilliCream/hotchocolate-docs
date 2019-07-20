@@ -23,6 +23,7 @@
       },
       "dataloaders",
       "pagination",
+      "filters",
       "dependency-injection",
       "authorization",
       "directive",

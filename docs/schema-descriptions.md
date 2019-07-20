@@ -13,47 +13,46 @@ In schema-first scenarios the schema parser supports the inclusion of descriptio
 <!-- C# -->
 
 ```csharp
-Schema.Create(@"
-""""""
-A droid in the Star Wars universe.
-""""""
-type Droid {
-    ""The Id of the droid.""
-    id: String
+SchemaBuilder.New()
+    .AddDocumentFromString(@"
+        """"""
+        A droid in the Star Wars universe.
+        """"""
+        type Droid {
+            ""The Id of the droid.""
+            id: String
 
-    ""The name of the droid.""
-    name: String
-}
+            ""The name of the droid.""
+            name: String
+        }
 
-""""""
-An episode in the Star Wars series.
-""""""
-enum Episode {
-    ""Star Wars Episode IV: A New Hope""
-    NEWHOPE
+        """"""
+        An episode in the Star Wars series.
+        """"""
+        enum Episode {
+            ""Star Wars Episode IV: A New Hope""
+            NEWHOPE
 
-    ""Star Wars Episode V: Empire Strikes Back""
-    EMPIRE
+            ""Star Wars Episode V: Empire Strikes Back""
+            EMPIRE
 
-    ""Star Wars Episode VI: Return of the Jedi""
-    JEDI
-}
+            ""Star Wars Episode VI: Return of the Jedi""
+            JEDI
+        }
 
-type Query {
-    """"""
-    Get a droid by Id.
-    """"""
-    droid(
-        ""The Id of the droid.""
-        id: String
-    ): Droid
-}",
-c =>
-{
-    c.BindResolver(() => null).To("Query", "droid");
-    c.BindResolver(() => "1234").To("Droid", "id");
-    c.BindResolver(() => "R2D2").To("Droid", "name");
-});
+        type Query {
+            """"""
+            Get a droid by Id.
+            """"""
+            droid(
+                ""The Id of the droid.""
+                id: String
+            ): Droid
+        }")
+    .AddResolver("Query", "droid", () => null)
+    .AddResolver("Droid", "id", () => "1234")
+    .AddResolver("Droid", "name", () => "R2D2")
+    .Create();
 ```
 
 <!-- GraphQL -->

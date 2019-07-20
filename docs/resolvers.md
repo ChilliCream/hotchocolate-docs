@@ -31,15 +31,14 @@ c.BindResolver(ctx =>
 Furthermore, we could bind a class as a resolver type. Each of the members of the resolver type can be bound to fields in the schema.
 
 ```CSharp
-services.AddGraphQL(
-    File.ReadAllText("schema.graphql"),
-    sp => Schema.Create(c =>
-{
-    c.BindResolver<Query>()
-        .To("Query")
-        .Resolve("greetings")
-        .With(t => t.GetGreetings());
-}));
+services.AddGraphQL(so =>
+    SchemaBuilder.New()
+        .AddDocumentFromFile("schema.graphql")
+        .BindComplexType<Query>(b => b
+            .To("Query")
+            .Field(t => t.GetGreetings())
+            .Name("greetings"))
+        .Create());
 ```
 
 Since, the class `Query` is used as our resolver type, the query engine will automatically create an instance of this type as singleton. The lifetime of the resolver object is basically bound to the lifetime of the query executor.
@@ -49,12 +48,11 @@ We can also take charge of the lifetime management by registering the resolver t
 Sometimes, we do not want to explicitly declare resolvers since we have already modeled our entities very well and just want to map those to our schema. In this case we can just bind our type like the following:
 
 ```CSharp
-services.AddGraphQL(
-    File.ReadAllText("schema.graphql"),
-    sp => Schema.Create(c =>
-{
-    c.BindType<Query>().To("Query");
-}));
+services.AddGraphQL(so =>
+    SchemaBuilder.New()
+        .AddDocumentFromFile("schema.graphql")
+        .BindComplexType<Query>(b => b.To("Query"))
+        .Create());
 ```
 
 Entities are handled differently than resolver types.
@@ -70,17 +68,15 @@ In the case that we have not specified any resolvers for our bound entity, _Hot 
 Moreover, we can combine our approach in order to provide specific resolver logic for our entity or in order to extend on our entity. In many cases our entity may just represent part of the data structure that we want to expose in our schema. In this case we can just provide resolver logic to fill the gaps.
 
 ```CSharp
-services.AddGraphQL(
-    File.ReadAllText("schema.graphql"),
-    sp => Schema.Create(c =>
-{
-    c.BindType<Query>().To("Query");
-
-    c.BindResolver<QueryResolver>()
-        .To("Query")
-        .Resolve("greetings")
-        .With(t => t.GetGreetings(default));
-}));
+services.AddGraphQL(so =>
+    SchemaBuilder.New()
+        .AddDocumentFromFile("schema.graphql")
+        .BindComplexType<Query>(b => b.To("Query"))
+        .Bindresolver<QueryResolver>(b => b
+            .To("Query")
+            .Resolve("greetings")
+            .With(t => t.GetGreetings(default)))
+        .Create());
 ```
 
 In the above case the `GetGreetings` method has an argument `Query` which is our bound entity. Resolver methods can specify the original field arguments as specified by the field definition as well as context arguments.

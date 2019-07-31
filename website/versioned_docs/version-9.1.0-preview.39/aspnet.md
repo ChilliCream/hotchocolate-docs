@@ -1,6 +1,7 @@
 ---
-id: aspnet
+id: version-9.1.0-preview.39-aspnet
 title: ASP.net
+original_id: aspnet
 ---
 
 _Hot Chocolate_ supports ASP .Net Core and ASP .Net Framework out of the box. This means you can get started very quickly with both variants. There are example projects for both in our [repository](https://github.com/ChilliCream/hotchocolate/tree/master/examples) on GitHub.

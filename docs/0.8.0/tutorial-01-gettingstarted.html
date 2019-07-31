@@ -17,16 +17,16 @@
 <p>The quickest way to create a GraphQL server with <em>Hot Chocolate</em> is to use our server template. But in this tutorial you will build a <em>Hot Chocolate</em> GraphQL server from the ground up in order to learn how the components interconnect.</p>
 <p>Open your terminal, navigate to a location of your choice and run the following commands:</p>
 <pre><code class="hljs css language-bash"><span class="token function">mkdir</span> twitter-service
-<span class="token function">cd</span> twitter-service
+<span class="token builtin class-name">cd</span> twitter-service
 <span class="token function">mkdir</span> src
-<span class="token function">cd</span> src
+<span class="token builtin class-name">cd</span> src
 </code></pre>
 <p>This creates a directory for our GraphQL server project and adds the <code>src</code> directory which will hold the code files.
 Next up you will have to create a solution file and a server project.</p>
 <p>In your terminal run the following command to create the solution file and create a minimal ASP.net server project:</p>
 <pre><code class="hljs css language-bash">dotnet new web -n Server
 
-<span class="token function">cd</span> <span class="token punctuation">..</span>
+<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
 dotnet new sln -n Demo
 dotnet sln <span class="token function">add</span> src/Server
 </code></pre>

@@ -8,7 +8,7 @@ _Hot Chocolate_ supports ASP .Net Core and ASP .Net Framework out of the box. Th
 
 ## HTTP Usage
 
-_Hot Chocolate_ has implemented the [recomendations](https://graphql.org/learn/serving-over-http/) for serving GraphQL over HTTP. We are also supporting request batching over HTTP and subscriptions over websockets.
+_Hot Chocolate_ has implemented the [recommendations](https://graphql.org/learn/serving-over-http/) for serving GraphQL over HTTP. We are also supporting request batching over HTTP and subscriptions over websockets.
 
 ### HTTP POST
 
@@ -65,13 +65,13 @@ The response in both cases will by default be JSON. The response serializers can
 
 ### HTTP GET
 
-GraphQL can also be server through a HTTè GET request. You have the same options like with the POST request just that the request properties are provided as query parameters. GET request can be a good choice if you are looking to cache GraphQL requests.
+GraphQL can also be server through a HTTP GET request. You have the same options as with the POST request just that the request properties are provided as query parameters. GET request can be a good choice if you are looking to cache GraphQL requests.
 
 `http://localhost/graphql?query=query+getUser($id:ID){user(id:$id){name}}&variables={"id":"4"}`
 
 ### HTTP GET Schema
 
-Although you can get access to the schema metadata through introspection we also support fetching the GraphQL schema SDL. The GraphQL schema SDL is richer with information and easier to read.
+Although you can get access to the schema metadata through introspection, we also support fetching the GraphQL schema SDL. The GraphQL schema SDL is richer with information and easier to read.
 
 ### HTTP POST Batching
 
@@ -128,7 +128,7 @@ The first variant to batch is on request base, you basically send in an array of
 ]
 ```
 
-The second variant is called operation batching where you send in one request with multiple operations and sepcify the operations that shall be executed:
+The second variant is called operation batching where you send in one request with multiple operations and specify the operations that shall be executed:
 
 `http://localhost/graphql?batchOperations=[a,b]`
 
@@ -159,11 +159,11 @@ The second variant is called operation batching where you send in one request wi
 
 The executer will write the results to the stream as soon as they are available. This means that depending on your client implementation you can start using the results as they appear in order.
 
-By default we are serializing the result as a JSON array, but you can change the format to make it work better with your client implementation.
+By default, we are serializing the result as a JSON array, but you can change the format to make it work better with your client implementation.
 
 More about batching can be found [here](batching.md).
 
-## Websocket Support
+## WebSocket Support
 
 We have implemented the [GraphQL over WebSocket Protocol](https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md) specified by Apollo.
 
@@ -173,9 +173,9 @@ We have implemented the [GraphQL over WebSocket Protocol](https://github.com/apo
 
 ## ASP .Net Core
 
-The ASP .Net Core implementation is implemented modular. This means that each protocol that we have implemented is represented by a specific middleware that is provided as a separate package. Fear not we also provide a meta-package that bundles all the middlewares together.
+The ASP .Net Core implementation is implemented modular. This means that each protocol that we have implemented is represented by a specific middleware that is provided as a separate package. Fear not we also provide a meta-package that bundles all the middleware components together.
 
-If you just want to get started add the `HotChocolate.AspNetCore` package.
+If you just want to get started adding the `HotChocolate.AspNetCore` package.
 
 Next add the schema and all needed services for the middleware components:
 
@@ -188,7 +188,7 @@ services.AddGraphQL(
 
 > More about the schema builder can be found [here](schema.md).
 
-After we have setup the the schema and its services we now have to configure the middleware components.
+After we have setup the schema and its services, we now have to configure the middleware components.
 
 ```csharp
 app.UseGraphQL();
@@ -210,11 +210,11 @@ Instead of using `UseGraphQL` you can opt with these packages to use specific mi
 
 ## ASP .Net Framework
 
-The ASP .Net Framework implementation is implemented modular on top of OWIN. This means that each protocol that we have implemented is represented by a specific middleware that is provided as a separate package. Fear not we also provide a meta-package that bundles all the middlewares together.
+The ASP .Net Framework implementation is implemented modular on top of OWIN. This means that each protocol that we have implemented is represented by a specific middleware that is provided as a separate package. Fear not we also provide a meta-package that bundles all the middleware components together.
 
 > Currently there is no support for the subscription websockets protocol an ASP .Net Framework
 
-If you just want to get started add the `HotChocolate.AspNetClassic` package.
+If you just want to get started adding the `HotChocolate.AspNetClassic` package.
 
 Next add the schema and all needed services for the middleware components:
 
@@ -227,7 +227,7 @@ services.AddGraphQL(
 
 > More about the schema builder can be found [here](schema.md).
 
-After we have setup the the schema and its services we now have to configure the middleware components.
+After we have setup the schema and its services, we now have to configure the middleware components.
 
 ```csharp
 app.UseGraphQL(serviceProvider);

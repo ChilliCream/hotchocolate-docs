@@ -42,7 +42,8 @@
       "apollo-tracing",
       "conventions",
       "extending-types",
-      "relay"
+      "relay",
+      "batching"
     ],
     "Guides": [
       "migration",

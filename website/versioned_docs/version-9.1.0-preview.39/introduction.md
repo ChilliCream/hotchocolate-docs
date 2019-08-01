@@ -1,6 +1,7 @@
 ---
-id: introduction
+id: version-9.1.0-preview.39-introduction
 title: Introduction
+original_id: introduction
 ---
 
 Hot Chocolate is a .net GraphQL server platform that can help you build a GraphQL layer over your existing and new infrastructure.

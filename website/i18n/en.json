@@ -14,6 +14,9 @@
       "authorization": {
         "title": "Authorization"
       },
+      "batching": {
+        "title": "Batching"
+      },
       "code-first-introduction": {
         "title": "Introduction"
       },
@@ -61,6 +64,9 @@
       },
       "extending-types": {
         "title": "Extending Types"
+      },
+      "filters": {
+        "title": "Filter Support"
       },
       "instrumentation": {
         "title": "Instrumentation"
@@ -385,6 +391,126 @@
       },
       "version-0.8.1/version-0.8.1-stitching": {
         "title": "Schema Stitching"
+      },
+      "version-9.0.0/version-9.0.0-apollo-tracing": {
+        "title": "Apollo Tracing"
+      },
+      "version-9.0.0/version-9.0.0-authorization": {
+        "title": "Authorization"
+      },
+      "version-9.0.0/version-9.0.0-code-first-introduction": {
+        "title": "Introduction"
+      },
+      "version-9.0.0/version-9.0.0-code-first": {
+        "title": "Code-first"
+      },
+      "version-9.0.0/version-9.0.0-conventions": {
+        "title": "Conventions"
+      },
+      "version-9.0.0/version-9.0.0-custom-scalar-types": {
+        "title": "Scalar Type Support"
+      },
+      "version-9.0.0/version-9.0.0-dotnet-cli": {
+        "title": ".NET CLI"
+      },
+      "version-9.0.0/version-9.0.0-extending-types": {
+        "title": "Extending Types"
+      },
+      "version-9.0.0/version-9.0.0-introduction": {
+        "title": "Introduction"
+      },
+      "version-9.0.0/version-9.0.0-relay": {
+        "title": "Relay"
+      },
+      "version-9.0.0/version-9.0.0-schema-descriptions": {
+        "title": "Schema Descriptions"
+      },
+      "version-9.0.0/version-9.0.0-schema-enum-type": {
+        "title": "Enum Type"
+      },
+      "version-9.0.0/version-9.0.0-schema-first": {
+        "title": "Schema-first"
+      },
+      "version-9.0.0/version-9.0.0-schema-input-object-type": {
+        "title": "Input Object Type"
+      },
+      "version-9.0.0/version-9.0.0-schema-interface-type": {
+        "title": "Interface Type"
+      },
+      "version-9.0.0/version-9.0.0-schema-object-type": {
+        "title": "Object Type"
+      },
+      "version-9.0.0/version-9.0.0-schema-union-type": {
+        "title": "Union Type"
+      },
+      "version-9.0.0/version-9.0.0-schema": {
+        "title": "Schema"
+      },
+      "version-9.0.0/version-9.0.0-stitching": {
+        "title": "Schema Stitching"
+      },
+      "version-9.0.0/version-9.0.0-tutorial-01-gettingstarted": {
+        "title": "Getting Started"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-custom-context": {
+        "title": "Custom Context Data"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-dependency-injection": {
+        "title": "Dependency Injection"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-directives": {
+        "title": "Directives"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-errors": {
+        "title": "Error Filter"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-example-star-wars-code-first": {
+        "title": "Star Wars"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-filters": {
+        "title": "Filter Support"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-instrumentation": {
+        "title": "Instrumentation"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-introduction": {
+        "title": "Introduction"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-middleware": {
+        "title": "Middleware"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-options": {
+        "title": "Options"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-resolvers": {
+        "title": "Resolvers"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-schema-descriptions": {
+        "title": "Schema Descriptions"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-schema-union-type": {
+        "title": "Union Type"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-security": {
+        "title": "Security"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-stitching": {
+        "title": "Schema Stitching"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-code-first-subscription": {
+        "title": "Subscriptions"
+      },
+      "version-9.1.0-preview.33/version-9.1.0-preview.33-type-conversion": {
+        "title": "Type Conversion"
+      },
+      "version-9.1.0-preview.39/version-9.1.0-preview.39-aspnet": {
+        "title": "ASP.net"
+      },
+      "version-9.1.0-preview.39/version-9.1.0-preview.39-batching": {
+        "title": "Query Batching"
+      },
+      "version-9.1.0-preview.39/version-9.1.0-preview.39-introduction": {
+        "title": "Introduction"
       }
     },
     "links": {

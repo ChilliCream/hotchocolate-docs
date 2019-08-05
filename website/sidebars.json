@@ -43,7 +43,8 @@
       "conventions",
       "extending-types",
       "relay",
-      "batching"
+      "batching",
+      "persisted-queries"
     ],
     "Guides": [
       "migration",

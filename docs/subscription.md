@@ -18,25 +18,25 @@ subscription {
 }
 ```
 
-If you are using GraphQL over HTTP than it is most likely served over web sockets. Hot Chocolate implemented the Apollo subscriptions protocol in order to serve subscriptions over web sockets.
+When using GraphQL over HTTP subscriptions are most most likely served over websockets. Hot Chocolate has implemented the Apollo subscriptions protocol in order to serve subscriptions over websockets.
 
 ## Getting started
 
-Subscriptions types are almost implemented like a simple query. In many cases subscriptions are raised through mutations, but subscriptions could also be raised through other backend systems.
+The subscription type is almost implemented like a simple query. In many cases subscriptions are raised through mutations, but subscriptions could also be raised through other backend systems.
 
-In order to enable subscriptions you have to register a subscription provider with your server. Subscription provider represent a pub-/sub-system abstraction that handles the events.
+In order to enable subscriptions we have to register a subscription provider with our server. Subscription provider represent a pub-/sub-system abstraction that handles the events.
 
 We currently support the following subscription provider:
 
 - InMemory
-  This one is good enough if you have a single server and all events are triggered through your mutations.
+  This one is good enough if we have a single server and all events are triggered through our mutations.
 
 - Redis
-  We have an out-of-the-box redis subscription provider that uses the redis publish/subscribe functionality. If you have multiple instances of our server then this provider is your best option.
+  We have an out-of-the-box redis subscription provider that uses the redis publish/subscribe functionality. If we have multiple instances of our server then this provider is our best option.
 
-> We are in the process to add more pub-/sub-provider for Kafka, Redis Streams, Azure EventHub and Azure ServiceBus. We also can help you along if you want to implement your own subscription provider.
+> We are in the process to add more pub-/sub-provider for Kafka, Redis Streams, Azure EventHub and Azure ServiceBus. We also can help along if you want to implement your own subscription provider.
 
-In order to add the subsciption provider to your server add the following service in the `ConfigureServices` method of your `Startup.cs`:
+In order to add the subsciption provider to our server add the following service in the `ConfigureServices` method of our `Startup.cs`:
 
 ```csharp
 services.AddInMemorySubscriptionProvider();
@@ -47,6 +47,21 @@ or
 ```csharp
 services.AddRedisSubscriptionProvider(configuration);
 ```
+
+Finally, we have to configure our ASP.NET Core pipeline to use websockets:
+
+```csharp
+public class Startup
+{
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    {
+        app.UseWebSockets()
+          .UseGraphQL();
+    }
+}
+```
+
+> More about configuring ASP.Net Core can be found [here](aspnet.md).
 
 Once this is setup subscriptions are generally available. In order to define subscriptions we have to create a subscription type. The subscription type is just a regular `ObjectType`, so we create it like any other root type.
 
@@ -112,7 +127,7 @@ public class OnReviewMessage
 }
 ```
 
-If you want to have a working example for subscription head over to our ASP.net Core [example](https://github.com/ChilliCream/hotchocolate/tree/master/examples/AspNetCore.StarWars).
+> We have a working example for subscription in our Star Wars [example](https://github.com/ChilliCream/hotchocolate/tree/master/examples/AspNetCore.StarWars).
 
 ## In-Memory Provider
 
@@ -124,12 +139,12 @@ services.AddInMemorySubscriptionProvider();
 
 ## Redis Provider
 
-The redis subscription provider uses Redis as pub/sub system to handle messages, this enables you to run multiple instances of the _Hot Chocolate_ server and handle subscription events reliably.
+The redis subscription provider uses Redis as pub/sub system to handle messages, this enables us to run multiple instances of the _Hot Chocolate_ server and handle subscription events reliably.
 
 In order to use the Redis provider add the following package:
 `HotChocolate.Subscriptions.Redis`
 
-After you have added the package you can add the redis subscription provider to your services like the following:
+After we have added the package we can add the redis subscription provider to our services like the following:
 
 ```csharp
 var configuration = new ConfigurationOptions

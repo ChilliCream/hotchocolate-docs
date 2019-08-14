@@ -89,6 +89,9 @@
       "parser": {
         "title": "Parser"
       },
+      "persisted-queries": {
+        "title": "Persisted Queries"
+      },
       "relay": {
         "title": "Relay"
       },
@@ -392,6 +395,12 @@
       "version-0.8.1/version-0.8.1-stitching": {
         "title": "Schema Stitching"
       },
+      "version-10.0.0-rc.3/version-10.0.0-rc.3-introduction": {
+        "title": "Introduction"
+      },
+      "version-10.0.0-rc.3/version-10.0.0-rc.3-code-first-subscription": {
+        "title": "Subscriptions"
+      },
       "version-9.0.0/version-9.0.0-apollo-tracing": {
         "title": "Apollo Tracing"
       },
@@ -511,6 +520,12 @@
       },
       "version-9.1.0-preview.39/version-9.1.0-preview.39-introduction": {
         "title": "Introduction"
+      },
+      "version-9.1.0-preview.41/version-9.1.0-preview.41-introduction": {
+        "title": "Introduction"
+      },
+      "version-9.1.0-preview.41/version-9.1.0-preview.41-persisted-queries": {
+        "title": "Persisted Queries"
       }
     },
     "links": {

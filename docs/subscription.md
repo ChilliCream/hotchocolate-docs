@@ -7,7 +7,7 @@ title: Subscriptions
 
 Subscriptions is a GraphQL feature that allows a server to send data to its clients when a specific event on the server-side occurs.
 
-Subscribing to an event is like writing a standard query. The one difference here is the operaion keyword and that we are only allowed to have one root field in our query since the root fields represent events.
+Subscribing to an event is like writing a standard query. The one difference here is the operation keyword and that we are only allowed to have one root field in our query since the root fields represent events.
 
 ```graphql
 subscription {
@@ -159,4 +159,4 @@ configuration.EndPoints.Add("host:port");
 services.AddRedisSubscriptionProvider(configuration);
 ```
 
-Our Redis subscription provider uses the `StackExchange.Redis` Redis client underneath an we have integration tests against the Azure Cache.
+Our Redis subscription provider uses the `StackExchange.Redis` Redis client underneath and we have integration tests against the Azure Cache.

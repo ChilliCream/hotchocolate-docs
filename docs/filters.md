@@ -52,8 +52,8 @@ public class QueryType
     protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
     {
         descriptor.Field(t => t.GetPerson(default))
-            .Type<ListType<NonNullType<PersonType>>>();
-            .UseFiltering()
+            .Type<ListType<NonNullType<PersonType>>>()
+            .UseFiltering();
     }
 }
 
@@ -65,6 +65,8 @@ public class Query
     }
 }
 ```
+
+> ⚠️ **Note**: Be sure to install the `HotChocolate.Types.Filters` NuGet package.
 
 In the above example the person resolver just returns the `IQueryable` representing the data source. The `IQueryable` represents a not executed database query on which we are able to apply filters.
 

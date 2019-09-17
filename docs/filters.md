@@ -1,6 +1,6 @@
 ---
 id: filters
-title: Filter Support
+title: Filter and Sorting Support
 ---
 
 **What are filters?**
@@ -18,7 +18,7 @@ _Hot Chocolate_ by default will inspect your .Net model and infer from that the 
 The following type would yield the following filter operations:
 
 ```csharp
-public class Foo 
+public class Foo
 {
     public string Bar { get; set; }
 }
@@ -46,7 +46,7 @@ input FooFilter {
 Getting started with filters is very easy and if you do not want to explicitly define filters or customize anything then filters are super easy to use, lets have a look at that.
 
 ```csharp
-public class QueryType 
+public class QueryType
     : ObjectType<Query>
 {
     protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
@@ -57,7 +57,7 @@ public class QueryType
     }
 }
 
-public class Query 
+public class Query
 {
     public IQueryable<Person> GetPersons([Service]IPersonRepository repository)
     {
@@ -101,7 +101,7 @@ The above type defines explicitly for what fields filter operations are allowed 
 In order to apply this filter type we just have to provide the `UseFiltering` extension method with the filter type as type argument.
 
 ```csharp
-public class QueryType 
+public class QueryType
     : ObjectType<Query>
 {
     protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
@@ -118,3 +118,62 @@ public class QueryType
 With our filter solution you can write your own filter transformation which is fairly easy once you wrapped your head around transfroming graphs with visitors.
 
 We provide a `FilterVisitorBase` which is the base of our `QueryableFilterVisitor` and it is basically just implementing an new visitor that walks the filter graph and translates it into any other query syntax.
+
+## Sorting
+
+Like with filter support you can add sorting support to your database queries.
+
+```csharp
+public class QueryType
+    : ObjectType<Query>
+{
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+    {
+        descriptor.Field(t => t.GetPerson(default))
+            .Type<ListType<NonNullType<PersonType>>>();
+            .UseSorting()
+    }
+}
+```
+
+> ⚠️ **Note**: Be sure to install the `HotChocolate.Types.Sorting` NuGet package.
+
+If you want to combine for instance paging, filtering and sorting make sure that the order is like follows:
+
+```csharp
+public class QueryType
+    : ObjectType<Query>
+{
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+    {
+        descriptor.Field(t => t.GetPerson(default))
+            .UsePaging<PersonType>()
+            .UseFiltering()
+            .UseSorting();
+    }
+}
+```
+
+**Why is the order important?**
+
+Paging, filtering and sorting are modular middleware which form the field resolver pipeline.
+
+The above example basically forms the following pipeline:
+
+`Pageing -> Filtering -> Sorting -> Field Resolver`
+
+The paging middleware will first delegate to the next middleware, which is filtering.
+
+The filtering middleware will also first delegate to the next middleware, which is sorting.
+
+The sorting middleware will again first delegate to the next middleware, which is the actual filed resolver.
+
+The field resolver will call `GetPerson` which returns in this example an `IQueryable<Person>`. The queryable represents a not yet executed database query.
+
+After the resolver has been executed and put its result onto the middleware context the sorting middleware will apply the sort order on the query.
+
+After the sorting middleware has been executed and updated the result on the middleware context the filtering middleware will apply its filters on the queryable and updates the result on the middleware context.
+
+After the paging middleware has been executed and updated the result on the middleware context the paging middleware will slice the data and execute the queryable which will then actually pull in data from the data source.
+
+So, if we for instance applied paging as our last middleware the data set would have been sliced first and then filtered which in most cases is not what we acually want.

@@ -1,0 +1,877 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Schema Stitching · Hot Chocolate</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="**What is schema stitching actually?**"/><meta name="docsearch:version" content="10.0.0-rc.3"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Schema Stitching · Hot Chocolate"/><meta property="og:type" content="website"/><meta property="og:url" content="https://hotchocolate.io/"/><meta property="og:description" content="**What is schema stitching actually?**"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://hotchocolate.io/img/cupcake.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-72800164-3', 'auto');
+              ga('send', 'pageview');
+            </script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster:700,400"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100}
+          )
+        });
+        </script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/prism.css"/><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/signet.svg" alt="Hot Chocolate"/><h2 class="headerTitleWithLogo">Hot Chocolate</h2></a><a href="/versions"><h3>10.0.0-rc.3</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/10.0.0-rc.3/introduction" target="_self">Docs</a></li><li class=""><a href="/docs/10.0.0-rc.3/example-star-wars-code-first" target="_self">Examples</a></li><li class=""><a href="https://chillicream.com/blog" target="_blank">Blog</a></li><li class=""><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>API Reference</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Introduction<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/code-first">Code-first</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/schema-first">Schema-first</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">API Reference<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Schema Definition</h4><ul><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/schema">Schema</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/schema-object-type">Object Type</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/schema-interface-type">Interface Type</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/schema-union-type">Union Type</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/schema-input-object-type">Input Object Type</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/schema-enum-type">Enum Type</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/schema-descriptions">Schema Descriptions</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/custom-scalar-types">Scalar Type Support</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/resolvers">Resolvers</a></li></ul></div><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/dataloaders">Data Loaders</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/pagination">Pagination</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/filters">Filter Support</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/dependency-injection">Dependency Injection</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/authorization">Authorization</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/middleware">Middleware</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/custom-context">Custom Context Data</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/code-first-subscription">Subscriptions</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/options">Options</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/type-conversion">Type Conversion</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/aspnet">ASP.net</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/parser">Parser</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/errors">Error Filter</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/security">Security</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/validation-rule">Validation Rules</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/10.0.0-rc.3/stitching">Schema Stitching</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/instrumentation">Instrumentation</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/apollo-tracing">Apollo Tracing</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/conventions">Conventions</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/extending-types">Extending Types</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/relay">Relay</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/batching">Batching</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/persisted-queries">Persisted Queries</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Guides<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/migration">Migrating from 0.6.x</a></li><li class="navListItem"><a class="navItem" href="/docs/10.0.0-rc.3/dotnet-cli">.NET CLI</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/ChilliCream/hotchocolate-docs/edit/master/docs/stitching.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">Schema Stitching</h1></header><article><div><span><p><strong>What is schema stitching actually?</strong></p>
+<p>Schema stitching is the capability to merge multiple GraphQL schemas into one schema that can be queried.</p>
+<h2><a class="anchor" aria-hidden="true" id="introduction"></a><a href="#introduction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Introduction</h2>
+<p><strong>So, for what is that useful?</strong></p>
+<p>In our case we have lots of specialized services that serve data for specific problem domains. Some of these services are GraphQL services, some of them are REST services and yes sadly a little portion of those are still SOAP services.</p>
+<p>With <em>Hot Chocolate</em> schema stitching we are able to create a gateway that bundles all those services into one GraphQL schema.</p>
+<p><strong>Is schema stitching basically just putting two schemas together?</strong></p>
+<p>Just putting two schemas into one and avoid name collisions is simple. But what we want to achieve with schema stitching is one consistent schema.</p>
+<p><em>Hot Chocolate</em> schema stitching allows us to really integrate services into one schema by folding types into one another and even renaming or removing parts.</p>
+<p>With this we can create a consistent GraphQL schema that hides the implementation details of our backend services and provides the consumer of our endpoint with the capability to fetch the data they need with one call, no under- or over-fetching and most importantly no repeated fetching because we first needed to fetch that special id with which we now can fetch this other thingy.</p>
+<h2><a class="anchor" aria-hidden="true" id="getting-started"></a><a href="#getting-started" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Getting Started</h2>
+<p>In order to showcase how schema stitching works and what the problems are let us assume we have a service like twitter, where a user can post messages.</p>
+<p>Moreover, let us assume we have three teams working on internal micro-/domain-services that handle certain aspects of that service.</p>
+<p>The first service is handling the message stream and has the following schema:</p>
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">message</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Message
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newMessage</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewMessageInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewMessagePayload<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">createdAt</span><span class="token punctuation">:</span> DateTime<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessageInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessagePayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">message</span><span class="token punctuation">:</span> Message
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The second service is handling the users of the services and has the following schema:</p>
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">users</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload<span class="token operator">!</span>
+  <span class="token attr-name">resetPassword</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> ResetPasswordInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> ResetPasswordPayload<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Last but not least we have a third service handling the message analytics. In our example case we keep it simple and our analytics service just tracks three different counters per message. The schema for this service looks like the following:</p>
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">analytics</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> MessageAnalytics
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">MessageAnalytics</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">count</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> <span class="token class-name">CounterType</span> <span class="token punctuation">{</span>
+  <span class="token constant">VIEWS</span>
+  <span class="token constant">LIKES</span>
+  <span class="token constant">REPLIES</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>With those three separate schemas our UI team would have to fetch from multiple endpoints.</p>
+<p>Even worse for our UI team, in order to build a stream view that shows the message text and the name of the user who posted the message, they would have to first fetch all the messages and could only then fetch the names of the users.</p>
+<p>This is actually one of the very things GraphQL tries to solve.</p>
+<h2><a class="anchor" aria-hidden="true" id="setting-up-our-server"></a><a href="#setting-up-our-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setting up our server</h2>
+<p>Before we start with stitching itself let`s get into how to setup our server.</p>
+<p>Every <em>Hot Chocolate</em> server can be a stitching server. This means in order to get started we can just use the <em>Hot Chocolate</em> GraphQL server template and modify it a little bit to make the server a stitching server.</p>
+<p>If you do not have the <em>Hot Chocolate</em> GraphQL server template installed execute first the following command.</p>
+<pre><code class="hljs css language-bash">dotnet new -i HotChocolate.Templates.Server
+</code></pre>
+<p>After that we will create a new folder and add a new server to that folder.</p>
+<pre><code class="hljs css language-bash"><span class="token function">mkdir</span> stitching-demo
+<span class="token builtin class-name">cd</span> stitching-demo
+dotnet new graphql
+</code></pre>
+<p>With this we have now a functioning GraphQL server with a simple hello world example.</p>
+<p>In order to make this server a stitching server we now have to add the <em>Hot Chocolate</em> stitching engine.</p>
+<pre><code class="hljs css language-bash">dotnet <span class="token function">add</span> package HotChocolate.Stitching
+</code></pre>
+<p>Now that our GraphQL server is ready we can start to configure the endpoints of our remote schemas.</p>
+<blockquote>
+<p>Remote schemas are what we call the GraphQL schemas that we want to include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Sangria, Hot Chocolate etc.) that serves its schema over HTTP. Also we can include local schemas that are created with the <em>Hot Chocolate</em> .net API.</p>
+</blockquote>
+<p>The endpoints are declared by using a named <code>HttpClient</code> via the HttpClient factory that is included with ASP.net core.</p>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddHttpClient</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>sp<span class="token punctuation">,</span> client<span class="token punctuation">)</span> <span class="token operator">=></span>
+<span class="token punctuation">{</span>
+  client<span class="token punctuation">.</span>BaseAddress <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Uri</span><span class="token punctuation">(</span><span class="token string">"http://127.0.0.1:5050"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+services<span class="token punctuation">.</span><span class="token function">AddHttpClient</span><span class="token punctuation">(</span><span class="token string">"users"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>sp<span class="token punctuation">,</span> client<span class="token punctuation">)</span> <span class="token operator">=></span>
+<span class="token punctuation">{</span>
+  client<span class="token punctuation">.</span>BaseAddress <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Uri</span><span class="token punctuation">(</span><span class="token string">"http://127.0.0.1:5051"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+services<span class="token punctuation">.</span><span class="token function">AddHttpClient</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>sp<span class="token punctuation">,</span> client<span class="token punctuation">)</span> <span class="token operator">=></span>
+<span class="token punctuation">{</span>
+  client<span class="token punctuation">.</span>BaseAddress <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Uri</span><span class="token punctuation">(</span><span class="token string">"http://127.0.0.1:5052"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Now let`s remove the parts from the server template that we don't need.</p>
+<blockquote>
+<p>We will show some strategies of how to handle authenticated services later on.</p>
+</blockquote>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddDataLoaderRegistry</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+services<span class="token punctuation">.</span><span class="token function">AddGraphQL</span><span class="token punctuation">(</span>sp <span class="token operator">=></span> SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token punctuation">&lt;</span><span class="token class-name">Query</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="stitching-builder"></a><a href="#stitching-builder" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Stitching Builder</h2>
+<p>The stitching builder is the main API to configure a stitched GraphQL schema (GraphQL gateway). In order to have a simple auto-merge we have just to provide all the necessary schema names and the stitching layer will fetch the remote schemas via introspection on the first call to the stitched schema.</p>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddStitchedSchema</span><span class="token punctuation">(</span>builder <span class="token operator">=></span> builder
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"users"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Since a stitched schema is essentially no different to any other GraphQL schema, we can configure custom types, add custom middleware or do any other thing that we could do with a <em>Hot Chocolate</em> GraphQL schema.</p>
+<p>In our example we are stitching together schemas that come with non-spec scalar types like <code>DateTime</code>. So, the stitching layer would report a schema error when stitching the above three schemas together since the <code>DateTime</code> scalar is unknown.</p>
+<p>In order to declare this custom scalar we can register the extended scalar set like with a regular <em>Hot Chocolate</em> GraphQL schema through the <code>AddSchemaConfiguration</code>-method on the stitching builder.</p>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddStitchedSchema</span><span class="token punctuation">(</span>builder <span class="token operator">=></span> builder
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"users"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaConfiguration</span><span class="token punctuation">(</span>c <span class="token operator">=></span>
+  <span class="token punctuation">{</span>
+    c<span class="token punctuation">.</span><span class="token function">RegisterExtendedScalarTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>More information about our scalars can be found <a href="/docs/10.0.0-rc.3/custom-scalar-types">here</a>.</p>
+</blockquote>
+<p>With this in place our stitched schema now looks like the following:</p>
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">message</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Message
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">users</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">analytics</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> MessageAnalytics
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newMessage</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewMessageInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewMessagePayload<span class="token operator">!</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload<span class="token operator">!</span>
+  <span class="token attr-name">resetPassword</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> ResetPasswordInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> ResetPasswordPayload<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">createdAt</span><span class="token punctuation">:</span> DateTime<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessageInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessagePayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">message</span><span class="token punctuation">:</span> Message
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">MessageAnalytics</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">count</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> <span class="token class-name">CounterType</span> <span class="token punctuation">{</span>
+  <span class="token constant">VIEWS</span>
+  <span class="token constant">LIKES</span>
+  <span class="token constant">REPLIES</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>We have just achieved a simple schema merge without doing a lot of work. But honestly we would like to change some of the types. While the stitching result is nice, we would like to integrate the types with each other.</p>
+<h2><a class="anchor" aria-hidden="true" id="schema-extensions"></a><a href="#schema-extensions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Schema Extensions</h2>
+<p>So, the first thing that we would like to have is a new field on the query that is called <code>me</code>. The <code>me</code> field shall represent the currently signed in user of our service.</p>
+<p>Further, the user type should expose the message stream of the user, this way we could fetch the messages of the signed in user like the following:</p>
+<pre><code class="hljs css language-graphql"><span class="token punctuation">{</span>
+  me <span class="token punctuation">{</span>
+    messages <span class="token punctuation">{</span>
+      text
+      tags
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In order to extend types in a stitched schema we can use the new GraphQL extend syntax that was introduced with the 2018 spec.</p>
+<pre><code class="hljs css language-graphql">extend <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">me</span><span class="token punctuation">:</span> User<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"users"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"user(id: $contextData:UserId)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+extend <span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"messages"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"messages(userId: $fields:Id)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>With just that and no further code needed we have specified how the GraphQL stitching engine shall rewrite our schema.</p>
+<p>Let us dissect the above GraphQL SDL in order to understand what it does.</p>
+<p>First, let us have a look at the <code>Query</code> extension. We declared a field like we would do with the schema-first approach. After that we annotated the field with the <code>delegate</code> directive. The <code>delegate</code> directive basically works like a middleware that delegates calls to to a remote schema.</p>
+<p>The <code>path</code>-argument on the <code>delegate</code> directive specifies how to fetch the data from the remote schema. The selection path can have multiple levels. So, if we wanted to fetch just the username we could do that like the following:</p>
+<pre><code class="hljs css language-graphql">user<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token variable">$contextData</span><span class="token punctuation">:</span>UserId<span class="token punctuation">)</span>.username
+</code></pre>
+<p>Moreover, we are using a special variable that can access the resolver context.</p>
+<p>Currently this variable has four scopes:</p>
+<ul>
+<li><p>Arguments</p>
+<p>Access arguments of the annotated field field: <code>$arguments:ArgumentName</code></p></li>
+<li><p>Fields</p>
+<p>Access fields of the declaring type: <code>$fields:FieldName</code></p></li>
+<li><p>ContextData</p>
+<p>Access properties of the request context data map: <code>$contextData:Key</code></p></li>
+<li><p>ScopedContextData</p>
+<p>Access properties of the scoped field context data map: <code>$scopedContextData:Key</code></p></li>
+</ul>
+<p>The context data can be used to map custom properties into our GraphQL resolvers. In our case we will use it to map the internal user ID from the user claims into our context data map. This allows us to have some kind of abstraction between the actual HttpRequest and the data that is needed to process a GraphQL request.</p>
+<blockquote>
+<p>Documentation on how to add custom context data from a http request can be found <a href="/docs/10.0.0-rc.3/custom-context">here</a></p>
+</blockquote>
+<p>OK, let`s sum this up, with the <code>delegate</code> directive we are able to create powerful stitching resolvers without writing one line of c# code. Furthermore, we are able to create new types that make the API richer without those types having any representation in any of the remote schemas.</p>
+<p>In order to get our extensions integrated we need to add the extensions to our stitching builder. Like with the schema we have multiple extension methods to load the GraphQL SDL from a file or a string and so on.</p>
+<p>In our case let`s say we are loading it from a file called <code>Extensions.graphql</code>.</p>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddStitchedSchema</span><span class="token punctuation">(</span>builder <span class="token operator">=></span> builder
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"users"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddExtensionsFromFile</span><span class="token punctuation">(</span><span class="token string">"./graphql/Extensions.graphql"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaConfiguration</span><span class="token punctuation">(</span>c <span class="token operator">=></span>
+  <span class="token punctuation">{</span>
+    c<span class="token punctuation">.</span><span class="token function">RegisterExtendedScalarTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Now with all of this in place our schema looks like the following:</p>
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">me</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">message</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Message
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">users</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">analytics</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> MessageAnalytics
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newMessage</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewMessageInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewMessagePayload<span class="token operator">!</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload<span class="token operator">!</span>
+  <span class="token attr-name">resetPassword</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> ResetPasswordInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> ResetPasswordPayload<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">createdAt</span><span class="token punctuation">:</span> DateTime<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessageInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessagePayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">message</span><span class="token punctuation">:</span> Message
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">MessageAnalytics</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">count</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">type</span><span class="token punctuation">:</span> CounterType<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> <span class="token class-name">CounterType</span> <span class="token punctuation">{</span>
+  <span class="token constant">VIEWS</span>
+  <span class="token constant">LIKES</span>
+  <span class="token constant">REPLIES</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="schema-transformations"></a><a href="#schema-transformations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Schema Transformations</h2>
+<p>Though this is nice, we would like to go even further and enhance our <code>Message</code> type like the following:</p>
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> User
+  <span class="token attr-name">createdById</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">createdAt</span><span class="token punctuation">:</span> DateTime<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">views</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">likes</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">replies</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Moreover, we would like to remove the <code>analytics</code> field from our query type since we have integrated the analytics data directly into our <code>Message</code> type.</p>
+<p>Since with the root field gone we have no way of accessing <code>MessageAnalytics</code> and <code>CounterType</code>, let`s also get rid of these types.</p>
+<p>The stitching builder has powerful refactoring functions that even can be extended by writing custom document- and type-rewriters.</p>
+<p>In order to remove a field or a type we can tell the stitching builder to ignore them by calling one of the ignore extension methods.</p>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddStitchedSchema</span><span class="token punctuation">(</span>builder <span class="token operator">=></span> builder
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"users"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddExtensionsFromFile</span><span class="token punctuation">(</span><span class="token string">"./graphql/Extensions.graphql"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">IgnoreField</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token string">"Query"</span><span class="token punctuation">,</span> <span class="token string">"analytics"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">IgnoreType</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token string">"MessageAnalytics"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">IgnoreType</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token string">"CounterType"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaConfiguration</span><span class="token punctuation">(</span>c <span class="token operator">=></span>
+  <span class="token punctuation">{</span>
+    c<span class="token punctuation">.</span><span class="token function">RegisterExtendedScalarTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>There are also methods for renaming types and fields where the stitching engine will take care that the schema is consitently rewritten so that all the type references will refer to the corrent new type/field name.</p>
+</blockquote>
+<p>With that we have removed the types from our stitched schema. Now, let us move on to extend our message type.</p>
+<pre><code class="hljs css language-graphql">extend <span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"users"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"user(id: $fields:createdById)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">views</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">likes</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">replies</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Since we introduced a new field <code>createdBy</code> that basically overwrites the field that we have already declared on our original <code>Message</code> type, we need to rename the original field <code>createdBy</code> to <code>createdById</code> so that we are still able to use it.</p>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddStitchedSchema</span><span class="token punctuation">(</span>builder <span class="token operator">=></span> builder
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"users"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddExtensionsFromFile</span><span class="token punctuation">(</span><span class="token string">"./graphql/Extensions.graphql"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">IgnoreField</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token string">"Query"</span><span class="token punctuation">,</span> <span class="token string">"analytics"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">IgnoreType</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token string">"MessageAnalytics"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">IgnoreType</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token string">"CounterType"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">RenameField</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">,</span> <span class="token string">"Message"</span><span class="token punctuation">,</span> <span class="token string">"createdBy"</span><span class="token punctuation">,</span> <span class="token string">"createdById"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaConfiguration</span><span class="token punctuation">(</span>c <span class="token operator">=></span>
+  <span class="token punctuation">{</span>
+    c<span class="token punctuation">.</span><span class="token function">RegisterExtendedScalarTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>It is important to now that the document- and type-rewriters are executed before the schemas are merged and the extensions integrated.</p>
+</blockquote>
+<p>Our new schema now looks like the following:</p>
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">me</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">message</span><span class="token punctuation">(</span><span class="token attr-name">messageId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Message
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">userId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+  <span class="token attr-name">users</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newMessage</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewMessageInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewMessagePayload<span class="token operator">!</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload<span class="token operator">!</span>
+  <span class="token attr-name">resetPassword</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> ResetPasswordInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> ResetPasswordPayload<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> User
+  <span class="token attr-name">createdById</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">createdAt</span><span class="token punctuation">:</span> DateTime<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+  <span class="token attr-name">views</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">likes</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+  <span class="token attr-name">replies</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessageInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">text</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">tags</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewMessagePayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">message</span><span class="token punctuation">:</span> Message
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">ResetPasswordPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="query-rewriter"></a><a href="#query-rewriter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Query Rewriter</h2>
+<p>As can be seen, it is quite simple to stitch multiple schemas together and enhance them with the stitching builder.</p>
+<p><strong>But how can we go further and hook into the query rewriter of the stitching engine?</strong></p>
+<p>Let us for instance try to get rid of the <code>createdById</code> field of the <code>Message</code> type as we actually do not want to expose this field to the consumer of the stitched schema.</p>
+<p>Since our resolver for the newly introduced <code>createdBy</code> field is dependent on the <code>createdById</code> field in order to fetch the <code>User</code> from the remote schema, we would need to be able to request it as some kind of a hidden field whenever a <code>Message</code> object is resolved.</p>
+<p>We could then write a little field middleware that copies us the hidden field data into our scoped context data, so that we are consequently able to use the id in our <code>delegate</code> directive by accessing the <code>createdById</code> via the scoped context data instead of referring to a field of the <code>Message</code> type.</p>
+<p>The stitching engine allows us to hook into the the query rewrite process and add our own rewrite logic that could add fields or even large sub-queries.</p>
+<p>The first thing we need to do here is to create a new class that inherits from <code>QueryDelegationRewriterBase</code>.</p>
+<p>The base class exposes two virtual methods <code>OnRewriteField</code> and <code>OnRewriteSelectionSet</code>.</p>
+<p>A selection set describes a selection of fields and fragments on a certain type.</p>
+<p>So, in order to fetch a hidden field every time a certain type is requested we would want to overwrite <code>OnRewriteSelectionSet</code>.</p>
+<pre><code class="hljs css language-csharp"><span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">AddCreatedByIdQueryRewriter</span>
+    <span class="token punctuation">:</span> <span class="token class-name">QueryDelegationRewriterBase</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token class-name">SelectionSetNode</span> <span class="token function">OnRewriteSelectionSet</span><span class="token punctuation">(</span>
+        <span class="token class-name">NameString</span> targetSchemaName<span class="token punctuation">,</span>
+        <span class="token class-name">IOutputType</span> outputType<span class="token punctuation">,</span>
+        <span class="token class-name">IOutputField</span> outputField<span class="token punctuation">,</span>
+        <span class="token class-name">SelectionSetNode</span> selectionSet<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>outputType<span class="token punctuation">.</span><span class="token function">NamedType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">is</span> <span class="token class-name">ObjectType</span> objectType
+          <span class="token operator">&amp;&amp;</span> objectType<span class="token punctuation">.</span>Name<span class="token punctuation">.</span><span class="token function">Equals</span><span class="token punctuation">(</span><span class="token string">"Message"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> selectionSet<span class="token punctuation">.</span><span class="token function">AddSelection</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">FieldNode</span>
+                <span class="token punctuation">(</span>
+                    <span class="token keyword">null</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">NameNode</span><span class="token punctuation">(</span><span class="token string">"createdBy"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">NameNode</span><span class="token punctuation">(</span><span class="token string">"createdById"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    Array<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Empty</span><span class="token punctuation">&lt;</span><span class="token class-name">DirectiveNode</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    Array<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Empty</span><span class="token punctuation">&lt;</span><span class="token class-name">ArgumentNode</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">null</span>
+                <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> selectionSet<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The syntax nodes have a lot of little rewrite helpers like <code>AddSelection</code>. These helper methods basically branch of the syntax tree and return a new version that contains the applied change.</p>
+<p>In our case we get a new <code>SelectionSetNode</code> that now also contains a field <code>createdBy</code> with an alias <code>createdById</code>. In a real-world implementation we should use a more complex alias name like <code>___internal_field_createdById</code> in order to avoid collisions with field selections of the query.</p>
+<p>Query delegation rewriters are registered with the dependency injection and not with our stitching builder.</p>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddQueryDelegationRewriter</span><span class="token punctuation">&lt;</span><span class="token class-name">AddCreatedByIdQueryRewriter</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<blockquote>
+<p>Query delegation rewriters are hosted as scoped services and can be injected with <code>IStitchingContext</code> and <code>ISchema</code> in order to access the remote schemas or the stitched schema for advanced type information.</p>
+</blockquote>
+<p>With that in place, the stitching engine will always fetch the requested field for us whenever a <code>Message</code> object is requested.</p>
+<p>So, now let us move on to write a little middleware that copies this data into our scoped resolver context data map. The data in this map will only be available to the resolvers in the subtree of the message type.</p>
+<p>A field middleware has to be declared via the stitching builder.</p>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddStitchedSchema</span><span class="token punctuation">(</span>builder <span class="token operator">=></span> builder
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"users"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddExtensionsFromFile</span><span class="token punctuation">(</span><span class="token string">"./graphql/Extensions.graphql"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">IgnoreField</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token string">"Query"</span><span class="token punctuation">,</span> <span class="token string">"analytics"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">IgnoreType</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token string">"MessageAnalytics"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">IgnoreType</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token string">"CounterType"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">IgnoreField</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">,</span> <span class="token string">"Message"</span><span class="token punctuation">,</span> <span class="token string">"createdBy"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">AddSchemaConfiguration</span><span class="token punctuation">(</span>c <span class="token operator">=></span>
+  <span class="token punctuation">{</span>
+    c<span class="token punctuation">.</span><span class="token function">RegisterExtendedScalarTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    c<span class="token punctuation">.</span><span class="token function">Use</span><span class="token punctuation">(</span>next <span class="token operator">=></span> <span class="token keyword">async</span> context <span class="token operator">=></span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">await</span> next<span class="token punctuation">.</span><span class="token function">Invoke</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span>Field<span class="token punctuation">.</span>Type<span class="token punctuation">.</span><span class="token function">NamedType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">is</span> <span class="token class-name">ObjectType</span> objectType
+          <span class="token operator">&amp;&amp;</span> objectType<span class="token punctuation">.</span>Name<span class="token punctuation">.</span><span class="token function">Equals</span><span class="token punctuation">(</span><span class="token string">"Message"</span><span class="token punctuation">)</span>
+          <span class="token operator">&amp;&amp;</span> context<span class="token punctuation">.</span><span class="token class-name">Result</span> <span class="token keyword">is</span> IDictionary<span class="token operator">&lt;</span><span class="token keyword">string</span><span class="token punctuation">,</span> <span class="token keyword">object</span><span class="token operator">></span> data
+          <span class="token operator">&amp;&amp;</span> data<span class="token punctuation">.</span><span class="token function">TryGetValue</span><span class="token punctuation">(</span><span class="token string">"createdById"</span><span class="token punctuation">,</span> <span class="token keyword">out</span> <span class="token keyword">object</span> <span class="token keyword">value</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            context<span class="token punctuation">.</span>ScopedContextData <span class="token operator">=</span>
+                context<span class="token punctuation">.</span>ScopedContextData<span class="token punctuation">.</span><span class="token function">SetItem</span><span class="token punctuation">(</span><span class="token string">"createdById"</span><span class="token punctuation">,</span> <span class="token keyword">value</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>We could also declare a field middleware as class. More about what can be done with a field middleware can be found <a href="/docs/10.0.0-rc.3/middleware">here</a>.</p>
+</blockquote>
+<p>With all of this in place we can now rewrite our <code>Message</code> type extension and access the <code>createdById</code> from the scoped context data:</p>
+<pre><code class="hljs css language-graphql">extend <span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">createdBy</span><span class="token punctuation">:</span> User<span class="token operator">!</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"users"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"user(id: $scopedContextData:createdById)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">views</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">likes</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">replies</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="extending-the-schema-builder"></a><a href="#extending-the-schema-builder" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extending the Schema Builder</h2>
+<p>The stitching builder can be extended on multiple levels by writing different kinds of schema syntax rewriter.</p>
+<h3><a class="anchor" aria-hidden="true" id="source-schema-rewriter"></a><a href="#source-schema-rewriter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Source Schema Rewriter</h3>
+<p>The refactoring methods that we provide like <code>IgnoreField</code> or <code>RenameType</code> and so on rewrite the source schemas before they are merged.</p>
+<p>In order to rewrite the source schema we can opt to create a <code>IDocumentRewriter</code> that is able to rewrite the whole schema document, or a <code>ITypeRewriter</code> that only can rewrite parts of a type definition.</p>
+<p>If we wanted to delete a type or write a rewriter that also refactors the impacted types of a change then the <code>IDocumentRewriter</code> would be the way to go.</p>
+<p>If we wanted to rewrite just parts of a type like adding some documentation or adding new fields to a type, basically things that do not impact other types, we could opt for the <code>ITypeRewriter</code>.</p>
+<p>In both types we could opt to use the rewriter and visitor base classes that are included in our parser package.</p>
+<p>The type rewriter provides us also with a simple way to automatically rewrite fields and decorate them with the delegation attribute.</p>
+<pre><code class="hljs css language-csharp"><span class="token keyword">var</span> path <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SelectionPathComponent</span><span class="token punctuation">(</span>
+    field<span class="token punctuation">.</span>Name<span class="token punctuation">,</span>
+    field<span class="token punctuation">.</span>Arguments<span class="token punctuation">.</span><span class="token function">Select</span><span class="token punctuation">(</span>t <span class="token operator">=></span> <span class="token keyword">new</span> <span class="token class-name">ArgumentNode</span><span class="token punctuation">(</span>
+        t<span class="token punctuation">.</span>Name<span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token class-name">ScopedVariableNode</span><span class="token punctuation">(</span>
+            <span class="token keyword">null</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">NameNode</span><span class="token punctuation">(</span>ScopeNames<span class="token punctuation">.</span>Arguments<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            t<span class="token punctuation">.</span>Name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ToList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+field<span class="token punctuation">.</span><span class="token function">AddDelegationPath</span><span class="token punctuation">(</span><span class="token string">"schemaName"</span><span class="token punctuation">,</span> path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<blockquote>
+<p>Information about our parser can be found <a href="/docs/10.0.0-rc.3/parser">here</a>.</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="merged-schema-rewriter"></a><a href="#merged-schema-rewriter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Merged Schema Rewriter</h3>
+<p>Apart from the source schema rewriters we can also rewrite the schema document after it has been merged:</p>
+<pre><code class="hljs css language-csharp"><span class="token class-name">IStitchingBuilder</span> <span class="token function">AddMergedDocumentRewriter</span><span class="token punctuation">(</span>Func<span class="token operator">&lt;</span>DocumentNode<span class="token punctuation">,</span> DocumentNode<span class="token operator">></span> rewrite<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This can be very useful if we want to first let all source schema rewriters do their work and annotate the types. With the annotations in place we could write complex rewriters that further enhance our stitched schema.</p>
+<p>Also, if we just wanted to validate the schema for merge errors or collect information on the rewritten schema we are able to add schema visitors that run after all schema modifications are done.</p>
+<pre><code class="hljs css language-csharp"><span class="token class-name">IStitchingBuilder</span> <span class="token function">AddMergedDocumentVisitor</span><span class="token punctuation">(</span>Action<span class="token operator">&lt;</span>DocumentNode<span class="token operator">></span> visit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="merge-rules"></a><a href="#merge-rules" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Merge Rules</h3>
+<p>In most cases the default merge rules should be enough. But with more domain knowledge about the source schemas one could write more aggressive merge rules.</p>
+<p>The merge rules are chained and pass along what they cannot handle. The types of the various schemas are bucketed by name and passed to the merge rule chain.</p>
+<h2><a class="anchor" aria-hidden="true" id="error-handling"></a><a href="#error-handling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Error Handling</h2>
+<p>Errors from remote schemas are automatically rewritten and exposed as an error of the stitched schema. In order to rewrite an error correctly we need the path collection to be set; otherwise, the error will be exposed as global error.</p>
+<p>Like with just any <em>Hot Chocolate</em> schema you can add error filters in order to provide more context data or to provide a better rewrite logic. Our initial rewrite logic will add the unmodified original error as property <code>remote</code> to the extensions.</p>
+<h3><a class="anchor" aria-hidden="true" id="add-an-error-filter"></a><a href="#add-an-error-filter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Add an error filter</h3>
+<pre><code class="hljs css language-csharp">serviceCollection<span class="token punctuation">.</span><span class="token function">AddStitchedSchema</span><span class="token punctuation">(</span>builder <span class="token operator">=></span>
+    builder<span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"users"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">AddExecutionConfiguration</span><span class="token punctuation">(</span>b <span class="token operator">=></span>
+        <span class="token punctuation">{</span>
+            b<span class="token punctuation">.</span><span class="token function">AddErrorFilter</span><span class="token punctuation">(</span>error <span class="token operator">=></span>
+            <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> error<span class="token punctuation">.</span><span class="token function">AddExtension</span><span class="token punctuation">(</span><span class="token string">"STITCH"</span><span class="token punctuation">,</span> <span class="token string">"SOMETHING"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="get-the-original-error"></a><a href="#get-the-original-error" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get the original error</h3>
+<pre><code class="hljs css language-csharp">serviceCollection<span class="token punctuation">.</span><span class="token function">AddStitchedSchema</span><span class="token punctuation">(</span>builder <span class="token operator">=></span>
+    builder<span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"users"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">AddSchemaFromHttp</span><span class="token punctuation">(</span><span class="token string">"analytics"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">AddExecutionConfiguration</span><span class="token punctuation">(</span>b <span class="token operator">=></span>
+        <span class="token punctuation">{</span>
+            b<span class="token punctuation">.</span><span class="token function">AddErrorFilter</span><span class="token punctuation">(</span>error <span class="token operator">=></span>
+            <span class="token punctuation">{</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>Extensions<span class="token punctuation">.</span><span class="token function">TryGetValue</span><span class="token punctuation">(</span><span class="token string">"remote"</span><span class="token punctuation">,</span> <span class="token keyword">out</span> <span class="token keyword">object</span> o<span class="token punctuation">)</span>
+                  <span class="token operator">&amp;&amp;</span> o <span class="token keyword">is</span> <span class="token class-name">IError</span> originalError<span class="token punctuation">)</span>
+                <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> error<span class="token punctuation">.</span><span class="token function">AddExtension</span><span class="token punctuation">(</span>
+                      <span class="token string">"remote_code"</span><span class="token punctuation">,</span>
+                      originalError<span class="token punctuation">.</span>Code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">return</span> error<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<blockquote>
+<p>More about error filter can be found <a href="/docs/10.0.0-rc.3/errors">here</a>.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="authentication"></a><a href="#authentication" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Authentication</h2>
+<p>In many cases schemas will be protected by some sort of authentication. In most cases http requests are authenticated with bearer tokens that are passed along as <code>Authorization</code> header.</p>
+<p>Moreover, the most common case that we have seen so far is that people want to pass the tokens along to the remote schema.</p>
+<p>The stitching engine creates a lazy query executor that will only start merging the schemas on the first call to the GraphQL gateway. This allows us to use the token of an incoming call to execute the introspection queries on the remote schemas. This also safes us from having to store some kind of service token with the GraphQL gateway.</p>
+<p>In order to pass on the incoming <code>Authorization</code> header to our registered HttpClients we need to first register the HttpContext accessor from ASP.net core.</p>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddHttpContextAccessor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Next, we need to update our HttpClient factory declaration:</p>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddHttpClient</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>sp<span class="token punctuation">,</span> client<span class="token punctuation">)</span> <span class="token operator">=></span>
+<span class="token punctuation">{</span>
+    <span class="token class-name">HttpContext</span> context <span class="token operator">=</span> sp<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">GetRequiredService</span><span class="token punctuation">&lt;</span><span class="token class-name">IHttpContextAccessor</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>HttpContext<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>context<span class="token punctuation">.</span>Request<span class="token punctuation">.</span>Headers<span class="token punctuation">.</span><span class="token function">ContainsKey</span><span class="token punctuation">(</span><span class="token string">"Authorization"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        client<span class="token punctuation">.</span>DefaultRequestHeaders<span class="token punctuation">.</span>Authorization <span class="token operator">=</span>
+            AuthenticationHeaderValue<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span>
+                context<span class="token punctuation">.</span>Request<span class="token punctuation">.</span>Headers<span class="token punctuation">[</span><span class="token string">"Authorization"</span><span class="token punctuation">]</span>
+                    <span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    client<span class="token punctuation">.</span>BaseAddress <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Uri</span><span class="token punctuation">(</span><span class="token string">"http://127.0.0.1:5050"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Another variant can also be to store service tokens for the remote schemas with our GraphQL gateway.</p>
+<p>How you want to implement authentication strongly depends on your needs. With the reliance on the HttpClient factory from the ASP.net core foundation we are very flexible and can handle multiple scenarios.</p>
+<h2><a class="anchor" aria-hidden="true" id="making-http-clients-resilient"></a><a href="#making-http-clients-resilient" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Making HTTP clients resilient</h2>
+<p>When using stitching in production environments it is important to configure the HTTP clients to be resilient against connection losses and other HTTP errors. Since we are using Microsoft HttpClient factory, we can use <code>Polly</code> to configure retry policies and more. This is especially important if you are using external services like the GitHub GraphQL schema.</p>
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddHttpClient</span><span class="token punctuation">(</span><span class="token string">"GitHub"</span><span class="token punctuation">,</span> client <span class="token operator">=></span>
+<span class="token punctuation">{</span>
+    client<span class="token punctuation">.</span>BaseAddress <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Uri</span><span class="token punctuation">(</span><span class="token string">"https://api.github.com/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">AddTransientHttpErrorPolicy</span><span class="token punctuation">(</span>builder <span class="token operator">=></span> builder<span class="token punctuation">.</span><span class="token function">WaitAndRetryAsync</span><span class="token punctuation">(</span><span class="token keyword">new</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">{</span>
+    TimeSpan<span class="token punctuation">.</span><span class="token function">FromSeconds</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    TimeSpan<span class="token punctuation">.</span><span class="token function">FromSeconds</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    TimeSpan<span class="token punctuation">.</span><span class="token function">FromSeconds</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Microsoft provides a great documentation for Polly and we recommend to check it out: <a href="https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests">Use HttpClientFactory to implement resilient HTTP requests</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="batching"></a><a href="#batching" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Batching</h2>
+<p>The stitching layer transparently batches queries to the remote schemas. So, if you extend types like the following:</p>
+<pre><code class="hljs css language-graphql">extend <span class="token keyword">type</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">views</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">likes</span><span class="token punctuation">:</span> Int<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">replies</span><span class="token punctuation">:</span> Int<span class="token operator">!</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"analytics"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"analytics(id: $fields:id)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>We do send only a single request to your remote schema instead of three. The batching mechanism works not only within one type but extends to all requests that are executed in a resolver batch.</p>
+<p>Furthermore, we are also including calls that are done through direct calls on the <code>IStitchingContext</code>.</p>
+<p>Batching works very similar to <em>DataLoader</em> where the stitching engine sends requests through the <code>IRemoteQueryClient</code> which consequently only fetches the data once the query engine signals that all resolvers have been enqueued and have registered their calls against the remote schemas. This reduces the calls to the remote-schemas significantly and improves the overall performance.</p>
+<p>So, if we had two query calls:</p>
+<p>Query 1:</p>
+<pre><code class="hljs css language-graphql"><span class="token punctuation">{</span>
+  customer<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token string">"abc"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    name
+    contracts <span class="token punctuation">{</span>
+      id
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Query 2:</p>
+<pre><code class="hljs css language-graphql"><span class="token punctuation">{</span>
+  customer<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token string">"def"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    name
+    contracts <span class="token punctuation">{</span>
+      id
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>We would merge those two queries into one:</p>
+<pre><code class="hljs css language-graphql"><span class="token punctuation">{</span>
+  <span class="token attr-name">__1</span><span class="token punctuation">:</span> customer<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token string">"abc"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    name
+    contracts <span class="token punctuation">{</span>
+      id
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token attr-name">__2</span><span class="token punctuation">:</span> customer<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token string">"def"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    name
+    contracts <span class="token punctuation">{</span>
+      id
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>This lets the remote schema optimize the calls much better since now the remote schema could take advantage of things like <em>DataLoader</em> etc.</p>
+<h2><a class="anchor" aria-hidden="true" id="root-types"></a><a href="#root-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Root Types</h2>
+<p>We are currently supporting stitching <code>Query</code> and <code>Mutation</code>.</p>
+<p>With Version 9 we will introduce stitching the <code>Subscription</code> type.</p>
+<p>Stitching queries is straight forward and works like described earlier. Mutations are also quite straight forward, but it is often overlooked that mutations are executed with a different execution strategy.</p>
+<p>Query resolvers are executed in parallel when possible. All fields of a query have to be side-effect free.</p>
+<p><a href="https://facebook.github.io/graphql/June2018/#sec-Normal-and-Serial-Execution">https://facebook.github.io/graphql/June2018/#sec-Normal-and-Serial-Execution</a></p>
+<blockquote>
+<p>Normally the executor can execute the entries in a grouped field set in whatever order it chooses (normally in parallel). Because the resolution of fields other than top‐level mutation fields must always be side effect‐free and idempotent, the execution order must not affect the result, and hence the server has the freedom to execute the field entries in whatever order it deems optimal.</p>
+</blockquote>
+<p>The top‐level mutation fields are executed serially which guarantees that the top-level fields are executed one after the other.</p>
+<pre><code class="hljs css language-graphql"><span class="token keyword">mutation</span> <span class="token punctuation">{</span>
+  createUser<span class="token punctuation">(</span><span class="token attr-name">userName</span><span class="token punctuation">:</span> <span class="token string">"foo"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    someFields
+  <span class="token punctuation">}</span>
+  addUserToGroup<span class="token punctuation">(</span><span class="token attr-name">userName</span><span class="token punctuation">:</span> <span class="token string">"foo"</span><span class="token punctuation">,</span> <span class="token attr-name">groupName</span><span class="token punctuation">:</span> <span class="token string">"bar"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    someFields
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The above example first creates a user and then adds the created user to a group. This means that mutations can only be stitched on the top level. Everything, that you stitch in the lower levels is delegating the request to a <code>Query</code> type.</p>
+<p>Or, even simpler put, only fields that are declared on the mutation type can delegate to a mutation field on a remote query.</p>
+<p>Let's put that in a context.</p>
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload<span class="token operator">!</span> <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"users"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserInput</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">password</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">NewUserPayload</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">:</span> User
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> ID<span class="token operator">!</span>
+  <span class="token attr-name">username</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">messages</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Message<span class="token operator">!</span><span class="token punctuation">]</span>
+    <span class="token directive function">@delegate</span><span class="token punctuation">(</span><span class="token attr-name">schema</span><span class="token punctuation">:</span> <span class="token string">"messages"</span><span class="token punctuation">,</span> <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token string">"messages(userId: $fields:Id)"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In the above example we have a mutation that delegates the <code>newUser</code> field to the <code>newUser</code> mutation of the <code>users</code> schema. The mutation returns the <code>NewUserPayload</code> which has a field <code>user</code> that returns the newly created user. The <code>User</code> object delegates the <code>messages</code> field to the message schema. Since this field is resolved in the third level it will delegated to the query type of the <code>messages</code> schema.</p>
+<p>This also means that we cannot group mutations like we could group queries. So, something like the following would not work since it is not spec-compliant:</p>
+<pre><code class="hljs css language-graphql"><span class="token keyword">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">userMutations</span><span class="token punctuation">:</span> UserMutations
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">UserMutations</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">newUser</span><span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> NewUserInput<span class="token punctuation">)</span><span class="token punctuation">:</span> NewUserPayload
+<span class="token punctuation">}</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="stitching-context"></a><a href="#stitching-context" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Stitching Context</h2>
+<p>The stitching engine provides a lot of extension points, but if we wanted to write the stitching for one specific resolver by ourselves then we could do that by using the <code>IStitchingContext</code> which is a scoped service and can be resolved through the resolver context.</p>
+<pre><code class="hljs css language-csharp"><span class="token class-name">IStitchingContext</span> stitchingContext <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Service</span><span class="token punctuation">&lt;</span><span class="token class-name">IStichingContext</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">IRemoteQueryClient</span> remoteQueryClient <span class="token operator">=</span> stitchingContext<span class="token punctuation">.</span><span class="token function">GetRemoteQueryClient</span><span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">IExecutionResult</span> result <span class="token operator">=</span> remoteQueryClient<span class="token punctuation">.</span><span class="token function">ExecuteAsync</span><span class="token punctuation">(</span><span class="token string">"{ foo { bar } }"</span><span class="token punctuation">)</span>
+</code></pre>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-7-20 by Michael Staib</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/10.0.0-rc.3/validation-rule"><span class="arrow-prev">← </span><span>Validation Rules</span></a><a class="docs-next button" href="/docs/10.0.0-rc.3/instrumentation"><span>Instrumentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#getting-started">Getting Started</a></li><li><a href="#setting-up-our-server">Setting up our server</a></li><li><a href="#stitching-builder">Stitching Builder</a></li><li><a href="#schema-extensions">Schema Extensions</a></li><li><a href="#schema-transformations">Schema Transformations</a></li><li><a href="#query-rewriter">Query Rewriter</a></li><li><a href="#extending-the-schema-builder">Extending the Schema Builder</a><ul class="toc-headings"><li><a href="#source-schema-rewriter">Source Schema Rewriter</a></li><li><a href="#merged-schema-rewriter">Merged Schema Rewriter</a></li><li><a href="#merge-rules">Merge Rules</a></li></ul></li><li><a href="#error-handling">Error Handling</a><ul class="toc-headings"><li><a href="#add-an-error-filter">Add an error filter</a></li><li><a href="#get-the-original-error">Get the original error</a></li></ul></li><li><a href="#authentication">Authentication</a></li><li><a href="#making-http-clients-resilient">Making HTTP clients resilient</a></li><li><a href="#batching">Batching</a></li><li><a href="#root-types">Root Types</a></li><li><a href="#stitching-context">Stitching Context</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTBkZjNjZWIzMmNlZjQ5MDQyNDNjMmY3NzYzZjgyYTVmZDU2YjVmNDlhNjNlNTk2ZWRiYzIxMTkwYzA4ODA5Yzg" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '47d61652587888cd5144dcdd6fb9117b',
+                indexName: 'hotchocolate',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {"facetFilters":["language:en","version:10.0.0-rc.3"]}
+              });
+            </script></body></html>

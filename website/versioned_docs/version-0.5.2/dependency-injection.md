@@ -15,7 +15,7 @@ var schema = Schema.Create(c =>
 });
 ```
 
-This will allow you to inject services into the schema types as well as in the internal .net types.
+This will allow you to inject services into the schema types as well as in the internal .NET types.
 
 ```csharp
 public class FooType

@@ -150,7 +150,7 @@ query StoryComments {
 }
 ```
 
-In the above example we are exporting the `id` field result into a variable `ids`. Since we are exporting multiple ids the variable is essentially becoming a list. In our example we will get a list of `System.String`. As we collect the variables, we will hold them as the native .net type and only coerce them once we have to create the variable inputs for the next operation.
+In the above example we are exporting the `id` field result into a variable `ids`. Since we are exporting multiple ids the variable is essentially becoming a list. In our example we will get a list of `System.String`. As we collect the variables, we will hold them as the native .NET type and only coerce them once we have to create the variable inputs for the next operation.
 
 As can be seen in the above example we have not declared any variable for the next operation and are just using `$ids`. While we still could declare the variable explicitly, we can infer the variable declaration. The query engine will essentially rewrite the query.
 

@@ -81,11 +81,11 @@ public class Startup
 Second, we have to pass an HTTP header `GraphQL-Tracing=1` on the client-side
 with every query request we're interested in.
 
-When not using the _Hot Chocolate_ ASP.Net Core or Framework stack we have to
+When not using the _Hot Chocolate_ ASP.NET Core or Framework stack we have to
 implement the mapping from the HTTP header to the query request property by
 our self which isn't very difficult actually. See how it's solved in the
-_Hot Chocolate_ [ASP.Net Core and Framework stack].
+_Hot Chocolate_ [ASP.NET Core and Framework stack].
 
-[asp.net core and framework stack]: https://github.com/ChilliCream/hotchocolate/blob/master/src/Server/AspNetCore/QueryMiddlewareBase.cs#L161-L171
+[asp.NET core and framework stack]: https://github.com/ChilliCream/hotchocolate/blob/master/src/Server/AspNetCore/QueryMiddlewareBase.cs#L161-L171
 [performance tracing specification]: https://github.com/apollographql/apollo-tracing
 [specification]: https://facebook.github.io/graphql

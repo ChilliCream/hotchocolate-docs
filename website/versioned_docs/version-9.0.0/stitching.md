@@ -154,9 +154,9 @@ dotnet add package HotChocolate.Stitching
 
 Now that our GraphQL server is ready we can start to configure the endpoints of our remote schemas.
 
-> Remote schemas are what we call the GraphQL schemas that we want to include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Sangria, Hot Chocolate etc.) that serves its schema over HTTP. Also we can include local schemas that are created with the _Hot Chocolate_ .net API.
+> Remote schemas are what we call the GraphQL schemas that we want to include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Sangria, Hot Chocolate etc.) that serves its schema over HTTP. Also we can include local schemas that are created with the _Hot Chocolate_ .NET API.
 
-The endpoints are declared by using a named `HttpClient` via the HttpClient factory that is included with ASP.net core.
+The endpoints are declared by using a named `HttpClient` via the HttpClient factory that is included with ASP.NET core.
 
 ```csharp
 services.AddHttpClient("messages", (sp, client) =>
@@ -810,7 +810,7 @@ Moreover, the most common case that we have seen so far is that people want to p
 
 The stitching engine creates a lazy query executor that will only start merging the schemas on the first call to the GraphQL gateway. This allows us to use the token of an incoming call to execute the introspection queries on the remote schemas. This also safes us from having to store some kind of service token with the GraphQL gateway.
 
-In order to pass on the incoming `Authorization` header to our registered HttpClients we need to first register the HttpContext accessor from ASP.net core.
+In order to pass on the incoming `Authorization` header to our registered HttpClients we need to first register the HttpContext accessor from ASP.NET core.
 
 ```csharp
 services.AddHttpContextAccessor();
@@ -837,7 +837,7 @@ services.AddHttpClient("messages", (sp, client) =>
 
 Another variant can also be to store service tokens for the remote schemas with our GraphQL gateway.
 
-How you want to implement authentication strongly depends on your needs. With the reliance on the HttpClient factory from the ASP.net core foundation we are very flexible and can handle multiple scenarios.
+How you want to implement authentication strongly depends on your needs. With the reliance on the HttpClient factory from the ASP.NET core foundation we are very flexible and can handle multiple scenarios.
 
 ## Making HTTP clients resilient
 

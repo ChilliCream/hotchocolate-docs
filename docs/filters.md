@@ -13,7 +13,7 @@ The default filter implementation translates filters to expression trees that ar
 
 Filters by default work on `IQueryable` but you can also easily customize them to use other interfaces.
 
-_Hot Chocolate_ by default will inspect your .Net model and infer from that the possible filter operations.
+_Hot Chocolate_ by default will inspect your .NET model and infer from that the possible filter operations.
 
 The following type would yield the following filter operations:
 

@@ -3,11 +3,11 @@ id: code-first
 title: Code-first
 ---
 
-The code-first schema approach lets you built your GraphQL schema with .Net types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify your schema you can be everything in your favourite .Net language.
+The code-first schema approach lets you built your GraphQL schema with .NET types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify your schema you can be everything in your favourite .NET language.
 
 OK, let us get started and walk you through some examples in order to show the various approaches to define a schema.
 
-First we will look at how you can write plain .Net objects that can be used to infer GraphQL schema types.
+First we will look at how you can write plain .NET objects that can be used to infer GraphQL schema types.
 
 Define a new plain c# class called Query:
 
@@ -36,7 +36,7 @@ type Query {
 
 We didn't even have to write resolvers due to the fact that the schema inferred those from the hello function. Our hello function is basically our resolver.
 
-If you want to opt into more GraphQL features that cannot be inferred from a .Net type you can either use our schema types or use attributes.
+If you want to opt into more GraphQL features that cannot be inferred from a .NET type you can either use our schema types or use attributes.
 
 So, if we wanted the return type of our `hello` field to be a non-null string than we could tell our schema that like this:
 
@@ -64,7 +64,7 @@ var schema = SchemaBuilder.New()
     .Create();
 ```
 
-Furthermore, you can add fields that are not based on your .Net type `Query`.
+Furthermore, you can add fields that are not based on your .NET type `Query`.
 
 ```csharp
 public class QueryType : ObjectType<Query>
@@ -123,6 +123,6 @@ If you are interested about resolvers in more detail [this](resolvers.md) might 
 
 You are all fired up and want to get started with a little tutorial walking you through an end-to-end example with `MongoDB` as your database? [Follow me](tutorial-mongo.md)!
 
-OK, OK, you already have an idea on what to do and you are just looking for way to setup this whole thing with ASP.Net Core or ASP.Net Framework? [This](aspnet.md) is where you find more on that.
+OK, OK, you already have an idea on what to do and you are just looking for way to setup this whole thing with ASP.NET Core or ASP.NET Framework? [This](aspnet.md) is where you find more on that.
 
 If you want to set _Hot Chocolate_ up with AWS Lambda or Azure Functions head over to our slack channel, we do not yet have documentation on that but an example project showing how to. We are constantly adding to our documentation and will include documentation on that soon.

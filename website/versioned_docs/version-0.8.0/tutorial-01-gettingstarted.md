@@ -22,7 +22,7 @@ cd src
 This creates a directory for our GraphQL server project and adds the `src` directory which will hold the code files.
 Next up you will have to create a solution file and a server project.
 
-In your terminal run the following command to create the solution file and create a minimal ASP.net server project:
+In your terminal run the following command to create the solution file and create a minimal ASP.NET server project:
 
 ```bash
 dotnet new web -n Server
@@ -41,7 +41,7 @@ dotnet add src/Server package HotChocolate.AspNetCore
 dotnet restore
 ```
 
-The _HotChocolate.AspNetCore_ package contains the ASP.net core middleware for hot chocolate and also includes the _Hot Chocolate_ query engine as a dependency.  This package basically provides all we need to get started.
+The _HotChocolate.AspNetCore_ package contains the ASP.NET core middleware for hot chocolate and also includes the _Hot Chocolate_ query engine as a dependency.  This package basically provides all we need to get started.
 
 ## Configuring the GraphQL server
 

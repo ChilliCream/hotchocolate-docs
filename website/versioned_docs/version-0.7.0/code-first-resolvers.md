@@ -8,7 +8,7 @@ When you have started building your schema with code-first you might at first no
 
 The field resolvers for your types are generated when your schema is being created.
 
-Most of the time you will have your first contact with field resolvers when you start adding fields that do not have a representation in one of your .net types.
+Most of the time you will have your first contact with field resolvers when you start adding fields that do not have a representation in one of your .NET types.
 
 Lets start with a simple example and assume we have a Person type that has a property `Name` and a list of strings called `FriendIds`.
 
@@ -35,7 +35,7 @@ type Person {
 
 This will let us drill into the friends and their friends and so on very nicely.
 
-Now lets tell our schema how the .net type translates to our desired schema:
+Now lets tell our schema how the .NET type translates to our desired schema:
 
 ```csharp
 public class PersonType : ObjectType<Person>
@@ -71,7 +71,7 @@ public class Person
 
 ## Resolver Types
 
-Since the above solution would mess up your clean .net type we could also bind our resolver to a different type that contains our resolver method.
+Since the above solution would mess up your clean .NET type we could also bind our resolver to a different type that contains our resolver method.
 
 ```csharp
 public class PersonResolver

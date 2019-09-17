@@ -3,13 +3,13 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "A GraphQL Server for .net core and .net classic",
+    "tagline": "A GraphQL Server for .NET core and .NET classic",
     "docs": {
       "apollo-tracing": {
         "title": "Apollo Tracing"
       },
       "aspnet": {
-        "title": "ASP.net"
+        "title": "ASP.NET"
       },
       "authorization": {
         "title": "Authorization"
@@ -198,7 +198,7 @@
         "title": "Apollo Tracing"
       },
       "version-0.7.0/version-0.7.0-aspnet": {
-        "title": "ASP.net"
+        "title": "ASP.NET"
       },
       "version-0.7.0/version-0.7.0-authorization": {
         "title": "Authorization"
@@ -285,7 +285,7 @@
         "title": "Apollo Tracing"
       },
       "version-0.8.0/version-0.8.0-aspnet": {
-        "title": "ASP.net"
+        "title": "ASP.NET"
       },
       "version-0.8.0/version-0.8.0-authorization": {
         "title": "Authorization"
@@ -513,7 +513,7 @@
         "title": "Type Conversion"
       },
       "version-9.1.0-preview.39/version-9.1.0-preview.39-aspnet": {
-        "title": "ASP.net"
+        "title": "ASP.NET"
       },
       "version-9.1.0-preview.39/version-9.1.0-preview.39-batching": {
         "title": "Batching"

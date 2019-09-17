@@ -12,7 +12,7 @@ In order to know how to extend the type system it is important to know how we ac
 
 ### Create
 
-The type initializer creates the type instance and the type definition. The type definition contains all information to create and initialize a schema type. After the instance creation step is completed the type instance exists and is associated with a native .net type representation. The native .net type can be `object` but can also be something more specific like `string` or any other .net object. In this phase the type will also register all of its dependencies to other type system objects (types and directives) to the type initializer.
+The type initializer creates the type instance and the type definition. The type definition contains all information to create and initialize a schema type. After the instance creation step is completed the type instance exists and is associated with a native .NET type representation. The native .NET type can be `object` but can also be something more specific like `string` or any other .NET object. In this phase the type will also register all of its dependencies to other type system objects (types and directives) to the type initializer.
 
 ### Assign Name
 

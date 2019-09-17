@@ -3,11 +3,11 @@ id: parser
 title: Parser
 ---
 
-The _Hot Chocolate_ parser is a port from the `graphql-js` reference implementation. We are constantly updating the lexer and parser to keep up with new spec features in order to keep it the fastest and most feature complete GraphQL parser in .net.
+The _Hot Chocolate_ parser is a port from the `graphql-js` reference implementation. We are constantly updating the lexer and parser to keep up with new spec features in order to keep it the fastest and most feature complete GraphQL parser in .NET.
 
 ## Getting Started
 
-If you want to build GraphQL tooling for .net or your own type system and query-engine feel free to built on top of the _Hot Chocolate_ parser.
+If you want to build GraphQL tooling for .NET or your own type system and query-engine feel free to built on top of the _Hot Chocolate_ parser.
 
 In order to use the parser, install the following package:
 

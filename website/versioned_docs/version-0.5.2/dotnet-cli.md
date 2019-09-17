@@ -14,7 +14,7 @@ dotnet new -i HotChocolate.Templates.Server
 
 This will pull down the Hot Chocolate server template from nuget.org and integrate it into your dotnet CLI.
 
-_Since the .net SDKs are installed side by side the above command will only install the template into the current SDK. If you upgrade your SDK version you will need to rerun this command to install the template into your new SDK._
+_Since the .NET SDKs are installed side by side the above command will only install the template into the current SDK. If you upgrade your SDK version you will need to rerun this command to install the template into your new SDK._
 
 Moreover, if you want to update your template to a newer version first uninstall the current template version.
 
@@ -29,7 +29,7 @@ In order to create a new GraphQL server that already contains the hello world ex
 dotnet new graphql-server -n MyProjectName
 ```
 
-If you also love to develop .net in Visual Studio Code just run the following commands to get you started.
+If you also love to develop .NET in Visual Studio Code just run the following commands to get you started.
 
 ```bash
 mkdir graphql-demo

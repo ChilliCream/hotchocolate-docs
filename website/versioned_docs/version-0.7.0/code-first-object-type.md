@@ -8,7 +8,7 @@ The object type is the most prominent type in GraphQL. There are currently two w
 
 ## `ObjectType<T>`
 
-The first approach is by using the generic object type class which lets you specify an entity type that shall represent your schema type in .net. The object type descriptor will then try to automatically infer the GraphQL schema type from your .net type.
+The first approach is by using the generic object type class which lets you specify an entity type that shall represent your schema type in .NET. The object type descriptor will then try to automatically infer the GraphQL schema type from your .NET type.
 
 ```csharp
 public class Query
@@ -170,7 +170,7 @@ type Bar {
 
 ### IsOfType
 
-The object type descriptor will by default use an instance of approach to figure out if a resolver result is of a certain object type. In some cases when you either have no explicit type binding or you use a .net net type in multiple schema types it is necessary to specify a IsOfType delegate that determines the type of a resolver result.
+The object type descriptor will by default use an instance of approach to figure out if a resolver result is of a certain object type. In some cases when you either have no explicit type binding or you use a .NET net type in multiple schema types it is necessary to specify a IsOfType delegate that determines the type of a resolver result.
 
 ```csharp
 public class Bar
@@ -218,7 +218,7 @@ type Bar {
 
 ### Field
 
-There are two ways to define fields. First you can specify a field configuration by pointing to a property or method that is declared in your .net type.
+There are two ways to define fields. First you can specify a field configuration by pointing to a property or method that is declared in your .NET type.
 
 ```csharp
 public class Bar
@@ -242,7 +242,7 @@ type Bar {
 }
 ```
 
-Second, you can define fields that do not have any representation in your .net type.
+Second, you can define fields that do not have any representation in your .NET type.
 
 ```csharp
 public class Bar
@@ -271,7 +271,7 @@ The field descriptor options are described in more detail [here](code-first-obje
 
 ## ObjectType
 
-The second approach to describe object types is with the non-generic object type. The non-generic type does not necessarily have a fixed .net type binding. This means that you have more flexibility in defining your schema type and how the data flows through the query engine.
+The second approach to describe object types is with the non-generic object type. The non-generic type does not necessarily have a fixed .NET type binding. This means that you have more flexibility in defining your schema type and how the data flows through the query engine.
 
 ```csharp
 public class BarType
@@ -290,4 +290,4 @@ type Bar {
 }
 ```
 
-Compared to the generic descriptor interface you are loosing the generic field descriptor that is able to bind a field to a .net property or method.
+Compared to the generic descriptor interface you are loosing the generic field descriptor that is able to bind a field to a .NET property or method.

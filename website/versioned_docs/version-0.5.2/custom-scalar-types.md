@@ -35,7 +35,7 @@ public sealed class StringType
     {
     }
 
-    // define which .net type represents your type
+    // define which .NET type represents your type
     public override Type NativeType { get; } = typeof(string);
 
     // define which literals this type can be parsed from.
@@ -50,7 +50,7 @@ public sealed class StringType
             || literal is NullValueNode;
     }
 
-    // define how a literal is parsed to the native .net type.
+    // define how a literal is parsed to the native .NET type.
     public override object ParseLiteral(IValueNode literal)
     {
         if (literal == null)
@@ -96,7 +96,7 @@ public sealed class StringType
             "to be parsed by the string type.");
     }
 
-    // define the result serialization. A valid output must be of the following .net types:
+    // define the result serialization. A valid output must be of the following .NET types:
     // System.String, System.Char, System.Int16, System.Int32, System.Int64,
     // System.Float, System.Double, System.Decimal and System.Boolean
     public override object Serialize(object value)

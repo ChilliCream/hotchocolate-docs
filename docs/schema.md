@@ -123,7 +123,7 @@ This is very useful with schema stitching, since this allows us to consume remot
 
 ## Binding Types
 
-Types in a schema can be bound to a specific .Net type. When the schema builder infers schema types from .net types it will basically lookup to which schema type a .net type can be bound. For instance a `string` will be bound to a `StringType`.
+Types in a schema can be bound to a specific .NET type. When the schema builder infers schema types from .NET types it will basically lookup to which schema type a .NET type can be bound. For instance a `string` will be bound to a `StringType`.
 
 We can also bind additonal types to a single schema type. For instance we can bind the `System.Guid` to our `StringType`.
 
@@ -174,6 +174,6 @@ IQueryExecutor executor = schema.MakeExecutable();
 
 We can create multiple executors on a single schema and define different execution rules on the executor.
 
-In most cases we will not need to now, about this fact since most of the time the schema is hosted in ASP.Net and the middleware will take care of making it executable. But it is worth knowing it in case we want to write a unit test, host a query executor in a different environment than ASP.Net, or change the behavior of the executor.
+In most cases we will not need to now, about this fact since most of the time the schema is hosted in ASP.NET and the middleware will take care of making it executable. But it is worth knowing it in case we want to write a unit test, host a query executor in a different environment than ASP.NET, or change the behavior of the executor.
 
 > More about the query executor can be read [here](query-executor.md).

@@ -1,10 +1,10 @@
 ---
 id: version-9.1.0-preview.39-aspnet
-title: ASP.net
+title: ASP.NET
 original_id: aspnet
 ---
 
-_Hot Chocolate_ supports ASP .Net Core and ASP .Net Framework out of the box. This means you can get started very quickly with both variants. There are example projects for both in our [repository](https://github.com/ChilliCream/hotchocolate/tree/master/examples) on GitHub.
+_Hot Chocolate_ supports ASP .NET Core and ASP .NET Framework out of the box. This means you can get started very quickly with both variants. There are example projects for both in our [repository](https://github.com/ChilliCream/hotchocolate/tree/master/examples) on GitHub.
 
 ## HTTP Usage
 
@@ -171,9 +171,9 @@ We have implemented the [GraphQL over WebSocket Protocol](https://github.com/apo
 
 > We are still working on SignalR support and will publish the documentation once we are finished.
 
-## ASP .Net Core
+## ASP .NET Core
 
-The ASP .Net Core implementation is implemented modular. This means that each protocol that we have implemented is represented by a specific middleware that is provided as a separate package. Fear not we also provide a meta-package that bundles all the middleware components together.
+The ASP .NET Core implementation is implemented modular. This means that each protocol that we have implemented is represented by a specific middleware that is provided as a separate package. Fear not we also provide a meta-package that bundles all the middleware components together.
 
 If you just want to get started adding the `HotChocolate.AspNetCore` package.
 
@@ -208,11 +208,11 @@ It is also possible to setup only the components and services that you need. The
 
 Instead of using `UseGraphQL` you can opt with these packages to use specific middleware components like `UseGraphQLHttpGet`.
 
-## ASP .Net Framework
+## ASP .NET Framework
 
-The ASP .Net Framework implementation is implemented modular on top of OWIN. This means that each protocol that we have implemented is represented by a specific middleware that is provided as a separate package. Fear not we also provide a meta-package that bundles all the middleware components together.
+The ASP .NET Framework implementation is implemented modular on top of OWIN. This means that each protocol that we have implemented is represented by a specific middleware that is provided as a separate package. Fear not we also provide a meta-package that bundles all the middleware components together.
 
-> Currently there is no support for the subscription websockets protocol an ASP .Net Framework
+> Currently there is no support for the subscription websockets protocol an ASP .NET Framework
 
 If you just want to get started adding the `HotChocolate.AspNetClassic` package.
 

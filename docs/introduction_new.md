@@ -3,7 +3,7 @@ id: introduction
 title: Introduction
 ---
 
-Hot Chocolate is a .net GraphQL server platform that can help you build a GraphQL layer over your existing and new infrastructure.
+Hot Chocolate is a .NET GraphQL server platform that can help you build a GraphQL layer over your existing and new infrastructure.
 
 Our API will let you start very quickly with pre-built templates that let you start in seconds.
 
@@ -13,7 +13,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
 1. Code-First approach
 
-   Use your favorite .Net language to define your schema.
+   Use your favorite .NET language to define your schema.
 
    ```csharp
    public class Query
@@ -134,7 +134,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
 1. Built-in Authorization Directives
 
-   Use ASP.net Core policies on your fields to enable field base authorization.
+   Use ASP.NET Core policies on your fields to enable field base authorization.
 
    ```graphql
    type Query {
@@ -163,7 +163,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
 1. GraphQL Server
 
-   We support ASP.Net Core and ASP.Net Classic and constantly update these implementations. Hosting our GraphQL server with one of there frameworks is as easy as eating pie :)
+   We support ASP.NET Core and ASP.NET Classic and constantly update these implementations. Hosting our GraphQL server with one of there frameworks is as easy as eating pie :)
 
    Furthermore, you can host _Hot Chocolate_ as an Azure Function or AWS Lambda.
 
@@ -171,6 +171,6 @@ Our API will let you start very quickly with pre-built templates that let you st
 
 1. dotnet CLI Templates
 
-   In order to get you even faster started we are providing templates for the dotnet CLI which lets you setup a .net GraphQL server in less than 10 seconds.
+   In order to get you even faster started we are providing templates for the dotnet CLI which lets you setup a .NET GraphQL server in less than 10 seconds.
 
    [Learn more](dotnet-cli.md)

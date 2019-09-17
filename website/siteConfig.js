@@ -13,7 +13,7 @@ const blogUrl = organizationUrl + "/blog";
 
 const siteConfig = {
   title: "Hot Chocolate",
-  tagline: "A GraphQL Server for .net core and .net classic",
+  tagline: "A GraphQL Server for .NET core and .NET classic",
   url: "https://hotchocolate.io",
   cname: "hotchocolate.io",
   usePrism: true,

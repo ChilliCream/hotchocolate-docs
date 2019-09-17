@@ -113,7 +113,7 @@ public class OnReviewMessage
 }
 ```
 
-If you want to have a working example for subscription head over to our ASP.net Core [example](https://github.com/ChilliCream/hotchocolate/tree/master/examples/AspNetCore.StarWars).
+If you want to have a working example for subscription head over to our ASP.NET Core [example](https://github.com/ChilliCream/hotchocolate/tree/master/examples/AspNetCore.StarWars).
 
 ## In-Memory Provider
 

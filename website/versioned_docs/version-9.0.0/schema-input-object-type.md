@@ -26,7 +26,7 @@ type Mutation {
 }
 ```
 
-Input object in _Hot Chocolate_ can have a fixed .Net type representation but do not have to.
+Input object in _Hot Chocolate_ can have a fixed .NET type representation but do not have to.
 
 ```csharp
 public class Starship
@@ -45,9 +45,9 @@ public class StarshipInputType
 }
 ```
 
-If we do not have specified a .Net type the query engine will deserialize these input types to `Dictionary<string, object>`.
+If we do not have specified a .NET type the query engine will deserialize these input types to `Dictionary<string, object>`.
 
-When retrieving the argument through the resolver context you are able to request an input type as a compatible .Net type. This means that you are able to convert this input on the fly.
+When retrieving the argument through the resolver context you are able to request an input type as a compatible .NET type. This means that you are able to convert this input on the fly.
 
 ```csharp
 public class StarshipName
@@ -63,4 +63,4 @@ public Task<object> StarshipResolver(IResolverContext context)
 
 > Note, that this kind of conversion is done in the resolver`s pipeline instead of in the query pipeline.
 
-Compatible .Net types are types to which we are able to map the properties. The .Net type is allowed to have more or less fields then the input type specifies. Moreover, the .Net Type is allowed to have properties that cannot be matched.
+Compatible .NET types are types to which we are able to map the properties. The .NET type is allowed to have more or less fields then the input type specifies. Moreover, the .NET Type is allowed to have properties that cannot be matched.

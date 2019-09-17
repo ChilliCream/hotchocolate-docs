@@ -37,7 +37,7 @@ Apart from the core scalars we have also added support for an extended set of sc
 
 We will automatically detect which of our scalars you are using and only integrate those. This keeps your schema definition small and simple.
 
-For our built-in types we also have added automatic .Net type inference. This means that we will automatically translate for instance a `System.String` to a GraphQL `StringType`. You can override these default mappings by specifying these type bindings with the schema builder.
+For our built-in types we also have added automatic .NET type inference. This means that we will automatically translate for instance a `System.String` to a GraphQL `StringType`. You can override these default mappings by specifying these type bindings with the schema builder.
 
 ```csharp
 SchemaBuilder.New()
@@ -56,7 +56,7 @@ SchemaBuilder.New()
 ```
 
 Theses explict bindings will overwrite the internal default bindings.
-Specifying such a binding explicitly can also be important when you have two types that bind to the same .Net Type like with `DateTimeType` and `DateType`.
+Specifying such a binding explicitly can also be important when you have two types that bind to the same .NET Type like with `DateTimeType` and `DateType`.
 
 ```csharp
 SchemaBuilder.New()

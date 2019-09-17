@@ -4,7 +4,7 @@ title: Code-first
 original_id: code-first
 ---
 
-The code first schema approach lets you built your GraphQL schema with .net types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify your schema. All can be done in your favourite .net language.
+The code first schema approach lets you built your GraphQL schema with .NET types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify your schema. All can be done in your favourite .NET language.
 
 Lets walk you through some examples in order to show the various approaches to define a schema.
 
@@ -18,7 +18,7 @@ dotnet add package hotchocolate
 dotnet restore
 ```
 
-First we will look at how you can write plain .net objects that can be used to infer GraphQL schema types.
+First we will look at how you can write plain .NET objects that can be used to infer GraphQL schema types.
 
 Define a new plain c# class called Query:
 
@@ -46,7 +46,7 @@ type Query {
 We didn't even have to write resolvers due to the fact that the schema inferred those from the hello function. out hello function is basically our resolver.
 
 But there are some catches here. At the moment we can only infer scalar types like string, int etc..
-Furthermore, we can only infer non-nullability from value types. Reference types like System.String will always be inferred as nullable type since all reference types in .net are nullable.
+Furthermore, we can only infer non-nullability from value types. Reference types like System.String will always be inferred as nullable type since all reference types in .NET are nullable.
 
 Fear not, because there is a simple solution to this. If you want to redefine or add more fields to an existing type you can always opt-in to our fluent API to declare your intention.
 
@@ -69,7 +69,7 @@ public class QueryType : ObjectType<Query>
 }
 ```
 
-Also, you can add fields that are not based on your .net poco types.
+Also, you can add fields that are not based on your .NET poco types.
 
 ```csharp
 public class QueryType : ObjectType<Query>

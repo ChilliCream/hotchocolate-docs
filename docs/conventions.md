@@ -3,7 +3,7 @@ id: conventions
 title: Conventions
 ---
 
-When you build a schema with _Hot Chocolate_ we have a lot of conventions in place that let you infer the type structure and more from existing .Net types. These conventions are provided through the `DefaultNamingConventions` class and the `DefaultTypeInspector` class.
+When you build a schema with _Hot Chocolate_ we have a lot of conventions in place that let you infer the type structure and more from existing .NET types. These conventions are provided through the `DefaultNamingConventions` class and the `DefaultTypeInspector` class.
 
 `DefaultNamingConventions` handles how things are named (e.g. lower-camel-case) or where to fetch the description of member.
 `DefaultTypeInspector` on the other hand inspects the types and will infer the structure of the types.

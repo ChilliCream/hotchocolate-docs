@@ -25,7 +25,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    var executor = schema.MakeExecutable();
 
-   Console.WriteLine(executor.Execute("{ hello }"));
+   Console.WriteLine(executor.Execute("{ hello }").ToJson());
    ```
 
    [Learn more](code-first.md)
@@ -47,7 +47,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    var executor = schema.MakeExecutable();
 
-   Console.WriteLine(executor.Execute("{ hello }"));
+   Console.WriteLine(executor.Execute("{ hello }").ToJson());
    ```
 
    [Learn more](schema-first.md)
@@ -82,7 +82,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    var executor = schema.MakeExecutable();
 
-   Console.WriteLine(executor.Execute("{ hello foo }"));
+   Console.WriteLine(executor.Execute("{ hello foo }").ToJson());
    ```
 
    [Learn more](schema.md)

@@ -57,7 +57,7 @@ In your requests to the server you usually send the query wrapped in the JSON re
 }
 ```
 
-Instead of doing that we can now just specify the request like the followin:
+Instead of doing that we can now just specify the request like the following:
 
 ```json
 {

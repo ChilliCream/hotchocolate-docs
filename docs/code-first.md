@@ -3,13 +3,13 @@ id: code-first
 title: Code-first
 ---
 
-The code-first schema approach lets you built your GraphQL schema with .NET types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify your schema you can be everything in your favourite .NET language.
+The code-first schema approach lets you built your GraphQL schema with .NET types and gives you all the goodness of strong types. Moreover, there is no need to switch to the GraphQL syntax in order to specify your schema, you can do everything in your favourite .NET language.
 
 OK, let us get started and walk you through some examples in order to show the various approaches to define a schema.
 
 First we will look at how you can write plain .NET objects that can be used to infer GraphQL schema types.
 
-Define a new plain c# class called Query:
+Define a new plain C# class called Query:
 
 ```csharp
 public class Query
@@ -36,9 +36,9 @@ type Query {
 
 We didn't even have to write resolvers due to the fact that the schema inferred those from the hello function. Our hello function is basically our resolver.
 
-If you want to opt into more GraphQL features that cannot be inferred from a .NET type you can either use our schema types or use attributes.
+If you want to opt into more GraphQL features that cannot be inferred from a .NET type, you can either use our schema types or use attributes.
 
-So, if we wanted the return type of our `hello` field to be a non-null string than we could tell our schema that like this:
+So, if we wanted the return type of our `hello` field to be a non-null string than we could configure the schema like this:
 
 ```csharp
 var schema = SchemaBuilder.New()
@@ -88,9 +88,9 @@ type Query {
 
 The `foo` field would use the specified delegate to resolve the field value. The fluent API offers you the same feature set as the GraphQL schema syntax.
 
-Next let us have a look at resolver arguments. GraphQL fields let you define arguments, so the are more like methods in C# that properties.
+Next, let us have a look at resolver arguments. GraphQL fields let you define arguments, so they are more like methods in C# than properties.
 
-If we add a parameter to our `Hello` method the `SchemaBuilder` will translate that into a GraphQL field argument.
+If we add a parameter to our `Hello` method, the `SchemaBuilder` will translate that into a GraphQL field argument.
 
 ```csharp
 public class Query
@@ -105,7 +105,7 @@ type Query {
 }
 ```
 
-In order to get access to the resolver context in your resilver you can just add the `IResolverContext` as method parameter and the query engine will inject you the context:
+In order to get access to the resolver context in your resolver, you can just add the `IResolverContext` as a method parameter and the query engine will automatically inject the context:
 
 ```csharp
 public class Query
@@ -115,11 +115,11 @@ public class Query
 }
 ```
 
-There is a lot more that you can do with code-first and this was just a quick introduction. In order to learn more head over to the following documentation articles:
+This was just a quick introduction - There is a lot more that you can do with code-first! In order to learn more, head over to the following documentation articles:
 
-If you want to read more about the `SchemaBuilder` head over [here](schema.md).
+- If you want to read more about the `SchemaBuilder` head over [here](schema.md).
 
-If you are interested about resolvers in more detail [this](resolvers.md) might be the right place for you.
+- If you are interested about resolvers in more detail [this](resolvers.md) might be the right place for you.
 
 You are all fired up and want to get started with a little tutorial walking you through an end-to-end example with `MongoDB` as your database? [Follow me](tutorial-mongo.md)!
 

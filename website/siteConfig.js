@@ -10,6 +10,7 @@
 const repoUrl = "https://github.com/ChilliCream/hotchocolate";
 const organizationUrl = "https://chillicream.com";
 const blogUrl = organizationUrl + "/blog";
+const shopUrl = "https://shop.chillicream.com";
 
 const siteConfig = {
   title: "Hot Chocolate",
@@ -19,6 +20,7 @@ const siteConfig = {
   usePrism: true,
   baseUrl: "/",
   blogUrl,
+  shopUrl,
   repoUrl,
   gaTrackingId: "UA-72800164-3",
   projectName: "hotchocolate-docs",
@@ -39,6 +41,11 @@ const siteConfig = {
     {
       href: blogUrl,
       label: "Blog",
+      external: true
+    },
+    {
+      href: shopUrl,
+      label: "Shop",
       external: true
     },
     {

@@ -1,6 +1,7 @@
 ---
-id: example-star-wars-code-first
+id: version-10.2.0-preview.example-star-wars-code-first
 title: Star Wars
+original_id: example-star-wars-code-first
 ---
 
 We have created a dotnet CLI template for the [GraphQL.org](https://graphql.org) Star Wars example. So, you can follow the example and get an impression how you could implement such a schema with our API. In order to get it just run the following dotnet CLI command.

@@ -103,7 +103,7 @@ type Person @authorize(policy: "AllEmployees") {
 }
 ```
 
-In the above example the name field is accessible to all users that fall under the `AllEmployees` policy, whereas the directive on the address field takes precedence over the `@authorize`-directive on the object type definition. This means that only users can access the address field that fall under the `SalesDepartment` policy.
+In the above example the name field is accessible to all users that fall under the `AllEmployees` policy, whereas the directive on the address field takes precedence over the `@authorize`-directive on the object type definition. This means that only users that fall under the `SalesDepartment` policy can access the address field.
 
 It is important to note that _policy-based authorization_ is only available with ASP.NET core. So, if you are working with ASP.NET classic or if you just want a simple role based authorization you can still use our `@authorize`-directive with the roles argument.
 

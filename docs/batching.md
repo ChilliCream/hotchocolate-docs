@@ -88,7 +88,7 @@ Request batching is essentially a way to send in multiple GraphQL-JSON-requests.
         "operationName": "getHero",
 
         # A key under which a query document was safed on the server.
-        "namedQuery": "W5vrrAIypCbniaIYeroNnw==",
+        "id": "W5vrrAIypCbniaIYeroNnw==",
 
         # The variable values for this request.
         "variables": {
@@ -110,7 +110,7 @@ Request batching is essentially a way to send in multiple GraphQL-JSON-requests.
         "operationName": "getHero",
 
         # A key under which a query document was safed on the server.
-        "namedQuery": "W5vrrAIypCbniaIYeroNnw==",
+        "id": "W5vrrAIypCbniaIYeroNnw==",
 
         # The variable values for this request.
         "variables": {

@@ -61,7 +61,7 @@ Instead of doing that we can now just specify the request like the following:
 
 ```json
 {
-  "namedQuery": "W5vrrAIypCbniaIYeroNnw=="
+  "id": "W5vrrAIypCbniaIYeroNnw=="
 }
 ```
 

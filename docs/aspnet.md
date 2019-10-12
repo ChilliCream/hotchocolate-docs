@@ -24,7 +24,7 @@ application/json: the POST body will be parsed as a JSON object of parameters.
     "operationName": "getHero",
 
     # A key under which a query document was safed on the server.
-    "namedQuery": "W5vrrAIypCbniaIYeroNnw==",
+    "id": "W5vrrAIypCbniaIYeroNnw==",
 
     # The variable values for this request.
     "variables": {
@@ -88,7 +88,7 @@ The first variant to batch is on request base, you basically send in an array of
         "operationName": "getHero",
 
         # A key under which a query document was safed on the server.
-        "namedQuery": "W5vrrAIypCbniaIYeroNnw==",
+        "id": "W5vrrAIypCbniaIYeroNnw==",
 
         # The variable values for this request.
         "variables": {
@@ -110,7 +110,7 @@ The first variant to batch is on request base, you basically send in an array of
         "operationName": "getHero",
 
         # A key under which a query document was safed on the server.
-        "namedQuery": "W5vrrAIypCbniaIYeroNnw==",
+        "id": "W5vrrAIypCbniaIYeroNnw==",
 
         # The variable values for this request.
         "variables": {
@@ -140,7 +140,7 @@ The second variant is called operation batching where you send in one request wi
     "operationName": "getHero",
 
     # A key under which a query document was safed on the server.
-    "namedQuery": "W5vrrAIypCbniaIYeroNnw==",
+    "id": "W5vrrAIypCbniaIYeroNnw==",
 
     # The variable values for this request.
     "variables": {

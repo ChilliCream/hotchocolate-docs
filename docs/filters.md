@@ -83,7 +83,7 @@ public class PersonFilterType
     : FilterInputType<Person>
 {
     protected override void Configure(
-        IFilterInputTypeDescriptor<Foo> descriptor)
+        IFilterInputTypeDescriptor<Person> descriptor)
     {
         descriptor
             .BindFieldsExplicitly()

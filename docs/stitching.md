@@ -333,7 +333,7 @@ Currently this variable has four scopes:
 
 - Arguments
 
-  Access arguments of the annotated field field: `$arguments:ArgumentName`
+  Access arguments of the annotated field: `$arguments:ArgumentName`
 
 - Fields
 

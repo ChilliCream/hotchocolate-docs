@@ -28,7 +28,7 @@ When you bind GraphQL enum types to .NET enum types then _Hot Chocolate_ will in
 ```csharp
 public class DayType : EnumType<Day>
 {
-    protected override void Configure(IInputObjectTypeDescriptor<Starship> descriptor)
+    protected override void Configure(IEnumTypeDescriptor<Day> descriptor)
     {
         descriptor.Value(Day.Monday)
             .Name("MY_CUSTOM_NAME")
@@ -43,7 +43,7 @@ You can also bind the enumeration type to any other .NET type.
 ```csharp
 public class DayType : EnumType<string>
 {
-    protected override void Configure(IInputObjectTypeDescriptor<Starship> descriptor)
+    protected override void Configure(IEnumTypeDescriptor<string> descriptor)
     {
         descriptor.Value("monday")
             .Name("MY_CUSTOM_NAME")

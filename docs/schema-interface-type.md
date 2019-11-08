@@ -49,7 +49,7 @@ Like with objects we can also specify an interface with a schema type to express
 public class NodeType
     : InterfaceType<INode>
 {
-    protected override Configure(IInterfaceTypeDescriptor<INode> descriptor)
+    protected override void Configure(IInterfaceTypeDescriptor<INode> descriptor)
     {
         descriptor.Name("Node");
         descriptor.Field(t => t.Id).Type<NonNullType<IdType>>();
@@ -67,7 +67,7 @@ Also like with any type you have a generic schema type and a non-generic one:
 public class NodeType
     : InterfaceType
 {
-    protected override Configure(IInterfaceTypeDescriptor descriptor)
+    protected override void Configure(IInterfaceTypeDescriptor descriptor)
     {
         descriptor.Name("Node");
         descriptor.Field("id").Type<NonNullType<IdType>>();
@@ -133,7 +133,7 @@ In this case we could tell our schema type that we are implementing it.
 public class FooType
     : ObjectType<Foo>
 {
-    protected override Configure(IObjectTypeDescriptor<Foo> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<Foo> descriptor)
     {
         descriptor.Implements<NodeType>();
     }

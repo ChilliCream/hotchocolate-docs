@@ -51,7 +51,7 @@ public class QueryType
 {
     protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
     {
-        descriptor.Field(t => t.GetPerson(default))
+        descriptor.Field(t => t.GetPersons(default))
             .Type<ListType<NonNullType<PersonType>>>()
             .UseFiltering();
     }

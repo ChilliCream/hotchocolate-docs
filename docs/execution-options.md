@@ -13,7 +13,7 @@ We have built in some options that limit the execution engine in order do protec
 | ------------------------ | -------- | -------------------------- | ----------------------------------------------------------------------------- |
 | EnableTracing            | bool     | `false`                    | Enables tracing for performance measurement of query requests. _\*_           |
 | ExecutionTimeout         | TimeSpan | `TimeSpan.FromSeconds(30)` | The maximum allowed execution time of a query.                                |
-| IncludeExceptionDetails  | bool     | `Debugger.IsAttached`      | Includes exeption details into the GraphQL errors. _\*\*_                     |
+| IncludeExceptionDetails  | bool     | `Debugger.IsAttached`      | Includes exception details into the GraphQL errors. _\*\*_                    |
 | MaxExecutionDepth        | int?     | `null`                     | The maximum allowed query depth of a query.                                   |
 | QueryCacheSize           | int      | `100`                      | The amount of queries that can be cached for faster execution.                |
 | MaxOperationComplexity   | int?     | null                       | The allowed complexity of queries.                                            |

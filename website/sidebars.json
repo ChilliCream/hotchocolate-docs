@@ -14,6 +14,7 @@
           "schema-enum-type",
           "schema-descriptions",
           "custom-scalar-types",
+          "descriptor-attributes",
           "extending-types",
           "directive",
           "resolvers",

@@ -68,7 +68,7 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/ChilliCream/hotchocolate-docs/edit/master/docs/error-filter.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">Error Filter</h1></header><article><div><span><p>GraphQL errors in <em>Hot Chocolate</em> are passed to the query result by returning an instance of <code>IError</code> or an enumerable of <code>IError</code> in a field resolver.</p>
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/ChilliCream/hotchocolate-docs/edit/master/docs/error-filter.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 id="__docusaurus" class="postHeaderTitle">Error Filter</h1></header><article><div><span><p>GraphQL errors in <em>Hot Chocolate</em> are passed to the query result by returning an instance of <code>IError</code> or an enumerable of <code>IError</code> in a field resolver.</p>
 <p>Moreover, you can throw a <code>QueryException</code> that will be be caught by the query engine and translated to a field error.</p>
 <p>One further way to raise an error are non-terminating field errors. This can be raised by using <code>IResolverContext.RaiseError</code>. So, with this you can provide a result and raise an error for your current field.</p>
 <blockquote>

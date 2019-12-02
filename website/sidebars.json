@@ -1,14 +1,10 @@
 {
   "docs": {
-    "Introduction": [
-      "introduction",
-      "code-first",
-      "schema-first"
-    ],
+    "Introduction": ["introduction", "code-first", "schema-first"],
     "API Reference": [
       {
         "type": "subcategory",
-        "label": "Schema Definition",
+        "label": "Schema",
         "ids": [
           "schema",
           "schema-object-type",
@@ -18,43 +14,55 @@
           "schema-enum-type",
           "schema-descriptions",
           "custom-scalar-types",
-          "resolvers"
+          "extending-types",
+          "directive",
+          "resolvers",
+          "relay",
+          "conventions",
+          "options"
         ]
       },
-      "dataloaders",
-      "pagination",
-      "filters",
-      "dependency-injection",
-      "authorization",
-      "directive",
-      "middleware",
-      "custom-context",
-      "code-first-subscription",
-      "options",
-      "type-conversion",
-      "aspnet",
-      "parser",
-      "errors",
-      "security",
-      "validation-rule",
-      "stitching",
-      "instrumentation",
-      "apollo-tracing",
-      "conventions",
-      "extending-types",
-      "relay",
-      "batching",
-      "persisted-queries"
+      {
+        "type": "subcategory",
+        "label": "Data Fetching",
+        "ids": ["dataloaders", "pagination", "filters"]
+      },
+      {
+        "type": "subcategory",
+        "label": "Security",
+        "ids": ["authorization", "security"]
+      },
+      {
+        "type": "subcategory",
+        "label": "Execution Engine",
+        "ids": [
+          "middleware",
+          "validation-rule",
+          "instrumentation",
+          "apollo-tracing",
+          "batching",
+          "persisted-queries",
+          "custom-context",
+          "code-first-subscription",
+          "type-conversion",
+          "errors",
+          "execution-options"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Server",
+        "ids": ["aspnet", "dependency-injection"]
+      },
+      {
+        "type": "subcategory",
+        "label": "Stitching",
+        "ids": ["stitching"]
+      }
     ],
-    "Guides": [
-      "migration",
-      "dotnet-cli"
-    ]
+    "Advanced": ["parser", "dotnet-cli"]
   },
   "examples": {
-    "Code-First": [
-      "example-star-wars-code-first",
-      "example-other-code-first"
-    ]
+    "Code-First": ["example-star-wars-code-first", "example-other-code-first"]
   }
 }

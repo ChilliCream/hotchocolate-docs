@@ -1,6 +1,7 @@
 ---
-id: options
+id: version-10.3.0-preview.3-options
 title: Schema Options
+original_id: options
 ---
 
 _Hot Chocolate_ distinguishes between schema and execution options. Schema options relate to the type system and execution options to the query engine.

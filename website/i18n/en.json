@@ -62,11 +62,14 @@
       "example-star-wars-schema-first": {
         "title": "Star Wars"
       },
+      "execution-options": {
+        "title": "Execution Options"
+      },
       "extending-types": {
-        "title": "Extending Types"
+        "title": "Custom Base Classes"
       },
       "filters": {
-        "title": "Filter Support"
+        "title": "Filter and Sorting Support"
       },
       "instrumentation": {
         "title": "Instrumentation"
@@ -81,7 +84,7 @@
         "title": "Migrating from 0.6.x"
       },
       "options": {
-        "title": "Options"
+        "title": "Schema Options"
       },
       "pagination": {
         "title": "Pagination"
@@ -401,6 +404,48 @@
       "version-10.0.0-rc.3/version-10.0.0-rc.3-code-first-subscription": {
         "title": "Subscriptions"
       },
+      "version-10.1.0/version-10.1.0-filters": {
+        "title": "Filter and Sorting Support"
+      },
+      "version-10.1.0/version-10.1.0-introduction": {
+        "title": "Introduction"
+      },
+      "version-10.1.0/version-10.1.0-code-first-subscription": {
+        "title": "Subscriptions"
+      },
+      "version-10.2.0-preview.4/version-10.2.0-preview.4-custom-scalar-types": {
+        "title": "Scalar Type Support"
+      },
+      "version-10.2.0-preview.4/version-10.2.0-preview.example-star-wars-code-first": {
+        "title": "Star Wars"
+      },
+      "version-10.2.0-preview.4/version-10.2.0-preview.4-extending-types": {
+        "title": "Extending Types"
+      },
+      "version-10.2.0-preview.4/version-10.2.0-preview.4-introduction": {
+        "title": "Introduction"
+      },
+      "version-10.2.0-preview.7/version-10.2.0-preview.7-aspnet": {
+        "title": "ASP.NET"
+      },
+      "version-10.2.0-preview.7/version-10.2.0-preview.7-batching": {
+        "title": "Batching"
+      },
+      "version-10.2.0-preview.7/version-10.2.0-preview.7-code-first": {
+        "title": "Code-first"
+      },
+      "version-10.2.0-preview.7/version-10.2.0-preview.7-example-star-wars-code-first": {
+        "title": "Star Wars"
+      },
+      "version-10.2.0-preview.7/version-10.2.0-preview.7-introduction": {
+        "title": "Introduction"
+      },
+      "version-10.2.0-preview.7/version-10.2.0-preview.7-persisted-queries": {
+        "title": "Persisted Queries"
+      },
+      "version-10.2.0-preview.7/version-10.2.0-preview.7-schema-enum-type": {
+        "title": "Enum Type"
+      },
       "version-9.0.0/version-9.0.0-apollo-tracing": {
         "title": "Apollo Tracing"
       },
@@ -532,13 +577,15 @@
       "Docs": "Docs",
       "Examples": "Examples",
       "Blog": "Blog",
+      "Shop": "Shop",
       "GitHub": "GitHub"
     },
     "categories": {
       "Introduction": "Introduction",
       "API Reference": "API Reference",
-      "Guides": "Guides",
+      "Advanced": "Advanced",
       "Code-First": "Code-First",
+      "Guides": "Guides",
       "Quickstart": "Quickstart",
       "General": "General"
     }

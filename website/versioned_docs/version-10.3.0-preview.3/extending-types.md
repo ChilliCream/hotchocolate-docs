@@ -1,6 +1,7 @@
 ---
-id: extending-types
+id: version-10.3.0-preview.3-extending-types
 title: Custom Base Classes
+original_id: extending-types
 ---
 
 _Hot Chocolate_ is built with extensibility in mind and allows you to customize exiting type base classes and the descriptors.

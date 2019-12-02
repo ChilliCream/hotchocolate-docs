@@ -1,0 +1,90 @@
+{
+  "version-10.3.0-preview.3-docs": {
+    "Introduction": [
+      "version-10.3.0-preview.3-introduction",
+      "version-10.3.0-preview.3-code-first",
+      "version-10.3.0-preview.3-schema-first"
+    ],
+    "API Reference": [
+      {
+        "type": "subcategory",
+        "label": "Schema",
+        "ids": [
+          "version-10.3.0-preview.3-schema",
+          "version-10.3.0-preview.3-schema-object-type",
+          "version-10.3.0-preview.3-schema-interface-type",
+          "version-10.3.0-preview.3-schema-union-type",
+          "version-10.3.0-preview.3-schema-input-object-type",
+          "version-10.3.0-preview.3-schema-enum-type",
+          "version-10.3.0-preview.3-schema-descriptions",
+          "version-10.3.0-preview.3-custom-scalar-types",
+          "version-10.3.0-preview.3-extending-types",
+          "version-10.3.0-preview.3-directive",
+          "version-10.3.0-preview.3-resolvers",
+          "version-10.3.0-preview.3-relay",
+          "version-10.3.0-preview.3-conventions",
+          "version-10.3.0-preview.3-options"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Data Fetching",
+        "ids": [
+          "version-10.3.0-preview.3-dataloaders",
+          "version-10.3.0-preview.3-pagination",
+          "version-10.3.0-preview.3-filters"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Security",
+        "ids": [
+          "version-10.3.0-preview.3-authorization",
+          "version-10.3.0-preview.3-security"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Execution Engine",
+        "ids": [
+          "version-10.3.0-preview.3-middleware",
+          "version-10.3.0-preview.3-validation-rule",
+          "version-10.3.0-preview.3-instrumentation",
+          "version-10.3.0-preview.3-apollo-tracing",
+          "version-10.3.0-preview.3-batching",
+          "version-10.3.0-preview.3-persisted-queries",
+          "version-10.3.0-preview.3-custom-context",
+          "version-10.3.0-preview.3-code-first-subscription",
+          "version-10.3.0-preview.3-type-conversion",
+          "version-10.3.0-preview.3-errors",
+          "version-10.3.0-preview.3-execution-options"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Server",
+        "ids": [
+          "version-10.3.0-preview.3-aspnet",
+          "version-10.3.0-preview.3-dependency-injection"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Stitching",
+        "ids": [
+          "version-10.3.0-preview.3-stitching"
+        ]
+      }
+    ],
+    "Advanced": [
+      "version-10.3.0-preview.3-parser",
+      "version-10.3.0-preview.3-dotnet-cli"
+    ]
+  },
+  "version-10.3.0-preview.3-examples": {
+    "Code-First": [
+      "version-10.3.0-preview.3-example-star-wars-code-first",
+      "version-10.3.0-preview.3-example-other-code-first"
+    ]
+  }
+}

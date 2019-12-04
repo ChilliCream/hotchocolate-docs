@@ -72,7 +72,7 @@ services.AddGraphQL(so =>
     SchemaBuilder.New()
         .AddDocumentFromFile("schema.graphql")
         .BindComplexType<Query>(b => b.To("Query"))
-        .Bindresolver<QueryResolver>(b => b
+        .BindResolver<QueryResolver>(b => b
             .To("Query")
             .Resolve("greetings")
             .With(t => t.GetGreetings(default)))
@@ -182,7 +182,15 @@ public class SomeResolvers
 }
 ```
 
-The above example class `SomeResolvers` provides resolvers for multiple types. The types can be declared with the `GraphQLResolverOfAttribute` either by providing the .NET entity type or by providing the schema type name.
+The above example class `SomeResolvers` provides resolvers for multiple types. The types can be declared with the `GraphQLResolverOfAttribute` either by providing the .NET entity type or by providing the schema type name. This resolver can be registered with the schema builder via `BindResolver<SomeResolvers>()` as shown here:
+```CSharp
+services.AddGraphQL(so =>
+    SchemaBuilder.New()
+        // ...
+        .BindResolver<SomeResolvers>()
+        // ...
+        .Create());
+```
 
 The schema builder will associate the various resolver methods with the correct schema fields and types by analysing the method parameters. We are providing a couple of attributes that can be used to give the resolver method more context like the return type or the description and so on.
 

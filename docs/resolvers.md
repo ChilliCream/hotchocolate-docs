@@ -238,7 +238,7 @@ public Person GetFriend([Parent]Person person)
 ### Services
 
 ```csharp
-public Person GetFriend([Services]IPersonRepository repository)
+public Person GetFriend([Service]IPersonRepository repository)
 {
     // resolver code
 }

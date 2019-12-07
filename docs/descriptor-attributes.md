@@ -52,7 +52,6 @@ While this is enough in most cases we sometimes want to intercept multiple descr
     Inherited = true,
     AllowMultiple = true)]
 public sealed class MyCustomAttribute : DescriptorAttribute
-    : Attribute
 {
     protected override void TryConfigure(IDescriptor descriptor)
     {

@@ -79,29 +79,29 @@
 <h2><a class="anchor" aria-hidden="true" id="schema-first"></a><a href="#schema-first" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Schema-First</h2>
 <p>With <em>Hot Chocolate</em> we have multiple approaches to write resolvers depending on how you declare your schema.</p>
 <p>With the schema-first approach the simplest way to declare a resolver is binding a delegate that resolves the data to a field in your schema like the following:</p>
-<pre><code class="hljs css language-CSharp">c.BindResolver(ctx =&gt;
-{
-    <span class="hljs-comment">// my resolver code goes here ...</span>
-}).To(<span class="hljs-string">"Query"</span>, <span class="hljs-string">"foo"</span>);
+<pre><code class="hljs css language-csharp">c<span class="token punctuation">.</span><span class="token function">BindResolver</span><span class="token punctuation">(</span>ctx <span class="token operator">=></span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// my resolver code goes here ...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">To</span><span class="token punctuation">(</span><span class="token string">"Query"</span><span class="token punctuation">,</span> <span class="token string">"foo"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Furthermore, we could bind a class as a resolver type. Each of the members of the resolver type can be bound to fields in the schema.</p>
-<pre><code class="hljs css language-CSharp">services.AddGraphQL(so =&gt;
-    SchemaBuilder.New()
-        .AddDocumentFromFile(<span class="hljs-string">"schema.graphql"</span>)
-        .BindComplexType&lt;Query&gt;(b =&gt; b
-            .To(<span class="hljs-string">"Query"</span>)
-            .Field(t =&gt; t.GetGreetings())
-            .Name(<span class="hljs-string">"greetings"</span>))
-        .Create());
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddGraphQL</span><span class="token punctuation">(</span>so <span class="token operator">=></span>
+    SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">AddDocumentFromFile</span><span class="token punctuation">(</span><span class="token string">"schema.graphql"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindComplexType</span><span class="token punctuation">&lt;</span><span class="token class-name">Query</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>b <span class="token operator">=></span> b
+            <span class="token punctuation">.</span><span class="token function">To</span><span class="token punctuation">(</span><span class="token string">"Query"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">GetGreetings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"greetings"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Since, the class <code>Query</code> is used as our resolver type, the query engine will automatically create an instance of this type as singleton. The lifetime of the resolver object is basically bound to the lifetime of the query executor.</p>
 <p>We can also take charge of the lifetime management by registering the resolver type with the dependency injection. In this case the query engine will retrieve the type from the <code>IServiceProvider</code> and not perform any lifetime management.</p>
 <p>Sometimes, we do not want to explicitly declare resolvers since we have already modeled our entities very well and just want to map those to our schema. In this case we can just bind our type like the following:</p>
-<pre><code class="hljs css language-CSharp">services.AddGraphQL(so =&gt;
-    SchemaBuilder.New()
-        .AddDocumentFromFile(<span class="hljs-string">"schema.graphql"</span>)
-        .BindComplexType&lt;Query&gt;(b =&gt; b.To(<span class="hljs-string">"Query"</span>))
-        .Create());
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddGraphQL</span><span class="token punctuation">(</span>so <span class="token operator">=></span>
+    SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">AddDocumentFromFile</span><span class="token punctuation">(</span><span class="token string">"schema.graphql"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindComplexType</span><span class="token punctuation">&lt;</span><span class="token class-name">Query</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>b <span class="token operator">=></span> b<span class="token punctuation">.</span><span class="token function">To</span><span class="token punctuation">(</span><span class="token string">"Query"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Entities are handled differently than resolver types.</p>
 <p>First of all you are able to pass in an entity object on which the resolvers are executed. In this case the query engine will do nothing and operate on the passed in entity.</p>
@@ -109,86 +109,86 @@
 <p>Like with the resolver type we can take charge of the lifetime by registering the root types as services with our dependency injection.</p>
 <p>In the case that we have not specified any resolvers for our bound entity, <em>Hot Chocolate</em> will generate an in-memory assembly that contains the inferred resolvers.</p>
 <p>Moreover, we can combine our approach in order to provide specific resolver logic for our entity or in order to extend on our entity. In many cases our entity may just represent part of the data structure that we want to expose in our schema. In this case we can just provide resolver logic to fill the gaps.</p>
-<pre><code class="hljs css language-CSharp">services.AddGraphQL(so =&gt;
-    SchemaBuilder.New()
-        .AddDocumentFromFile(<span class="hljs-string">"schema.graphql"</span>)
-        .BindComplexType&lt;Query&gt;(b =&gt; b.To(<span class="hljs-string">"Query"</span>))
-        .Bindresolver&lt;QueryResolver&gt;(b =&gt; b
-            .To(<span class="hljs-string">"Query"</span>)
-            .Resolve(<span class="hljs-string">"greetings"</span>)
-            .With(t =&gt; t.GetGreetings(<span class="hljs-keyword">default</span>)))
-        .Create());
+<pre><code class="hljs css language-csharp">services<span class="token punctuation">.</span><span class="token function">AddGraphQL</span><span class="token punctuation">(</span>so <span class="token operator">=></span>
+    SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">AddDocumentFromFile</span><span class="token punctuation">(</span><span class="token string">"schema.graphql"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindComplexType</span><span class="token punctuation">&lt;</span><span class="token class-name">Query</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>b <span class="token operator">=></span> b<span class="token punctuation">.</span><span class="token function">To</span><span class="token punctuation">(</span><span class="token string">"Query"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Bindresolver</span><span class="token punctuation">&lt;</span><span class="token class-name">QueryResolver</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>b <span class="token operator">=></span> b
+            <span class="token punctuation">.</span><span class="token function">To</span><span class="token punctuation">(</span><span class="token string">"Query"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">Resolve</span><span class="token punctuation">(</span><span class="token string">"greetings"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">With</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">GetGreetings</span><span class="token punctuation">(</span><span class="token keyword">default</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>In the above case the <code>GetGreetings</code> method has an argument <code>Query</code> which is our bound entity. Resolver methods can specify the original field arguments as specified by the field definition as well as context arguments.</p>
-<pre><code class="hljs css language-CSharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetGreetings</span>(<span class="hljs-params">[Parent]Query query</span>)</span> =&gt; query.Greetings;
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">GetGreetings</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token class-name">Parent</span><span class="token punctuation">]</span><span class="token class-name">Query</span> query<span class="token punctuation">)</span> <span class="token operator">=></span> query<span class="token punctuation">.</span>Greetings<span class="token punctuation">;</span>
 </code></pre>
 <p>The <code>ParentAttribute</code> signals the query engine that this argument shall be the instance of the declaring type of our field.</p>
 <p>We also could let the query engine inject us the resolver context which provides us with all the context data for our resolver.</p>
 <p>For example we could access all the previous resolved object in our path by accessing <code>IResolverContext.Source</code>. Or, we could access scoped context data that were passed down by one of the previous resolvers in the path.</p>
 <p>In order to keep our resolver clean and easy to test we can also just let the query engine inject the parts of the resolver context that we really need for our resolver like the <code>ObjectType</code> to which our current field belongs etc.</p>
-<pre><code class="hljs css language-CSharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetGreetings</span>(<span class="hljs-params">ObjectType type</span>)</span> =&gt; type.Name;
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">GetGreetings</span><span class="token punctuation">(</span><span class="token class-name">ObjectType</span> type<span class="token punctuation">)</span> <span class="token operator">=></span> type<span class="token punctuation">.</span>Name<span class="token punctuation">;</span>
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="code-first"></a><a href="#code-first" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Code-First</h2>
 <p>Code-first is the second approach with which we can be describe a GraphQL schema. In code first field definition and resolver logic are more closely bound together.</p>
-<pre><code class="hljs css language-CSharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">QueryType</span>
-    : <span class="hljs-title">ObjectType</span>
-{
-    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">IObjectTypeDescriptor descriptor</span>)</span>
-    {
-        descriptor.Name(<span class="hljs-string">"Query"</span>);
-        descriptor.Field(<span class="hljs-string">"greetings"</span>).Resolver(ctx =&gt; <span class="hljs-string">"foo"</span>);
-    }
-}
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">QueryType</span>
+    <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"Query"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span><span class="token string">"greetings"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Resolver</span><span class="token punctuation">(</span>ctx <span class="token operator">=></span> <span class="token string">"foo"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The above example declares a type named <code>Query</code> with one field called <code>greetings</code> of the type <code>String</code> that always returns <code>foo</code>. Like with the schema-first approach we can create types that are not explicitly bound to a specific .NET type like in the above example.</p>
-<pre><code class="hljs css language-CSharp">public class PersonType
-    : ObjectType&lt;Person&gt;
-{
-    protected override void Configure(IObjectTypeDescriptor&lt;Person&gt; descriptor)
-    {
-    }
-}
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonType</span>
+    <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Person<span class="token operator">></span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Person<span class="token operator">></span> descriptor<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>If we bind our type to a specific entity type, then we will by default infer the possible type structure and it`s resolvers from the .NET type.</p>
 <p>We can always overwrite the defaults or define everything explicitly.</p>
-<pre><code class="hljs css language-CSharp">public class PersonType
-    : ObjectType&lt;Person&gt;
-{
-    protected override void Configure(IObjectTypeDescriptor&lt;Person&gt; descriptor)
-    {
-        descriptor.Name("Person123");
-        descriptor.Field(t =&gt; t.Name).Type&lt;NonNullType&lt;StringType&gt;&gt;();
-        descriptor.Field(t =&gt; t.FriendId)
-            .Name("friend")
-            .Resolver(ctx =&gt; ctx.Service&lt;IRepository&gt;().GetPerson(ctx.Parent&lt;Person&gt;().FriendId));
-    }
-}
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonType</span>
+    <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Person<span class="token operator">></span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Person<span class="token operator">></span> descriptor<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"Person123"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span>Name<span class="token punctuation">)</span><span class="token punctuation">.</span>Type<span class="token operator">&lt;</span>NonNullType<span class="token operator">&lt;</span>StringType<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span>FriendId<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"friend"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">Resolver</span><span class="token punctuation">(</span>ctx <span class="token operator">=></span> ctx<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Service</span><span class="token punctuation">&lt;</span><span class="token class-name">IRepository</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">GetPerson</span><span class="token punctuation">(</span>ctx<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Parent</span><span class="token punctuation">&lt;</span><span class="token class-name">Person</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>FriendId<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="resolver-types"></a><a href="#resolver-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resolver Types</h2>
 <p>Since, a lot of resolver logic, like the one in the above example, can be difficult to test and difficult to read, we also allow to create resolver types with the code-first approach.</p>
 <p>We can explicitly include resolvers from a resolver type the same way we are specifing our fields.</p>
-<pre><code class="hljs css language-CSharp">descriptor.Field&lt;PersonResolvers&gt;(t =&gt; t.GetFriend(defaults)).Type&lt;PersonType&gt;();
+<pre><code class="hljs css language-csharp">descriptor<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Field</span><span class="token punctuation">&lt;</span><span class="token class-name">PersonResolvers</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">GetFriend</span><span class="token punctuation">(</span>defaults<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Type</span><span class="token punctuation">&lt;</span><span class="token class-name">PersonType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>The one difference is that we basically specify from which type we are including the resolver.</p>
 <p>Furthermore, we can also include all fields of a resolver type implicitly like the following:</p>
-<pre><code class="hljs css language-CSharp">descriptor.Include&lt;PersonResolvers&gt;();
+<pre><code class="hljs css language-csharp">descriptor<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Include</span><span class="token punctuation">&lt;</span><span class="token class-name">PersonResolvers</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>We can also reverse the relationship between the type and it`s resolvers by annotating the resolver type with the entity or schema type name for which the resolver type provides resolvers.</p>
-<pre><code class="hljs css language-CSharp">[<span class="hljs-meta">GraphQLResolverOf(typeof(Person))</span>]
-[<span class="hljs-meta">GraphQLResolverOf(<span class="hljs-meta-string">"Query"</span>)</span>]
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">SomeResolvers</span>
-{
-    <span class="hljs-function"><span class="hljs-keyword">public</span> Person <span class="hljs-title">GetFriend</span>(<span class="hljs-params">[Parent]Person person</span>)</span>
-    {
-        <span class="hljs-comment">// resolver code</span>
-    }
+<pre><code class="hljs css language-csharp"><span class="token punctuation">[</span><span class="token class-name">GraphQLResolverOf</span><span class="token punctuation">(</span><span class="token keyword">typeof</span><span class="token punctuation">(</span>Person<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token class-name">GraphQLResolverOf</span><span class="token punctuation">(</span><span class="token string">"Query"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SomeResolvers</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token class-name">Person</span> <span class="token function">GetFriend</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token class-name">Parent</span><span class="token punctuation">]</span><span class="token class-name">Person</span> person<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// resolver code</span>
+    <span class="token punctuation">}</span>
 
-    [<span class="hljs-meta">GraphQLDescription(<span class="hljs-meta-string">"This field does ..."</span>)</span>]
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetGreetings</span>(<span class="hljs-params">[Parent]Query person, <span class="hljs-keyword">string</span> name</span>)</span>
-    {
-        <span class="hljs-comment">// resolver code</span>
-    }
-}
+    <span class="token punctuation">[</span><span class="token class-name">GraphQLDescription</span><span class="token punctuation">(</span><span class="token string">"This field does ..."</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">GetGreetings</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token class-name">Parent</span><span class="token punctuation">]</span><span class="token class-name">Query</span> person<span class="token punctuation">,</span> <span class="token keyword">string</span> name<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// resolver code</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The above example class <code>SomeResolvers</code> provides resolvers for multiple types. The types can be declared with the <code>GraphQLResolverOfAttribute</code> either by providing the .NET entity type or by providing the schema type name.</p>
 <p>The schema builder will associate the various resolver methods with the correct schema fields and types by analysing the method parameters. We are providing a couple of attributes that can be used to give the resolver method more context like the return type or the description and so on.</p>
@@ -270,7 +270,7 @@
 <tr><td><code>DataLoader&lt;T&gt;(string key)</code></td><td><code>T</code></td><td>Gets a specific DataLoader.</td></tr>
 </tbody>
 </table>
-</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-7-20 by Michael Staib</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/directive"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/docs/relay"><span>Relay</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#schema-first">Schema-First</a></li><li><a href="#code-first">Code-First</a></li><li><a href="#resolver-types">Resolver Types</a></li><li><a href="#resolver-dependency-injection">Resolver Dependency Injection</a><ul class="toc-headings"><li><a href="#parent">Parent</a></li><li><a href="#services">Services</a></li><li><a href="#dataloader">DataLoader</a></li><li><a href="#state">State</a></li></ul></li><li><a href="#resolver-context-overview">Resolver Context Overview</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTViMzA2MTM4OWYwYjIxYzViYmM0YmZhYjdiNzBjOTg2ZmU1YmMwNDZiYjUyZWZlMzNiMTk1OWUxNWZhMzQwY2Q" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://shop.chillicream.com" target="_blank">Shop</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-12-20 by Jorrit Schippers</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/directive"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/docs/relay"><span>Relay</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#schema-first">Schema-First</a></li><li><a href="#code-first">Code-First</a></li><li><a href="#resolver-types">Resolver Types</a></li><li><a href="#resolver-dependency-injection">Resolver Dependency Injection</a><ul class="toc-headings"><li><a href="#parent">Parent</a></li><li><a href="#services">Services</a></li><li><a href="#dataloader">DataLoader</a></li><li><a href="#state">State</a></li></ul></li><li><a href="#resolver-context-overview">Resolver Context Overview</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTViMzA2MTM4OWYwYjIxYzViYmM0YmZhYjdiNzBjOTg2ZmU1YmMwNDZiYjUyZWZlMzNiMTk1OWUxNWZhMzQwY2Q" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://shop.chillicream.com" target="_blank">Shop</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

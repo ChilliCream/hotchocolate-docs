@@ -22,7 +22,7 @@ With _Hot Chocolate_ we have multiple approaches to write resolvers depending on
 
 With the schema-first approach the simplest way to declare a resolver is binding a delegate that resolves the data to a field in your schema like the following:
 
-```CSharp
+```csharp
 c.BindResolver(ctx =>
 {
     // my resolver code goes here ...
@@ -31,7 +31,7 @@ c.BindResolver(ctx =>
 
 Furthermore, we could bind a class as a resolver type. Each of the members of the resolver type can be bound to fields in the schema.
 
-```CSharp
+```csharp
 services.AddGraphQL(
     File.ReadAllText("schema.graphql"),
     sp => Schema.Create(c =>
@@ -49,7 +49,7 @@ We can also take charge of the lifetime management by registering the resolver t
 
 Sometimes, we do not want to explicitly declare resolvers since we have already modeled our entities very well and just want to map those to our schema. In this case we can just bind our type like the following:
 
-```CSharp
+```csharp
 services.AddGraphQL(
     File.ReadAllText("schema.graphql"),
     sp => Schema.Create(c =>
@@ -70,7 +70,7 @@ In the case that we have not specified any resolvers for our bound entity, _Hot 
 
 Moreover, we can combine our approach in order to provide specific resolver logic for our entity or in order to extend on our entity. In many cases our entity may just represent part of the data structure that we want to expose in our schema. In this case we can just provide resolver logic to fill the gaps.
 
-```CSharp
+```csharp
 services.AddGraphQL(
     File.ReadAllText("schema.graphql"),
     sp => Schema.Create(c =>
@@ -86,7 +86,7 @@ services.AddGraphQL(
 
 In the above case the `GetGreetings` method has an argument `Query` which is our bound entity. Resolver methods can specify the original field arguments as specified by the field definition as well as context arguments.
 
-```CSharp
+```csharp
 public string GetGreetings([Parent]Query query) => query.Greetings;
 ```
 
@@ -98,7 +98,7 @@ For example we could access all the previous resolved object in our path by acce
 
 In order to keep our resolver clean and easy to test we can also just let the query engine inject the parts of the resolver context that we really need for our resolver like the `ObjectType` to which our current field belongs etc.
 
-```CSharp
+```csharp
 public string GetGreetings(ObjectType type) => type.Name;
 ```
 
@@ -106,7 +106,7 @@ public string GetGreetings(ObjectType type) => type.Name;
 
 Code-first is the second approach with which we can be describe a GraphQL schema. In code first field definition and resolver logic are more closely bound together.
 
-```CSharp
+```csharp
 public class QueryType
     : ObjectType
 {
@@ -120,7 +120,7 @@ public class QueryType
 
 The above example declares a type named `Query` with one field called `greetings` of the type `String` that always returns `foo`. Like with the schema-first approach we can create types that are not explicitly bound to a specific .NET type like in the above example.
 
-```CSharp
+```csharp
 public class PersonType
     : ObjectType<Person>
 {
@@ -134,7 +134,7 @@ If we bind our type to a specific entity type, then we will by default infer the
 
 We can always overwrite the defaults or define everything explicitly.
 
-```CSharp
+```csharp
 public class PersonType
     : ObjectType<Person>
 {
@@ -155,7 +155,7 @@ Since, a lot of resolver logic, like the one in the above example, can be diffic
 
 We can explicitly include resolvers from a resolver type the same way we are specifing our fields.
 
-```CSharp
+```csharp
 descriptor.Field<PersonResolvers>(t => t.GetFriend(defaults)).Type<PersonType>();
 ```
 
@@ -163,13 +163,13 @@ The one difference is that we basically specify from which type we are including
 
 Furthermore, we can also include all fields of a resolver type implicitly like the following:
 
-```CSharp
+```csharp
 descriptor.Include<PersonResolvers>();
 ```
 
 We can also reverse the relationship between the type and it`s resolvers by annotating the resolver type with the entity or schema type name for which the resolver type provides resolvers.
 
-```CSharp
+```csharp
 [GraphQLResolverOf(typeof(Person))]
 [GraphQLResolverOf("Query")]
 public class SomeResolvers

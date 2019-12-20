@@ -109,7 +109,7 @@ public class FooType
 }
 ```
 
-Since, the directive instance that we have added to our type is now a strong .NET type we do not have to fear changes to the directive structure or it`s name anymore.
+Since, the directive instance that we have added to our type is now a strong .NET type we do not have to fear changes to the directive structure or its name anymore.
 
 ## Middleware
 

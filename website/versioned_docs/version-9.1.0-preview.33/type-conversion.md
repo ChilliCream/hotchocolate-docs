@@ -21,7 +21,7 @@ public class Message
 
 We want the `Id` property to be of the `IdType` in the GraphQL schema. The Hot Chocolate query execution engine does not know how `ObjectId` is serialized or deserialized.
 
-Moreover, `IdType` uses `System.String` as .NET representation of it`s values.
+Moreover, `IdType` uses `System.String` as .NET representation of its values.
 
 In order to be able to use `ObjectId` through out our code, we have to explain to the query execution engine how to serialize `ObjectId` to `System.String` and also how to deserialize it.
 

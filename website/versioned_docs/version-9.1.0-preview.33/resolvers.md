@@ -126,7 +126,7 @@ public class PersonType
 }
 ```
 
-If we bind our type to a specific entity type, then we will by default infer the possible type structure and it`s resolvers from the .NET type.
+If we bind our type to a specific entity type, then we will by default infer the possible type structure and its resolvers from the .NET type.
 
 We can always overwrite the defaults or define everything explicitly.
 
@@ -149,7 +149,7 @@ public class PersonType
 
 Since, a lot of resolver logic, like the one in the above example, can be difficult to test and difficult to read, we also allow to create resolver types with the code-first approach.
 
-We can explicitly include resolvers from a resolver type the same way we are specifing our fields.
+We can explicitly include resolvers from a resolver type the same way we are specifying our fields.
 
 ```csharp
 descriptor.Field<PersonResolvers>(t => t.GetFriend(defaults)).Type<PersonType>();
@@ -163,7 +163,7 @@ Furthermore, we can also include all fields of a resolver type implicitly like t
 descriptor.Include<PersonResolvers>();
 ```
 
-We can also reverse the relationship between the type and it`s resolvers by annotating the resolver type with the entity or schema type name for which the resolver type provides resolvers.
+We can also reverse the relationship between the type and its resolvers by annotating the resolver type with the entity or schema type name for which the resolver type provides resolvers.
 
 ```csharp
 [GraphQLResolverOf(typeof(Person))]
@@ -200,7 +200,7 @@ public Person GetFriend([Parent]Person person, IObjectField field)
 }
 ```
 
-The above resolver is injected with the previosly resolved (parent) result and the field definition of the current field.
+The above resolver is injected with the previously resolved (parent) result and the field definition of the current field.
 
 Any property of the resolver context can be explicitly injected as argument.
 

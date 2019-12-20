@@ -153,7 +153,7 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>If we bind our type to a specific entity type, then we will by default infer the possible type structure and it`s resolvers from the .NET type.</p>
+<p>If we bind our type to a specific entity type, then we will by default infer the possible type structure and its resolvers from the .NET type.</p>
 <p>We can always overwrite the defaults or define everything explicitly.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonType</span>
     <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Person<span class="token operator">></span>
@@ -170,14 +170,14 @@
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="resolver-types"></a><a href="#resolver-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resolver Types</h2>
 <p>Since, a lot of resolver logic, like the one in the above example, can be difficult to test and difficult to read, we also allow to create resolver types with the code-first approach.</p>
-<p>We can explicitly include resolvers from a resolver type the same way we are specifing our fields.</p>
+<p>We can explicitly include resolvers from a resolver type the same way we are specifying our fields.</p>
 <pre><code class="hljs css language-csharp">descriptor<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Field</span><span class="token punctuation">&lt;</span><span class="token class-name">PersonResolvers</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">GetFriend</span><span class="token punctuation">(</span>defaults<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Type</span><span class="token punctuation">&lt;</span><span class="token class-name">PersonType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>The one difference is that we basically specify from which type we are including the resolver.</p>
 <p>Furthermore, we can also include all fields of a resolver type implicitly like the following:</p>
 <pre><code class="hljs css language-csharp">descriptor<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Include</span><span class="token punctuation">&lt;</span><span class="token class-name">PersonResolvers</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>We can also reverse the relationship between the type and it`s resolvers by annotating the resolver type with the entity or schema type name for which the resolver type provides resolvers.</p>
+<p>We can also reverse the relationship between the type and its resolvers by annotating the resolver type with the entity or schema type name for which the resolver type provides resolvers.</p>
 <pre><code class="hljs css language-csharp"><span class="token punctuation">[</span><span class="token class-name">GraphQLResolverOf</span><span class="token punctuation">(</span><span class="token keyword">typeof</span><span class="token punctuation">(</span>Person<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
 <span class="token punctuation">[</span><span class="token class-name">GraphQLResolverOf</span><span class="token punctuation">(</span><span class="token string">"Query"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SomeResolvers</span>
@@ -204,7 +204,7 @@
     <span class="token comment">// resolver code</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>The above resolver is injected with the previosly resolved (parent) result and the field definition of the current field.</p>
+<p>The above resolver is injected with the previously resolved (parent) result and the field definition of the current field.</p>
 <p>Any property of the resolver context can be explicitly injected as argument.</p>
 <p>The following resolver context properties can be injected without any attributes:</p>
 <table>

@@ -1,6 +1,7 @@
 ---
-id: tutorial-01-gettingstarted
+id: version-10.3.0-tutorial-01-gettingstarted
 title: Getting Started
+original_id: tutorial-01-gettingstarted
 ---
 
 In this section, you will setup the project for your GraphQL server and implement your first GraphQL query. In the end, we’ll talk theory for a bit and learn about the GraphQL schema.

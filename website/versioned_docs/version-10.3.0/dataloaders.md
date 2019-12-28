@@ -1,6 +1,7 @@
 ---
-id: dataloaders
+id: version-10.3.0-dataloaders
 title: Data Loaders
+original_id: dataloaders
 ---
 
 If you want to read more about _DataLoader_ in general, you can head over to Facebook's [GitHub repository](https://github.com/facebook/dataloader).

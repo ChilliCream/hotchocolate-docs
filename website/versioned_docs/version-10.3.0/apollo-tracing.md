@@ -1,6 +1,7 @@
 ---
-id: apollo-tracing
+id: version-10.3.0-apollo-tracing
 title: Apollo Tracing
+original_id: apollo-tracing
 ---
 
 _Apollo Tracing_ is a [performance tracing specification] for _GraphQL_ servers.

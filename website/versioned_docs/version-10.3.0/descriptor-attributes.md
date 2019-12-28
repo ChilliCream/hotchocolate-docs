@@ -1,6 +1,7 @@
 ---
-id: descriptor-attributes
+id: version-10.3.0-descriptor-attributes
 title: Descriptor Attributes
+original_id: descriptor-attributes
 ---
 
 _Hot Chocolate_ allows to define a schema in various ways. When defining schemas with pure .NET types and custom attributes we need a way to access advanced features like custom field middleware that we have at our disposal with schema types.

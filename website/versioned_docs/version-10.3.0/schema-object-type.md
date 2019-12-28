@@ -1,6 +1,7 @@
 ---
-id: schema-object-type
+id: version-10.3.0-schema-object-type
 title: Object Type
+original_id: schema-object-type
 ---
 
 The object type is the most prominent output type in GraphQL and represents a kind of object we can fetch from our schema. The GraphQL schema representation of an object looks like the following:

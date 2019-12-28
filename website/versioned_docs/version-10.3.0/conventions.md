@@ -1,6 +1,7 @@
 ---
-id: conventions
+id: version-10.3.0-conventions
 title: Conventions
+original_id: conventions
 ---
 
 When we build a GraphQL schema with _Hot Chocolate_ we have a lot of conventions in place that lets the schema builder infer the type structure and more from existing .NET types. These conventions are provided through the `DefaultNamingConventions` class and the `DefaultTypeInspector` class.

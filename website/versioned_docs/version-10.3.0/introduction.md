@@ -1,5 +1,5 @@
 ---
-id: version-10.3.0-version.4-introduction
+id: version-10.3.0-introduction
 title: Introduction
 original_id: introduction
 ---

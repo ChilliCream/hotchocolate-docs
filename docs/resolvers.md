@@ -99,7 +99,7 @@ public string GetGreetings(ObjectType type) => type.Name;
 
 ## Code-First
 
-Code-first is the second approach with which we can be describe a GraphQL schema. In code first field definition and resolver logic are more closely bound together.
+Code-first is the second approach with which we can be describe a GraphQL schema. In Code-first, field definition and resolver logic are more closely bound together.
 
 ```csharp
 public class QueryType
@@ -113,19 +113,17 @@ public class QueryType
 }
 ```
 
-The above example declares a type named `Query` with one field called `greetings` of the type `String` that always returns `foo`. Like with the schema-first approach we can create types that are not explicitly bound to a specific .NET type like in the above example.
+The above example declares a schema type named `Query` with one field called `greetings` of the type `String` that always returns `foo`. Like with the schema-first approach we can create types that are not explicitly bound to a specific .NET type like in the above example.
 
 ```csharp
 public class PersonType
     : ObjectType<Person>
 {
-    protected override void Configure(IObjectTypeDescriptor<Person> descriptor)
-    {
-    }
+// Types inferred
 }
 ```
 
-If we bind our type to a specific entity type, then we will by default infer the possible type structure and its resolvers from the .NET type.
+If we bind our type to a specific entity type using `ObjectType<T>`, then we will by default infer the possible type structure and its resolvers from the .NET type.
 
 We can always overwrite the defaults or define everything explicitly.
 

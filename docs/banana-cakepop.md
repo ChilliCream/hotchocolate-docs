@@ -13,7 +13,9 @@ _Banana Cake Pop_ uses 2-phase introspection to tune the IDE to the GraphQL feat
 
 With 2-phase introspection _Banana Cake Pop_ does not limit you to a certain GraphQL spec version but checks for certain features like repeatable directives or subscription support.
 
-<img src="../../../../img/bcp_5.png" height="367" width="609">
+<img src="../../../../img/bcp_6.png" height="367" width="609">
+
+_Banana Cake Pop_ lets you work with large schemas without slowing you down.
 
 ## _Banana Cake Pop_ version 1.0.0-preview.1
 

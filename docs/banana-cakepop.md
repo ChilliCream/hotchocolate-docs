@@ -9,7 +9,9 @@ _Banana Cake Pop_ is still in preview so try it out and give us feedback via our
 
 <img src="../../../../img/bcp_5.png" height="367" width="609">
 
-Get started by downloading _Banana Cake Pop_ version 1.0.0-preview.1.
+<img src="../../../../img/bcp_5.png" height="367" width="609">
+
+## _Banana Cake Pop_ version 1.0.0-preview.1
 
 - [macOS Installer](https://chillicream.blob.core.windows.net/banana/banana_macos_1_0_0_preview_1.dmg)
 - [windows Installer](https://chillicream.blob.core.windows.net/banana/banana_win__1_0_0_preview_1.exe)

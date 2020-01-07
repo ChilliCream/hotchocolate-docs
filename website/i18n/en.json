@@ -5,6 +5,9 @@
     "previous": "Previous",
     "tagline": "A GraphQL Server for .NET core and .NET classic",
     "docs": {
+      "code-first-introduction": {
+        "title": "Introduction"
+      },
       "apollo-tracing": {
         "title": "Apollo Tracing"
       },
@@ -14,14 +17,14 @@
       "authorization": {
         "title": "Authorization"
       },
+      "banana-cakepop": {
+        "title": "Banana Cakepop"
+      },
       "batching": {
         "title": "Batching"
       },
-      "code-first-introduction": {
-        "title": "Introduction"
-      },
       "code-first": {
-        "title": "Code-first"
+        "title": "Code-First"
       },
       "conventions": {
         "title": "Conventions"
@@ -37,6 +40,9 @@
       },
       "dependency-injection": {
         "title": "Dependency Injection"
+      },
+      "descriptor-attributes": {
+        "title": "Descriptor Attributes"
       },
       "directives": {
         "title": "Directives"
@@ -128,13 +134,16 @@
       "security": {
         "title": "Security"
       },
+      "splitting-types": {
+        "title": "splitting-types"
+      },
       "stitching": {
         "title": "Schema Stitching"
       },
       "code-first-subscription": {
         "title": "Subscriptions"
       },
-      "tutorial-01-gettingstarted": {
+      "tutorial-mongo": {
         "title": "Getting Started"
       },
       "type-conversion": {
@@ -142,6 +151,9 @@
       },
       "validation-rule": {
         "title": "Validation Rules"
+      },
+      "visual-studio-integration": {
+        "title": "Visual Studio Integration"
       },
       "version-0.5.2/version-0.5.2-code-first-interface-type": {
         "title": "Interface Type"
@@ -446,6 +458,72 @@
       "version-10.2.0-preview.7/version-10.2.0-preview.7-schema-enum-type": {
         "title": "Enum Type"
       },
+      "version-10.3.0-preview.3/version-10.3.0-preview.3-execution-options": {
+        "title": "Execution Options"
+      },
+      "version-10.3.0-preview.3/version-10.3.0-preview.3-extending-types": {
+        "title": "Custom Base Classes"
+      },
+      "version-10.3.0-preview.3/version-10.3.0-preview.3-filters": {
+        "title": "Filter and Sorting Support"
+      },
+      "version-10.3.0-preview.3/version-10.3.0-preview.3-introduction": {
+        "title": "Introduction"
+      },
+      "version-10.3.0-preview.3/version-10.3.0-preview.3-options": {
+        "title": "Schema Options"
+      },
+      "version-10.3.0-preview.3/version-10.3.0-preview.3-schema-enum-type": {
+        "title": "Enum Type"
+      },
+      "version-10.3.0-preview.3/version-10.3.0-preview.3-schema-interface-type": {
+        "title": "Interface Type"
+      },
+      "version-10.3.0-preview.3/version-10.3.0-preview.3-stitching": {
+        "title": "Schema Stitching"
+      },
+      "version-10.3.0/version-10.3.0-apollo-tracing": {
+        "title": "Apollo Tracing"
+      },
+      "version-10.3.0/version-10.3.0-aspnet": {
+        "title": "ASP.NET"
+      },
+      "version-10.3.0/version-10.3.0-authorization": {
+        "title": "Authorization"
+      },
+      "version-10.3.0/version-10.3.0-code-first": {
+        "title": "Code-first"
+      },
+      "version-10.3.0/version-10.3.0-conventions": {
+        "title": "Conventions"
+      },
+      "version-10.3.0/version-10.3.0-custom-context": {
+        "title": "Custom Context Data"
+      },
+      "version-10.3.0/version-10.3.0-custom-scalar-types": {
+        "title": "Scalar Type Support"
+      },
+      "version-10.3.0/version-10.3.0-dataloaders": {
+        "title": "Data Loaders"
+      },
+      "version-10.3.0/version-10.3.0-descriptor-attributes": {
+        "title": "Descriptor Attributes"
+      },
+      "version-10.3.0/version-10.3.0-execution-options": {
+        "title": "Execution Options"
+      },
+      "version-10.3.0/version-10.3.0-introduction": {
+        "title": "Introduction"
+      },
+      "version-10.3.0/version-10.3.0-resolvers": {
+        "title": "Resolvers"
+      },
+      "version-10.3.0/version-10.3.0-schema-object-type": {
+        "title": "Object Type"
+      },
+      "version-10.3.0/version-10.3.0-tutorial-01-gettingstarted": {
+        "title": "Getting Started"
+      },
       "version-9.0.0/version-9.0.0-apollo-tracing": {
         "title": "Apollo Tracing"
       },
@@ -583,6 +661,7 @@
     "categories": {
       "Introduction": "Introduction",
       "API Reference": "API Reference",
+      "Tooling": "Tooling",
       "Advanced": "Advanced",
       "Code-First": "Code-First",
       "Guides": "Guides",

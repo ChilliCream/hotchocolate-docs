@@ -1,8 +1,7 @@
 {
   "docs": {
     "Introduction": ["introduction", "code-first", "schema-first"],
-    "API Reference": [
-      {
+    "API Reference": [{
         "type": "subcategory",
         "label": "Schema",
         "ids": [
@@ -61,6 +60,7 @@
         "ids": ["stitching"]
       }
     ],
+    "Tooling": ["banana-cakepop", "visual-studio-integration"],
     "Advanced": ["parser", "dotnet-cli"]
   },
   "examples": {

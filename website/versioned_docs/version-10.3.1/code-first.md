@@ -1,6 +1,7 @@
 ---
-id: code-first
+id: version-10.3.1-code-first
 title: Code-First
+original_id: code-first
 ---
 
 The code-first schema approach lets us built GraphQL schemas with .NET types and it gives us all the goodness of strong types and the confidence of using the C# compiler to validate our code. There is no need to switch to the GraphQL syntax in order to specify our schema, we can do everything in our favorite .NET language.

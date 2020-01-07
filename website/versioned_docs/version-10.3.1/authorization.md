@@ -1,6 +1,7 @@
 ---
-id: authorization
+id: version-10.3.1-authorization
 title: Authorization
+original_id: authorization
 ---
 
 ## Authentication

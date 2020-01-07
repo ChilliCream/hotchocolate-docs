@@ -1,6 +1,7 @@
 ---
-id: tutorial-mongo
+id: version-10.3.1-tutorial-mongo
 title: Getting Started
+original_id: tutorial-mongo
 ---
 
 In this section, you will setup the project for your GraphQL server and implement your first GraphQL query. In the end, we’ll talk theory for a bit and learn about the GraphQL schema.

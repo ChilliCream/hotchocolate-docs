@@ -18,7 +18,7 @@
         "title": "Authorization"
       },
       "banana-cakepop": {
-        "title": "Banana Cakepop"
+        "title": "Banana Cake Pop"
       },
       "batching": {
         "title": "Batching"
@@ -523,6 +523,24 @@
       },
       "version-10.3.0/version-10.3.0-tutorial-01-gettingstarted": {
         "title": "Getting Started"
+      },
+      "version-10.3.1/version-10.3.1-authorization": {
+        "title": "Authorization"
+      },
+      "version-10.3.1/version-10.3.1-banana-cakepop": {
+        "title": "Banana Cake Pop"
+      },
+      "version-10.3.1/version-10.3.1-code-first": {
+        "title": "Code-First"
+      },
+      "version-10.3.1/version-10.3.1-introduction": {
+        "title": "Introduction"
+      },
+      "version-10.3.1/version-10.3.1-tutorial-mongo": {
+        "title": "Getting Started"
+      },
+      "version-10.3.1/version-10.3.1-visual-studio-integration": {
+        "title": "Visual Studio Integration"
       },
       "version-9.0.0/version-9.0.0-apollo-tracing": {
         "title": "Apollo Tracing"

@@ -542,6 +542,15 @@
       "version-10.3.1/version-10.3.1-visual-studio-integration": {
         "title": "Visual Studio Integration"
       },
+      "version-10.3.2/version-10.3.2-banana-cakepop": {
+        "title": "Banana Cake Pop"
+      },
+      "version-10.3.2/version-10.3.2-introduction": {
+        "title": "Introduction"
+      },
+      "version-10.3.2/version-10.3.2-resolvers": {
+        "title": "Resolvers"
+      },
       "version-9.0.0/version-9.0.0-apollo-tracing": {
         "title": "Apollo Tracing"
       },

@@ -19,9 +19,9 @@ _Banana Cake Pop_ lets you work with large schemas without slowing you down.
 
 ## _Banana Cake Pop_ version 1.0.0-preview.1
 
-- [macOS Installer](https://chillicream.blob.core.windows.net/banana/banana_macos_1_0_0_preview_1.dmg)
-- [windows Installer](https://chillicream.blob.core.windows.net/banana/banana_win__1_0_0_preview_1.exe)
-- [ubuntu Installer](https://chillicream.blob.core.windows.net/banana/banana_ubuntu_1_0_0_preview_1.AppImage)
+- [macOS Installer](https://blob.chillicream.io/banana/banana_macos_1_0_0_preview_1.dmg)
+- [windows Installer](https://blob.chillicream.io/banana/banana_win__1_0_0_preview_1.exe)
+- [ubuntu Installer](https://blob.chillicream.io/banana/banana_ubuntu_1_0_0_preview_1.AppImage)
 
 **macOS Catalina:**
 

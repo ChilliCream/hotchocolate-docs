@@ -3,7 +3,7 @@ id: introduction
 title: Introduction
 ---
 
-Hot Chocolate is a .NET GraphQL server platform that can help you build a GraphQL layer over your existing and new infrastructure.
+Hot Chocolate is a .NET GraphQL platform that can help you build a GraphQL layer over your existing and new infrastructure.
 
 Our API will let you start very quickly with pre-built templates that let you start in seconds.
 
@@ -157,7 +157,7 @@ Our API will let you start very quickly with pre-built templates that let you st
    ```
 
    [Learn more](authorization.md)
-   
+
 1. Built-in Support for Filters
 
    We support database filters that offer you rich query capabilities through your GraphQL API.
@@ -174,8 +174,9 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    ```graphql
    query filterPersons {
-     persons(where: { OR: [ { name_contains: "foo" } { name_starts_with: "bar" } ] })
-     {
+     persons(
+       where: { OR: [{ name_contains: "foo" }, { name_starts_with: "bar" }] }
+     ) {
        name
        friends {
          name
@@ -202,8 +203,7 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    ```graphql
    query filterPersons {
-     persons(first: 10)
-     {
+     persons(first: 10) {
        edges {
          node {
            name
@@ -269,3 +269,9 @@ Our API will let you start very quickly with pre-built templates that let you st
    In order to get you even faster started we are providing templates for the dotnet CLI which lets you setup a .NET GraphQL server in less than 10 seconds.
 
    [Learn more](dotnet-cli.md)
+
+1. We provide awesome tooling so you can test your server.
+
+   <img src="../../../../img/bcp_6.png">
+
+   [Learn more](banana-cakepop.md)

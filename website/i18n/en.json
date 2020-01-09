@@ -545,11 +545,17 @@
       "version-10.3.2/version-10.3.2-banana-cakepop": {
         "title": "Banana Cake Pop"
       },
+      "version-10.3.2/version-10.3.2-example-star-wars-code-first": {
+        "title": "Star Wars"
+      },
       "version-10.3.2/version-10.3.2-introduction": {
         "title": "Introduction"
       },
       "version-10.3.2/version-10.3.2-resolvers": {
         "title": "Resolvers"
+      },
+      "version-10.3.2/version-10.3.2-schema-union-type": {
+        "title": "Union Type"
       },
       "version-9.0.0/version-9.0.0-apollo-tracing": {
         "title": "Apollo Tracing"

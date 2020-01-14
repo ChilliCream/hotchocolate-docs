@@ -151,6 +151,11 @@ In order to make this server a stitching server we now have to add the _Hot Choc
 dotnet add package HotChocolate.Stitching
 ```
 
+and Subscription package if using AspNetCore
+```
+dotnet add package HotChocolate.AspNetCore.Subscriptions
+```
+
 Now that our GraphQL server is ready we can start to configure the endpoints of our remote schemas.
 
 > Remote schemas are what we call the GraphQL schemas that we want to include into our merged schema. Remote schemas can be any GraphQL Spec compliant server (Apollo, Sangria, Hot Chocolate etc.) that serves its schema over HTTP. Also we can include local schemas that are created with the _Hot Chocolate_ .NET API.
@@ -172,7 +177,7 @@ services.AddHttpClient("analytics", (sp, client) =>
 });
 ```
 
-Now let\`s remove the parts from the server template that we don't need.
+Now let\`s remove the parts from the server template that we don't need and add subscriptions support.
 
 > We will show some strategies of how to handle authenticated services later on.
 
@@ -180,6 +185,8 @@ Now let\`s remove the parts from the server template that we don't need.
 services.AddDataLoaderRegistry();
 
 services.AddGraphQL(sp => SchemaBuilder.New().AddType<Query>().Create());
+
+services.AddGraphQLSubscriptions();
 ```
 
 ## Stitching Builder

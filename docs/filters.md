@@ -70,7 +70,7 @@ public class Query
 
 In the above example the person resolver just returns the `IQueryable` representing the data source. The `IQueryable` represents a not executed database query on which we are able to apply filters.
 
-The next thing to note is the `UseFiltering` extension method which adds the filter argument to the field and a middleware that can appy those filters to the `IQueryable`. The execution engine will in the end execute the `IQueryable` and fetch the data.
+The next thing to note is the `UseFiltering` extension method which adds the filter argument to the field and a middleware that can apply those filters to the `IQueryable`. The execution engine will in the end execute the `IQueryable` and fetch the data.
 
 ## Customizing Filters
 

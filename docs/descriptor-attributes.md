@@ -52,6 +52,8 @@ public class Query
 }
 ```
 
+> ⚠️ **Note**: Be sure to install the `HotChocolate.Types.Filters` NuGet package.
+
 ### UseSortingAttribute
 
 The `UseSortingAttribute` allows us to apply the sorting middleware to a property or method.
@@ -66,6 +68,8 @@ public class Query
     }
 }
 ```
+
+> ⚠️ **Note**: Be sure to install the `HotChocolate.Types.Sorting` NuGet package.
 
 ### AuthorizeAttribute
 

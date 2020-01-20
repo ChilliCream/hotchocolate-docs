@@ -18,11 +18,11 @@ With 2-phase introspection _Banana Cake Pop_ does not limit you to a certain Gra
 
 _Banana Cake Pop_ lets you work with large schemas without slowing you down.
 
-## _Banana Cake Pop_ version 1.0.0-preview.2
+## _Banana Cake Pop_ version 1.0.0-preview.3
 
-- [macOS Installer](https://blob.chillicream.io/banana/banana_macos_1_0_0_preview_2.dmg)
-- [windows Installer](https://blob.chillicream.io/banana/banana_win_1_0_0_preview_2.exe)
-- [ubuntu Installer](https://blob.chillicream.io/banana/banana_ubuntu_1_0_0_preview_2.AppImage)
+- [macOS Installer](https://blob.chillicream.io/banana/BananaCakePop-1.0.0-preview.3.dmg)
+- [windows Installer](https://blob.chillicream.io/banana/BananaCakePop-1.0.0-preview.3.exe)
+- [ubuntu Installer](https://blob.chillicream.io/banana/BananaCakePop-1.0.0-preview.3.AppImage)
 
 **macOS Catalina:**
 

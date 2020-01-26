@@ -7,7 +7,7 @@ title: Subscriptions
 
 Subscriptions is a GraphQL feature that allows a server to send data to its clients when a specific event on the server-side occurs.
 
-Subscribing to an event is like writing a standard query. The one difference here is the operation keyword and that we are only allowed to have one root field in our query since the root fields represent events.
+Subscribing to an event is like writing a standard query. The one difference here is the operation keyword and that we are only allowed to have one root field in our operation since the root fields represent events.
 
 ```graphql
 subscription {
@@ -18,9 +18,16 @@ subscription {
 }
 ```
 
-When using GraphQL over HTTP subscriptions are most most likely served over websockets. Hot Chocolate has implemented the Apollo subscriptions protocol in order to serve subscriptions over websockets.
+When using GraphQL over HTTP subscriptions are most most likely served over websocket. Hot Chocolate has implemented the Apollo subscriptions protocol in order to serve subscriptions over websocket.
 
-## Getting started
+## Pure Code-First
+
+Lets first explore how we can implement subscriptions with our pure code-first approach. Actually there are two ways to do it.
+
+If you do not want to actually deal with the pub-sub system itself and you have a simple setup you can opt into our predefined subscription model where we provide a pub-sub abstraction.
+
+
+
 
 The subscription type is almost implemented like a simple query. In many cases subscriptions are raised through mutations, but subscriptions could also be raised through other backend systems.
 
@@ -36,7 +43,7 @@ We currently support the following subscription provider:
 
 > We are in the process to add more pub-/sub-provider for Kafka, Redis Streams, Azure EventHub and Azure ServiceBus. We also can help along if you want to implement your own subscription provider.
 
-In order to add the subsciption provider to our server add the following service in the `ConfigureServices` method of our `Startup.cs`:
+In order to add the subscription provider to our server add the following service in the `ConfigureServices` method of our `Startup.cs`:
 
 ```csharp
 services.AddInMemorySubscriptionProvider();

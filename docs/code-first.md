@@ -42,7 +42,7 @@ type Query {
 
 We didn't even have to write resolvers due to the fact that the schema inferred those from the hello method. Our hello method is actually our resolver.
 
-This is just a simple class, with no real challenge to it. The schema builder is able to automatically infer interface usage, arguments, really everything just form our types.
+This is just a simple class, with no real challenge to it. The schema builder is able to automatically infer interface usage, arguments, really everything just from our types.
 
 But what if we wanted to apply middleware to our types like paging, filtering or sorting?
 

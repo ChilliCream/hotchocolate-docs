@@ -51,12 +51,14 @@ We have created the Star Wars sample in different versions in order to show diff
 
    ```graphql
    {
-     human(id: 1000) {
+     character(ids: 1000) {
        name
        appearsIn
        friends {
-         name
-         appearsIn
+         nodes {
+           name
+           appearsIn
+         }
        }
      }
    }

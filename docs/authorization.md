@@ -269,7 +269,7 @@ services.AddQueryRequestInterceptor((ctx, builder, ct) =>
 {
     var identity = new ClaimsIdentity();
     identity.AddClaim(new Claim(ClaimTypes.Country, "us"));
-    c.User.AddIdentity(identity);
+    ctx.User.AddIdentity(identity);
     return Task.CompletedTask;
     return Task.CompletedTask;
 });

@@ -1,0 +1,96 @@
+{
+  "version-10.3.6-docs": {
+    "Introduction": [
+      "version-10.3.6-introduction",
+      "version-10.3.6-code-first",
+      "version-10.3.6-schema-first"
+    ],
+    "API Reference": [
+      {
+        "type": "subcategory",
+        "label": "Schema",
+        "ids": [
+          "version-10.3.6-schema",
+          "version-10.3.6-schema-object-type",
+          "version-10.3.6-schema-interface-type",
+          "version-10.3.6-schema-union-type",
+          "version-10.3.6-schema-input-object-type",
+          "version-10.3.6-schema-enum-type",
+          "version-10.3.6-schema-descriptions",
+          "version-10.3.6-custom-scalar-types",
+          "version-10.3.6-descriptor-attributes",
+          "version-10.3.6-extending-types",
+          "version-10.3.6-directive",
+          "version-10.3.6-resolvers",
+          "version-10.3.6-relay",
+          "version-10.3.6-conventions",
+          "version-10.3.6-options"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Data Fetching",
+        "ids": [
+          "version-10.3.6-dataloaders",
+          "version-10.3.6-pagination",
+          "version-10.3.6-filters"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Security",
+        "ids": [
+          "version-10.3.6-authorization",
+          "version-10.3.6-security"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Execution Engine",
+        "ids": [
+          "version-10.3.6-middleware",
+          "version-10.3.6-validation-rule",
+          "version-10.3.6-instrumentation",
+          "version-10.3.6-apollo-tracing",
+          "version-10.3.6-batching",
+          "version-10.3.6-persisted-queries",
+          "version-10.3.6-custom-context",
+          "version-10.3.6-code-first-subscription",
+          "version-10.3.6-type-conversion",
+          "version-10.3.6-errors",
+          "version-10.3.6-execution-options"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Server",
+        "ids": [
+          "version-10.3.6-aspnet",
+          "version-10.3.6-dependency-injection"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Stitching",
+        "ids": [
+          "version-10.3.6-stitching"
+        ]
+      }
+    ],
+    "Tooling": [
+      "version-10.3.6-banana-cakepop",
+      "version-10.3.6-visual-studio-integration"
+    ],
+    "Advanced": [
+      "version-10.3.6-parser",
+      "version-10.3.6-dotnet-cli"
+    ]
+  },
+  "version-10.3.6-examples": {
+    "Code-First": [
+      "version-10.3.6-example-star-wars-code-first",
+      "version-10.3.6-example-slack",
+      "version-10.3.6-example-other-code-first"
+    ]
+  }
+}

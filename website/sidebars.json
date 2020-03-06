@@ -64,6 +64,6 @@
     "Advanced": ["parser", "dotnet-cli"]
   },
   "examples": {
-    "Code-First": ["example-star-wars-code-first", "example-other-code-first"]
+    "Code-First": ["example-star-wars-code-first", "example-slack", "example-other-code-first"]
   }
 }

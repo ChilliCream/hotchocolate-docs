@@ -26,7 +26,7 @@ We have created the Star Wars sample in different versions in order to show diff
    }
    ```
 
-   [Star Wars - Pure Code-First](https://github.com/ChilliCream/hotchocolate-examples/tree/master/PureCodeFirst)
+   [Star Wars - Pure Code-First](https://github.com/ChilliCream/hotchocolate-examples/tree/master/misc/PureCodeFirst)
 
    We have also created a dotnet CLI template for the pure Code-First Star Wars example. You can follow the example and get an impression how you could implement such a schema with our API.
 
@@ -95,7 +95,7 @@ We have created the Star Wars sample in different versions in order to show diff
    }
    ```
 
-   [Star Wars - Code-First](https://github.com/ChilliCream/hotchocolate-examples/tree/master/CodeFirst)
+   [Star Wars - Code-First](https://github.com/ChilliCream/hotchocolate-examples/tree/master/misc/CodeFirst)
 
 3. Schema-First
    

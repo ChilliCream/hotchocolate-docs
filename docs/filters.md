@@ -166,7 +166,7 @@ The paging middleware will first delegate to the next middleware, which is filte
 
 The filtering middleware will also first delegate to the next middleware, which is sorting.
 
-The sorting middleware will again first delegate to the next middleware, which is the actual filed resolver.
+The sorting middleware will again first delegate to the next middleware, which is the actual field resolver.
 
 The field resolver will call `GetPerson` which returns in this example an `IQueryable<Person>`. The queryable represents a not yet executed database query.
 

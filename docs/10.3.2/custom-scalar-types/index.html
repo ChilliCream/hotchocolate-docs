@@ -107,21 +107,21 @@
 <p>This keeps the schema definition small, simple and clean.</p>
 <p>For our built-in types we also have added automatic .NET type inference. This means that we will automatically translate for instance a <code>System.String</code> to a GraphQL <code>StringType</code>. We can override these default mappings by explicitly specifying type bindings with the schema builder.</p>
 <pre><code class="hljs css language-csharp">SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindClrType</span><span class="token punctuation">&lt;</span><span class="token keyword">string</span><span class="token punctuation">,</span> <span class="token class-name">MyCustomStringType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindClrType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span><span class="token keyword">string</span><span class="token punctuation">,</span> MyCustomStringType<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token range operator">..</span><span class="token punctuation">.</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Furthermore, we can also bind scalars to arrays or type structures:</p>
 <pre><code class="hljs css language-csharp">SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindClrType</span><span class="token punctuation">&lt;</span><span class="token keyword">byte</span>[]<span class="token punctuation">,</span> <span class="token class-name">ByteArrayType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindClrType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ByteArrayType<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token range operator">..</span><span class="token punctuation">.</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Theses explicit bindings will overwrite the internal default bindings.</p>
 <p>Specifying such a bindings explicitly can also be important when we have two types that bind to the same .NET Type like with <code>DateTimeType</code> and <code>DateType</code>.</p>
 <pre><code class="hljs css language-csharp">SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindClrType</span><span class="token punctuation">&lt;</span><span class="token class-name">DateTime</span><span class="token punctuation">,</span> <span class="token class-name">DateTimeType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindClrType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>DateTime<span class="token punctuation">,</span> DateTimeType<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token range operator">..</span><span class="token punctuation">.</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>This will ensure that the type inference works predictable and will by default infer <code>DateTimeType</code> from <code>DateTime</code> for instance.</p>
@@ -145,7 +145,7 @@
 </code></pre>
 <p>The same goes for the output side. <code>Any</code> can return a structure of data although it is a scalar type.</p>
 <p>If we want to access the data we can either fetch data as object or we can ask the context to provide it as a specific object.</p>
-<pre><code class="hljs css language-csharp"><span class="token class-name">Foo</span> foo <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Argument</span><span class="token punctuation">&lt;</span><span class="token class-name">Foo</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token string">"bar"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="hljs css language-csharp"><span class="token class-name">Foo</span> foo <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Argument</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>Foo<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token string">"bar"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>We can also ask the context which kind the current argument is:</p>
 <pre><code class="hljs css language-csharp"><span class="token class-name">ValueKind</span> kind <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">ArgumentKind</span><span class="token punctuation">(</span><span class="token string">"bar"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -154,7 +154,7 @@
 <blockquote>
 <p>An integer literal can still contain a long value and a float literal could be a decimal but it also could just be a float.</p>
 </blockquote>
-<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">enum</span> ValueKind
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">enum</span> <span class="token class-name">ValueKind</span>
 <span class="token punctuation">{</span>
     String<span class="token punctuation">,</span>
     Integer<span class="token punctuation">,</span>
@@ -171,7 +171,7 @@
 <p>In order to implement a new scalar type extend the type: <code>ScalarType</code>.</p>
 <p>The following example shows you how a Custom String type could be implemented.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">sealed</span> <span class="token keyword">class</span> <span class="token class-name">CustomStringType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">ScalarType</span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ScalarType</span></span>
 <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token function">CustomStringType</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">:</span> <span class="token keyword">base</span><span class="token punctuation">(</span><span class="token string">"CustomString"</span><span class="token punctuation">)</span>
@@ -179,26 +179,26 @@
     <span class="token punctuation">}</span>
 
     <span class="token comment">// define which .NET type represents your type</span>
-    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token class-name">Type</span> ClrType <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">typeof</span><span class="token punctuation">(</span><span class="token keyword">string</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token return-type class-name">Type</span> ClrType <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">typeof</span><span class="token punctuation">(</span><span class="token type-expression class-name"><span class="token keyword">string</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment">// define which literals this type can be parsed from.</span>
-    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token keyword">bool</span> <span class="token function">IsInstanceOfType</span><span class="token punctuation">(</span><span class="token class-name">IValueNode</span> literal<span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">bool</span></span> <span class="token function">IsInstanceOfType</span><span class="token punctuation">(</span><span class="token class-name">IValueNode</span> literal<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>literal <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ArgumentNullException</span><span class="token punctuation">(</span><span class="token function">nameof</span><span class="token punctuation">(</span>literal<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">ArgumentNullException</span><span class="token punctuation">(</span><span class="token keyword">nameof</span><span class="token punctuation">(</span>literal<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
-        <span class="token keyword">return</span> literal <span class="token keyword">is</span> StringValueNode
-            <span class="token operator">||</span> literal <span class="token keyword">is</span> NullValueNode<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> literal <span class="token keyword">is</span> <span class="token class-name">StringValueNode</span>
+            <span class="token operator">||</span> literal <span class="token keyword">is</span> <span class="token class-name">NullValueNode</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token comment">// define how a literal is parsed to the native .NET type.</span>
-    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token keyword">object</span> <span class="token function">ParseLiteral</span><span class="token punctuation">(</span><span class="token class-name">IValueNode</span> literal<span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">object</span></span> <span class="token function">ParseLiteral</span><span class="token punctuation">(</span><span class="token class-name">IValueNode</span> literal<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>literal <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ArgumentNullException</span><span class="token punctuation">(</span><span class="token function">nameof</span><span class="token punctuation">(</span>literal<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">ArgumentNullException</span><span class="token punctuation">(</span><span class="token keyword">nameof</span><span class="token punctuation">(</span>literal<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
         <span class="token keyword">if</span> <span class="token punctuation">(</span>literal <span class="token keyword">is</span> <span class="token class-name">StringValueNode</span> stringLiteral<span class="token punctuation">)</span>
@@ -206,35 +206,35 @@
             <span class="token keyword">return</span> stringLiteral<span class="token punctuation">.</span>Value<span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>literal <span class="token keyword">is</span> NullValueNode<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>literal <span class="token keyword">is</span> <span class="token class-name">NullValueNode</span><span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
             <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
-        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ArgumentException</span><span class="token punctuation">(</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">ArgumentException</span><span class="token punctuation">(</span>
             <span class="token string">"The string type can only parse string literals."</span><span class="token punctuation">,</span>
-            <span class="token function">nameof</span><span class="token punctuation">(</span>literal<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">nameof</span><span class="token punctuation">(</span>literal<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token comment">// define how a native type is parsed into a literal,</span>
-    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token class-name">IValueNode</span> <span class="token function">ParseValue</span><span class="token punctuation">(</span><span class="token keyword">object</span> <span class="token keyword">value</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token return-type class-name">IValueNode</span> <span class="token function">ParseValue</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">object</span></span> <span class="token keyword">value</span><span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">NullValueNode</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">NullValueNode</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token keyword">is</span> <span class="token keyword">string</span> s<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token keyword">is</span> <span class="token class-name"><span class="token keyword">string</span></span> s<span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">StringValueNode</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> s<span class="token punctuation">,</span> <span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">StringValueNode</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> s<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token keyword">is</span> <span class="token keyword">char</span> c<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token keyword">is</span> <span class="token class-name"><span class="token keyword">char</span></span> c<span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">StringValueNode</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> c<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">StringValueNode</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> c<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
-        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ArgumentException</span><span class="token punctuation">(</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">ArgumentException</span><span class="token punctuation">(</span>
             <span class="token string">"The specified value has to be a string or char in order "</span> <span class="token operator">+</span>
             <span class="token string">"to be parsed by the string type."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -242,43 +242,43 @@
     <span class="token comment">// define the result serialization. A valid output must be of the following .NET types:</span>
     <span class="token comment">// System.String, System.Char, System.Int16, System.Int32, System.Int64,</span>
     <span class="token comment">// System.Float, System.Double, System.Decimal and System.Boolean</span>
-    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token keyword">object</span> <span class="token function">Serialize</span><span class="token punctuation">(</span><span class="token keyword">object</span> <span class="token keyword">value</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">object</span></span> <span class="token function">Serialize</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">object</span></span> <span class="token keyword">value</span><span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
             <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token keyword">is</span> <span class="token keyword">string</span> s<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token keyword">is</span> <span class="token class-name"><span class="token keyword">string</span></span> s<span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
             <span class="token keyword">return</span> s<span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
-        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token keyword">is</span> <span class="token keyword">char</span> c<span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token keyword">is</span> <span class="token class-name"><span class="token keyword">char</span></span> c<span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
             <span class="token keyword">return</span> c<span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
-        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ArgumentException</span><span class="token punctuation">(</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">ArgumentException</span><span class="token punctuation">(</span>
             <span class="token string">"The specified value cannot be serialized by the StringType."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token keyword">bool</span> <span class="token function">TryDeserialize</span><span class="token punctuation">(</span><span class="token keyword">object</span> serialized<span class="token punctuation">,</span> <span class="token keyword">out</span> <span class="token keyword">object</span> <span class="token keyword">value</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">bool</span></span> <span class="token function">TryDeserialize</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">object</span></span> serialized<span class="token punctuation">,</span> <span class="token keyword">out</span> <span class="token class-name"><span class="token keyword">object</span></span> <span class="token keyword">value</span><span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>serialized <span class="token keyword">is</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
             <span class="token keyword">value</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token keyword">true</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>serialized <span class="token keyword">is</span> <span class="token keyword">string</span> s<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>serialized <span class="token keyword">is</span> <span class="token class-name"><span class="token keyword">string</span></span> s<span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
             <span class="token keyword">value</span> <span class="token operator">=</span> s<span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token keyword">true</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
         <span class="token keyword">value</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>

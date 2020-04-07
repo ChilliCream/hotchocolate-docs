@@ -16,9 +16,9 @@
 <p>Directives provide a way in GraphQL to add annotations to the type system or query elements. These annotations can be used to provide meta data for code generators or even to change the execution behavior of the query engine on a GraphQL server.</p>
 <p>You can specify a directive by inehriting from <code>DirectiveType</code>:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyDirective</span>
-    <span class="token punctuation">:</span> <span class="token class-name">DirectiveType</span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">DirectiveType</span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IDirectiveTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IDirectiveTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"my"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Location</span><span class="token punctuation">(</span>DirectiveLocation<span class="token punctuation">.</span>Field<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -28,7 +28,7 @@
 <p>In order to use a directive it has to be registered with the schema.</p>
 <pre><code class="hljs css language-csharp">Schema<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span>c <span class="token operator">=></span> 
 <span class="token punctuation">{</span>
-    c<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">RegisterDirective</span><span class="token punctuation">&lt;</span><span class="token class-name">MyDirective</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    c<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">RegisterDirective</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>MyDirective<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>GraphQL specifies three directives in the spec (skip, include and depricated) which are always registered with your schema.</p>
@@ -40,54 +40,54 @@
 <h2><a class="anchor" aria-hidden="true" id="typed-arguments"></a><a href="#typed-arguments" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Typed Arguments</h2>
 <p>Directive can have arguments that can be used to make them more flexible. So, if we had a directive like the following:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyDirective</span>
-    <span class="token punctuation">:</span> <span class="token class-name">DirectiveType</span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">DirectiveType</span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IDirectiveTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IDirectiveTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"my"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        descriptor<span class="token punctuation">.</span><span class="token function">Argument</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Type<span class="token operator">&lt;</span>NonNullType<span class="token operator">&lt;</span>StringType<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        descriptor<span class="token punctuation">.</span><span class="token function">Argument</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Type</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>NonNullType<span class="token punctuation">&lt;</span>StringType<span class="token punctuation">></span><span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Location</span><span class="token punctuation">(</span>DirectiveLocation<span class="token punctuation">.</span>Object<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>We could associate the <code>MyDirective</code> with an object like this:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FooType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType</span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"Foo"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        descriptor<span class="token punctuation">.</span><span class="token function">Directive</span><span class="token punctuation">(</span><span class="token string">"my"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">StringValue</span><span class="token punctuation">(</span><span class="token string">"bar"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        descriptor<span class="token punctuation">.</span><span class="token function">Directive</span><span class="token punctuation">(</span><span class="token string">"my"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">StringValue</span><span class="token punctuation">(</span><span class="token string">"bar"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token range operator">..</span><span class="token punctuation">.</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Adding directives just with their name is not type safe and could lead to runtime errors which can be avoided by using our generic variant of the directive type. The generic directive type declares the .NET type that represents the directive instance.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyDirectiveType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">DirectiveType</span><span class="token operator">&lt;</span>MyDirective<span class="token operator">></span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">DirectiveType<span class="token punctuation">&lt;</span>MyDirective<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IDirectiveTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IDirectiveTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"my"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token range operator">..</span><span class="token punctuation">.</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyDirective</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">string</span> Name <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Name <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>The generic directive type works similar to the generic input object type. The directive descriptor will automatically try to discover any properties and expose those as arguments.</p>
 <p>So, with our new directive in place we could now add it to our object type like the following:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FooType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType</span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"Foo"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        descriptor<span class="token punctuation">.</span><span class="token function">Directive</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MyDirective</span> <span class="token punctuation">{</span> Name <span class="token operator">=</span> <span class="token string">"bar"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        descriptor<span class="token punctuation">.</span><span class="token function">Directive</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token constructor-invocation class-name">MyDirective</span> <span class="token punctuation">{</span> Name <span class="token operator">=</span> <span class="token string">"bar"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token range operator">..</span><span class="token punctuation">.</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -96,9 +96,9 @@
 <p>What makes directive with Hot Chocolate very useful is the ability to associate a middleware with it that overwrites / alternates the default resolver behaviour of a field.</p>
 <p>In order to add a middleware to a directive you could declare it with the descriptor as a delegate.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyDirectiveType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">DirectiveType</span><span class="token operator">&lt;</span>MyDirective<span class="token operator">></span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">DirectiveType<span class="token punctuation">&lt;</span>MyDirective<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IDirectiveTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IDirectiveTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"my"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Location</span><span class="token punctuation">(</span>DirectiveLocation<span class="token punctuation">.</span>Object<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -112,7 +112,7 @@
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyDirective</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">string</span> Name <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Name <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Directives with middleware or executable directives can be put on object types and on their field definitions or on the field selection in a query. Executable directives on an object type will replace the field resolver of every field of the annotated object type.</p>
@@ -142,9 +142,9 @@
 <h3><a class="anchor" aria-hidden="true" id="method-binding"></a><a href="#method-binding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Method Binding</h3>
 <p>Like with field resolvers you can bind a middleware to method making use of argument injection.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyDirectiveType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">DirectiveType</span><span class="token operator">&lt;</span>MyDirective<span class="token operator">></span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">DirectiveType<span class="token punctuation">&lt;</span>MyDirective<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IDirectiveTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IDirectiveTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"my"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Location</span><span class="token punctuation">(</span>DirectiveLocation<span class="token punctuation">.</span>Object<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -158,12 +158,12 @@
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyDirective</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">string</span> Name <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Name <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CustomMiddleware</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">Foo</span><span class="token punctuation">(</span><span class="token class-name">MyDirective</span> directive<span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> <span class="token function">Foo</span><span class="token punctuation">(</span><span class="token class-name">MyDirective</span> directive<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token keyword">return</span> directive<span class="token punctuation">.</span>Name<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>

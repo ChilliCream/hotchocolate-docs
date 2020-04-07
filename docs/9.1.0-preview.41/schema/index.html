@@ -82,11 +82,11 @@
 <p>With conventions we could create our above schema like the following:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">Hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> <span class="token function">Hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token class-name">ISchema</span> schema <span class="token operator">=</span> SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddQueryType</span><span class="token punctuation">&lt;</span><span class="token class-name">Query</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddQueryType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>Query<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p><em>Hot Chocolate</em> provides a collection of conventions and attributes to express a schema with POCOs. In many cases the default conventions should be enough, but from version 9 on we have centralised these conventions into two classes. If you do not like our default conventions or if you want to bring your own set of custom attributes, then you can overwrite or extend the default conventions.</p>
@@ -95,23 +95,23 @@
 </blockquote>
 <p>The second way to express a schema in code-first is to declare schema types. Schema types allow us to exactly express the structure and properties of our schema:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">QueryType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType</span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Resolver</span><span class="token punctuation">(</span><span class="token string">"World"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token class-name">ISchema</span> schema <span class="token operator">=</span> SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddQueryType</span><span class="token punctuation">&lt;</span><span class="token class-name">QueryType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddQueryType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>QueryType<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>We could also use our generic variant in order to have the best of both worlds:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">QueryType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Query<span class="token operator">></span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Query<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Query<span class="token operator">></span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor<span class="token punctuation">&lt;</span>Query<span class="token punctuation">></span></span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span><span class="token string">"foo"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Resolver</span><span class="token punctuation">(</span><span class="token string">"bar"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
     <span class="token punctuation">}</span>
@@ -119,11 +119,11 @@
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">Hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> <span class="token function">Hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token class-name">ISchema</span> schema <span class="token operator">=</span> SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddQueryType</span><span class="token punctuation">&lt;</span><span class="token class-name">QueryType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddQueryType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>QueryType<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>The above example would yield the following schema:</p>
@@ -138,9 +138,9 @@
 </blockquote>
 <p>As I mentioned earlier, we can mix and match our approach and also extend schema-first fields with code-first:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">QueryTypeExtension</span>
-    <span class="token punctuation">:</span> <span class="token class-name">ObjectTypeExtension</span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectTypeExtension</span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span><span class="token string">"foo"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Resolver</span><span class="token punctuation">(</span><span class="token string">"bar"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
     <span class="token punctuation">}</span>
@@ -149,7 +149,7 @@
 <span class="token class-name">ISchema</span> schema <span class="token operator">=</span> SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">AddDocumentFromString</span><span class="token punctuation">(</span><span class="token string">"type Query { hello: String }"</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">AddResolver</span><span class="token punctuation">(</span><span class="token string">"Query"</span><span class="token punctuation">,</span> <span class="token string">"hello"</span><span class="token punctuation">,</span> <span class="token string">"World"</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token punctuation">&lt;</span><span class="token class-name">QueryTypeExtension</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>QueryTypeExtension<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>The above example would again yield the following schema:</p>
@@ -163,22 +163,22 @@
 <p>Types in a schema can be bound to a specific .NET type. When the schema builder infers schema types from .NET types it will basically lookup to which schema type a .NET type can be bound. For instance a <code>string</code> will be bound to a <code>StringType</code>.</p>
 <p>We can also bind additonal types to a single schema type. For instance we can bind the <code>System.Guid</code> to our <code>StringType</code>.</p>
 <pre><code class="hljs css language-csharp"><span class="token class-name">ISchema</span> schema <span class="token operator">=</span> SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindClrType</span><span class="token punctuation">&lt;</span><span class="token class-name">Guid</span><span class="token punctuation">,</span> <span class="token class-name">StringType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token range operator">..</span><span class="token punctuation">.</span>
+    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindClrType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>Guid<span class="token punctuation">,</span> StringType<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>You can also rebind scalars with this, so instead of the default <code>int</code> to <code>IntType</code> binding we could bind that as well to our <code>StringType</code>.</p>
 <pre><code class="hljs css language-csharp"><span class="token class-name">ISchema</span> schema <span class="token operator">=</span> SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindClrType</span><span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token class-name">StringType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token range operator">..</span><span class="token punctuation">.</span>
+    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">BindClrType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> StringType<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="overwriting-schema-properties"></a><a href="#overwriting-schema-properties" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overwriting Schema Properties</h2>
 <p>Like with any type in <em>Hot Chocolate</em> we can inherit from schema in order to provide further logic and details. If we for instance wanted to provide a schema description or decorate the schema with directives, we could do that like the following:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MySchema</span>
-    <span class="token punctuation">:</span> <span class="token class-name">Schema</span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">Schema</span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">ISchemaDescriptor</span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">ISchemaDescriptor</span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Description</span><span class="token punctuation">(</span><span class="token string">"This is my schema description that can be accessed by introspection"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -187,7 +187,7 @@
 <span class="token class-name">ISchema</span> schema <span class="token operator">=</span> SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">AddDocumentFromString</span><span class="token punctuation">(</span><span class="token string">"type Query { hello: String }"</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">AddResolver</span><span class="token punctuation">(</span><span class="token string">"Query"</span><span class="token punctuation">,</span> <span class="token string">"hello"</span><span class="token punctuation">,</span> <span class="token string">"World"</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">SetSchema</span><span class="token punctuation">&lt;</span><span class="token class-name">MySchema</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">SetSchema</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>MySchema<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="make-it-executable"></a><a href="#make-it-executable" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Make it Executable</h2>

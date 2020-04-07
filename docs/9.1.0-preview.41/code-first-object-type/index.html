@@ -17,11 +17,11 @@
 <p>The first approach is by using the generic object type class which lets you specify an entity type that shall represent your schema type in .NET. The object type descriptor will then try to automatically infer the GraphQL schema type from your .NET type.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">GetHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
+  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> <span class="token function">GetHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">QueryType</span>
-  <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Query<span class="token operator">></span>
+  <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Query<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
 
 <span class="token punctuation">}</span>
@@ -33,15 +33,15 @@
 <p>In order to specify you intend more explicitly you can opt to use the <code>IObjectTypeDescriptor&lt;Query&gt;</code> that is accessible by overriding the configure method of the <code>QueryType</code>.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">GetHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
+  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> <span class="token function">GetHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">QueryType</span>
-  <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Query<span class="token operator">></span>
+  <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Query<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Query<span class="token operator">></span> desc<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor<span class="token punctuation">&lt;</span>Query<span class="token punctuation">></span></span> desc<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
-        desc<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">GetHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Type<span class="token operator">&lt;</span>NonNullType<span class="token operator">&lt;</span>StringType<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        desc<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">GetHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Type</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>NonNullType<span class="token punctuation">&lt;</span>StringType<span class="token punctuation">></span><span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -70,11 +70,11 @@
 <p>Example name from type:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bar</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword">public</span> <span class="token keyword">string</span> Foo <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Foo <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BarType</span>
-  <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Bar<span class="token operator">></span>
+  <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
 
 <span class="token punctuation">}</span>
@@ -84,14 +84,14 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Example name from attribute:</p>
-<pre><code class="hljs css language-csharp"><span class="token punctuation">[</span><span class="token class-name">GraphQLName</span><span class="token punctuation">(</span><span class="token string">"Foo"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<pre><code class="hljs css language-csharp"><span class="token punctuation">[</span><span class="token attribute"><span class="token class-name">GraphQLName</span><span class="token attribute-arguments"><span class="token punctuation">(</span><span class="token string">"Foo"</span><span class="token punctuation">)</span></span></span><span class="token punctuation">]</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bar</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword">public</span> <span class="token keyword">string</span> Foo <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Foo <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BarType</span>
-  <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Bar<span class="token operator">></span>
+  <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
 
 <span class="token punctuation">}</span>
@@ -101,16 +101,16 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Example explicit name:</p>
-<pre><code class="hljs css language-csharp"><span class="token punctuation">[</span><span class="token class-name">GraphQLName</span><span class="token punctuation">(</span><span class="token string">"Foo"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<pre><code class="hljs css language-csharp"><span class="token punctuation">[</span><span class="token attribute"><span class="token class-name">GraphQLName</span><span class="token attribute-arguments"><span class="token punctuation">(</span><span class="token string">"Foo"</span><span class="token punctuation">)</span></span></span><span class="token punctuation">]</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bar</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword">public</span> <span class="token keyword">string</span> Foo <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Foo <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BarType</span>
-  <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Bar<span class="token operator">></span>
+  <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Bar<span class="token operator">></span> desc<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span> desc<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         desc<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"Foo123"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -124,13 +124,13 @@
 <p>The description of a type will provide an additional text that describes a type to the schema introspection. This is useful with tools like GraphiQL. GraphQL descriptions are defined using the Markdown syntax (as specified by <a href="http://commonmark.org">CommonMark</a>).</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bar</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword">public</span> <span class="token keyword">string</span> Foo <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Foo <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BarType</span>
-  <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Bar<span class="token operator">></span>
+  <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Bar<span class="token operator">></span> desc<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span> desc<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         desc<span class="token punctuation">.</span><span class="token function">Description</span><span class="token punctuation">(</span><span class="token string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -147,15 +147,15 @@ Lorem ipsum dolor sit amet<span class="token punctuation">,</span> consectetur a
 <p>The object type descriptor will by default use an instance of approach to figure out if a resolver result is of a certain object type. In some cases when you either have no explicit type binding or you use a .NET net type in multiple schema types it is necessary to specify a IsOfType delegate that determines the type of a resolver result.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bar</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword">public</span> <span class="token keyword">string</span> Foo <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Foo <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BarType</span>
-  <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Bar<span class="token operator">></span>
+  <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Bar<span class="token operator">></span> desc<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span> desc<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
-        desc<span class="token punctuation">.</span><span class="token function">IsOfType</span><span class="token punctuation">(</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> result<span class="token punctuation">)</span> <span class="token operator">=></span> result <span class="token keyword">is</span> <span class="token keyword">string</span> s <span class="token operator">&amp;&amp;</span> s <span class="token operator">==</span> <span class="token string">"bar"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        desc<span class="token punctuation">.</span><span class="token function">IsOfType</span><span class="token punctuation">(</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> result<span class="token punctuation">)</span> <span class="token operator">=></span> result <span class="token keyword">is</span> <span class="token class-name"><span class="token keyword">string</span></span> s <span class="token operator">&amp;&amp;</span> s <span class="token operator">==</span> <span class="token string">"bar"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -163,14 +163,14 @@ Lorem ipsum dolor sit amet<span class="token punctuation">,</span> consectetur a
 <p>The object type descriptor will by default scan the provided entity type for additional fields. In some cases you might want to specify all the fields explicitly in order to have a more predictable schema. You might not want that a property or method that you add to your types automatically shows up in your schema. In those cases you can change the field binding behaviour to explicit.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bar</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword">public</span> <span class="token keyword">string</span> Foo1 <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-  <span class="token keyword">public</span> <span class="token keyword">string</span> Foo2 <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Foo1 <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Foo2 <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BarType</span>
-  <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Bar<span class="token operator">></span>
+  <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Bar<span class="token operator">></span> desc<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span> desc<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         desc<span class="token punctuation">.</span><span class="token function">BindFields</span><span class="token punctuation">(</span>BindingBehaviour<span class="token punctuation">.</span>Explicit<span class="token punctuation">)</span><span class="token punctuation">;</span>
         desc<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span>Foo1<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -185,13 +185,13 @@ Lorem ipsum dolor sit amet<span class="token punctuation">,</span> consectetur a
 <p>There are two ways to define fields. First you can specify a field configuration by pointing to a property or method that is declared in your .NET type.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bar</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword">public</span> <span class="token keyword">string</span> Xyz <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Xyz <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BarType</span>
-  <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Bar<span class="token operator">></span>
+  <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Bar<span class="token operator">></span> desc<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span> desc<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         desc<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span>Xyz<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"foo"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -204,13 +204,13 @@ Lorem ipsum dolor sit amet<span class="token punctuation">,</span> consectetur a
 <p>Second, you can define fields that do not have any representation in your .NET type.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bar</span>
 <span class="token punctuation">{</span>
-  <span class="token keyword">public</span> <span class="token keyword">string</span> Xyz <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Xyz <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BarType</span>
-  <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Bar<span class="token operator">></span>
+  <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Bar<span class="token operator">></span> desc<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor<span class="token punctuation">&lt;</span>Bar<span class="token punctuation">></span></span> desc<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         desc<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span><span class="token string">"foo"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Resolver</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"hello world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -225,9 +225,9 @@ Lorem ipsum dolor sit amet<span class="token punctuation">,</span> consectetur a
 <h2><a class="anchor" aria-hidden="true" id="objecttype"></a><a href="#objecttype" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ObjectType</h2>
 <p>The second approach to describe object types is with the non-generic object type. The non-generic type does not necessarily have a fixed .NET type binding. This means that you have more flexibility in defining your schema type and how the data flows through the query engine.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BarType</span>
-  <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span>
+  <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType</span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor</span> desc<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor</span> desc<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         desc<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span><span class="token string">"foo"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Resolver</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token string">"hello world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>

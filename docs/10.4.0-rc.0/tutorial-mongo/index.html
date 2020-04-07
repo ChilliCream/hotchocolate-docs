@@ -38,7 +38,7 @@ dotnet restore
 <p>The <em>HotChocolate.AspNetCore</em> package contains the ASP.NET core middleware for hot chocolate and also includes the <em>Hot Chocolate</em> query engine as a dependency. This package basically provides all we need to get started.</p>
 <h2><a class="anchor" aria-hidden="true" id="configuring-the-graphql-server"></a><a href="#configuring-the-graphql-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuring the GraphQL server</h2>
 <p>So, in order to configure our server lets open the <code>src/Server/Startup.cs</code> and rewrite the <code>ConfigureServices</code> method like the following:</p>
-<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">ConfigureServices</span><span class="token punctuation">(</span><span class="token class-name">IServiceCollection</span> services<span class="token punctuation">)</span>
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">ConfigureServices</span><span class="token punctuation">(</span><span class="token class-name">IServiceCollection</span> services<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     services<span class="token punctuation">.</span><span class="token function">AddGraphQL</span><span class="token punctuation">(</span>
         <span class="token comment">// we will add our config here later</span>
@@ -48,25 +48,25 @@ dotnet restore
 <p><code>AddGraphQL</code> adds an executable schema to our services and this makes it available to our middleware.</p>
 <p>In order to create a valid schema we need to have at least a query type. So, lets introduce a new class called <code>Query</code> that shall contain one Property <code>Hello</code> which shall return the <code>string</code> <code>world</code>.</p>
 <p>Create a new file <code>src/Server/Query.cs</code> and add the following code:</p>
-<pre><code class="hljs css language-csharp"><span class="token keyword">namespace</span> Server
+<pre><code class="hljs css language-csharp"><span class="token keyword">namespace</span> <span class="token namespace">Server</span>
 <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>
     <span class="token punctuation">{</span>
-        <span class="token keyword">public</span> <span class="token keyword">string</span> Hello <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Hello <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Now lets register this type as our query type with the GraphQL schema.</p>
-<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">ConfigureServices</span><span class="token punctuation">(</span><span class="token class-name">IServiceCollection</span> services<span class="token punctuation">)</span>
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">ConfigureServices</span><span class="token punctuation">(</span><span class="token class-name">IServiceCollection</span> services<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     services<span class="token punctuation">.</span><span class="token function">AddGraphQL</span><span class="token punctuation">(</span>
         SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddQueryType</span><span class="token punctuation">&lt;</span><span class="token class-name">Query</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddQueryType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>Query<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>With this we have finally a valid schema that we could now serve up with our middleware. In order to run our server we now just have to add the middleware.</p>
 <p>For that replace the <code>Configure</code> method in <code>src/Server/Startup.cs</code> with the following code:</p>
-<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IApplicationBuilder</span> app<span class="token punctuation">,</span> <span class="token class-name">IHostingEnvironment</span> env<span class="token punctuation">)</span>
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IApplicationBuilder</span> app<span class="token punctuation">,</span> <span class="token class-name">IHostingEnvironment</span> env<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>env<span class="token punctuation">.</span><span class="token function">IsDevelopment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
@@ -134,11 +134,11 @@ Subscriptions in GraphQL represent events. We can basically subscribe to events 
 <p>Enable it just for a specific files:</p>
 <pre><code class="hljs css language-csharp"><span class="token preprocessor property">#nullable enable</span>
 
-<span class="token keyword">namespace</span> Server
+<span class="token keyword">namespace</span> <span class="token namespace">Server</span>
 <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>
     <span class="token punctuation">{</span>
-        <span class="token keyword">public</span> <span class="token keyword">string</span> Hello <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Hello <span class="token operator">=></span> <span class="token string">"World"</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -150,11 +150,11 @@ Subscriptions in GraphQL represent events. We can basically subscribe to events 
 <p>In GraphQL types are by default nullable and non-nullable types are marked with an exclamation mark.</p>
 <p>If a type is marked as non-nullable in GraphQL the server will guarantee to us that we never will get null for that field even if the programmer did a mistake.</p>
 <p>So, if we would change our <code>Query</code> type to return null ...</p>
-<pre><code class="hljs css language-csharp"><span class="token keyword">namespace</span> Server
+<pre><code class="hljs css language-csharp"><span class="token keyword">namespace</span> <span class="token namespace">Server</span>
 <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Query</span>
     <span class="token punctuation">{</span>
-        <span class="token keyword">public</span> <span class="token keyword">string</span> Hello <span class="token operator">=></span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Hello <span class="token operator">=></span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -185,10 +185,10 @@ Subscriptions in GraphQL represent events. We can basically subscribe to events 
 <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token function">Tweet</span><span class="token punctuation">(</span>
         <span class="token class-name">Guid</span> id<span class="token punctuation">,</span>
-        <span class="token keyword">string</span> text<span class="token punctuation">,</span>
+        <span class="token class-name"><span class="token keyword">string</span></span> text<span class="token punctuation">,</span>
         <span class="token class-name">Guid</span> authorId<span class="token punctuation">,</span>
         <span class="token class-name">DateTime</span> published<span class="token punctuation">,</span>
-        Guid<span class="token punctuation">[</span><span class="token punctuation">]</span> likes<span class="token punctuation">)</span>
+        <span class="token class-name">Guid<span class="token punctuation">[</span><span class="token punctuation">]</span></span> likes<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         Id <span class="token operator">=</span> id<span class="token punctuation">;</span>
         Text <span class="token operator">=</span> text<span class="token punctuation">;</span>
@@ -197,23 +197,23 @@ Subscriptions in GraphQL represent events. We can basically subscribe to events 
         Likes <span class="token operator">=</span> likes<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    <span class="token keyword">public</span> <span class="token class-name">Guid</span> Id <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">string</span> Text <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token class-name">Guid</span> AuthorId <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> Guid<span class="token punctuation">[</span><span class="token punctuation">]</span> Likes <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token class-name">DateTime</span> Published <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name">Guid</span> Id <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Text <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name">Guid</span> AuthorId <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name">Guid<span class="token punctuation">[</span><span class="token punctuation">]</span></span> Likes <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name">DateTime</span> Published <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token function">User</span><span class="token punctuation">(</span><span class="token class-name">Guid</span> id<span class="token punctuation">,</span> <span class="token keyword">string</span> name<span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token function">User</span><span class="token punctuation">(</span><span class="token class-name">Guid</span> id<span class="token punctuation">,</span> <span class="token class-name"><span class="token keyword">string</span></span> name<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         Id <span class="token operator">=</span> id<span class="token punctuation">;</span>
         Name <span class="token operator">=</span> name<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    <span class="token keyword">public</span> <span class="token class-name">Guid</span> Id <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">string</span> Name <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name">Guid</span> Id <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> Name <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </span></div></article></div><div class="docLastUpdate"><em>Last updated on 2019-12-28 by Michael Staib</em></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#creating-the-project">Creating the project</a></li><li><a href="#configuring-the-graphql-server">Configuring the GraphQL server</a></li><li><a href="#testing-the-server">Testing the server</a></li><li><a href="#operations">Operations</a></li><li><a href="#nullability">Nullability</a></li><li><a href="#schema-design">Schema Design</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/signet.svg" alt="Hot Chocolate" width="64" height="64"/></a><div><h5>Docs</h5><a href="/docs/introduction.html">Quickstart</a><a href="/docs/code-first.html">Code-First</a><a href="/docs/options.html">General</a></div><div><h5>Examples</h5><a href="/docs/example-star-wars-code-first.html">Star Wars</a></div><div><h5>Community</h5><a href="https://join.slack.com/t/hotchocolategraphql/shared_invite/enQtNTA4NjA0ODYwOTQ0LTViMzA2MTM4OWYwYjIxYzViYmM0YmZhYjdiNzBjOTg2ZmU1YmMwNDZiYjUyZWZlMzNiMTk1OWUxNWZhMzQwY2Q" target="_blank" rel="noreferrer noopener">Join us on Slack</a><a href="https://twitter.com/Chilli_Cream" target="_blank" rel="noreferrer noopener">Follow us on Twitter</a><a href="http://stackoverflow.com/questions/tagged/hotchocolate" target="_blank" rel="noreferrer noopener">Stack Overflow</a></div><div><h5>More</h5><a href="https://chillicream.com/blog" target="_blank">Blog</a><a href="https://shop.chillicream.com" target="_blank">Shop</a><a href="https://github.com/ChilliCream/hotchocolate" target="_blank">GitHub</a><a href="https://github.com/ChilliCream/hotchocolate/issues" target="_blank">Issues</a><a class="github-button" href="https://github.com/ChilliCream/hotchocolate" data-icon="octicon-star" data-count-href="/chillicream/hotchocolate/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 <a href="https://chillicream.com" target="_blank">ChilliCream</a></section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script><script>

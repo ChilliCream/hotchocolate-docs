@@ -79,7 +79,7 @@
 <pre><code class="hljs css language-csharp">SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">Use</span><span class="token punctuation">(</span>next <span class="token operator">=></span> context <span class="token operator">=></span>
     <span class="token punctuation">{</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Parent</span><span class="token punctuation">&lt;</span><span class="token keyword">object</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">is</span> IDictionary<span class="token operator">&lt;</span><span class="token keyword">string</span><span class="token punctuation">,</span> <span class="token keyword">object</span><span class="token operator">></span> dict<span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Parent</span><span class="token generic class-name"><span class="token punctuation">&lt;</span><span class="token keyword">object</span><span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">is</span> <span class="token class-name">IDictionary<span class="token punctuation">&lt;</span><span class="token keyword">string</span><span class="token punctuation">,</span> <span class="token keyword">object</span><span class="token punctuation">></span></span> dict<span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
             context<span class="token punctuation">.</span>Result <span class="token operator">=</span> dict<span class="token punctuation">[</span>context<span class="token punctuation">.</span>Field<span class="token punctuation">.</span>Name<span class="token punctuation">]</span><span class="token punctuation">;</span>
             <span class="token keyword">return</span> Task<span class="token punctuation">.</span>CompletedTask<span class="token punctuation">;</span>
@@ -89,7 +89,7 @@
             <span class="token keyword">return</span> <span class="token function">_next</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token range operator">..</span><span class="token punctuation">.</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>In your middleware you can always decide if your middleware completes the pipeline or if it shall call the next pipeline component.</p>
@@ -102,12 +102,12 @@
     <span class="token punctuation">{</span>
         <span class="token keyword">await</span> <span class="token function">_next</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="token keyword">if</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token class-name">Result</span> <span class="token keyword">is</span> <span class="token keyword">string</span> s<span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span>Result <span class="token keyword">is</span> <span class="token class-name"><span class="token keyword">string</span></span> s<span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
             context<span class="token punctuation">.</span>Result <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">ToUpper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token range operator">..</span><span class="token punctuation">.</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Lets now have a look of how you can bind a middleware to a specific field.</p>
@@ -117,27 +117,27 @@
     <span class="token punctuation">{</span>
         <span class="token keyword">await</span> <span class="token function">_next</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="token keyword">if</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token class-name">Result</span> <span class="token keyword">is</span> <span class="token keyword">string</span> s<span class="token punctuation">)</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span>Result <span class="token keyword">is</span> <span class="token class-name"><span class="token keyword">string</span></span> s<span class="token punctuation">)</span>
         <span class="token punctuation">{</span>
             context<span class="token punctuation">.</span>Result <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">ToUpper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token range operator">..</span><span class="token punctuation">.</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Map is especially useful if you are building your schema with the schema-first approach.</p>
 <p>If you are using the code-first approach you can do that more elegantly by using <code>Use</code> on a field descriptor.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FooType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Foo<span class="token operator">></span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Foo<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Foo<span class="token operator">></span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor<span class="token punctuation">&lt;</span>Foo<span class="token punctuation">></span></span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span>Bar<span class="token punctuation">)</span>
             <span class="token punctuation">.</span><span class="token function">Use</span><span class="token punctuation">(</span>next <span class="token operator">=></span> <span class="token keyword">async</span> context <span class="token operator">=></span>
             <span class="token punctuation">{</span>
                 <span class="token keyword">await</span> <span class="token function">_next</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="token keyword">if</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token class-name">Result</span> <span class="token keyword">is</span> <span class="token keyword">string</span> s<span class="token punctuation">)</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span>Result <span class="token keyword">is</span> <span class="token class-name"><span class="token keyword">string</span></span> s<span class="token punctuation">)</span>
                 <span class="token punctuation">{</span>
                     context<span class="token punctuation">.</span>Result <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">ToUpper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token punctuation">}</span>
@@ -160,7 +160,7 @@
         _singletonService <span class="token operator">=</span> singletonService<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    <span class="token keyword">public</span> <span class="token keyword">async</span> <span class="token class-name">Task</span> <span class="token function">InvokeAsync</span><span class="token punctuation">(</span><span class="token class-name">IMiddlewareContext</span> context<span class="token punctuation">,</span> <span class="token class-name">IMyScopedService</span> scopedService<span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">async</span> <span class="token return-type class-name">Task</span> <span class="token function">InvokeAsync</span><span class="token punctuation">(</span><span class="token class-name">IMiddlewareContext</span> context<span class="token punctuation">,</span> <span class="token class-name">IMyScopedService</span> scopedService<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token comment">// the middleware logic</span>
         <span class="token keyword">await</span> <span class="token function">_next</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -168,10 +168,10 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <p>The class middlewares can be registered as follows:</p>
-<pre><code class="hljs css language-csharp">descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> Bar<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Use</span><span class="token punctuation">&lt;</span><span class="token class-name">MyMiddleware</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="hljs css language-csharp">descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> Bar<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Use</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>MyMiddleware<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Also if you have custom parameters that you want to pass along you can use our factory.</p>
-<pre><code class="hljs css language-csharp">descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> Bar<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Use</span><span class="token punctuation">(</span><span class="token punctuation">(</span>services<span class="token punctuation">,</span> next<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">new</span> <span class="token class-name">MyMiddleware</span><span class="token punctuation">(</span>next<span class="token punctuation">,</span> <span class="token string">"custom"</span><span class="token punctuation">,</span> <span class="token string">"custom"</span><span class="token punctuation">,</span> services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">GetRequiredService</span><span class="token punctuation">&lt;</span><span class="token class-name">FooBar</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="hljs css language-csharp">descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> Bar<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Use</span><span class="token punctuation">(</span><span class="token punctuation">(</span>services<span class="token punctuation">,</span> next<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">MyMiddleware</span><span class="token punctuation">(</span>next<span class="token punctuation">,</span> <span class="token string">"custom"</span><span class="token punctuation">,</span> <span class="token string">"custom"</span><span class="token punctuation">,</span> services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">GetRequiredService</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>FooBar<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Our paging implementation for <code>IQueryable</code> is a field middleware and is provided through an extension method on <code>IObjectFieldDescriptor</code>.</p>
 <p>The extension method adds the middleware as well as the arguments that the middleware expects.</p>
@@ -192,10 +192,10 @@ You can even access all the results that the previous resolver in your path have
 <p>So, first lets have a look at how to define a directive middleware.</p>
 <p>Let's say we want to have a directive that always converts the result of annotated fields to an upper string.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UpperDirectiveType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">DirectiveType</span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">DirectiveType</span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>
-        IDirectiveTypeDescriptor<span class="token operator">&lt;</span>FooDirective<span class="token operator">></span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span>
+        <span class="token class-name">IDirectiveTypeDescriptor<span class="token punctuation">&lt;</span>FooDirective<span class="token punctuation">></span></span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"upper"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Location</span><span class="token punctuation">(</span>DirectiveLocation<span class="token punctuation">.</span>Field<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -203,7 +203,7 @@ You can even access all the results that the previous resolver in your path have
         <span class="token punctuation">{</span>
             <span class="token keyword">await</span> next<span class="token punctuation">.</span><span class="token function">Invoke</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="token keyword">if</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token class-name">Result</span> <span class="token keyword">is</span> <span class="token keyword">string</span> s<span class="token punctuation">)</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span>Result <span class="token keyword">is</span> <span class="token class-name"><span class="token keyword">string</span></span> s<span class="token punctuation">)</span>
             <span class="token punctuation">{</span>
                 context<span class="token punctuation">.</span>Result <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">ToUpper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token punctuation">}</span>
@@ -213,7 +213,7 @@ You can even access all the results that the previous resolver in your path have
 </code></pre>
 <p>Directives have to be registered with the schema in order to be used in queries or schema types.</p>
 <pre><code class="hljs css language-csharp">SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddDirectiveType</span><span class="token punctuation">&lt;</span><span class="token class-name">UpperDirectiveType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddDirectiveType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>UpperDirectiveType<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Once registered our directive can be used like the following in queries:</p>

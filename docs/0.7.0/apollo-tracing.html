@@ -93,7 +93,7 @@ describes how <em>Apollo Tracing</em> is enabled permanently.</p>
 <p><strong>Enable <em>Apollo Tracing</em> permanently</strong></p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Startup</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">ConfigureServices</span><span class="token punctuation">(</span><span class="token class-name">IServiceCollection</span> services<span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">ConfigureServices</span><span class="token punctuation">(</span><span class="token class-name">IServiceCollection</span> services<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token comment">// Registering services / repositories here; omitted for brevity</span>
 
@@ -101,7 +101,7 @@ describes how <em>Apollo Tracing</em> is enabled permanently.</p>
         <span class="token punctuation">{</span>
             <span class="token comment">// Registering schema types and so on here; omitted for brevity</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token keyword">new</span> <span class="token class-name">QueryExecutionOptions</span>
+        <span class="token keyword">new</span> <span class="token constructor-invocation class-name">QueryExecutionOptions</span>
         <span class="token punctuation">{</span>
             TracingPreference <span class="token operator">=</span> TracingPreference<span class="token punctuation">.</span>Always
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -117,7 +117,7 @@ describes how <em>Apollo Tracing</em> is enabled permanently.</p>
 identical to the above example.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Startup</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">ConfigureServices</span><span class="token punctuation">(</span><span class="token class-name">IServiceCollection</span> services<span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">ConfigureServices</span><span class="token punctuation">(</span><span class="token class-name">IServiceCollection</span> services<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token comment">// Registering services / repositories here; omitted for brevity</span>
 
@@ -125,7 +125,7 @@ identical to the above example.</p>
         <span class="token punctuation">{</span>
             <span class="token comment">// Registering schema types and so on here; omitted for brevity</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token keyword">new</span> <span class="token class-name">QueryExecutionOptions</span>
+        <span class="token keyword">new</span> <span class="token constructor-invocation class-name">QueryExecutionOptions</span>
         <span class="token punctuation">{</span>
             TracingPreference <span class="token operator">=</span> TracingPreference<span class="token punctuation">.</span>OnDemand
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

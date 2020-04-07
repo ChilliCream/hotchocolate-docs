@@ -100,18 +100,18 @@ We have an out-of-the-box redis subscription provider that uses the redis publis
 </code></pre>
 <p>Once this is setup subscriptions are generally available. In order to define subscriptions we have to create a subscription type. The subscription type is just a regular <code>ObjectType</code>, so we create it like any other root type.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SubscriptionType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Subscription<span class="token operator">></span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Subscription<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Subscription<span class="token operator">></span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor<span class="token punctuation">&lt;</span>Subscription<span class="token punctuation">></span></span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">OnReview</span><span class="token punctuation">(</span><span class="token keyword">default</span><span class="token punctuation">,</span> <span class="token keyword">default</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-            <span class="token punctuation">.</span>Type<span class="token operator">&lt;</span>NonNullType<span class="token operator">&lt;</span>ReviewType<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">Argument</span><span class="token punctuation">(</span><span class="token string">"episode"</span><span class="token punctuation">,</span> arg <span class="token operator">=></span> arg<span class="token punctuation">.</span>Type<span class="token operator">&lt;</span>NonNullType<span class="token operator">&lt;</span>EpisodeType<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Type</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>NonNullType<span class="token punctuation">&lt;</span>ReviewType<span class="token punctuation">></span><span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">Argument</span><span class="token punctuation">(</span><span class="token string">"episode"</span><span class="token punctuation">,</span> arg <span class="token operator">=></span> arg<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Type</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>NonNullType<span class="token punctuation">&lt;</span>EpisodeType<span class="token punctuation">></span><span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>But there is a difference when it comes to the resolver. A subscription resolver can ask for an additional argument that represents the event message.</p>
-<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token class-name">Review</span> <span class="token function">OnReview</span><span class="token punctuation">(</span><span class="token class-name">Episode</span> episode<span class="token punctuation">,</span> <span class="token class-name">IEventMessage</span> message<span class="token punctuation">)</span>
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token return-type class-name">Review</span> <span class="token function">OnReview</span><span class="token punctuation">(</span><span class="token class-name">Episode</span> episode<span class="token punctuation">,</span> <span class="token class-name">IEventMessage</span> message<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token punctuation">(</span>Review<span class="token punctuation">)</span>message<span class="token punctuation">.</span>Payload<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -120,29 +120,29 @@ We have an out-of-the-box redis subscription provider that uses the redis publis
 <p>The payload can also be null and we can pull relevant data in from other data sources whenever the event occurs.</p>
 <p>An event is triggered when we send use the <code>IEventSender</code> to raise an event. This will be mostly done within a mutation since the mutation represents the operation that change the server state and hence cause it to raise events.</p>
 <p>So, in our mutation we can ask for the <code>IEventSender</code> and raise an event like the following:</p>
-<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">async</span> Task<span class="token operator">&lt;</span>Review<span class="token operator">></span> <span class="token function">CreateReview</span><span class="token punctuation">(</span>
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">async</span> <span class="token return-type class-name">Task<span class="token punctuation">&lt;</span>Review<span class="token punctuation">></span></span> <span class="token function">CreateReview</span><span class="token punctuation">(</span>
     <span class="token class-name">Episode</span> episode<span class="token punctuation">,</span> <span class="token class-name">Review</span> review<span class="token punctuation">,</span>
-    <span class="token punctuation">[</span><span class="token class-name">Service</span><span class="token punctuation">]</span><span class="token class-name">IEventSender</span> eventSender<span class="token punctuation">)</span>
+    <span class="token punctuation">[</span><span class="token attribute"><span class="token class-name">Service</span></span><span class="token punctuation">]</span><span class="token class-name">IEventSender</span> eventSender<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     _repository<span class="token punctuation">.</span><span class="token function">AddReview</span><span class="token punctuation">(</span>episode<span class="token punctuation">,</span> review<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">await</span> eventSender<span class="token punctuation">.</span><span class="token function">SendAsync</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">OnReviewMessage</span><span class="token punctuation">(</span>episode<span class="token punctuation">,</span> review<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">await</span> eventSender<span class="token punctuation">.</span><span class="token function">SendAsync</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token constructor-invocation class-name">OnReviewMessage</span><span class="token punctuation">(</span>episode<span class="token punctuation">,</span> review<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> review<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In the above case we are sending a <code>OnReviewMessage</code> which actually inherits from <code>EventMessage</code>.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OnReviewMessage</span>
-    <span class="token punctuation">:</span> <span class="token class-name">EventMessage</span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">EventMessage</span></span>
 <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token function">OnReviewMessage</span><span class="token punctuation">(</span><span class="token class-name">Episode</span> episode<span class="token punctuation">,</span> <span class="token class-name">Review</span> review<span class="token punctuation">)</span>
         <span class="token punctuation">:</span> <span class="token keyword">base</span><span class="token punctuation">(</span><span class="token function">CreateEventDescription</span><span class="token punctuation">(</span>episode<span class="token punctuation">)</span><span class="token punctuation">,</span> review<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
 
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">EventDescription</span> <span class="token function">CreateEventDescription</span><span class="token punctuation">(</span><span class="token class-name">Episode</span> episode<span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token return-type class-name">EventDescription</span> <span class="token function">CreateEventDescription</span><span class="token punctuation">(</span><span class="token class-name">Episode</span> episode<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">EventDescription</span><span class="token punctuation">(</span><span class="token string">"onReview"</span><span class="token punctuation">,</span>
-            <span class="token keyword">new</span> <span class="token class-name">ArgumentNode</span><span class="token punctuation">(</span><span class="token string">"episode"</span><span class="token punctuation">,</span>
-                <span class="token keyword">new</span> <span class="token class-name">EnumValueNode</span><span class="token punctuation">(</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">EventDescription</span><span class="token punctuation">(</span><span class="token string">"onReview"</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token constructor-invocation class-name">ArgumentNode</span><span class="token punctuation">(</span><span class="token string">"episode"</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token constructor-invocation class-name">EnumValueNode</span><span class="token punctuation">(</span>
                     episode<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ToUpperInvariant</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
@@ -157,10 +157,10 @@ We have an out-of-the-box redis subscription provider that uses the redis publis
 <p>In order to use the Redis provider add the following package:
 <code>HotChocolate.Subscriptions.Redis</code></p>
 <p>After you have added the package you can add the redis subscription provider to your services like the following:</p>
-<pre><code class="hljs css language-csharp"><span class="token keyword">var</span> configuration <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConfigurationOptions</span>
+<pre><code class="hljs css language-csharp"><span class="token class-name"><span class="token keyword">var</span></span> configuration <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">ConfigurationOptions</span>
 <span class="token punctuation">{</span>
-    Ssl <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">,</span>
-    AbortOnConnectFail <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">,</span>
+    Ssl <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    AbortOnConnectFail <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
     Password <span class="token operator">=</span> password
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 

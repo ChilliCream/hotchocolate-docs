@@ -75,7 +75,7 @@
 <pre><code class="hljs css language-bash">dotnet <span class="token function">add</span> package HotChocolate.Language
 </code></pre>
 <p>In order to parse a GraphQL schema or query use it like the following:</p>
-<pre><code class="hljs css language-csharp"><span class="token class-name">Parser</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Parser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="hljs css language-csharp"><span class="token class-name">Parser</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Parser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token class-name">DocumentNode</span> document <span class="token operator">=</span> parser<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token string">"{ x { y } }"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>We have created some visitor classes in order to make it easy to traverse the parsed syntax nodes.</p>
@@ -89,11 +89,11 @@ The <code>SyntaxWalkerBase</code> built upon the <code>SyntaxVisitor</code> and 
 <li><p><code>SchemaSyntaxWalker</code>
 The <code>SchemaSyntaxWalker</code> built upon the <code>SyntaxWalkerBase</code> and adds functionality to automatically traverse type system syntax nodes. This syntax walker ignores query syntax nodes.</p>
 <p>In order to visit a specific type definition syntax node override the related visitation node and add your code. If you want the syntax walker to keep traversing after your code has been executed invoke the original method implementation of the visitation-method after or before your code.</p>
-<pre><code class="hljs css language-csharp"><span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">void</span> <span class="token function">VisitDirectiveDefinition</span><span class="token punctuation">(</span>
+<pre><code class="hljs css language-csharp"><span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">VisitDirectiveDefinition</span><span class="token punctuation">(</span>
     <span class="token class-name">DirectiveDefinitionNode</span> node<span class="token punctuation">,</span>
     <span class="token class-name">YourContextType</span> context<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-    _visited<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token function">nameof</span><span class="token punctuation">(</span>VisitDirectiveDefinition<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    _visited<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token keyword">nameof</span><span class="token punctuation">(</span>VisitDirectiveDefinition<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">base</span><span class="token punctuation">.</span><span class="token function">VisitDirectiveDefinition</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre></li>

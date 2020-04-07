@@ -87,55 +87,55 @@
 <p>In order to specify an interface, we only have to write an actual C# interface.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">INode</span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">string</span> Id <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token return-type class-name"><span class="token keyword">string</span></span> Id <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 
 SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token punctuation">&lt;</span><span class="token class-name">INode</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>INode<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Like with objects we can also specify an interface with a schema type to express in more detail what we want our schema type to look like.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">NodeType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">InterfaceType</span><span class="token operator">&lt;</span>INode<span class="token operator">></span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">InterfaceType<span class="token punctuation">&lt;</span>INode<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IInterfaceTypeDescriptor<span class="token operator">&lt;</span>INode<span class="token operator">></span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IInterfaceTypeDescriptor<span class="token punctuation">&lt;</span>INode<span class="token punctuation">></span></span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"Node"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span>Id<span class="token punctuation">)</span><span class="token punctuation">.</span>Type<span class="token operator">&lt;</span>NonNullType<span class="token operator">&lt;</span>IdType<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span>t <span class="token operator">=></span> t<span class="token punctuation">.</span>Id<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Type</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>NonNullType<span class="token punctuation">&lt;</span>IdType<span class="token punctuation">></span><span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token punctuation">&lt;</span><span class="token class-name">NodeType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>NodeType<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Also like with any type you have a generic schema type and a non-generic one:</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">NodeType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">InterfaceType</span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">InterfaceType</span></span>
 <span class="token punctuation">{</span>
     <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IInterfaceTypeDescriptor</span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         descriptor<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">"Node"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Type<span class="token operator">&lt;</span>NonNullType<span class="token operator">&lt;</span>IdType<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        descriptor<span class="token punctuation">.</span><span class="token function">Field</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Type</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>NonNullType<span class="token punctuation">&lt;</span>IdType<span class="token punctuation">></span><span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token punctuation">&lt;</span><span class="token class-name">NodeType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>NodeType<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>There are two important things to know here, if you are using a generic schema-type or if you are registering the interface directly with the schema than you do not have to explicitly specify with the object type that the object is implementing this schema since we can infer that.</p>
 <p>Let me give you an example:</p>
-<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Foo</span> <span class="token punctuation">:</span> <span class="token class-name">INode</span>
+<pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Foo</span> <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">INode</span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">string</span> Id <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token return-type class-name"><span class="token keyword">string</span></span> Id <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>The <code>Foo</code> class is implementing <code>INode</code> so if we register <code>INode</code> with our schema as an interface then the schema would infer that <code>Foo</code> implements <code>INode</code>.</p>
 <pre><code class="hljs css language-csharp">SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token punctuation">&lt;</span><span class="token class-name">INode</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token punctuation">&lt;</span><span class="token class-name">Foo</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>INode<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>Foo<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>The upper schema would look like the following in the GraphQL SDL syntax:</p>
@@ -149,7 +149,7 @@ type </span>Foo implements INode {
 </code></pre>
 <p>If we did not register <code>INode</code> with our schema we would ignore the interface implementation:</p>
 <pre><code class="hljs css language-csharp">SchemaBuilder<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token punctuation">&lt;</span><span class="token class-name">Foo</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddType</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>Foo<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <pre><code class="hljs css language-GraphQL"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Foo</span> {
@@ -159,11 +159,11 @@ type </span>Foo implements INode {
 <p>But what if we defined the schema with the non-generic base class or if <code>Foo</code> did not implement that interface?</p>
 <p>In this case we could tell our schema type that we are implementing it.</p>
 <pre><code class="hljs css language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FooType</span>
-    <span class="token punctuation">:</span> <span class="token class-name">ObjectType</span><span class="token operator">&lt;</span>Foo<span class="token operator">></span>
+    <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">ObjectType<span class="token punctuation">&lt;</span>Foo<span class="token punctuation">></span></span></span>
 <span class="token punctuation">{</span>
-    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IObjectTypeDescriptor<span class="token operator">&lt;</span>Foo<span class="token operator">></span> descriptor<span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token function">Configure</span><span class="token punctuation">(</span><span class="token class-name">IObjectTypeDescriptor<span class="token punctuation">&lt;</span>Foo<span class="token punctuation">></span></span> descriptor<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
-        descriptor<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Implements</span><span class="token punctuation">&lt;</span><span class="token class-name">NodeType</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        descriptor<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Implements</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>NodeType<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>

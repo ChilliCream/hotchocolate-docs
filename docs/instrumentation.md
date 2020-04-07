@@ -335,7 +335,7 @@ QueryExecutionBuilder
 
 We have created a little example project that demonstrates how you can delegate _Hot Chocolate_ events to the ASP.NET core logger API.
 
-[ASP.NET ILogger Example](https://github.com/ChilliCream/hotchocolate-examples/tree/master/Instrumentation)
+[ASP.NET ILogger Example](https://github.com/ChilliCream/hotchocolate-examples/tree/master/misc/Instrumentation)
 
 We also have an implementation that we use in production that builds upon Microsoft\`s ETW. This is a more complex example since there is a lot of `unsafe` code.
 

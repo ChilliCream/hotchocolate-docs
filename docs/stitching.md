@@ -210,11 +210,11 @@ In order to declare this custom scalar we can register the extended scalar set l
 services.AddStitchedSchema(builder => builder
   .AddSchemaFromHttp("messages")
   .AddSchemaFromHttp("users")
-  .AddSchemaFromHttp("analytics"))
+  .AddSchemaFromHttp("analytics")
   .AddSchemaConfiguration(c =>
   {
     c.RegisterExtendedScalarTypes();
-  })
+  }));
 ```
 
 > More information about our scalars can be found [here](custom-scalar-types.md).

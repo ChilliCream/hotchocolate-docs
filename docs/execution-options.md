@@ -18,6 +18,7 @@ We have built in some options that limit the execution engine in order do protec
 | QueryCacheSize           | int      | `100`                      | The amount of queries that can be cached for faster execution.                |
 | MaxOperationComplexity   | int?     | null                       | The allowed complexity of queries.                                            |
 | UseComplexityMultipliers | bool?    | null                       | Specifies if multiplier arguments are used to calculate the query complexity. |
+| ForceSerialExecution | bool?    | null                       | Used for EntityFramework to have request be done in one thread. |
 
 _\* Performance tracing is based on Apollo Tracing. The specification can be found [here](https://github.com/apollographql/apollo-tracing)._
 

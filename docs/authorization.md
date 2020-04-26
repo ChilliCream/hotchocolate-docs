@@ -226,7 +226,7 @@ One important aspect with policies is also that we are passing the resolver cont
 
 ```csharp
 public class SalesDepartmentAuthorizationHandler
-    :  AuthorizationHandler<SalesDepartmentRequirement, Document>
+    :  AuthorizationHandler<SalesDepartmentRequirement, IResolverContext>
 {
     protected override Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
@@ -260,7 +260,7 @@ More about policy-based authorization can be found in the Microsoft Documentatio
 
 ## Query Requests
 
-Our query middleware creates a request and passes the request with additional meta-data to the query-engine. For example we provide a property called `ClaimsIdentity` that contains the user associated with the current request. These meta-data or custom request properties can be used within a field-middleware like the authorize middleware to change the default execution off a field resolver.
+Our query middleware creates a request and passes the request with additional meta-data to the query-engine. For example we provide a property called `ClaimsIdentity` that contains the user associated with the current request. These meta-data or custom request properties can be used within a field-middleware like the authorize middleware to change the default execution of a field resolver.
 
 So, we could use an authentication-middleware in ASP.NET core to add all the user meta-data that we need to our claim-identity or we could hook up some code in our middleware and add additional meta-data or even modify the `ClaimsPrincipal`.
 

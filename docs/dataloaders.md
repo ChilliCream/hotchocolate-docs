@@ -247,6 +247,32 @@ It is important to know that you always have to do `AddDataLoaderRegistry` since
 
 For more information about our _DataLoader_ implementation head over to our _DataLoader_ [GitHub repository](https://github.com/ChilliCream/greendonut).
 
+## DataLoader Dependency Injection Support
+
+It is possible to register a DataLoader with the standard dependency injection container. This enables referencing DataLoaders through interfaces.
+
+Here is how we can now register a DataLoader:
+
+```csharp
+services.AddDataLoader<IMyDataLoader, MyDataLoader>();
+services.AddDataLoader<MyDataLoader>();
+services.AddDataLoader<IMyDataLoader>(s => ....);
+```
+
+The DataLoaderRegistry is automatically registered when using this.
+
+On the resolver side I can now resolve my DataLoader through an interface:
+
+```csharp
+public async Task<string> ResolveSomething(IMyDataLoader dataLoader) 
+{
+
+}
+```
+
+I also do not need to use the [DataLoader] attribute I the interface implements IDataLoader.
+
+
 ## Custom Data Loaders and Batch Operations
 
 With the new API we are introducing the `IBatchOperation` interface. The query engine will fetch all batch operations and trigger those once all data resolvers in one batch are running. We have implemented this interface for our _DataLoader_ as well. So, if you want to implement some database batching or integrate a custom _DataLoader_ than this interface is your friend. There is also a look ahead available which will provide you with the fields that have to be fetched.

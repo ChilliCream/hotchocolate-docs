@@ -113,6 +113,48 @@ public class QueryType
 }
 ```
 
+## AND / OR Filter
+There are two built in fields. 
+
+- `AND`: Every condition has to be valid
+- `OR` : At least one condition has to be valid
+
+Example: 
+```graphql
+query {
+  posts(
+    first: 5
+    where: { OR: [{ title_contains: "Doe" }, {title_contains: "John"}] }
+  ) {
+    edges {
+      node {
+        id
+        title
+      }
+    }
+  }
+}
+```
+
+**⚠️ OR does not work when you use it like this: **
+
+```graphql
+query {
+  posts(
+    first: 5
+    where: { title_contains: "John", OR: { title_contains: "Doe" } }
+  ) {
+    edges {
+      node {
+        id
+        title
+      }
+    }
+  }
+}
+```
+In this case the filters are applied like `title_contains: "John" AND title_contains: "Doe"`
+
 ## Customizing Filter Transformation
 
 With our filter solution you can write your own filter transformation which is fairly easy once you wrapped your head around transfroming graphs with visitors.

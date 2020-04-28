@@ -93,7 +93,7 @@ public class QueryType : ObjectType<Query>
 }
 
 var schema = SchemaBuilder.New()
-    .AddQueryType<QueryType>();
+    .AddQueryType<QueryType>()
     .Create();
 ```
 

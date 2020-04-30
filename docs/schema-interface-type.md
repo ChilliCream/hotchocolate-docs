@@ -79,7 +79,7 @@ SchemaBuilder.New()
   .Create();
 ```
 
-There are two important things to know here, if you are using a generic schema-type or if you are registering the interface directly with the schema than you do not have to explicitly specify with the object type that the object is implementing this schema since we can infer that.
+There are two important things to know here, if you are using a generic schema-type or if you are registering the interface directly with the schema then you do not have to explicitly specify with the object type that the object is implementing this schema since we can infer that.
 
 Let me give you an example:
 

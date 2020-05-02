@@ -47,7 +47,7 @@ Alternatively, to _Redis_ we can also use the local file system to load queries:
 services.AddReadOnlyFileSystemQueryStorage("/usr/temp/queries");
 ```
 
-With that we have pretty much configured our server to use query persistence. The next thing you would have to do is to rework your _Relay_ or _Apollo_ build scripts in order to export your query to your chosen storage. The queries are stored as plain document and have to have the hash as the name without any extension. In case of the file system the hash is saved as URL compliant base64, in case if the _Redis_ storage the key is the has as standard base64.
+With that we have pretty much configured our server to use query persistence. The next thing you would have to do is to rework your _Relay_ or _Apollo_ build scripts in order to export your query to your chosen storage. The queries are stored as plain document and have to have the hash as the name without any extension. In case of the file system the hash is saved as URL compliant base64, in case of the _Redis_ storage the key is the hash as standard base64.
 
 In your requests to the server you usually send the query wrapped in the JSON request like the following:
 
@@ -72,7 +72,7 @@ Instead of doing that we can now just specify the request like the following:
 
 Active query persistence builds upon the query persistence pipeline and adds the ability to store queries on the fly.
 
-**How dies this work?**
+**How does this work?**
 
 The client would have a flow that would always first ask the server for the query with the query hash.
 
@@ -93,7 +93,7 @@ If the server can find the query in the query storage the server will execute it
 
 > The error message and properties can be modified by adding a `IErrorFilter` that handles the specified error-code.
 
-When the client receives this error message the client will the issue a full JSON request with the GraphQL query and the query hash.
+When the client receives this error message, the client will issue a full JSON request with the GraphQL query and the query hash.
 
 ```json
 {

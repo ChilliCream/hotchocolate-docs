@@ -19,11 +19,11 @@ public interface IQueryValidationRule
 
 ## `QuerySyntaxWalker`
 
-If your validation is just a simple lookup than you could just try to do that against the `DocumentNode` for everything where you would have to traverse the query graph or where you want to access only certain kinds of syntax nodes we recommend using the `QuerySyntaxWalker<T>`.
+If your validation is just a simple lookup, then you could just try to do that against the `DocumentNode` for everything where you would have to traverse the query graph or where you want to access only certain kinds of syntax nodes we recommend using the `QuerySyntaxWalker<T>`.
 
 **Important: In your validation rules only validate your own errors and ignore other errors.**
 
-Let us say we want to ensure a certain rule for every field selection in a query than we could write the following `QuerySyntaxWalker<T>`.
+Let us say we want to ensure a certain rule for every field selection in a query, then we could write the following `QuerySyntaxWalker<T>`.
 
 ```csharp
 internal sealed class MaxDepthVisitor

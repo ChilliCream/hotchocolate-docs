@@ -3,7 +3,7 @@ id: pagination
 title: Pagination
 ---
 
-Pagination is one of the common problems that you have to solve when implementing your backend. Often, sets of data are to large to pass them directly to the consumer of your service.
+Pagination is one of the most common problems that you have to solve when implementing your backend. Often, sets of data are too large to pass them directly to the consumer of your service.
 
 Pagination solves this problem by giving the consumer the capability to fetch a set in chunks.
 
@@ -17,7 +17,7 @@ Offset-based pagination — also called numbered pages — is a very common patt
 
 Offset-based pagination is found in many server implementation whether the backend is implemented in _SOAP_, _REST_ or _GraphQL_.
 
-Most databases enable you to simply skip and take records. The simplest way to provide such a capability is to add an argument skip and an argument take like in the following example.
+Most databases enable you to simply skip and take records. The simplest way to provide such a capability is to add an argument _skip_ and an argument _take_ like in the following example.
 
 ```csharp
 public class Query
@@ -82,7 +82,7 @@ The middleware can handle `IQueryable<T>` and `IEnumerable<T>`. This means that 
 
 The database drivers will translate the queryable actions into native database queries.
 
-If you now want to support filtering and/or sorting on a page-able list you have to feed the sorting properties to the paging middleware so that the middleware can include them into the cursors. The cursors can than be used to recreate the data set in fetch more queries.
+If you now want to support filtering and/or sorting on a page-able list you have to feed the sorting properties to the paging middleware so that the middleware can include them into the cursors. The cursors can then be used to recreate the data set in fetch more queries.
 
 Let's enhance our example and add the capability to sort our list in descending order.
 
@@ -193,8 +193,8 @@ You can implement your data resolver logic as resolver or if it is generalized e
 
 A field middleware can be declared on the field or on the schema depending on what you want to do.
 
-Let's say you want to write a middleware to provide pagination support specifically for SQL server than you could provide that as a middleware like we did for `IQueryable<T>`.
+Let's say you want to write a middleware to provide pagination support specifically for SQL server, then you could provide that as a middleware like we did for `IQueryable<T>`.
 
-If you need help implementing a pagination solution just reach out to us and we are happy to help you.
+If you need help implementing a pagination solution just reach out to us. We are happy to help you.
 
 [Relay Cursor Connections Specification](http://facebook.github.io/relay/graphql/connections.htm)

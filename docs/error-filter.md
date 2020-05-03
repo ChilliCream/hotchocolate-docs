@@ -13,7 +13,7 @@ One further way to raise an error are non-terminating field errors. This can be 
 
 ## Error Builder
 
-Since, errors can have a lot of properties depending on your case we have introduced a new error builder which provides a nice API without thousends of overloads.
+Since, errors can have a lot of properties depending on your case we have introduced a new error builder which provides a nice API without thousands of overloads.
 
 ```csharp
 return ErrorBuilder.New()
@@ -24,7 +24,7 @@ return ErrorBuilder.New()
 
 ## Exceptions
 
-If some other exception is thrown during the query execution then the execution engine will create an instance of `IError` with the message **Unexpected Execution Error** and the actual exception assigned to the error. However, the exception details will not be serialized so by default the user will only see the error message **Unexpected Execution Error**.
+If some other exception is thrown during the query execution, then the execution engine will create an instance of `IError` with the message **Unexpected Execution Error** and the actual exception assigned to the error. However, the exception details will not be serialized so by default the user will only see the error message **Unexpected Execution Error**.
 
 If you want to translate exceptions into errors with useful information then you can write an `IErrorFilter`.
 
@@ -57,7 +57,7 @@ IQueryExecuter executer = schema.MakeExecutable(builder =>
         }));
 ```
 
-Since, errors are immutable we have added some helper functions like `WithMessage`, `WithCode` and so on that create a new error with the desired properties. Moreover, you can create an error builder from an error and modify multiple properties and then rebuild the error object.
+Since errors are immutable we have added some helper functions like `WithMessage`, `WithCode` and so on that create a new error with the desired properties. Moreover, you can create an error builder from an error and modify multiple properties and then rebuild the error object.
 
 ```csharp
 return ErrorBuilder.From(error)

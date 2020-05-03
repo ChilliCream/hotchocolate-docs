@@ -183,7 +183,7 @@ _An example with the **Batch Dataloader** can be found [here](https://github.com
 
 The Group _DataLoader_ is also a batch _DataLoader_ but instead of returning one entity per key it returns multiple entities per key. As with the Batch _DataLoader_ retrieved collections are cached within a request.
 
-The batch _DataLoader_ gets the keys as `IReadOnlyList<TKey>` and returns a `ILookup<TKey, TValue>`.
+The Group _DataLoader_ gets the keys as `IReadOnlyList<TKey>` and returns a `ILookup<TKey, TValue>`.
 
 ```csharp
 public Task<IEnumerable<Person>> GetPersonByCountry(string country, IResolverContext context, [Service]IPersonRepository repository)
@@ -275,6 +275,6 @@ I also do not need to use the [DataLoader] attribute I the interface implements 
 
 ## Custom Data Loaders and Batch Operations
 
-With the new API we are introducing the `IBatchOperation` interface. The query engine will fetch all batch operations and trigger those once all data resolvers in one batch are running. We have implemented this interface for our _DataLoader_ as well. So, if you want to implement some database batching or integrate a custom _DataLoader_ than this interface is your friend. There is also a look ahead available which will provide you with the fields that have to be fetched.
+With the new API we are introducing the `IBatchOperation` interface. The query engine will fetch all batch operations and trigger those once all data resolvers in one batch are running. We have implemented this interface for our _DataLoader_ as well. So, if you want to implement some database batching or integrate a custom _DataLoader_, then this interface is your friend. There is also a look ahead available which will provide you with the fields that have to be fetched.
 
-If you are planning to implement something in this area, get in contact with us and we provide you with more information.
+If you are planning to implement something in this area, get in contact with us and we will provide you with more information.

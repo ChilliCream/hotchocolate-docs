@@ -24,7 +24,7 @@ When using GraphQL over HTTP subscriptions are most most likely served over webs
 
 The subscription type is almost implemented like a simple query. In many cases subscriptions are raised through mutations, but subscriptions could also be raised through other backend systems.
 
-In order to enable subscriptions we have to register a subscription provider with our server. Subscription provider represent a pub-/sub-system abstraction that handles the events.
+In order to enable subscriptions we have to register a subscription provider with our server. A subscription provider represents a pub/sub system abstraction that handles the events.
 
 We currently support the following subscription provider:
 
@@ -63,7 +63,7 @@ public class Startup
 
 > More about configuring ASP.NET Core can be found [here](aspnet.md).
 
-Once this is setup subscriptions are generally available. In order to define subscriptions we have to create a subscription type. The subscription type is just a regular `ObjectType`, so we create it like any other root type.
+Once this is setup, subscriptions are generally available. In order to define subscriptions we have to create a subscription type. The subscription type is just a regular `ObjectType`, so we create it like any other root type.
 
 ```csharp
 public class SubscriptionType
@@ -87,11 +87,11 @@ public Review OnReview(Episode episode, IEventMessage message)
 }
 ```
 
-The event message can have a used-defined payload representing some kind of prepared data or what ever we want to put in there. The allowed payload size depends on the subscription provider.
+The event message can have a user-defined payload representing some kind of prepared data or whatever we want to put in there. The allowed payload size depends on the subscription provider.
 
 The payload can also be null and we can pull relevant data in from other data sources whenever the event occurs.
 
-An event is triggered when we send use the `IEventSender` to raise an event. This will be mostly done within a mutation since the mutation represents the operation that change the server state and hence cause it to raise events.
+An event is triggered when we use the `IEventSender` to raise an event. This will be mostly done within a mutation since the mutation represents the operation that changes the server state and hence cause it to raise events.
 
 So, in our mutation we can ask for the `IEventSender` and raise an event like the following:
 

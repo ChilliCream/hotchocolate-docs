@@ -73,7 +73,7 @@ The pagination specification is called [Relay Cursor Connections Specification](
 
 The relay style pagination is really powerful and with _Hot Chocolate_ it is quite simple to implement.
 
-If your database provider can provide it\`s data through `IQueryable` than implementing relay pagination is one line of code:
+If your database provider can provide it\`s data through `IQueryable` then implementing relay pagination is one line of code:
 
 ```csharp
 public class QueryType
@@ -90,7 +90,7 @@ public class QueryType
 
 ## Mutations
 
-The last specification is called [Relay Input Object Mutations Specification](https://facebook.github.io/relay/graphql/mutations.htm) describes how mutations should be specified. This is more a design guideline then something we could help you with APIs with.
+The last specification is called [Relay Input Object Mutations Specification](https://facebook.github.io/relay/graphql/mutations.htm) and it describes how mutations should be specified. This is more a design guideline then something we could help you with APIs with.
 
 Nevertheless, with version 9.1 we will try aide this with some convenience:
 [Automatic Relay InputType](https://github.com/ChilliCream/hotchocolate/issues/773).

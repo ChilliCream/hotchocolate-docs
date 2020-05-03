@@ -23,7 +23,7 @@ application/json: the POST body will be parsed as a JSON object of parameters.
     # The name of the operation that shall be executed.
     "operationName": "getHero",
 
-    # A key under which a query document was safed on the server.
+    # A key under which a query document was saved on the server.
     "id": "W5vrrAIypCbniaIYeroNnw==",
 
     # The variable values for this request.
@@ -50,7 +50,7 @@ query getHero {
 }
 ```
 
-The response in both cases will by default be JSON. The response serializers can be swapped out and you could for instance go protobuf.
+The response in both cases will be JSON by default. The response serializers can be swapped out and you could for instance go protobuf.
 
 ```json
 {
@@ -64,7 +64,7 @@ The response in both cases will by default be JSON. The response serializers can
 
 ### HTTP GET
 
-GraphQL can also be server through a HTTP GET request. You have the same options as with the POST request just that the request properties are provided as query parameters. GET request can be a good choice if you are looking to cache GraphQL requests.
+GraphQL can also be served through an HTTP GET request. You have the same options as with the POST request just that the request properties are provided as query parameters. GET request can be a good choice if you are looking to cache GraphQL requests.
 
 `http://localhost/graphql?query=query+getUser($id:ID){user(id:$id){name}}&variables={"id":"4"}`
 

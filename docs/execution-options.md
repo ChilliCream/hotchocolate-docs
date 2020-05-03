@@ -5,7 +5,7 @@ title: Execution Options
 
 Execution options are provided when a schema is made executable. The options range from allowing a maximum execution timeout to providing a maximum execution complexity.
 
-We have built in some options that limit the execution engine in order do protect overall performance of your GraphQL Server.
+We have built in some options that limit the execution engine in order to protect the overall performance of your GraphQL Server.
 
 ## Members
 

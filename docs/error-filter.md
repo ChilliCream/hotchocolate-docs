@@ -60,7 +60,7 @@ IQueryExecuter executer = schema.MakeExecutable(builder =>
 Since errors are immutable we have added some helper functions like `WithMessage`, `WithCode` and so on that create a new error with the desired properties. Moreover, you can create an error builder from an error and modify multiple properties and then rebuild the error object.
 
 ```csharp
-return ErrorBuilder.From(error)
+return ErrorBuilder.FromError(error)
     .SetMessage("This is my error.")
     .SetCode("FOO_BAR")
     .Build();

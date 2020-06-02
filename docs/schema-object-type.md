@@ -48,7 +48,7 @@ public class Query
 }
 
 SchemaBuilder.New()
-  .AddQuery<Query>()
+  .AddQueryType<Query>()
   .Create();
 ```
 
@@ -64,7 +64,7 @@ public class Query
 }
 
 SchemaBuilder.New()
-  .AddQuery<Query>()
+  .AddQueryType<Query>()
   .Create();
 ```
 
@@ -87,7 +87,7 @@ public class Query
 }
 
 SchemaBuilder.New()
-  .AddQuery<Query>()
+  .AddQueryType<Query>()
   .Create();
 ```
 
@@ -102,14 +102,14 @@ public class Query
 public class QueryType
     : ObjectType<Query>
 {
-    protected override Configure(IObjectTypeDescriptor<Query> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
     {
         descriptor.Field(t => t.SayHello()).Type<NonNullType<StringType>>();
     }
 }
 
 SchemaBuilder.New()
-  .AddQuery<QueryType>()
+  .AddQueryType<QueryType>()
   .Create();
 ```
 
@@ -142,7 +142,7 @@ Then we could do something like this:
 public class PersonType
     : ObjectType<Person>
 {
-    protected override Configure(IObjectTypeDescriptor<Person> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<Person> descriptor)
     {
         descriptor.Field(t => t.Name).Type<NonNullType<StringType>>();
         descriptor.Field("friends")
@@ -167,7 +167,7 @@ We also can use schema types if we have no .NET backing type at all. In these ca
 public class QueryType
     : ObjectType
 {
-    protected override Configure(IObjectTypeDescriptor descriptor)
+    protected override void Configure(IObjectTypeDescriptor descriptor)
     {
         descriptor.Field("sayHello")
             .Type<NonNullType<StringType>>()
@@ -226,7 +226,7 @@ public class PersonResolvers
 public class PersonType
     : ObjectType<Person>
 {
-    protected override Configure(IObjectTypeDescriptor<Person> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<Person> descriptor)
     {
         descriptor.Field(t => t.Name).Type<NonNullType<StringType>>();
         descriptor.Field<PersonResolvers>(t => t.GetFriends(default, default))
@@ -276,7 +276,7 @@ Code-First
 public class PersonTypeExtension
     : ObjectTypeExtension
 {
-    protected override Configure(IObjectTypeDescriptor descriptor)
+    protected override void Configure(IObjectTypeDescriptor descriptor)
     {
         descriptor.Name("Person");
         descriptor.Field("address")

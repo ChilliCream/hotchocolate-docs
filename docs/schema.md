@@ -174,6 +174,6 @@ IQueryExecutor executor = schema.MakeExecutable();
 
 We can create multiple executors on a single schema and define different execution rules on the executor.
 
-In most cases we will not need to now, about this fact since most of the time the schema is hosted in ASP.NET and the middleware will take care of making it executable. But it is worth knowing it in case we want to write a unit test, host a query executor in a different environment than ASP.NET, or change the behavior of the executor.
+In most cases we will not need to know about this fact since most of the time the schema is hosted in ASP.NET and the middleware will take care of making it executable. But it is worth knowing it in case we want to write a unit test, host a query executor in a different environment than ASP.NET, or change the behavior of the executor.
 
 > More about the query executor can be read [here](query-executor.md).

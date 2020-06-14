@@ -59,7 +59,7 @@ This is how it would look like with our attributes:
 ```csharp
 public class Query
 {
-    [GraphQLNonNull]
+    [GraphQLNonNullType]
     public string SayHello() => "Hello!";
 }
 

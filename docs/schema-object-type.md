@@ -184,7 +184,7 @@ public class Person
     public int Id { get; set; }
     public string Name { get; set; }
 
-    public Person GetFriends([Service]IPersonRepository repository) =>
+    public IEnumerable<Person> GetFriends([Service]IPersonRepository repository) =>
         repository.GetFriends(Id);
 }
 ```
@@ -203,7 +203,7 @@ public class Person
 [ExtendObjectType(Name = "Person")]
 public class PersonResolvers
 {
-    public Person GetFriends(Person person, [Service]IPersonRepository repository) =>
+    public IEnumerable<Person> GetFriends(Person person, [Service]IPersonRepository repository) =>
         repository.GetFriends(person.Id);
 }
 ```
@@ -219,7 +219,7 @@ public class Person
 
 public class PersonResolvers
 {
-    public Person GetFriends(Person person, [Service]IPersonRepository repository) =>
+    public IEnumerable<Person> GetFriends(Person person, [Service]IPersonRepository repository) =>
         repository.GetFriends(person.Id);
 }
 
@@ -259,7 +259,7 @@ Pure Code-First:
 [ExtendObjectType(Name = "Person")]
 public class PersonResolvers
 {
-    public Person GetFriends(Person person, [Service]IPersonRepository repository) =>
+    public IEnumerable<Person> GetFriends(Person person, [Service]IPersonRepository repository) =>
         repository.GetFriends(person.Id);
 }
 

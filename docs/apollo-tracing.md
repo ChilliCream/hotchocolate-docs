@@ -39,7 +39,7 @@ public class Startup
         services.AddGraphQL(sp => SchemaBuilder.New()
           .AddQueryType<QueryType>()
           // Registering schema types and so on here; omitted for brevity
-          .Create()),
+          .Create(),
           new QueryExecutionOptions
           {
               TracingPreference = TracingPreference.Always
@@ -68,7 +68,7 @@ public class Startup
         services.AddGraphQL(sp => SchemaBuilder.New()
           .AddQueryType<QueryType>()
           // Registering schema types and so on here; omitted for brevity
-          .Create()),
+          .Create(),
           new QueryExecutionOptions
           {
               TracingPreference = TracingPreference.OnDemand
@@ -87,6 +87,6 @@ implement the mapping from the HTTP header to the query request property by
 our self which isn't very difficult actually. See how it's solved in the
 _Hot Chocolate_ [ASP.NET Core and Framework stack].
 
-[asp.NET core and framework stack]: https://github.com/ChilliCream/hotchocolate/blob/master/src/Server/AspNetCore/QueryMiddlewareBase.cs#L161-L171
+[asp.NET core and framework stack]: https://github.com/ChilliCream/hotchocolate/blob/master/src/HotChocolate/AspNetCore/src/AspNetCore.Abstractions/QueryMiddlewareBase.cs#L146-L149
 [performance tracing specification]: https://github.com/apollographql/apollo-tracing
 [specification]: https://facebook.github.io/graphql

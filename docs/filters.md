@@ -178,6 +178,18 @@ public class QueryType
 }
 ```
 
+Example: 
+```graphql
+query {
+  person(
+    order_by: { name: DESC }
+  ) {
+    name
+    age
+  }
+}
+```
+
 > ⚠️ **Note**: Be sure to install the `HotChocolate.Types.Sorting` NuGet package.
 
 If you want to combine for instance paging, filtering and sorting make sure that the order is like follows:
@@ -193,6 +205,22 @@ public class QueryType
             .UseFiltering()
             .UseSorting();
     }
+}
+```
+
+Example: 
+```graphql
+query {
+  person(
+    order_by: { name: DESC }
+  ) {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+  }
 }
 ```
 

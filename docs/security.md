@@ -22,6 +22,12 @@ SchemaBuilder.New()
   .Create();
 ```
 
+After doing this, you'll want to "bind back" `IntType` as the default `int` representation by doing:
+
+```csharp
+  .BindClrType<int, IntType>
+```
+
 ## Execution Timeout
 
 The first strategy and the simplest one is using a timeout to protect your backend against large queries. Basically, if a query exceeds the allowed amount of execution time it will be aborted and a GraphQL error is returned.

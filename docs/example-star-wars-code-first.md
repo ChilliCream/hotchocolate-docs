@@ -68,7 +68,7 @@ We have created the Star Wars sample in different versions in order to show diff
 
 2. Code-First
    
-   Code-First or Code-First with schema types lets you use our fluent type API to describe your schema types. The resolver code and the actual types are disjunct you explicitly can express your schema types without event needing a C# backing type.
+   Code-First or Code-First with schema types lets you use our fluent type API to describe your schema types. The resolver code and the actual types are disjunct you explicitly can express your schema types without even needing a C# backing type.
 
    ```csharp
    public class QueryType : ObjectType<Query>

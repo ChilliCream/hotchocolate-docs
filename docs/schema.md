@@ -47,7 +47,7 @@ public class QueryType
 {
     protected override void Configure(IObjectTypeDescriptor descriptor)
     {
-        descriptor.Field("hello").Resolver("World").
+        descriptor.Field("hello").Resolver("World");
     }
 }
 
@@ -64,7 +64,7 @@ public class QueryType
 {
     protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
     {
-        descriptor.Field("foo").Resolver("bar").
+        descriptor.Field("foo").Resolver("bar");
     }
 }
 
@@ -99,7 +99,7 @@ public class QueryTypeExtension
 {
     protected override void Configure(IObjectTypeDescriptor descriptor)
     {
-        descriptor.Field("foo").Resolver("bar").
+        descriptor.Field("foo").Resolver("bar");
     }
 }
 

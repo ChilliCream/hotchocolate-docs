@@ -219,7 +219,7 @@ public class Person
 
 public class PersonResolvers
 {
-    public IEnumerable<Person> GetFriends(Person person, [Service]IPersonRepository repository) =>
+    public IEnumerable<Person> GetFriends([Parent]Person person, [Service]IPersonRepository repository) =>
         repository.GetFriends(person.Id);
 }
 
@@ -259,7 +259,7 @@ Pure Code-First:
 [ExtendObjectType(Name = "Person")]
 public class PersonResolvers
 {
-    public IEnumerable<Person> GetFriends(Person person, [Service]IPersonRepository repository) =>
+    public IEnumerable<Person> GetFriends([Parent]Person person, [Service]IPersonRepository repository) =>
         repository.GetFriends(person.Id);
 }
 

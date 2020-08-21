@@ -160,3 +160,48 @@ services.AddRedisSubscriptionProvider(configuration);
 ```
 
 Our Redis subscription provider uses the `StackExchange.Redis` Redis client underneath and we have integration tests against the Azure Cache.
+
+## PubSub usage from version 10.x
+
+Since version `10.x` it is possible to create subscriptions in a more convenient fashion using the built-in PubSub System. The setup to get subscriptions running did not change. We may not need to use a specific Subscription Type. The Schema Builder can defer the Subscription Type directly from our method.
+
+To use the PubSub System in the subscription inject is as a service via the `ITopicEventReceiver` and return the subscribed stream.
+
+```csharp
+public class Subscription
+{
+    [SubscribeAndResolve]
+    public async ValueTask<IAsyncEnumerable<Review>> UserCreated(Episode episode, [Service] ITopicEventReceiver receiver)
+    {
+        return await receiver.SubscribeAsync<string, Review>($"Episode{episode}Reviewed");
+    }
+
+    // ...
+}
+```
+
+> Make sure to use the `IAsyncEnumberable<T>` in the return value, otherwise the Schema Builder will throw an exception.
+
+To trigger the subscription we can use the counterpart to the `ITopicEventReceiver`, which is the `ITopicEventSender`. It provides the `SendAsync` method, which takes two paramters:
+
+* The first parameter is the *topic* the PubSub should publish on.
+* The second parameter is the *payload*.
+
+In our case the review will published on the `EpisodeXYReviewed` channel. This call will subscriptions returned in our `Subscription` class above.
+
+```csharp
+public class Mutation {
+    // ...
+
+    public async Task<Review> CreateReview(
+        Episode episode, Review review,
+        [Service] ITopicEventSender eventSender)
+    {
+        _repository.AddReview(episode, review);
+        await eventSender.SendAsync($"Episode{episode}Reviewed", review));
+        return review;
+    }
+
+    // ...
+}
+```

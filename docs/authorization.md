@@ -271,7 +271,6 @@ services.AddQueryRequestInterceptor((ctx, builder, ct) =>
     identity.AddClaim(new Claim(ClaimTypes.Country, "us"));
     ctx.User.AddIdentity(identity);
     return Task.CompletedTask;
-    return Task.CompletedTask;
 });
 ```
 

@@ -51,7 +51,7 @@ Our field middleware can now convert the result that some other middleware compo
 SchemaBuilder.New()
     .Use(next => async context =>
     {
-        await _next(context);
+        await next(context);
 
         if(context.Result is string s)
         {
@@ -70,7 +70,7 @@ The first way to do that is to use `Map` on the schema configuration and basical
 SchemaBuilder.New()
     .Map("Query", "field", next => async context =>
     {
-        await _next(context);
+        await next(context);
 
         if(context.Result is string s)
         {
@@ -94,7 +94,7 @@ public class FooType
         descriptor.Field(t => t.Bar)
             .Use(next => async context =>
             {
-                await _next(context);
+                await next(context);
 
                 if(context.Result is string s)
                 {
@@ -189,7 +189,7 @@ public class UpperDirectiveType
         {
             await next.Invoke(context);
 
-            if(context.Result is string s)
+            if (context.Result is string s)
             {
                 context.Result = s.ToUpper();
             }

@@ -50,7 +50,11 @@ Our API will let you start very quickly with pre-built templates that let you st
 
    var schema = SchemaBuilder.New()
        .AddDocumentFromString("type Query { hello: String! }")
-       .BindResolver<QueryResolver>()
+       .BindResolver<QueryResolver>(c => c
+         .To("Query")
+         .Resolve("hello")
+         .With(r => r.Hello())
+       )
        .Create();
 
    var executor = schema.MakeExecutable();
@@ -81,8 +85,9 @@ Our API will let you start very quickly with pre-built templates that let you st
    {
         protected override void Configure(IObjectTypeDescriptor descriptor)
         {
-            descriptor.Name("Query");
-            descriptor.Field("foo").Resolver(() => "bar");
+         descriptor.Name("Query");
+         // descriptor.Field("hello").Resolver(() => "World");  
+         descriptor.Field("hello").ResolveWith<QueryResolver>(e=>e.Hello());
         }
    }
 

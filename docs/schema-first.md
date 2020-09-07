@@ -24,8 +24,12 @@ var schema = SchemaBuilder.New()
         type Query {
             hello: String
         }")
-    .AddResolver("Query", "Hello", () => "world")
+    .AddResolver("Query", "hello", () => "world")
     .Create();
+    
+var executor = schema.MakeExecutable();
+
+Console.WriteLine(executor.Execute("{ hello }").ToJson());
 ```
 
 If you have larger schemas it may be not feasible for you to define resolvers for all of your fields.
@@ -59,7 +63,7 @@ var schema = SchemaBuilder.New()
         type Query {
             hello: String
         }")
-    .BindComplexType<Query>(c => c.Field(t => t.GetGreetings()).To("hello"))
+    .BindComplexType<Query>(c => c.Field(t => t.GetGreetings()).Name("hello"))
     .Create();
 
 public class Query

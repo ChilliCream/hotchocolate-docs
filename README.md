@@ -1,4 +1,4 @@
-**As of know Green Donut documentation is part of the [Hot Chocolate](https://github.com/ChilliCream/hotchocolate) GraphQL server repository.**
+**As of know Hot Chocolate documentation is part of the [Hot Chocolate](https://github.com/ChilliCream/hotchocolate) GraphQL server repository.**
 
 ---
 
